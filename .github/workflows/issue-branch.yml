@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.TOKEN }}
-          ref: develop
+          ref: feature
 
       - name: Create feature branch
         env:
@@ -25,8 +25,8 @@ jobs:
 
           BRANCH_NAME="#${ISSUE_NUMBER}_${ISSUE_TITLE_CLEAN}"
 
-          # 'develop' 브랜치를 기준으로 새 브랜치 생성 및 푸시
-          git checkout develop
-          git pull origin develop  # 최신 상태로 업데이트
+          # 'feature' 브랜치를 기준으로 새 브랜치 생성 및 푸시
+          git checkout feature
+          git pull origin feature  # 최신 상태로 업데이트
           git checkout -b "$BRANCH_NAME"
           git push origin "$BRANCH_NAME"

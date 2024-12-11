@@ -1,3 +1,3 @@
 export default function Home() {
-  return <>🌍</>;
+  return <>중급 프로젝트</>;
 }

@@ -1,13 +1,36 @@
 :root {
-  --black: #000;
+  /* Colors */
+  --white: #ffffff;
+  --black: #000000;
+
+  /* Gray & White */
+  --codGray: #171717;
+  --shipGray: #333236;
+  --tundora: #4b4b4b;
+  --topaz: #787486;
+  --chateauGray: #9fa6b2;
+  --alto: #d9d9d9;
+  --gallery: #eeeeee;
+  --alabaster: #fafafa;
+
+  /* Brand */
+  --purpleHeart: #5534da;
+  --selago: #f1effd;
+  --crimson: #d6173a;
+  --mantis: #7ac555;
+  --electricViolet: #760dde;
+  --webOrange: #ffa500;
+  --portage: #76a5ea;
+  --lavender: #e876ea;
+
+  /* Font Weight */
+  --medium: 500;
+  --semiBold: 600;
+  --bold: 700;
 }
 
 body {
   background-color: var(--black);
   font-size: 50px;
   color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }

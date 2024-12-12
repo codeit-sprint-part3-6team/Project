@@ -3,11 +3,19 @@
 }
 
 body {
-  background-color: var(--black);
+  /* background-color: var(--black);
   font-size: 50px;
   color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+}
+
+@import 'pretendard/dist/web/static/pretendard.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }

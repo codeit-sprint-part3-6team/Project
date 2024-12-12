@@ -1,0 +1,53 @@
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  background-color: #ffffff;
+  padding: 20px 12px 0 8px;
+  position: fixed;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.menu_item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.menu_text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #787486;
+}
+
+.add_button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.menu_list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.menu_list_item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: #4a4a4a;
+}
+
+.menu_icon {
+  font-size: 16px;
+}

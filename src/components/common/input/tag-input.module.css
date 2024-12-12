@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-family: 'Pretendard';
+}
+
+.box-title {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: #333236;
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+.box-dot {
+  font-weight: 500;
+  font-size: 16px;
+  color: #5534da;
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
+}
+
+.input {
+  height: 50px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #171717;
+
+  @media screen and (max-width: 767px) {
+    font-size: 14px;
+  }
+}
+
+.input::placeholder {
+  color: #9fa6b2;
+}

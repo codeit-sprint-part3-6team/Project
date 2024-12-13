@@ -1,0 +1,219 @@
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+	src: url('./fonts/Pretendard-Bold.subset.woff2') format('woff2'), url('./fonts/Pretendard-Bold.subset.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+	src: url('./fonts/Pretendard-SemiBold.subset.woff2') format('woff2'), url('./fonts/Pretendard-SemiBold.subset.woff') format('woff');
+}
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+	src: url('./fonts/Pretendard-Medium.subset.woff2') format('woff2'), url('./fonts/Pretendard-Medium.subset.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	src: url('./fonts/Pretendard-Regular.subset.woff2') format('woff2'), url('./fonts/Pretendard-Regular.subset.woff') format('woff');
+}
+
+.font-3xl-bold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 32px;
+  line-height: 42px;
+  font-weight: 700;
+}
+
+.font-3xl-semibold {
+	font-family: 'Pretendard', sans-serif;
+  font-size: 32px;
+  line-height: 42px;
+  font-weight: 600;
+}
+
+.font-2xl-bold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+.font-2xl-semibold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+.font-2xl-medium {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.font-2xl-regular {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 400;
+}
+
+.font-xl-bold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 700;
+}
+
+.font-xl-semibold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 600;
+}
+
+.font-xl-medium {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.font-xl-regular {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 400;
+}
+
+.font-2lg-bold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 700;
+}
+
+.font-2lg-semibold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.font-2lg-medium {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 500;
+}
+
+.font-2lg-regular {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.font-lg-bold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 700;
+}
+
+.font-lg-semibold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.font-lg-medium {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 500;
+}
+
+.font-lg-regular {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+}
+
+.font-md-bold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.font-md-semibold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+}
+
+.font-md-medium {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.font-md-regular {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.font-sm-semibold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+.font-sm-medium {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 500;
+}
+
+.font-xs-semibold {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.font-xs-medium {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+}
+
+.font-xs-regular {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+}

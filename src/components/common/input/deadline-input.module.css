@@ -15,30 +15,3 @@
     line-height: 24px;
   }
 }
-
-/*datePicker input */
-.css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root {
-  border: none !important;
-  color: red !important;
-}
-
-/*datePicker root */
-.css-xwn1oi-MuiFormControl-root-MuiTextField-root {
-  border: none !important;
-  color: red !important;
-}
-
-.css-1dune0f-MuiInputBase-input-MuiOutlinedInput-input {
-  border: none !important;
-  color: red !important;
-}
-
-.css-1ll44ll-MuiOutlinedInput-notchedOutline {
-  border: none !important;
-  color: red !important;
-}
-
-.css-w4cd9x {
-  border: none !important;
-  color: red !important;
-}

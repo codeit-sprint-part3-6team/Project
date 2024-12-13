@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './title-input.module.css';
+import styles from './TitleInput.module.css';
 
 export default function TitleInput() {
   const [title, setTitle] = useState('');

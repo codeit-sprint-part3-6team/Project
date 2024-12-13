@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './comment-input.module.css';
+import styles from './CommentInput.module.css';
 
 export default function CommentInput() {
   const [content, setContent] = useState('');

@@ -1,7 +1,7 @@
-import CommentInput from '@/components/common/input/comment-input';
-import DeadlineInput from '@/components/common/input/deadline-input';
-import TagInput from '@/components/common/input/tag-input';
-import TitleInput from '@/components/common/input/title-input';
+import CommentInput from '@/components/common/input/CommentInput';
+import DeadlineInput from '@/components/common/input/DeadlineInput';
+import TagInput from '@/components/common/input/TagInput';
+import TitleInput from '@/components/common/input/TitleInput';
 import Codeit from 'public/ic/ic_codeit.svg';
 
 export default function Home() {

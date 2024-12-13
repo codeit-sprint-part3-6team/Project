@@ -1,4 +1,4 @@
-import styles from './tag-input.module.css';
+import styles from './TagInput.module.css';
 
 export default function TagInput() {
   return (

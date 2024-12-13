@@ -4,7 +4,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ko from 'date-fns/locale/ko';
 import { useState } from 'react';
 import { styled } from '@mui/system';
-import styles from './deadline-input.module.css';
+import styles from './DeadlineInput.module.css';
 
 // TextField 스타일링
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -43,6 +43,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       opacity: '1',
     },
   },
+
   [theme.breakpoints.down(743)]: {
     // 모바일 환경
     '& .MuiInputBase-input': {
@@ -68,7 +69,7 @@ export default function DeadlineInput() {
         <DateTimePicker
           value={selectedDate}
           onChange={handleChange}
-          slots={{ textField: StyledTextField }} // StyledTextField로 교체
+          slots={{ textField: StyledTextField }}
           slotProps={{
             textField: {
               fullWidth: true,

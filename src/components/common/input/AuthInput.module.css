@@ -1,0 +1,68 @@
+.authField + .authField {
+  margin-top: 16px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 400;
+  color: #333236;
+  cursor: pointer;
+}
+
+.authInput {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: 8px;
+}
+
+.authInput input {
+  padding: 0 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  width: 100%;
+  height: 50px;
+}
+
+.authInput input.password {
+  padding-right: 56px;
+}
+
+.authInput input:focus {
+  border: 1px solid #5534da;
+  outline: none;
+}
+
+.authInput input::placeholder {
+  color: #9fa6b2;
+}
+
+.authInput.error input,
+.authInput.error input:focus {
+  border: 1px solid #d6173a;
+}
+
+.authInput span {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #d6173a;
+}
+
+.authInput button {
+  padding: 0;
+  border: none;
+  background: none;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
+
+.authInput button svg {
+  width: 100%;
+  height: 100%;
+}

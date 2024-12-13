@@ -1,4 +1,4 @@
-import Landingimage from 'public/images/img_landingimage.svg';
+import Landingimage1 from 'public/images/img_landingimage1.svg';
 import Textlogo from 'public/images/img_textlogo.svg';
 import CDSButton from '@/components/common/button/CDSButton';
 import { useRouter } from 'next/router';
@@ -16,7 +16,7 @@ export default function Header() {
     <header className={styles.header_container}>
       <NavBar />
       <div className={styles.header_section}>
-        <Landingimage className={styles.header_image} />
+        <Landingimage1 className={styles.header_image} />
         <div className={styles.header_title}>
           <div className={styles.title}>새로운 일정 관리</div>
           <Textlogo className={styles.textlogo} />

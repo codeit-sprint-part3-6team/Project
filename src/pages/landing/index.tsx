@@ -1,10 +1,17 @@
 import Header from '@/components/product/landing/Header';
-import styles from './index.module.css';
+import Main from '@/components/product/landing/Main';
 
 export default function LandingPage() {
   return (
-    <div className={styles.container}>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'var(--black)',
+      }}
+    >
       <Header />
+      <Main />
     </div>
   );
 }

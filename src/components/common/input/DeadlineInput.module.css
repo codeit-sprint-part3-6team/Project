@@ -3,11 +3,10 @@
 }
 
 .title {
-  font-family: 'Pretendard';
   font-weight: 500;
   font-size: 18px;
   line-height: 26px;
-  color: #333236;
+  color: var(--black-medium);
   margin-bottom: 8px;
 
   @media screen and (max-width: 743px) {

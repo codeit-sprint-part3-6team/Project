@@ -7,11 +7,10 @@
 }
 
 .input-title {
-  font-family: 'Pretendard';
   font-weight: 500;
   font-size: 16px;
   line-height: 26px;
-  color: #333236;
+  color: var(--black-medium);
 
   @media screen and (max-width: 743px) {
     font-size: 14px;
@@ -22,20 +21,19 @@
 .input {
   height: 110px;
   border-radius: 6px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--gray-medium);
   padding: 16px;
   resize: none;
   font-weight: 400;
   font-size: 14px;
-  font-family: 'Pretendard';
-  color: #171717;
+  color: var(--black-dark);
 }
 
 .input::placeholder {
   font-family: 'Pretendard';
   font-weight: 400;
   font-size: 14px;
-  color: #9fa6b2;
+  color: var(--gray-dark);
 
   @media screen and (max-width: 743px) {
     font-size: 12px;

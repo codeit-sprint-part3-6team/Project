@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import CDSButton from '../button/CDSButton';
 import styles from './CommentInput.module.css';
 
 export default function CommentInput() {
@@ -20,10 +21,9 @@ export default function CommentInput() {
           className={styles.input}
           placeholder="댓글 작성하기"
         />
-        {/* 버튼 컴포넌트로 대체 */}
-        <button type="submit" className={styles.button}>
-          입력
-        </button>
+        <div className={styles.button}>
+          <CDSButton btnType="edit">입력</CDSButton>
+        </div>
       </section>
     </form>
   );

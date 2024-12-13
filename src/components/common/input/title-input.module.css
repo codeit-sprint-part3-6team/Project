@@ -18,7 +18,7 @@
   line-height: 26px;
   color: #333236;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 743px) {
     font-size: 14px;
     line-height: 24px;
   }
@@ -29,7 +29,7 @@
   font-size: 16px;
   color: #5534da;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 743px) {
     font-size: 14px;
   }
 }
@@ -45,7 +45,7 @@
   line-height: 26px;
   color: #171717;
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 743px) {
     font-size: 14px;
   }
 }

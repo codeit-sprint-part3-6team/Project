@@ -1,7 +1,57 @@
-@import 'pretendard/dist/web/static/pretendard.css';
+:root {
+  /* Whites */
+  --white: #ffffff;
 
-* {
-  box-sizing: border-box;
+  /* Blacks */
+  --black: #000000;
+  --black-dark: #171717;
+  --black-medium: #333236;
+  --black-bright: #4b4b4b;
+
+  /* Grays */
+  --gray: #787486;
+  --gray-dark: #9fa6b2;
+  --gray-medium: #d9d9d9;
+  --gray-bright: #eeeeee;
+  --gray-brightes: #fafafa;
+
+  /* Violets */
+  --violet: #5534da;
+  --violet-bright: #f1effd;
+
+  /* Reds */
+  --red: #d6173a;
+
+  /* Greens */
+  --green: #7ac555;
+
+  /* Purples */
+  --purple: #760dde;
+
+  /* Oranges */
+  --orange: #ffa500;
+
+  /* Blues */
+  --blue: #76a5ea;
+
+  /* Pinks */
+  --pink: #e876ea;
+}
+
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+  font-family: 'Pretend', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

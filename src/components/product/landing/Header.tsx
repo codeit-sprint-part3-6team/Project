@@ -13,15 +13,15 @@ export default function Header() {
   };
 
   return (
-    <header className={styles.main_container}>
+    <header className={styles.header_container}>
       <NavBar />
-      <div className={styles.main_section}>
-        <Landingimage className={styles.main_image} />
-        <div className={styles.main_title}>
+      <div className={styles.header_section}>
+        <Landingimage className={styles.header_image} />
+        <div className={styles.header_title}>
           <div className={styles.title}>새로운 일정 관리</div>
           <Textlogo className={styles.textlogo} />
         </div>
-        <div className={styles.main_button}>
+        <div className={styles.header_button}>
           <CDSButton btnType="modal_colored" onClick={handleClick}>
             로그인하기
           </CDSButton>

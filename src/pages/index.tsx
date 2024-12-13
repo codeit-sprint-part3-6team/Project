@@ -1,3 +1,11 @@
+import Codeit from 'public/ic/ic_codeit.svg';
+
 export default function Home() {
-  return <p className="font-3xl-bold">중급 프로젝트-taskify</p>;
+  return (
+    <>
+      중급 프로젝트-taskify
+      <br />
+      <Codeit width={50} height={50} />
+    </>
+  );
 }

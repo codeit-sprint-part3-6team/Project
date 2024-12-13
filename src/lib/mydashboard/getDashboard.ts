@@ -28,7 +28,6 @@ export default async function getDashboards(
   params: GetDashboardsParams,
 ): Promise<GetDashboardsResponse> {
   try {
-    // 서버 요청
     const { data } = await instance.get<GetDashboardsResponse>(
       `/${teamId}/dashboards/`,
       {
@@ -39,7 +38,7 @@ export default async function getDashboards(
       },
     );
     return data;
-  } catch (error: any) {
+  } catch (error) {
     if (error.response) {
       console.error('API 응답 에러:', error.response.data);
     }

@@ -16,6 +16,7 @@ export default function Sidebar() {
       });
 
       const { dashboards } = response;
+
       const formattedDashboards = dashboards.map((dashboard) => ({
         id: dashboard.id,
         title: dashboard.title,
@@ -30,7 +31,7 @@ export default function Sidebar() {
   };
 
   useEffect(() => {
-    fetchDashboards(); // 컴포넌트가 마운트될 때 데이터 가져오기
+    fetchDashboards();
   }, []);
 
   return (

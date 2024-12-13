@@ -1,5 +1,5 @@
 import Header from '@/components/product/landing/Header';
-import styles from './LandingPage.module.css';
+import styles from './index.module.css';
 
 export default function LandingPage() {
   return (

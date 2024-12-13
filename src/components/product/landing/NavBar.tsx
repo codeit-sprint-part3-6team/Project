@@ -9,7 +9,9 @@ export default function NavBar() {
     <nav className={styles.nav_container}>
       <div className={styles.nav_section}>
         <div className={styles.navlogo_container}>
-          <Whitelogo className={styles.logo} />
+          <Link href="/">
+            <Whitelogo className={styles.logo} />
+          </Link>
           <Whitetextlogo className={styles.textlogo} />
         </div>
         <div className={styles.link_container}>

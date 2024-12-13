@@ -1,36 +1,57 @@
 :root {
-  /* Colors */
-  --white: #ffffff;
+  /* Whites */
+  --white: #FFFFFF;
+
+  /* Blacks */
   --black: #000000;
+  --black-dark: #171717;
+  --black-medium: #333236;
+  --black-bright: #4B4B4B;
 
-  /* Gray & White */
-  --codGray: #171717;
-  --shipGray: #333236;
-  --tundora: #4b4b4b;
-  --topaz: #787486;
-  --chateauGray: #9fa6b2;
-  --alto: #d9d9d9;
-  --gallery: #eeeeee;
-  --alabaster: #fafafa;
+  /* Grays */
+  --gray: #787486;
+  --gray-dark: #9FA6B2;
+  --gray-medium: #D9D9D9;
+  --gray-bright: #EEEEEE;
+  --gray-brightes: #FAFAFA;
 
-  /* Brand */
-  --purpleHeart: #5534da;
-  --selago: #f1effd;
-  --crimson: #d6173a;
-  --mantis: #7ac555;
-  --electricViolet: #760dde;
-  --webOrange: #ffa500;
-  --portage: #76a5ea;
-  --lavender: #e876ea;
+  /* Violets */
+  --violet: #5534DA;
+  --violet-bright: #F1EFFD;
 
-  /* Font Weight */
-  --medium: 500;
-  --semiBold: 600;
-  --bold: 700;
+  /* Reds */
+  --red: #D6173A;
+
+  /* Greens */
+  --green: #7AC555;
+
+  /* Purples */
+  --purple: #760DDE;
+
+  /* Oranges */
+  --orange: #FFA500;
+
+  /* Blues */
+  --blue: #76A5EA;
+
+  /* Pinks */
+  --pink: #E876EA;
 }
 
-body {
-  background-color: var(--black);
-  font-size: 50px;
-  color: #fff;
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { 
+  font-size: 62.5%; /* 1rem = 10px */
+  font-family: "Pretend", sans-serif;
+}  
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

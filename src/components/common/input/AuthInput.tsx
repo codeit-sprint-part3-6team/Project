@@ -29,7 +29,7 @@ function AuthInput({
   const [isVisibleToggle, setIsVisibleToggle] = useState(false);
 
   const isPassword = type === 'password';
-  const inputType = isPassword && isVisibleToggle ? 'text' : 'password';
+  const inputType = isPassword ? (isVisibleToggle ? 'text' : 'password') : type;
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

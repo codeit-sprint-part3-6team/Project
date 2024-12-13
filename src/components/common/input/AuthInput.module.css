@@ -5,7 +5,7 @@
 .title {
   font-size: 16px;
   font-weight: 400;
-  color: #333236;
+  color: var(--black-medium);
   cursor: pointer;
 }
 
@@ -18,7 +18,7 @@
 
 .authInput input {
   padding: 0 16px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--gray-medium);
   border-radius: 8px;
   width: 100%;
   height: 50px;
@@ -29,24 +29,24 @@
 }
 
 .authInput input:focus {
-  border: 1px solid #5534da;
+  border: 1px solid var(--violet);
   outline: none;
 }
 
 .authInput input::placeholder {
-  color: #9fa6b2;
+  color: var(--gray-dark);
 }
 
 .authInput.error input,
 .authInput.error input:focus {
-  border: 1px solid #d6173a;
+  border: 1px solid var(--red);
 }
 
 .authInput span {
   margin-top: 8px;
   font-size: 14px;
   font-weight: 400;
-  color: #d6173a;
+  color: var(--red);
 }
 
 .authInput button {

@@ -1,7 +1,7 @@
 .sidebar {
   width: 280px;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding: 20px 12px 0 8px;
   position: fixed;
 }
@@ -12,7 +12,7 @@
   margin-bottom: 56px;
 }
 
-.menu_dashboard {
+.menu-dashboard {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +21,7 @@
   margin-bottom: 10px;
 }
 
-.color_circle {
+.color-circle {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -29,44 +29,46 @@
   display: inline-block;
 }
 
-.menu_text {
-  font-size: 12px;
-  font-weight: 600;
-  color: #787486;
+.menu-container {
+  margin-bottom: 20px;
 }
 
-.add_button {
+.menu-text {
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+  color: var(--gray);
+}
+
+.add-button {
   background: none;
   border: none;
   cursor: pointer;
 }
 
-.menu_list {
+.menu-list {
   list-style: none;
   padding: 0;
-  margin: 10px 0 0 0;
+  margin: 10px 0 20px 0;
 }
 
-.menu_list_item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 14px;
-  color: #4a4a4a;
-}
-
-.menu_icon {
+.menu-icon {
   font-size: 16px;
 }
 
-.menu_list_dashboard {
+.menu-list-dashboard {
   font-size: 18px;
-  color: #787486;
+  color: var(--gray);
   padding: 12px;
+  line-height: 26px;
 }
 
-.crown_icon {
+.dashboard-item {
+  display: flex;
+  align-items: center;
+}
+
+.crown-icon {
   display: inline-block;
   margin-left: 8px;
   vertical-align: middle;
@@ -81,11 +83,14 @@
     padding: 20px 13px;
   }
 
-  .menu_list_dashboard {
+  .menu-list-dashboard {
     font-size: 16px;
-    color: #787486;
     padding: 8px 10px;
   }
+}
+
+.pagination {
+  margin-top: 20px;
 }
 
 @media (max-width: 743px) {
@@ -96,12 +101,18 @@
     align-items: center;
   }
 
-  .color_circle {
-    margin: 0;
+  .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .menu_text {
+  .menu-text {
     display: none;
+  }
+
+  .color-circle {
+    margin: 0 0 20px 0;
   }
 
   .logo {
@@ -112,11 +123,15 @@
     display: none;
   }
 
-  .dashboard_title {
+  .dashboard-title {
     display: none;
   }
 
-  .crown_icon {
+  .crown-icon {
+    display: none;
+  }
+
+  .pagination {
     display: none;
   }
 }

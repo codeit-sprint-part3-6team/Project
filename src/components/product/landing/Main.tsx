@@ -1,6 +1,7 @@
 import Landingimage2 from 'public/images/img_landingimage2.svg';
 import Landingimage3 from 'public/images/img_landingimage3.svg';
 import styles from './Main.module.css';
+import BottomMain from './BottumMain';
 
 export default function Module() {
   return (
@@ -35,6 +36,7 @@ export default function Module() {
           </div>
         </div>
       </section>
+      <BottomMain />
     </main>
   );
 }

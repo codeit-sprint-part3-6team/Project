@@ -20,7 +20,9 @@ function TestUserProfile() {
     getData();
   }, []);
 
-  if (!user) return;
+  if (!user) {
+    return;
+  }
 
   return (
     <>

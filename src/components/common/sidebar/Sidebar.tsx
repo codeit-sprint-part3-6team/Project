@@ -1,7 +1,10 @@
-import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import styles from '@/components/common/sidebar/Sidebar.module.css';
 import getDashboards from '@/lib/mydashboard/getDashboard';
+import Logo from 'public/images/img_logo.svg';
+import TextLogo from 'public/images/img_textlogo.svg';
+import PlusBtn from 'public/ic/ic_plus.svg';
+import CrownIcon from 'public/ic/ic_crown.svg';
 
 export default function Sidebar() {
   const [menu, setMenu] = useState([]);
@@ -12,40 +15,40 @@ export default function Sidebar() {
 
   const pageSize = 10;
 
-  const fetchDashboards = async (page: number) => {
-    try {
-      setIsLoading(true);
-      const response = await getDashboards({
-        page,
-        size: pageSize,
-        cursorId: cursorId || 0,
-        navigationMethod: 'pagination',
-      });
-
-      const { dashboards, totalCount, cursorId: newCursorId } = response;
-
-      const formattedDashboards = dashboards.map(
-        ({ id, title, color, createdByMe }) => ({
-          id,
-          title,
-          color,
-          createdByMe,
-        }),
-      );
-
-      setMenu(formattedDashboards);
-      setCursorId(newCursorId);
-      setTotalPages(Math.ceil(totalCount / pageSize));
-    } catch (error) {
-      console.error('대시보드 데이터를 가져오는데 실패했습니다:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchDashboards(currentPage);
-  }, [currentPage]);
+    const fetchDashboards = async () => {
+      try {
+        setIsLoading(true);
+        const response = await getDashboards({
+          page: currentPage,
+          size: pageSize,
+          cursorId: cursorId || 0,
+          navigationMethod: 'pagination',
+        });
+
+        const { dashboards, totalCount, cursorId: newCursorId } = response;
+
+        const formattedDashboards = dashboards.map(
+          ({ id, title, color, createdByMe }) => ({
+            id,
+            title,
+            color,
+            createdByMe,
+          }),
+        );
+
+        setMenu(formattedDashboards);
+        setCursorId(newCursorId);
+        setTotalPages(Math.ceil(totalCount / pageSize));
+      } catch (error) {
+        console.error('대시보드 데이터를 가져오는데 실패했습니다:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboards();
+  }, [currentPage, cursorId]);
 
   const handlePageChange = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && currentPage > 1) {
@@ -58,18 +61,8 @@ export default function Sidebar() {
   return (
     <div className={styles.sidebar}>
       <div className={styles.logo}>
-        <Image
-          src="/images/img_logo.svg"
-          alt="Taskify Logo"
-          width={29}
-          height={33}
-        />
-        <Image
-          src="/images/img_textlogo.svg"
-          alt="텍스트 로고"
-          width={80}
-          height={22}
-        />
+        <Logo width={29} height={33} />
+        <TextLogo width={80} height={22} />
       </div>
 
       <div className={styles.menu}>
@@ -81,12 +74,7 @@ export default function Sidebar() {
               onClick={() => alert('새 대시보드 추가 기능 구현 필요')}
               type="button"
             >
-              <Image
-                src="/ic/ic_plus.svg"
-                alt="추가 버튼"
-                width={20}
-                height={20}
-              />
+              <PlusBtn width={20} height={20} />
             </button>
           </div>
 
@@ -102,12 +90,7 @@ export default function Sidebar() {
                   <span className={styles.dashboard_title}>{item.title}</span>
                   {item.createdByMe && (
                     <span className={styles.crown_icon}>
-                      <Image
-                        src="/ic/ic_crown.svg"
-                        alt="왕관"
-                        width={16}
-                        height={16}
-                      />
+                      <CrownIcon width={16} height={16} />
                     </span>
                   )}
                 </div>

@@ -59,15 +59,23 @@
   border-bottom-right-radius: 8px;
 }
 
+.main_reverse_section {
+	background-color: var(--black-dark);
+  border-radius: 8px;
+  width: 1200px;
+  height: 600px;
+}
+
 .main_reverese_contentsection {
 	display: flex;
 	justify-content: space-between;
-  gap: 10rem;
+  gap: 100px;
+	font-family: 'Pretendard';
 }
 
 .main_reverse_imgsection {
 	display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .main_reverse_img {
@@ -139,6 +147,11 @@
 		height: 435px;
 	}
 
+	.main_reverse_section {
+		width: 684px;
+    height: auto;
+	}
+
 	.main_reverese_contentsection{
 		flex-direction: column-reverse;
     gap: 150px;
@@ -192,11 +205,41 @@
 	.main_explanation {
 		font-size: 36px;
 		text-align: center;
-    line-height: 5rem;
+    line-height: 50px;
 	}
 
 	.main_image {
 		width: 296.11px;
 		height: 248px;
+	}
+
+	.main_reverse_section {
+		width: 343px;
+	}
+	
+	.main_reverse_img {
+		margin: 0 auto;
+		width: 217.13px;
+		height: 250px;
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+	}
+	.main_reverse_text {
+		margin: 0;
+		align-items: center;
+	}
+
+	.main_reverse_title {
+		margin-right: 0;
+		font-size: 18px;
+		line-height: 21.48px;
+		text-align: center; 
+	}
+
+	.main_reverse_explanation {
+		margin: 0;
+		font-size: 36px;
+		line-height: 50px;
+		text-align: center;
 	}
 }

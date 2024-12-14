@@ -5,17 +5,17 @@ import getDashboards from '@/lib/mydashboard/getDashboard';
 
 export default function Sidebar() {
   const [menu, setMenu] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
-  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수 상태
-  const [cursorId, setCursorId] = useState<number | null>(0); // 현재 cursorId 상태
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [cursorId, setCursorId] = useState<number | null>(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const pageSize = 10; // 페이지 크기
+  const pageSize = 10;
 
   const fetchDashboards = async (page: number) => {
     try {
-      setIsLoading(true); // 로딩 시작
-      const response = await getDashboards('11-6', {
+      setIsLoading(true);
+      const response = await getDashboards({
         page,
         size: pageSize,
         cursorId: cursorId || 0,
@@ -24,26 +24,28 @@ export default function Sidebar() {
 
       const { dashboards, totalCount, cursorId: newCursorId } = response;
 
-      const formattedDashboards = dashboards.map((dashboard) => ({
-        id: dashboard.id,
-        title: dashboard.title,
-        color: dashboard.color,
-        createdByMe: dashboard.createdByMe,
-      }));
+      const formattedDashboards = dashboards.map(
+        ({ id, title, color, createdByMe }) => ({
+          id,
+          title,
+          color,
+          createdByMe,
+        }),
+      );
 
       setMenu(formattedDashboards);
-      setCursorId(newCursorId); // 새로운 cursorId 업데이트
-      setTotalPages(Math.ceil(totalCount / pageSize)); // 총 페이지 수 계산
+      setCursorId(newCursorId);
+      setTotalPages(Math.ceil(totalCount / pageSize));
     } catch (error) {
       console.error('대시보드 데이터를 가져오는데 실패했습니다:', error);
     } finally {
-      setIsLoading(false); // 로딩 종료
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     fetchDashboards(currentPage);
-  }, [currentPage]); // 페이지가 변경될 때 데이터를 다시 가져옴
+  }, [currentPage]);
 
   const handlePageChange = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && currentPage > 1) {
@@ -71,46 +73,48 @@ export default function Sidebar() {
       </div>
 
       <div className={styles.menu}>
-        <div className={styles.menu_dashboard}>
-          <span className={styles.menu_text}>Dash Boards</span>
-          <button
-            className={styles.add_button}
-            onClick={() => alert('새 대시보드 추가 기능 구현 필요')}
-            type="button"
-          >
-            <Image
-              src="/ic/ic_plus.svg"
-              alt="추가 버튼"
-              width={20}
-              height={20}
-            />
-          </button>
-        </div>
+        <div className={styles.menu_container}>
+          <div className={styles.menu_dashboard}>
+            <span className={styles.menu_text}>Dash Boards</span>
+            <button
+              className={styles.add_button}
+              onClick={() => alert('새 대시보드 추가 기능 구현 필요')}
+              type="button"
+            >
+              <Image
+                src="/ic/ic_plus.svg"
+                alt="추가 버튼"
+                width={20}
+                height={20}
+              />
+            </button>
+          </div>
 
-        {/* 동적으로 렌더링되는 메뉴 */}
-        <ul className={styles.menu_list}>
-          {menu.map((item) => (
-            <li key={item.id} className={styles.menu_list_dashboard}>
-              <div className={styles.dashboard_item}>
-                <span
-                  className={styles.color_circle}
-                  style={{ backgroundColor: item.color }}
-                />
-                <span className={styles.dashboard_title}>{item.title}</span>
-                {item.createdByMe && (
-                  <span className={styles.crown_icon}>
-                    <Image
-                      src="/ic/ic_crown.svg"
-                      alt="왕관"
-                      width={16}
-                      height={16}
-                    />
-                  </span>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
+          {/* 동적으로 렌더링되는 메뉴 */}
+          <ul className={styles.menu_list}>
+            {menu.map((item) => (
+              <li key={item.id} className={styles.menu_list_dashboard}>
+                <div className={styles.dashboard_item}>
+                  <span
+                    className={styles.color_circle}
+                    style={{ backgroundColor: item.color }}
+                  />
+                  <span className={styles.dashboard_title}>{item.title}</span>
+                  {item.createdByMe && (
+                    <span className={styles.crown_icon}>
+                      <Image
+                        src="/ic/ic_crown.svg"
+                        alt="왕관"
+                        width={16}
+                        height={16}
+                      />
+                    </span>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
         {/* 페이지네이션 컨트롤 */}
         <div className={styles.pagination}>

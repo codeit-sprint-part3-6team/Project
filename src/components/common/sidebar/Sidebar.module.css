@@ -1,7 +1,7 @@
 .sidebar {
   width: 280px;
   height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding: 20px 12px 0 8px;
   position: fixed;
 }
@@ -32,7 +32,8 @@
 .menu_text {
   font-size: 12px;
   font-weight: 600;
-  color: #787486;
+  font-style: normal;
+  color: var(--gray);
 }
 
 .add_button {
@@ -45,15 +46,7 @@
   list-style: none;
   padding: 0;
   margin: 10px 0 0 0;
-}
-
-.menu_list_item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  font-size: 14px;
-  color: #4a4a4a;
+  height: 500px;
 }
 
 .menu_icon {
@@ -62,7 +55,7 @@
 
 .menu_list_dashboard {
   font-size: 18px;
-  color: #787486;
+  color: var(--gray);
   padding: 12px;
 }
 
@@ -83,7 +76,6 @@
 
   .menu_list_dashboard {
     font-size: 16px;
-    color: #787486;
     padding: 8px 10px;
   }
 }

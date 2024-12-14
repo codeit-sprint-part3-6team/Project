@@ -5,17 +5,24 @@ import getDashboards from '@/lib/mydashboard/getDashboard';
 
 export default function Sidebar() {
   const [menu, setMenu] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
+  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수 상태
+  const [cursorId, setCursorId] = useState<number | null>(0); // 현재 cursorId 상태
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
 
-  const fetchDashboards = async () => {
+  const pageSize = 10; // 페이지 크기
+
+  const fetchDashboards = async (page: number) => {
     try {
+      setIsLoading(true); // 로딩 시작
       const response = await getDashboards('11-6', {
-        page: 1,
-        size: 10,
-        cursorId: 0,
+        page,
+        size: pageSize,
+        cursorId: cursorId || 0,
         navigationMethod: 'pagination',
       });
 
-      const { dashboards } = response;
+      const { dashboards, totalCount, cursorId: newCursorId } = response;
 
       const formattedDashboards = dashboards.map((dashboard) => ({
         id: dashboard.id,
@@ -25,14 +32,26 @@ export default function Sidebar() {
       }));
 
       setMenu(formattedDashboards);
+      setCursorId(newCursorId); // 새로운 cursorId 업데이트
+      setTotalPages(Math.ceil(totalCount / pageSize)); // 총 페이지 수 계산
     } catch (error) {
       console.error('대시보드 데이터를 가져오는데 실패했습니다:', error);
+    } finally {
+      setIsLoading(false); // 로딩 종료
     }
   };
 
   useEffect(() => {
-    fetchDashboards();
-  }, []);
+    fetchDashboards(currentPage);
+  }, [currentPage]); // 페이지가 변경될 때 데이터를 다시 가져옴
+
+  const handlePageChange = (direction: 'prev' | 'next') => {
+    if (direction === 'prev' && currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    } else if (direction === 'next' && currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
 
   return (
     <div className={styles.sidebar}>
@@ -73,14 +92,11 @@ export default function Sidebar() {
           {menu.map((item) => (
             <li key={item.id} className={styles.menu_list_dashboard}>
               <div className={styles.dashboard_item}>
-                {/* 색깔 동그라미 */}
                 <span
                   className={styles.color_circle}
                   style={{ backgroundColor: item.color }}
                 />
-                {/* 대시보드 이름 */}
                 <span className={styles.dashboard_title}>{item.title}</span>
-                {/* 내가 생성한 경우 왕관 표시 */}
                 {item.createdByMe && (
                   <span className={styles.crown_icon}>
                     <Image
@@ -95,6 +111,29 @@ export default function Sidebar() {
             </li>
           ))}
         </ul>
+
+        {/* 페이지네이션 컨트롤 */}
+        <div className={styles.pagination}>
+          <button
+            type="button"
+            className={styles.pagination_button}
+            onClick={() => handlePageChange('prev')}
+            disabled={currentPage === 1 || isLoading}
+          >
+            이전
+          </button>
+          <span className={styles.page_info}>
+            {currentPage} / {totalPages}
+          </span>
+          <button
+            type="button"
+            className={styles.pagination_button}
+            onClick={() => handlePageChange('next')}
+            disabled={currentPage === totalPages || isLoading}
+          >
+            다음
+          </button>
+        </div>
       </div>
     </div>
   );

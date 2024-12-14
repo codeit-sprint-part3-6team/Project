@@ -4,7 +4,16 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ko from 'date-fns/locale/ko';
 import { useState } from 'react';
 import { styled } from '@mui/system';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from './DeadlineInput.module.css';
+
+// 글로벌 테마 생성
+const globalTheme = createTheme({
+  typography: {
+    fontSize: 24, // 기본 폰트 크기 (단위: px, 기본값: 14px)
+    fontFamily: "'Pretendard', sans-serif", // Pretendard 폰트 적용
+  },
+});
 
 // TextField 스타일링
 const StyledTextField = styled(TextField)(({ theme }) => ({
@@ -63,21 +72,23 @@ export default function DeadlineInput() {
   };
 
   return (
-    <section className={styles.container}>
-      <p className={styles.title}>마감일</p>
-      <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
-        <DateTimePicker
-          value={selectedDate}
-          onChange={handleChange}
-          slots={{ textField: StyledTextField }}
-          slotProps={{
-            textField: {
-              fullWidth: true,
-              placeholder: '날짜를 입력해 주세요',
-            },
-          }}
-        />
-      </LocalizationProvider>
-    </section>
+    <ThemeProvider theme={globalTheme}>
+      <section className={styles.container}>
+        <p className={styles.title}>마감일</p>
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
+          <DateTimePicker
+            value={selectedDate}
+            onChange={handleChange}
+            slots={{ textField: StyledTextField }}
+            slotProps={{
+              textField: {
+                fullWidth: true,
+                placeholder: '날짜를 입력해 주세요',
+              },
+            }}
+          />
+        </LocalizationProvider>
+      </section>
+    </ThemeProvider>
   );
 }

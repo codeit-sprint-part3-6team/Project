@@ -1,6 +1,9 @@
 .authModal_section {
   border-radius: 16px;
   background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 40px 64px;
 }
 

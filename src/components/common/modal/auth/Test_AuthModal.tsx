@@ -8,18 +8,20 @@ function TestAuthModal() {
     setModal(true);
   };
 
-  const handleClick = () => {
+  const handleCancelClick = () => {
     setModal(false);
   };
 
   return (
     <>
-      <button onClick={onClick}>모달 열기</button>
+      <button onClick={onClick}>
+        가입완료 + 비밀번호 불일치(로그인, 마이페이지) + 중복 이메일 모달
+      </button>
       {Modal && (
         <OverlayContainer>
           <AuthModal
             message={'비밀번호가 일치하지 않습니다.'}
-            handleClick={handleClick}
+            handleCancelClick={handleCancelClick}
           />
         </OverlayContainer>
       )}

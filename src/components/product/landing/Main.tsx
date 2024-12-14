@@ -11,8 +11,7 @@ export default function Module() {
             <h1 className={styles.main_title}>Point 1</h1>
             <p className={styles.main_explanation}>
               일의 우선순위를
-              <br />
-              관리하세요
+              <br /> 관리하세요
             </p>
           </div>
           <div className={styles.main_imgsection}>

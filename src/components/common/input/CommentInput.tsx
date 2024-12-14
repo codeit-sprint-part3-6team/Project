@@ -3,11 +3,13 @@ import CDSButton from '../button/CDSButton';
 import styles from './CommentInput.module.css';
 
 export default function CommentInput() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState<string>('');
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 

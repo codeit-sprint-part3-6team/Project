@@ -7,15 +7,15 @@ import { styled } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styles from './DeadlineInput.module.css';
 
-// 글로벌 테마 생성
+// 라이브러리 글로벌 테마 생성
 const globalTheme = createTheme({
   typography: {
-    fontSize: 24, // 기본 폰트 크기 (단위: px, 기본값: 14px)
-    fontFamily: "'Pretendard', sans-serif", // Pretendard 폰트 적용
+    fontSize: 24,
+    fontFamily: "'Pretendard', sans-serif",
   },
 });
 
-// TextField 스타일링
+// 라이브러리  TextField 스타일링
 const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
@@ -54,7 +54,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 
   [theme.breakpoints.down(743)]: {
-    // 모바일 환경
+    // 라이브러리 모바일 환경
     '& .MuiInputBase-input': {
       fontSize: '14px',
     },
@@ -64,10 +64,10 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export default function DeadlineInput() {
-  const [selectedDate, setSelectedDate] = useState(null);
+export default function DeadlineInput(): JSX.Element {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-  const handleChange = (newValue) => {
+  const handleChange = (newValue: Date | null): void => {
     setSelectedDate(newValue);
   };
 

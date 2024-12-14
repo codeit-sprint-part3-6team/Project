@@ -34,7 +34,7 @@
 }
 
 .input {
-  height: 50px;
+  height: 48px;
   border: 1px solid var(--gray-medium);
   border-radius: 8px;
   padding: 12px 16px;
@@ -45,6 +45,7 @@
   color: var(--black-dark);
 
   @media screen and (max-width: 743px) {
+    height: 46px;
     font-size: 14px;
   }
 }

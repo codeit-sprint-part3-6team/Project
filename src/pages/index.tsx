@@ -1,7 +1,6 @@
 import CommentInput from '@/components/common/input/CommentInput';
 import DeadlineInput from '@/components/common/input/DeadlineInput';
-import TagInput from '@/components/common/input/TagInput';
-import TitleInput from '@/components/common/input/TitleInput';
+import TestTitleTagInput from '@/components/common/input/TestTitleTagInput';
 import Codeit from 'public/ic/ic_codeit.svg';
 
 export default function Home() {
@@ -9,8 +8,7 @@ export default function Home() {
     <>
       중급 프로젝트-taskify
       <CommentInput />
-      <TitleInput />
-      <TagInput />
+      <TestTitleTagInput />
       <DeadlineInput />
       <br />
       <Codeit width={50} height={50} />

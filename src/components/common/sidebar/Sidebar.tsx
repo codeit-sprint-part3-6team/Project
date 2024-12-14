@@ -66,11 +66,11 @@ export default function Sidebar() {
       </div>
 
       <div className={styles.menu}>
-        <div className={styles.menu_container}>
-          <div className={styles.menu_dashboard}>
-            <span className={styles.menu_text}>Dash Boards</span>
+        <div className={styles['menu-container']}>
+          <div className={styles['menu-dashboard']}>
+            <span className={styles['menu-text']}>Dash Boards</span>
             <button
-              className={styles.add_button}
+              className={styles['add-button']}
               onClick={() => alert('새 대시보드 추가 기능 구현 필요')}
               type="button"
             >
@@ -79,17 +79,19 @@ export default function Sidebar() {
           </div>
 
           {/* 동적으로 렌더링되는 메뉴 */}
-          <ul className={styles.menu_list}>
+          <ul className={styles['menu-list']}>
             {menu.map((item) => (
-              <li key={item.id} className={styles.menu_list_dashboard}>
-                <div className={styles.dashboard_item}>
+              <li key={item.id} className={styles['menu-list-dashboard']}>
+                <div className={styles['dashboard-item']}>
                   <span
-                    className={styles.color_circle}
+                    className={styles['color-circle']}
                     style={{ backgroundColor: item.color }}
                   />
-                  <span className={styles.dashboard_title}>{item.title}</span>
+                  <span className={styles['dashboard-title']}>
+                    {item.title}
+                  </span>
                   {item.createdByMe && (
-                    <span className={styles.crown_icon}>
+                    <span className={styles['crown-icon']}>
                       <CrownIcon width={16} height={16} />
                     </span>
                   )}
@@ -103,18 +105,18 @@ export default function Sidebar() {
         <div className={styles.pagination}>
           <button
             type="button"
-            className={styles.pagination_button}
+            className={styles['pagination-button']}
             onClick={() => handlePageChange('prev')}
             disabled={currentPage === 1 || isLoading}
           >
             이전
           </button>
-          <span className={styles.page_info}>
+          <span className={styles['page-info']}>
             {currentPage} / {totalPages}
           </span>
           <button
             type="button"
-            className={styles.pagination_button}
+            className={styles['pagination-button']}
             onClick={() => handlePageChange('next')}
             disabled={currentPage === totalPages || isLoading}
           >

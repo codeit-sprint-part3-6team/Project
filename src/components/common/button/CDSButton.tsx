@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import { CDSButtonProps, types } from '@/type/button';
 import PlusIcon from 'public/ic/ic_chip.svg';
 import CrownIcon from 'public/ic/ic_crown.svg';
+import LeftIcon from 'public/ic/ic_left.svg';
+import RightIcon from 'public/ic/ic_right.svg';
 import styles from './Button.module.css';
 import Button from './Button';
 
@@ -46,6 +48,14 @@ function CDSButton({
     btnType === 'dashboard_card' &&
     badge && <span className={clsx(styles.badge, styles[badge])} />;
 
+  const renderArrowIcon = () => {
+    if (btnType === 'pagination_prev')
+      return <LeftIcon className={styles['icon-left']} />;
+    if (btnType === 'pagination_next')
+      return <RightIcon className={styles['icon-right']} />;
+    return null;
+  };
+
   return (
     <Button classes={types[btnType].classes} {...props}>
       <span className={styles['button-content']}>
@@ -53,6 +63,7 @@ function CDSButton({
         {children}
         {renderPlusIcon()}
         {renderOwnerIcon()}
+        {renderArrowIcon()}
       </span>
     </Button>
   );

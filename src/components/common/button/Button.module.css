@@ -121,6 +121,19 @@
   padding-left: 20px;
 }
 
+.pagination {
+  width: 40px;
+  height: 40px;
+}
+
+.pagination.prev {
+  border-radius: 4px 0 0 4px;
+}
+
+.pagination.next {
+  border-radius: 0 4px 4px 0;
+}
+
 .border {
   border: 1px solid var(--gray-medium);
 }
@@ -135,6 +148,14 @@
   cursor: not-allowed;
 }
 
+.pagination:disabled {
+  background-color: var(--white);
+}
+
+.pagination:disabled path {
+  fill: var(--gray-medium);
+}
+
 .icon-plus {
   display: block;
   width: 22px;
@@ -146,6 +167,13 @@
   width: 20px;
   height: 16px;
   margin-left: 8px;
+}
+
+.icon-left,
+.icon-right {
+  display: block;
+  width: 16px;
+  height: 16px;
 }
 
 .badge {
@@ -264,5 +292,10 @@
     height: 52px;
     font-size: 16px;
     line-height: 26px;
+  }
+
+  .pagination {
+    width: 36px;
+    height: 36px;
   }
 }

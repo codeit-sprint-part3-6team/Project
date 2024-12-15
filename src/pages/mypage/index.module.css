@@ -1,3 +1,15 @@
 .container {
   display: flex;
+  background-color: var(--gray-background);
+}
+
+.space {
+  margin-left: 280px;
+
+  @media screen and (max-width: 1199px) {
+    margin-left: 160px;
+  }
+  @media screen and (max-width: 743px) {
+    margin-left: 67px;
+  }
 }

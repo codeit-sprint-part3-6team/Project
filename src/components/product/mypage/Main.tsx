@@ -1,4 +1,5 @@
 import CDSButton from '@/components/common/button/CDSButton';
+import clsx from 'clsx';
 import Back from 'public/ic/ic_left.svg';
 import Plus from 'public/ic/ic_imgplus.svg';
 import styles from './Main.module.css';
@@ -8,7 +9,7 @@ export default function MyPageMain() {
     <div className={styles.container}>
       <div className={styles.box}>
         <section className={styles[`return-box`]}>
-          <Back width={20} height={20} />
+          <Back width={20} height={20} className={styles[`back-image`]} />
           <p className={styles.return}>돌아가기</p>
         </section>
         <section className={styles[`modify-profile`]}>
@@ -19,7 +20,7 @@ export default function MyPageMain() {
               <Plus className={styles.plus} width={18} height={18} />
             </div>
             <div className={styles[`input-box`]}>
-              <div className={styles.email}>
+              <div>
                 <p className={styles[`sub-title`]}>이메일</p>
                 <input className={styles.input} />
               </div>
@@ -33,19 +34,24 @@ export default function MyPageMain() {
             </div>
           </div>
         </section>
-        <section>
+        <section
+          className={clsx(styles[`modify-profile`], styles[`bottom-box`])}
+        >
           <p className={styles.title}>비밀번호 변경</p>
           <div>
             <p className={styles[`sub-title`]}>현재 비밀번호</p>
-            <input />
+            <input className={styles.input} placeholder="비밀번호 입력" />
           </div>
           <div>
             <p className={styles[`sub-title`]}>새 비밀번호</p>
-            <input />
+            <input className={styles.input} placeholder="새 비밀번호 입력" />
           </div>
           <div>
             <p className={styles[`sub-title`]}>새 비밀번호 확인</p>
-            <input />
+            <input
+              className={clsx(styles.input, styles[`bottom-input`])}
+              placeholder="새 비밀번호 입력"
+            />
           </div>
           <div>
             <CDSButton btnType="profile_save">변경</CDSButton>

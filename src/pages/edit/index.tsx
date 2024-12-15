@@ -1,14 +1,18 @@
 import Sidebar from '@/components/common/sidebar/Sidebar';
 import styles from './edit.module.css';
 import ReturnButton from '@/components/product/edit/ReturnButton';
+import MainTitle from '@/components/product/edit/MainTitle'
 
 export default function EditPage() {
 	return (
-		<div className={styles.container}>
+		<main className={styles.container}>
 			<Sidebar />
-			<div className={styles.text_container}>
+			<div className={styles.main_container}>
 				<ReturnButton />
+				<div className={styles.main_section}>
+					<MainTitle />
+				</div>
 			</div>
-		</div>
+		</main>
 	);
 }

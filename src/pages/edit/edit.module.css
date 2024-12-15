@@ -4,20 +4,25 @@
 	font-family: 'Pretendard';
 }
 
-.text_container {
+.main_container {
 	margin-top: 90px;
 	margin-left: 320px;
 }
 
-@media screen and (max-width: 1199px) {
-	.text_container {
-		margin-left: 180px;
-	}
+.main_section {
+	display: flex;
+  flex-direction: column;
 
 }
 
+@media screen and (max-width: 1199px) {
+	.main_container {
+		margin-left: 180px;
+	}
+}
+
 @media screen and (max-width: 743px) {
-	.text_container {
+	.main_container {
 		margin-left: 79px;
 	}
 }

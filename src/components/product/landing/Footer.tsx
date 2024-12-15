@@ -3,6 +3,7 @@ import Email from 'public/images/img_email.svg';
 import Facebook from 'public/ic/ic_facebook.svg';
 import Instagram from 'public/ic/ic_instagram.svg';
 import styles from './Footer.module.css';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -13,27 +14,27 @@ export default function Footer() {
         <p>FAQ</p>
       </div>
       <div className={styles.footer_social}>
-        <a
+        <Link
           href="https://mail.google.com"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Email className={styles.footer_icon} />
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://www.facebook.com"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Facebook className={styles.footer_icon} />
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://www.facebook.com"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Instagram className={styles.footer_icon} />
-        </a>
+        </Link>
       </div>
     </footer>
   );

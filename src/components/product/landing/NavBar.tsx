@@ -1,7 +1,6 @@
 import Whitelogo from 'public/images/img_whitelogo.svg';
 import Whitetextlogo from 'public/images/img_whitetextlogo.svg';
 import Link from 'next/link';
-
 import styles from './NavBar.module.css';
 
 export default function NavBar() {

@@ -24,12 +24,11 @@ interface GetDashboardsResponse {
 }
 
 export default async function getDashboards(
-  teamId: string,
   params: GetDashboardsParams,
 ): Promise<GetDashboardsResponse> {
   try {
     const { data } = await instance.get<GetDashboardsResponse>(
-      `/${teamId}/dashboards/`,
+      `/11-6/dashboards/`,
       {
         params: {
           ...params,

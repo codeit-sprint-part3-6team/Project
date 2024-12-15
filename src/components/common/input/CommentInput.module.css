@@ -1,0 +1,53 @@
+.input-title {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--black-medium);
+
+  @media screen and (max-width: 743px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
+
+.box {
+  height: 110px;
+  border-radius: 6px;
+  border: 1px solid var(--gray-medium);
+  padding: 16px;
+  position: relative;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.input {
+  height: 50px;
+  border: none;
+  overflow-y: auto; /* 스크롤 활성화 */
+  resize: none;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--black-dark);
+}
+
+.input::placeholder {
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--gray-dark);
+
+  @media screen and (max-width: 743px) {
+    font-size: 12px;
+  }
+}
+
+.button-container {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+}

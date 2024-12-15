@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--black-medium);
+  margin-bottom: 8px;
+
+  @media screen and (max-width: 743px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}

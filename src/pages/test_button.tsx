@@ -96,6 +96,9 @@ function ButtonPage() {
       >
         비브리지
       </CDSButton>
+      <br />
+      <CDSButton btnType="pagination_prev" onClick={handleClick} disabled />
+      <CDSButton btnType="pagination_next" onClick={handleClick} />
     </div>
   );
 }

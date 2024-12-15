@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import { CDSButtonProps, types } from '@/type/button';
 import PlusIcon from 'public/ic/ic_chip.svg';
 import CrownIcon from 'public/ic/ic_crown.svg';
+import LeftIcon from 'public/ic/ic_left.svg';
+import RightIcon from 'public/ic/ic_right.svg';
 import styles from './Button.module.css';
 import Button from './Button';
 
@@ -25,7 +27,7 @@ function CDSButton({
    */
   const renderPlusIcon = () =>
     ['column', 'todo', 'dashboard_add'].includes(btnType) && (
-      <PlusIcon className={styles.icon_plus} />
+      <PlusIcon className={styles['icon-plus']} />
     );
 
   /**
@@ -35,7 +37,7 @@ function CDSButton({
    */
   const renderOwnerIcon = () =>
     btnType === 'dashboard_card' &&
-    owner && <CrownIcon className={styles.icon_crown} />;
+    owner && <CrownIcon className={styles['icon-crown']} />;
 
   /**
    * renderBadge: 대시보드 카드 유형에서 색상 배지 렌더링
@@ -46,13 +48,22 @@ function CDSButton({
     btnType === 'dashboard_card' &&
     badge && <span className={clsx(styles.badge, styles[badge])} />;
 
+  const renderArrowIcon = () => {
+    if (btnType === 'pagination_prev')
+      return <LeftIcon className={styles['icon-left']} />;
+    if (btnType === 'pagination_next')
+      return <RightIcon className={styles['icon-right']} />;
+    return null;
+  };
+
   return (
     <Button classes={types[btnType].classes} {...props}>
-      <span className={styles.button_content}>
+      <span className={styles['button-content']}>
         {renderBadge()}
         {children}
         {renderPlusIcon()}
         {renderOwnerIcon()}
+        {renderArrowIcon()}
       </span>
     </Button>
   );

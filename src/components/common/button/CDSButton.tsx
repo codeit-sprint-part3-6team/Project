@@ -25,7 +25,7 @@ function CDSButton({
    */
   const renderPlusIcon = () =>
     ['column', 'todo', 'dashboard_add'].includes(btnType) && (
-      <PlusIcon className={styles.icon_plus} />
+      <PlusIcon className={styles['icon-plus']} />
     );
 
   /**
@@ -35,7 +35,7 @@ function CDSButton({
    */
   const renderOwnerIcon = () =>
     btnType === 'dashboard_card' &&
-    owner && <CrownIcon className={styles.icon_crown} />;
+    owner && <CrownIcon className={styles['icon-crown']} />;
 
   /**
    * renderBadge: 대시보드 카드 유형에서 색상 배지 렌더링
@@ -48,7 +48,7 @@ function CDSButton({
 
   return (
     <Button classes={types[btnType].classes} {...props}>
-      <span className={styles.button_content}>
+      <span className={styles['button-content']}>
         {renderBadge()}
         {children}
         {renderPlusIcon()}

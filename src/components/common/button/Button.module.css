@@ -15,7 +15,7 @@
   height: 32px;
 }
 
-.button_content {
+.button-content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +70,7 @@
   color: var(--black-medium);
 }
 
-.column .button_content {
+.column .button-content {
   gap: 12px;
 }
 
@@ -96,7 +96,7 @@
   font-weight: 600;
 }
 
-.dashboard.add .button_content {
+.dashboard.add .button-content {
   gap: 12px;
 }
 
@@ -115,7 +115,7 @@
   background-repeat: no-repeat;
 }
 
-.dashboard.card .button_content {
+.dashboard.card .button-content {
   justify-content: flex-start;
   margin-right: 40px;
   padding-left: 20px;
@@ -135,13 +135,13 @@
   cursor: not-allowed;
 }
 
-.icon_plus {
+.icon-plus {
   display: block;
   width: 22px;
   height: 22px;
 }
 
-.icon_crown {
+.icon-crown {
   display: block;
   width: 20px;
   height: 16px;

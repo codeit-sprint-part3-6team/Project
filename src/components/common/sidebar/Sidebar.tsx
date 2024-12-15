@@ -111,9 +111,7 @@ export default function Sidebar() {
           >
             이전
           </button>
-          <span className={styles['page-info']}>
-            {currentPage} / {totalPages}
-          </span>
+
           <button
             type="button"
             className={styles['pagination-button']}

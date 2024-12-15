@@ -1,0 +1,94 @@
+.dashboard-list {
+  max-width: 1022px;
+  padding-top: 40px;
+  margin-left: 340px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 13px;
+}
+
+.crown-icon {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.pagination {
+  margin-left: 340px;
+  margin-top: 12px;
+}
+
+.title {
+  margin-left: 340px;
+  margin-top: 72px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--black-medium);
+}
+
+.invitation-container {
+  margin-top: 24px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.accept-button {
+  background-color: #6b4eff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.reject-button {
+  background-color: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.accept-button:hover,
+.reject-button:hover {
+  opacity: 0.8;
+}
+
+.table {
+  margin-left: 340px;
+}
+
+@media screen and (max-width: 1199px) {
+  .dashboard-list {
+    max-width: 504px;
+    margin-left: 200px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pagination {
+    margin-left: 200px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .dashboard-list {
+    margin-left: 90px;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .pagination {
+    margin-left: 90px;
+  }
+}

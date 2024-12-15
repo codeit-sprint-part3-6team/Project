@@ -54,6 +54,9 @@ export const types = {
   pagination_next: {
     classes: ['pagination', 'next', 'border'],
   },
+  profile_save: {
+    classes: ['profile', 'save', 'colored'],
+  },
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

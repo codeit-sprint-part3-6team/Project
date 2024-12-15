@@ -18,56 +18,86 @@
   margin-top: 12px;
 }
 
-.title {
-  margin-left: 340px;
+.head {
+  padding: 32px 28px;
   margin-top: 72px;
+}
+
+.title {
   font-size: 24px;
   font-weight: 700;
   color: var(--black-medium);
+  margin-bottom: 32px;
+}
+
+.input-container {
+  width: 100%;
+  height: 40px;
+  border: 1px solid var(--gray-medium);
+  border-radius: 6px;
+  padding: 7px 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-dark);
+}
+
+.input {
+  border-style: none;
+}
+
+.input:focus {
+  outline: none;
 }
 
 .invitation-container {
   margin-top: 24px;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table th,
-.table td {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: left;
-}
-
-.accept-button {
-  background-color: #6b4eff;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 8px;
-}
-
-.reject-button {
-  background-color: #f0f0f0;
-  color: #333;
-  border: 1px solid #ddd;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.accept-button:hover,
-.reject-button:hover {
-  opacity: 0.8;
-}
-
-.table {
   margin-left: 340px;
+  background-color: var(--white);
+  width: 1022px;
+  height: 650px;
+}
+
+.table {
+  width: 1022px;
+  padding: 0 76px;
+}
+
+.table-head {
+  width: 798px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-title {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-dark);
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+.table-body {
+  width: 860px;
+  display: flex;
+  gap: 235px;
+}
+
+.table-content {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black-medium);
+  margin-bottom: 30px;
+}
+
+.invitation-btn {
+  display: flex;
+  gap: 10px;
+  margin-left: 40px;
 }
 
 @media screen and (max-width: 1199px) {
@@ -77,7 +107,12 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .pagination {
+  .invitation-container {
+    max-width: 504px;
+  }
+
+  .pagination,
+  .invitation-container {
     margin-left: 200px;
   }
 }
@@ -88,7 +123,12 @@
     grid-template-columns: repeat(1, 1fr);
   }
 
-  .pagination {
+  .invitation-container {
+    max-width: 260px;
+  }
+
+  .pagination,
+  .invitation-container {
     margin-left: 90px;
   }
 }

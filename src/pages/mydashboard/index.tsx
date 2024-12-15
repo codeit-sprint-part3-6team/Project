@@ -5,6 +5,7 @@ import getDashboards from '@/lib/mydashboard/getDashboard';
 import getInvitations from '@/lib/mydashboard/getInvitations';
 import styles from '@/pages/mydashboard/mydashboard.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
+import SearchIcon from 'public/ic/ic_search.svg';
 
 export default function MyDashboard() {
   const [dashboards, setDashboards] = useState([]);
@@ -89,7 +90,7 @@ export default function MyDashboard() {
             이전
           </button>
           <span>
-            {currentPage} / {totalPages}
+            {totalPages} 페이지 중 {currentPage}
           </span>
           <button
             onClick={() => handlePageChange(currentPage + 1)}
@@ -102,22 +103,34 @@ export default function MyDashboard() {
       </div>
 
       {/* 초대받은 대시보드 목록 */}
-      <h1 className={styles.title}>초대받은 대시보드</h1>
       <div className={styles['invitation-container']}>
+        <div className={styles.head}>
+          <h1 className={styles.title}>초대받은 대시보드</h1>
+          <div className={styles['input-container']}>
+            <SearchIcon width={24} height={24} />
+            <input placeholder="검색" className={styles.input} />
+          </div>
+        </div>
+
         <table className={styles.table}>
           <thead>
-            <tr>
-              <th>이름</th>
-              <th>초대자</th>
-              <th>수락 여부</th>
+            <tr className={styles['table-head']}>
+              <th className={styles['table-title']}>이름</th>
+              <th className={styles['table-title']}>초대자</th>
+              <th className={styles['table-title']}>수락 여부</th>
             </tr>
           </thead>
+
           <tbody>
             {invitations.map((invite) => (
-              <tr key={invite.id}>
-                <td>{invite.dashboard.title}</td>
-                <td>{invite.inviter.nickname}</td>
-                <td>
+              <tr key={invite.id} className={styles['table-body']}>
+                <td className={styles['table-content']}>
+                  {invite.dashboard.title}
+                </td>
+                <td className={styles['table-content']}>
+                  {invite.inviter.nickname}
+                </td>
+                <td className={styles['invitation-btn']}>
                   <CDSButton btnType="normal_colored" onClick={handleClick}>
                     수락
                   </CDSButton>

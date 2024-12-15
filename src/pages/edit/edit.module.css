@@ -1,6 +1,6 @@
 .container {
 	display: flex;
-	flex-direction: column; /* 세로 정렬 */
+	flex-direction: column;
 	font-family: 'Pretendard';
 }
 
@@ -12,7 +12,11 @@
 .main_section {
 	display: flex;
   flex-direction: column;
+	gap: 24px;
+}
 
+.button {
+	margin-top: 10px;
 }
 
 @media screen and (max-width: 1199px) {

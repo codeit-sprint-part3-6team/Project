@@ -48,6 +48,12 @@ export const types = {
   dashboard_card: {
     classes: ['dashboard', 'card', 'border'],
   },
+  pagination_prev: {
+    classes: ['pagination', 'prev', 'border'],
+  },
+  pagination_next: {
+    classes: ['pagination', 'next', 'border'],
+  },
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

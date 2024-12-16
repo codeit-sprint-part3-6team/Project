@@ -1,8 +1,9 @@
 .container {
+  overflow-x: scroll;
   display: flex;
 
-  width: fit-content;
-  min-height: calc(100vh - 70px);
+  width: calc(100% - 280px);
+  height: calc(100vh - 70px);
 
   margin-top: 70px;
   margin-left: 280px;
@@ -10,7 +11,13 @@
   background-color: var(--gray-brightes);
 }
 
+.container::-webkit-scrollbar {
+  display: none;
+}
+
 .add-column {
+  flex-shrink: 0;
+
   width: 354px;
 
   margin: 68px 20px 0;

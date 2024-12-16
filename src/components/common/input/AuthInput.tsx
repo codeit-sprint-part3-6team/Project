@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, FocusEvent, MouseEvent, useState } from 'react';
 import styles from './AuthInput.module.css';
 import Visibility from 'public/ic/ic_visibility.svg';
 import InVisibility from 'public/ic/ic_invisibility.svg';
@@ -12,8 +12,10 @@ type AuthInputProps = {
   placeholder: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
   error?: boolean;
   errorMessage?: string;
+  autoComplete: string;
 };
 
 function AuthInput({
@@ -25,8 +27,10 @@ function AuthInput({
   placeholder,
   value,
   onChange,
+  onBlur,
   error,
   errorMessage,
+  autoComplete,
 }: AuthInputProps) {
   const [isVisibleToggle, setIsVisibleToggle] = useState(false);
 
@@ -53,16 +57,18 @@ function AuthInput({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
+          autoComplete={autoComplete}
         />
 
         {isPassword && (
-          <button onClick={handleClick}>
+          <button type="button" onClick={handleClick}>
             {isVisibleToggle ? <Visibility /> : <InVisibility />}
           </button>
         )}
-
-        {error && <span>{errorMessage}</span>}
       </div>
+
+      {error && <span className={styles.errorMessage}>{errorMessage}</span>}
     </div>
   );
 }

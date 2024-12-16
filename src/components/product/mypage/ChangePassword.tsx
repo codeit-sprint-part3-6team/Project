@@ -1,23 +1,73 @@
 import { useState } from 'react';
 import CDSButton from '@/components/common/button/CDSButton';
 import clsx from 'clsx';
+import changePassword from '@/lib/mypage/changePassword';
 import styles from './ChangePassword.module.css';
 
-export default function ChangePassword() {
-  const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
+interface CheangePasswordValue {
+  password: string;
+  newPassword: string;
+  confirmPassword: string;
+  error: string;
+}
 
-  const handleBlur = () => {
-    if (newPassword !== confirmPassword) {
-      setError('비밀번호가 일치하지 않습니다.');
-    } else {
-      setError(null);
+const INITIAL_VALUES: CheangePasswordValue = {
+  password: '',
+  newPassword: '',
+  confirmPassword: '',
+  error: null,
+};
+
+interface CheangePasswordProps {
+  initialValue?: CheangePasswordValue;
+}
+
+export default function ChangePassword({
+  initialValue = INITIAL_VALUES,
+}: CheangePasswordProps) {
+  const [values, setValues] = useState(initialValue);
+  // const [password, setPassword] = useState('');
+  // const [newPassword, setNewPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
+  // const [error, setError] = useState(null);
+
+  const handleChangePassword = async () => {
+    try {
+      const { password, newPassword } = values;
+      const putData = { password, newPassword };
+      await changePassword(putData);
+      setValues({
+        password: '',
+        newPassword: '',
+        confirmPassword: '',
+        error: null,
+      });
+      // 비밀번호가 성공적으로 변경되었다는 모달 추가
+    } catch (e) {
+      console.error(e);
     }
   };
 
-  const isFormValid = password && newPassword && confirmPassword && !error;
+  const handleBlur = () => {
+    const { newPassword, confirmPassword } = values;
+    if (newPassword !== confirmPassword) {
+      setValues((prevValues) => ({
+        ...prevValues,
+        error: '비밀번호가 일치하지 않습니다.',
+      }));
+    } else {
+      setValues((prevValues) => ({
+        ...prevValues,
+        error: null,
+      }));
+    }
+  };
+
+  const isFormValid =
+    values.password &&
+    values.newPassword &&
+    values.confirmPassword &&
+    !values.error;
 
   return (
     <section className={clsx(styles[`modify-profile`], styles[`bottom-box`])}>
@@ -25,8 +75,8 @@ export default function ChangePassword() {
       <div>
         <p className={styles[`sub-title`]}>현재 비밀번호</p>
         <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={values.password}
+          onChange={(e) => setValues({ ...values, password: e.target.value })}
           className={styles.input}
           placeholder="비밀번호 입력"
         />
@@ -34,8 +84,10 @@ export default function ChangePassword() {
       <div>
         <p className={styles[`sub-title`]}>새 비밀번호</p>
         <input
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+          value={values.newPassword}
+          onChange={(e) =>
+            setValues({ ...values, newPassword: e.target.value })
+          }
           className={styles.input}
           placeholder="새 비밀번호 입력"
           onBlur={handleBlur}
@@ -44,20 +96,28 @@ export default function ChangePassword() {
       <div>
         <p className={styles[`sub-title`]}>새 비밀번호 확인</p>
         <input
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          value={values.confirmPassword}
+          onChange={(e) =>
+            setValues({ ...values, confirmPassword: e.target.value })
+          }
           className={clsx(
             styles.input,
-            error ? styles['error-input'] : styles[`bottom-input`],
-            error ? styles['error-margin'] : '',
+            values.error ? styles['error-input'] : styles[`bottom-input`],
+            values.error ? styles['error-margin'] : '',
           )}
           placeholder="새 비밀번호 입력"
           onBlur={handleBlur}
         />
-        {error && <p className={styles['error-message']}>{error}</p>}
+        {values.error && (
+          <p className={styles['error-message']}>{values.error}</p>
+        )}
       </div>
       <div>
-        <CDSButton btnType="profile_save" disabled={!isFormValid}>
+        <CDSButton
+          onClick={handleChangePassword}
+          btnType="profile_save"
+          disabled={!isFormValid}
+        >
           변경
         </CDSButton>
       </div>

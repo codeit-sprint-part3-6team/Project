@@ -2,6 +2,7 @@ import instance from '../instance';
 
 interface PutInvitationsParams {
   invitationId: number;
+  inviteAccepted: boolean;
 }
 
 interface PutInvitationsResponse {
@@ -28,10 +29,15 @@ interface PutInvitationsResponse {
 export default async function putInvitations(
   params: PutInvitationsParams,
 ): Promise<PutInvitationsResponse> {
+  const { invitationId, inviteAccepted } = params;
+
   try {
     const { data } = await instance.put<PutInvitationsResponse>(
-      `/11-6/invitations`,
-      { params },
+      `/11-6/invitations/${invitationId}`,
+      { inviteAccepted },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
     );
     return data;
   } catch (error) {

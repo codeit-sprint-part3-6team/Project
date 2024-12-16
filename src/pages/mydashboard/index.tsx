@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Sidebar from '@/components/common/sidebar/Sidebar';
 import getDashboards from '@/lib/mydashboard/getDashboard';
 import getInvitations from '@/lib/mydashboard/getInvitations';
+import putInvitations from '@/lib/mydashboard/putInvitations'; // 초대 수락/거절 API
 import styles from '@/pages/mydashboard/mydashboard.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import SearchIcon from 'public/ic/ic_search.svg';
@@ -20,9 +21,30 @@ export default function MyDashboard() {
   };
 
   // 초대 수락/거절 이벤트
-  const handleInvitationAction = (action, invitationId) => {
-    console.log(`Invitation ID: ${invitationId}, Action: ${action}`);
-    // 여기에서 API 호출로 수락/거절 동작을 구현하면 됩니다.
+  const handleInvitation = async (action, invitationId) => {
+    try {
+      const inviteAccepted = action === 'accept';
+      await putInvitations({
+        invitationId,
+        inviteAccepted,
+      });
+      alert(
+        action === 'accept' ? '초대를 수락했습니다.' : '초대를 거절했습니다.',
+      );
+
+      // 성공 시 상태 업데이트
+      setInvitations((prev) =>
+        action === 'accept'
+          ? prev.map((invite) =>
+              invite.id === invitationId
+                ? { ...invite, inviteAccepted: true }
+                : invite,
+            )
+          : prev.filter((invite) => invite.id !== invitationId),
+      );
+    } catch (error) {
+      alert('초대 응답 처리 중 오류가 발생했습니다.');
+    }
   };
 
   // 페이지네이션 변경 이벤트
@@ -128,12 +150,24 @@ export default function MyDashboard() {
                   {invite.inviter.nickname}
                 </td>
                 <td className={styles['invitation-btn']}>
-                  <CDSButton btnType="normal_colored" onClick={handleClick}>
-                    수락
-                  </CDSButton>
-                  <CDSButton btnType="normal" onClick={handleClick}>
-                    거절
-                  </CDSButton>
+                  {invite.inviteAccepted ? (
+                    <span>수락됨</span>
+                  ) : (
+                    <>
+                      <CDSButton
+                        btnType="normal_colored"
+                        onClick={() => handleInvitation('accept', invite.id)}
+                      >
+                        수락
+                      </CDSButton>
+                      <CDSButton
+                        btnType="normal"
+                        onClick={() => handleInvitation('reject', invite.id)}
+                      >
+                        거절
+                      </CDSButton>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

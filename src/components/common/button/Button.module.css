@@ -186,7 +186,8 @@
   }
 
   .column {
-    max-width: 544px;
+    /* max-width: 544px; */
+    max-width: none;
   }
 
   .todo {

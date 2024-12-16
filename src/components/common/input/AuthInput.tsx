@@ -4,6 +4,7 @@ import Visibility from 'public/ic/ic_visibility.svg';
 import InVisibility from 'public/ic/ic_invisibility.svg';
 
 type AuthInputProps = {
+  name: string;
   htmlFor: string;
   title: string;
   id: string;
@@ -16,6 +17,7 @@ type AuthInputProps = {
 };
 
 function AuthInput({
+  name,
   htmlFor,
   title,
   type = 'text',
@@ -44,6 +46,7 @@ function AuthInput({
 
       <div className={`${styles.authInput} ${error ? styles.error : ''}`}>
         <input
+          name={name}
           type={inputType}
           id={id}
           className={`${isPassword ? styles.password : ''}`}

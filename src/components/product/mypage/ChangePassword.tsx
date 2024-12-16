@@ -2,6 +2,8 @@ import { useState } from 'react';
 import CDSButton from '@/components/common/button/CDSButton';
 import clsx from 'clsx';
 import changePassword from '@/lib/mypage/changePassword';
+import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
+import AuthModal from '@/components/common/modal/auth/AuthModal';
 import styles from './ChangePassword.module.css';
 
 interface CheangePasswordValue {
@@ -26,16 +28,19 @@ export default function ChangePassword({
   initialValue = INITIAL_VALUES,
 }: CheangePasswordProps) {
   const [values, setValues] = useState(initialValue);
-  // const [password, setPassword] = useState('');
-  // const [newPassword, setNewPassword] = useState('');
-  // const [confirmPassword, setConfirmPassword] = useState('');
-  // const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [modal, setModal] = useState(false);
+
+  const handleCancelClick = () => {
+    setModal(false);
+  };
 
   const handleChangePassword = async () => {
     try {
       const { password, newPassword } = values;
       const putData = { password, newPassword };
       await changePassword(putData);
+
       setValues({
         password: '',
         newPassword: '',
@@ -44,7 +49,8 @@ export default function ChangePassword({
       });
       // 비밀번호가 성공적으로 변경되었다는 모달 추가
     } catch (e) {
-      console.error(e);
+      setModal(true);
+      setErrorMessage(e.message);
     }
   };
 
@@ -121,6 +127,14 @@ export default function ChangePassword({
           변경
         </CDSButton>
       </div>
+      {modal && (
+        <OverlayContainer>
+          <AuthModal
+            message={errorMessage}
+            handleCancelClick={handleCancelClick}
+          />
+        </OverlayContainer>
+      )}
     </section>
   );
 }

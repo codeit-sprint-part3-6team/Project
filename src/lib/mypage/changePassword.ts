@@ -7,12 +7,14 @@ export interface ChangePasswordData {
 
 export default async function changePassword(data: ChangePasswordData) {
   try {
-    await instance.put(`/11-6/auth/password`, data);
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw new Error(`비밀번호 변경에 실패했어요: ${error.message}`);
-    } else {
-      throw new Error('비밀번호 변경에 실패했어요: 알 수 없는 오류');
+    const res = await instance.put(`/11-6/auth/password`, data);
+    return res;
+  } catch (error) {
+    if (error.response) {
+      console.error('API 응답 에러:', error.response.data);
     }
+    throw new Error(
+      error.response?.data?.message || '정보를 불러오는데 실패했습니다.',
+    );
   }
 }

@@ -35,14 +35,44 @@
 
 .img-input-box {
   position: relative;
+  width: 182px;
+  height: 182px;
+  overflow: hidden;
+
+  @media screen and (max-width: 743px) {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.preview-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.img-preview {
+  z-index: 1;
+  object-fit: cover;
 }
 
 .img-input {
+  display: none;
+}
+
+.label-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 182px;
   height: 182px;
+  cursor: pointer;
   background-color: var(--gray-background);
-  border: none;
   border-radius: 6px;
+  position: relative;
+  overflow: hidden;
 
   @media screen and (max-width: 743px) {
     width: 100px;
@@ -52,7 +82,7 @@
 
 .plus {
   position: absolute;
-  top: 35%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 
@@ -101,6 +131,15 @@
   font-weight: 400;
   font-size: 16px;
   color: var(--gray-dark);
+}
+
+.email-input {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--gray-dark);
+  pointer-events: none;
+  cursor: not-allowed;
 }
 
 .save-button {

@@ -26,3 +26,15 @@
 .login_button {
   margin-top: 24px;
 }
+
+.signupText {
+  margin-top: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.signupText a {
+  color: var(--violet);
+  text-decoration: underline;
+}

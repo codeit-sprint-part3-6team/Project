@@ -38,3 +38,20 @@
   color: var(--violet);
   text-decoration: underline;
 }
+
+@media screen and (max-width: 743px) {
+  .signin_container {
+    margin: 73px auto 0 auto;
+    width: 350px;
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 26px;
+    margin: 8px 0 36px;
+  }
+
+  .login_button {
+    margin-top: 16px;
+  }
+}

@@ -1,9 +1,11 @@
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
+import Card from '@/components/dashboard/card/Card';
 import getCards from '@/lib/dashboard/getCards';
 import { GetCardsResponse } from '@/type/card';
-import { useEffect, useState } from 'react';
-import Card from '../card/Card';
+import { MouseEventHandler, useEffect, useState } from 'react';
+import SettingIcon from 'public/ic/ic_setting.svg';
+import Link from 'next/link';
 
 interface ColumnProp {
   targetId: number;
@@ -34,7 +36,20 @@ function Column({ targetId, title }: ColumnProp) {
   }, []);
   return (
     <div className={styles.column}>
-      <div className={styles['column-title']}>{title}</div>
+      <div className={styles['column-title-section']}>
+        <div className={styles['column-title']}>
+          {title}
+          <span className={styles['column-size']}>
+            {columnData.cards.length}
+          </span>
+        </div>
+        <Link
+          href={`/dashboard/${targetId}/edit`}
+          className={styles['btn-edit-column']}
+        >
+          <SettingIcon className={styles['icon-setting']} />
+        </Link>
+      </div>
       <CDSButton btnType="todo" />
       {columnData.cards.map((card) => (
         <Card

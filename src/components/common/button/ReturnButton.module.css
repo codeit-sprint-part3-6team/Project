@@ -3,19 +3,21 @@
   align-items: center;
   font-size: 16px;
   font-weight: 500;
-	line-height: 26px;
+  line-height: 26px;
+  cursor: pointer;
 }
 
 .icon {
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 743px) {
-	.returnButton {
-		font-size: 14px;
-		line-height: 24px;
-	}
+  .returnButton {
+    font-size: 14px;
+    line-height: 24px;
+  }
 
   .icon {
     width: 2rem;

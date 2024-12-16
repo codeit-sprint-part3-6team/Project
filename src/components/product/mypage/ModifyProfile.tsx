@@ -4,7 +4,7 @@ import CDSButton from '@/components/common/button/CDSButton';
 import uploadImage from '@/lib/mypage/uploadImage';
 import Image from 'next/image';
 import clsx from 'clsx';
-import modifyProfile from '@/lib/mypage/ModifyProfile';
+import modifyProfile from '@/lib/mypage/modifyProfile';
 import styles from './ModifyProfile.module.css';
 
 interface ModifyValue {

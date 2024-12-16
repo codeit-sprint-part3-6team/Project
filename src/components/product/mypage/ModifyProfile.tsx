@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Plus from 'public/ic/ic_imgplus.svg';
 import CDSButton from '@/components/common/button/CDSButton';
 import uploadImage from '@/lib/mypage/uploadImage';
@@ -7,6 +7,8 @@ import clsx from 'clsx';
 import modifyProfile from '@/lib/mypage/modifyProfile';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUserInfo } from '@/redux/settingSlice';
 import styles from './ModifyProfile.module.css';
 
 interface ModifyValue {
@@ -14,22 +16,27 @@ interface ModifyValue {
   profileImageUrl: string;
 }
 
-const INITIAL_VALUES: ModifyValue = {
-  nickname: '',
-  profileImageUrl: '',
-};
-
-interface ModifyProfileProps {
-  initialValue?: ModifyValue;
-}
-
-export default function ModifyProfile({
-  initialValue = INITIAL_VALUES,
-}: ModifyProfileProps) {
-  const [values, setValues] = useState<ModifyValue>(initialValue);
+export default function ModifyProfile() {
+  const user = useSelector((state: any) => state.userInfo.user);
+  const [values, setValues] = useState<ModifyValue>({
+    nickname: user?.nickname || '', // user가 없을 경우 기본값 설정
+    profileImageUrl: user?.profileImageUrl || '',
+  });
   const [preview, setPreview] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
   const [modal, setModal] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
+  // user 변경 시 values 상태 동기화
+  useEffect(() => {
+    if (user) {
+      setValues({
+        nickname: user.nickname,
+        profileImageUrl: user.profileImageUrl,
+      });
+      setPreview(user.profileImageUrl || null);
+    }
+  }, [user]);
 
   const handleCancelClick = () => {
     setModal(false);
@@ -45,7 +52,7 @@ export default function ModifyProfile({
 
   const handleSubmit = async () => {
     try {
-      let imageUrl = null;
+      let imageUrl = values.profileImageUrl;
       if (image) {
         imageUrl = await uploadImage(image);
       }
@@ -58,6 +65,16 @@ export default function ModifyProfile({
         nickname: newProfile.nickname,
         profileImageUrl: newProfile.profileImageUrl,
       });
+      // 리덕스 상태 업데이트
+      dispatch(
+        setUserInfo({
+          user: {
+            ...user, // 기존 user 정보 유지
+            nickname: newProfile.nickname,
+            profileImageUrl: newProfile.profileImageUrl,
+          },
+        }),
+      );
       setModal(true);
     } catch (error) {
       console.error(error);
@@ -105,6 +122,7 @@ export default function ModifyProfile({
             <input
               className={clsx(styles.input, styles[`email-input`])}
               readOnly
+              value={user?.email || ''}
             />
           </div>
           <div>

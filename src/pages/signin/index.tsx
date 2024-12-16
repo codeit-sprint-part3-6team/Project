@@ -10,6 +10,8 @@ import { emailValidation, passwordValidation } from '@/utils/authValidation';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { postSignin } from '@/lib/signin/postSignin';
+import { useDispatch } from 'react-redux';
+import { setUserInfo } from '@/redux/settingSlice';
 
 const INITIAL_VALUES = {
   email: '',
@@ -24,6 +26,7 @@ function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const isEmailValid = emailValidation(values.email);
@@ -63,6 +66,13 @@ function SignIn() {
       const response = await postSignin(values);
       console.log(response.accessToken);
       sessionStorage.setItem('accessToken', response.accessToken);
+      // 리덕스 액션 호출
+      dispatch(
+        setUserInfo({
+          accessToken: response.accessToken,
+          user: response.user,
+        }),
+      );
       router.push('/mydashboard');
     } catch (error: any) {
       if (error?.message) {

@@ -17,6 +17,8 @@ export default function ChangePassword() {
     }
   };
 
+  const isFormValid = password && newPassword && confirmPassword && !error;
+
   return (
     <section className={clsx(styles[`modify-profile`], styles[`bottom-box`])}>
       <p className={styles.title}>비밀번호 변경</p>
@@ -36,6 +38,7 @@ export default function ChangePassword() {
           onChange={(e) => setNewPassword(e.target.value)}
           className={styles.input}
           placeholder="새 비밀번호 입력"
+          onBlur={handleBlur}
         />
       </div>
       <div>
@@ -54,7 +57,9 @@ export default function ChangePassword() {
         {error && <p className={styles['error-message']}>{error}</p>}
       </div>
       <div>
-        <CDSButton btnType="profile_save">변경</CDSButton>
+        <CDSButton btnType="profile_save" disabled={!isFormValid}>
+          변경
+        </CDSButton>
       </div>
     </section>
   );

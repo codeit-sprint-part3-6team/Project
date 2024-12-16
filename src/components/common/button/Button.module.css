@@ -190,7 +190,7 @@
   }
 
   .todo {
-    max-width: 544px;
+    max-width: none;
   }
 
   .dashboard.add,

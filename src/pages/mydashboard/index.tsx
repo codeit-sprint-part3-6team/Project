@@ -3,10 +3,11 @@ import { useRouter } from 'next/router';
 import Sidebar from '@/components/common/sidebar/Sidebar';
 import getDashboards from '@/lib/mydashboard/getDashboard';
 import getInvitations from '@/lib/mydashboard/getInvitations';
-import putInvitations from '@/lib/mydashboard/putInvitations'; // 초대 수락/거절 API
+import putInvitations from '@/lib/mydashboard/putInvitations';
 import styles from '@/pages/mydashboard/mydashboard.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import SearchIcon from 'public/ic/ic_search.svg';
+import CrownIcon from 'public/ic/ic_crown.svg';
 
 export default function MyDashboard() {
   const [dashboards, setDashboards] = useState([]);
@@ -94,6 +95,7 @@ export default function MyDashboard() {
               <CDSButton
                 btnType="dashboard_card"
                 badge={item.color}
+                owner={item.createdByMe}
                 onClick={() => handleClick(item.id)}
               >
                 {item.title}
@@ -104,20 +106,21 @@ export default function MyDashboard() {
 
         {/* 페이지네이션 */}
         <div className={styles.pagination}>
-          <span>
+          <span className={styles['pagination-text']}>
             {totalPages} 페이지 중 {currentPage}
           </span>
-          <CDSButton
-            btnType="pagination_prev"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          />
-
-          <CDSButton
-            btnType="pagination_next"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          />
+          <div>
+            <CDSButton
+              btnType="pagination_prev"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            />
+            <CDSButton
+              btnType="pagination_next"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            />
+          </div>
         </div>
       </div>
 
@@ -158,13 +161,13 @@ export default function MyDashboard() {
                         btnType="normal_colored"
                         onClick={() => handleInvitation('accept', invite.id)}
                       >
-                        수락
+                        <span>수락</span>
                       </CDSButton>
                       <CDSButton
                         btnType="normal"
                         onClick={() => handleInvitation('reject', invite.id)}
                       >
-                        거절
+                        <span>거절</span>
                       </CDSButton>
                     </>
                   )}

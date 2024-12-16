@@ -1,11 +1,11 @@
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
-import getCards from '@/lib/dashboard/getCards';
-import { GetCardsResponse } from '@/type/card';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import useColumnData from '@/hooks/useColumnData';
 
 interface ColumnProp {
   targetId: number;
@@ -13,36 +13,8 @@ interface ColumnProp {
 }
 
 function Column({ targetId, title }: ColumnProp) {
-  const [columnData, setColumnData] = useState<GetCardsResponse>({
-    cards: [],
-    totalCount: null,
-    cursorId: null,
-  });
-  const isFirstRender = useRef(true);
-  const endPoint = useRef(null);
-
-  const fetchCards = useCallback(
-    async (cursor?: number) => {
-      try {
-        const response = await getCards({
-          teamId: '11-6',
-          columnId: targetId,
-          cursorId: cursor,
-        });
-
-        const { cards, totalCount, cursorId } = response;
-
-        setColumnData((prev) => ({
-          cards: [...prev.cards, ...cards],
-          totalCount,
-          cursorId,
-        }));
-      } catch (error) {
-        console.error('컬럼 조회 실패 : ', error);
-      }
-    },
-    [targetId],
-  );
+  const { columnData, fetchCards } = useColumnData(targetId);
+  const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
   const handleObserver = useCallback(
     ([entry]) => {
@@ -50,6 +22,8 @@ function Column({ targetId, title }: ColumnProp) {
     },
     [fetchCards, columnData.cursorId],
   );
+
+  const endPoint = useIntersectionObserver(handleObserver);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -59,20 +33,6 @@ function Column({ targetId, title }: ColumnProp) {
 
     fetchCards();
   }, []);
-
-  useEffect(() => {
-    if (!endPoint.current) return;
-
-    const observer = new IntersectionObserver(handleObserver, {
-      root: endPoint.current.parentNode,
-      threshold: 0.95,
-    });
-
-    observer.observe(endPoint.current);
-
-    // eslint-disable-next-line consistent-return
-    return () => observer.disconnect();
-  }, [handleObserver]);
   return (
     <div className={styles.column}>
       <div className={styles['column-title-section']}>

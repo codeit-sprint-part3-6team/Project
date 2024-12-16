@@ -16,17 +16,22 @@ function Card({ imageUrl, id, title, tags, dueDate }: CardProps) {
   return (
     <button type="button" className={styles.card}>
       <CardImage image={imageUrl} name={title} />
-      <div className={styles['card-title']}>{title}</div>
-      <div className={styles['card-tags']}>
-        {tags.map((tag) => (
-          <Chip key={`${id}_tag_${tag}`} chipType="tag">
-            {tag}
-          </Chip>
-        ))}
-      </div>
-      <div className={styles['card-date']}>
-        <CalendarIcon className={styles['icon-calendar']} />
-        <span className={styles.date}>{formatDate(dueDate)}</span>
+      <div className={styles['content-section']}>
+        <div className={styles['card-title']}>{title}</div>
+        <div className={styles['description-section']}>
+          <div className={styles['card-tags']}>
+            {tags.map((tag) => (
+              <Chip key={`${id}_tag_${tag}`} chipType="tag">
+                {tag}
+              </Chip>
+            ))}
+          </div>
+          <div className={styles['card-date']}>
+            <CalendarIcon className={styles['icon-calendar']} />
+            <span className={styles.date}>{formatDate(dueDate)}</span>
+          </div>
+          <div className={styles.badge}>B</div>
+        </div>
       </div>
     </button>
   );

@@ -34,7 +34,7 @@ function DashBoard() {
           <Column key={`column_${id}`} targetId={id} title={title} />
         ))}
         <div className={styles['add-column']}>
-          <CDSButton btnType="column">새로운 칼럼 추가하기</CDSButton>
+          <CDSButton btnType="column">새로운 컬럼 추가하기</CDSButton>
         </div>
       </div>
     </div>

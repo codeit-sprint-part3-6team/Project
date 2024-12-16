@@ -3,7 +3,7 @@ import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
 import getCards from '@/lib/dashboard/getCards';
 import { GetCardsResponse } from '@/type/card';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
 
@@ -18,22 +18,61 @@ function Column({ targetId, title }: ColumnProp) {
     totalCount: null,
     cursorId: null,
   });
+  const isFirstRender = useRef(true);
+  const endPoint = useRef(null);
 
-  const fetchCards = async () => {
-    try {
-      const response = await getCards({ teamId: '11-6', columnId: targetId });
+  const fetchCards = useCallback(
+    async (cursor?: number) => {
+      try {
+        const response = await getCards({
+          teamId: '11-6',
+          columnId: targetId,
+          cursorId: cursor,
+        });
 
-      const { cards, totalCount, cursorId } = response;
+        const { cards, totalCount, cursorId } = response;
 
-      setColumnData({ cards, totalCount, cursorId });
-    } catch (error) {
-      console.error('컬럼 조회 실패 : ', error);
-    }
-  };
+        setColumnData((prev) => ({
+          cards: [...prev.cards, ...cards],
+          totalCount,
+          cursorId,
+        }));
+      } catch (error) {
+        console.error('컬럼 조회 실패 : ', error);
+      }
+    },
+    [targetId],
+  );
+
+  const handleObserver = useCallback(
+    ([entry]) => {
+      if (entry.isIntersecting) fetchCards(columnData.cursorId);
+    },
+    [fetchCards, columnData.cursorId],
+  );
 
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     fetchCards();
   }, []);
+
+  useEffect(() => {
+    if (!endPoint.current) return;
+
+    const observer = new IntersectionObserver(handleObserver, {
+      root: endPoint.current.parentNode,
+      threshold: 0.95,
+    });
+
+    observer.observe(endPoint.current);
+
+    // eslint-disable-next-line consistent-return
+    return () => observer.disconnect();
+  }, [handleObserver]);
   return (
     <div className={styles.column}>
       <div className={styles['column-title-section']}>
@@ -62,6 +101,9 @@ function Column({ targetId, title }: ColumnProp) {
             dueDate={card.dueDate}
           />
         ))}
+        {columnData.cursorId && (
+          <div ref={endPoint} className={styles['end-point']} />
+        )}
       </div>
     </div>
   );

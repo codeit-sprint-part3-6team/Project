@@ -91,6 +91,10 @@
   display: none;
 }
 
+.end-point {
+  height: 1px;
+}
+
 @media screen and (max-width: 1199px) {
   .column {
     width: 100%;

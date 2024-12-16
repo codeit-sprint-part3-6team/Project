@@ -5,6 +5,8 @@ import uploadImage from '@/lib/mypage/uploadImage';
 import Image from 'next/image';
 import clsx from 'clsx';
 import modifyProfile from '@/lib/mypage/modifyProfile';
+import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
+import AuthModal from '@/components/common/modal/auth/AuthModal';
 import styles from './ModifyProfile.module.css';
 
 interface ModifyValue {
@@ -27,6 +29,11 @@ export default function ModifyProfile({
   const [values, setValues] = useState<ModifyValue>(initialValue);
   const [preview, setPreview] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
+  const [modal, setModal] = useState<boolean>(false);
+
+  const handleCancelClick = () => {
+    setModal(false);
+  };
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -51,7 +58,7 @@ export default function ModifyProfile({
         nickname: newProfile.nickname,
         profileImageUrl: newProfile.profileImageUrl,
       });
-      // 모달창으로 수정이 완료되었다고 알리기 추가
+      setModal(true);
     } catch (error) {
       console.error(error);
     }
@@ -116,6 +123,14 @@ export default function ModifyProfile({
           </div>
         </div>
       </div>
+      {modal && (
+        <OverlayContainer>
+          <AuthModal
+            message={'프로필 수정이 완료되었습니다.'}
+            handleCancelClick={handleCancelClick}
+          />
+        </OverlayContainer>
+      )}
     </section>
   );
 }

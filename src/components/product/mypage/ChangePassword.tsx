@@ -47,7 +47,7 @@ export default function ChangePassword({
         confirmPassword: '',
         error: null,
       });
-      // 비밀번호가 성공적으로 변경되었다는 모달 추가
+      setModal(true);
     } catch (e) {
       setModal(true);
       setErrorMessage(e.message);
@@ -130,7 +130,9 @@ export default function ChangePassword({
       {modal && (
         <OverlayContainer>
           <AuthModal
-            message={errorMessage}
+            message={
+              errorMessage ? errorMessage : '비밀번호 변경이 완료되었습니다.'
+            }
             handleCancelClick={handleCancelClick}
           />
         </OverlayContainer>

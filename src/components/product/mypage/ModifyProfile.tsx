@@ -9,6 +9,7 @@ import OverlayContainer from '@/components/common/modal/overlay-container/Overla
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/settingSlice';
+import { AppDispatch, RootState } from '@/redux/store';
 import styles from './ModifyProfile.module.css';
 
 interface ModifyValue {
@@ -17,7 +18,7 @@ interface ModifyValue {
 }
 
 export default function ModifyProfile() {
-  const user = useSelector((state: any) => state.userInfo.user);
+  const user = useSelector((state: RootState) => state.userInfo.user);
   const [values, setValues] = useState<ModifyValue>({
     nickname: user?.nickname || '', // user가 없을 경우 기본값 설정
     profileImageUrl: user?.profileImageUrl || '',
@@ -25,7 +26,7 @@ export default function ModifyProfile() {
   const [preview, setPreview] = useState<string | null>(null);
   const [image, setImage] = useState<File | null>(null);
   const [modal, setModal] = useState<boolean>(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   // user 변경 시 values 상태 동기화
   useEffect(() => {
@@ -69,7 +70,7 @@ export default function ModifyProfile() {
       dispatch(
         setUserInfo({
           user: {
-            ...user, // 기존 user 정보 유지
+            ...user,
             nickname: newProfile.nickname,
             profileImageUrl: newProfile.profileImageUrl,
           },
@@ -144,7 +145,7 @@ export default function ModifyProfile() {
       {modal && (
         <OverlayContainer>
           <AuthModal
-            message={'프로필 수정이 완료되었습니다.'}
+            message="프로필 수정이 완료되었습니다."
             handleCancelClick={handleCancelClick}
           />
         </OverlayContainer>

@@ -12,6 +12,7 @@ import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { postSignin } from '@/lib/signin/postSignin';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/settingSlice';
+import { AppDispatch } from '@/redux/store';
 
 const INITIAL_VALUES = {
   email: '',
@@ -26,7 +27,7 @@ function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const isEmailValid = emailValidation(values.email);
@@ -69,7 +70,6 @@ function SignIn() {
       // 리덕스 액션 호출
       dispatch(
         setUserInfo({
-          accessToken: response.accessToken,
           user: response.user,
         }),
       );

@@ -239,13 +239,11 @@
   }
 
   .column {
-    max-width: 284px;
     height: 66px;
     font-size: 16px;
   }
 
   .todo {
-    max-width: 282px;
     height: 32px;
   }
 

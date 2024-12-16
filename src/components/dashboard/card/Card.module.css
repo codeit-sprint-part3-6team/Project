@@ -18,11 +18,17 @@
   position: relative;
   overflow: hidden;
 
+  flex-shrink: 0;
+
   width: 100%;
   height: 160px;
 
   margin-bottom: 15px;
   border-radius: 6px;
+}
+
+.content-section {
+  width: 100%;
 }
 
 .card-title {
@@ -31,6 +37,10 @@
   font-size: 16px;
   font-weight: 500;
   line-height: 26px;
+}
+
+.description-section {
+  position: relative;
 }
 
 .card-tags {
@@ -57,4 +67,100 @@
 .icon-calendar {
   width: 18px;
   height: 18px;
+}
+
+.badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  bottom: 0;
+  right: 0;
+
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+  background-color: #a3c4a2;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
+  color: var(--white);
+}
+
+@media screen and (max-width: 1199px) {
+  .card {
+    display: flex;
+    gap: 20px;
+
+    padding: 14px 20px;
+  }
+
+  .card-image {
+    width: 91px;
+    height: 53px;
+
+    margin-bottom: 0;
+  }
+
+  .description-section {
+    display: flex;
+    align-items: center;
+  }
+
+  .card-tags {
+    margin-bottom: 0;
+  }
+
+  .card-date {
+    margin-left: 16px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .card {
+    flex-direction: column;
+    gap: 4px;
+
+    margin-bottom: 10px;
+    padding: 12px 12px 5px 12px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 152px;
+
+    margin-bottom: 0;
+  }
+
+  .card-title {
+    margin-bottom: 6px;
+
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .description-section {
+    display: block;
+  }
+
+  .card-date {
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  .icon-calendar {
+    width: 14px;
+    height: 14px;
+  }
+
+  .badge {
+    width: 22px;
+    height: 22px;
+
+    font-size: 10px;
+    line-height: 12px;
+  }
 }

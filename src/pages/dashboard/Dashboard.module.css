@@ -22,3 +22,36 @@
 
   margin: 68px 20px 0;
 }
+
+@media screen and (max-width: 1199px) {
+  .container {
+    flex-direction: column;
+
+    width: calc(100% - 160px);
+    height: calc(100vh - 70px);
+
+    margin-left: 160px;
+  }
+
+  .add-column {
+    width: calc(100% - 40px);
+
+    margin: 20px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .container {
+    width: calc(calc(100% - 67px));
+    height: calc(100vh - 60px);
+
+    margin-top: 60px;
+    margin-left: 67px;
+  }
+
+  .add-column {
+    width: calc(100% - 24px);
+
+    margin: 0 12px 49px;
+  }
+}

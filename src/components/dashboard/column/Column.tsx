@@ -3,7 +3,7 @@ import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
 import getCards from '@/lib/dashboard/getCards';
 import { GetCardsResponse } from '@/type/card';
-import { MouseEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
 

@@ -90,3 +90,43 @@
 .card-section::-webkit-scrollbar {
   display: none;
 }
+
+@media screen and (max-width: 1199px) {
+  .column {
+    width: 100%;
+    height: fit-content;
+
+    margin-top: 22px;
+    padding: 0 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--gray-bright);
+  }
+
+  .card-section {
+    overflow-y: hidden;
+
+    height: fit-content;
+
+    margin-top: 16px;
+    margin-bottom: 4px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .column {
+    width: calc(100% - 24px);
+
+    margin: 16px 12px;
+    padding: 0;
+  }
+
+  .card-section {
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+
+  .btn-edit-column {
+    width: 22px;
+    height: 22px;
+  }
+}

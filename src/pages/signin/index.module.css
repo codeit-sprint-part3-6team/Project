@@ -1,4 +1,4 @@
-.signin_container {
+.signin-container {
   margin: 223px auto 0 auto;
   width: 520px;
 }
@@ -23,24 +23,24 @@
   margin: 10px 0 30px;
 }
 
-.login_button {
+.login-button {
   margin-top: 24px;
 }
 
-.signupText {
+.signup-text {
   margin-top: 24px;
   font-size: 16px;
   font-weight: 400;
   text-align: center;
 }
 
-.signupText a {
+.signup-text a {
   color: var(--violet);
   text-decoration: underline;
 }
 
 @media screen and (max-width: 743px) {
-  .signin_container {
+  .signin-container {
     margin: 73px auto 0 auto;
     width: 350px;
   }
@@ -51,7 +51,7 @@
     margin: 8px 0 36px;
   }
 
-  .login_button {
+  .login-button {
     margin-top: 16px;
   }
 }

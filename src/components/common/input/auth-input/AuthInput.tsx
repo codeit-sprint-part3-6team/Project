@@ -43,12 +43,12 @@ function AuthInput({
   };
 
   return (
-    <div className={styles.authField}>
+    <div className={styles['auth-field']}>
       <label className={styles.title} htmlFor={htmlFor}>
         {title}
       </label>
 
-      <div className={`${styles.authInput} ${error ? styles.error : ''}`}>
+      <div className={`${styles['auth-input']} ${error ? styles.error : ''}`}>
         <input
           name={name}
           type={inputType}
@@ -68,7 +68,7 @@ function AuthInput({
         )}
       </div>
 
-      {error && <span className={styles.errorMessage}>{errorMessage}</span>}
+      {error && <span className={styles['error-message']}>{errorMessage}</span>}
     </div>
   );
 }

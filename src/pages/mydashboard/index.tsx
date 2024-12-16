@@ -82,23 +82,20 @@ export default function MyDashboard() {
 
         {/* 페이지네이션 */}
         <div className={styles.pagination}>
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className={styles['page-button']}
-          >
-            이전
-          </button>
           <span>
             {totalPages} 페이지 중 {currentPage}
           </span>
-          <button
+          <CDSButton
+            btnType="pagination_prev"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+
+          <CDSButton
+            btnType="pagination_next"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={styles['page-button']}
-          >
-            다음
-          </button>
+          />
         </div>
       </div>
 

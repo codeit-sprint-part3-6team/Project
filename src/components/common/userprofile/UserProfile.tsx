@@ -2,7 +2,7 @@ import styles from './UserProfile.module.css';
 import Avatar from '@mui/material/Avatar';
 
 type UserProfileProps = {
-  type?: 'header' | 'dashboard_detail' | 'todo_detail' | 'todo_create';
+  type?: 'header' | 'dashboard-detail' | 'todo-detail' | 'todo-create';
   onlyImg?: boolean;
   nickname: string;
   profileImageUrl?: string | null;
@@ -16,8 +16,8 @@ function UserProfile({
 }: UserProfileProps) {
   return (
     <>
-      <div className={`${styles.user_profile} ${styles[type]}`}>
-        <div className={styles.user_img}>
+      <div className={`${styles['user-profile']} ${styles[type]}`}>
+        <div className={styles['user-img']}>
           {profileImageUrl ? (
             <Avatar src={profileImageUrl} alt={nickname} />
           ) : (
@@ -25,7 +25,9 @@ function UserProfile({
           )}
         </div>
 
-        {!onlyImg && <span className={styles.user_nickname}>{nickname}</span>}
+        {!onlyImg && (
+          <span className={styles['user-nickname']}>{nickname}</span>
+        )}
       </div>
     </>
   );

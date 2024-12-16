@@ -1,18 +1,18 @@
 import { ChangeEvent, FocusEvent, FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { postSignin } from '@/lib/signin/postSignin';
 import Link from 'next/link';
-import styles from './index.module.css';
-import Logo from 'public/images/img_signinlogo.svg';
-import AuthInput from '@/components/common/input/AuthInput';
+import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import CDSButton from '@/components/common/button/CDSButton';
-import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
-import { emailValidation, passwordValidation } from '@/utils/authValidation';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
-import { postSignin } from '@/lib/signin/postSignin';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/settingSlice';
 import { AppDispatch } from '@/redux/store';
+import Logo from 'public/images/img_signinlogo.svg';
+import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
+import { emailValidation, passwordValidation } from '@/utils/authValidation';
+import styles from './index.module.css';
 
 const INITIAL_VALUES = {
   email: '',
@@ -74,10 +74,8 @@ function SignIn() {
         }),
       );
       router.push('/mydashboard');
-    } catch (error: any) {
-      if (error?.message) {
-        setResponseMessage(error.message);
-      }
+    } catch (error) {
+      setResponseMessage(error.message);
       setIsModalVisible(true);
     }
   };
@@ -89,7 +87,7 @@ function SignIn() {
 
   return (
     <>
-      <div className={styles.signin_container}>
+      <div className={styles['signin-container']}>
         <div className={styles.logo}>
           <Logo />
         </div>
@@ -127,14 +125,14 @@ function SignIn() {
             autoComplete="password"
           />
 
-          <div className={styles.login_button}>
+          <div className={styles['login-button']}>
             <CDSButton btnType="auth" type="submit" disabled={disabled}>
               로그인
             </CDSButton>
           </div>
         </form>
 
-        <p className={styles.signupText}>
+        <p className={styles['signup-text']}>
           회원이 아니신가요? <Link href={'/signup'}>회원가입하기</Link>
         </p>
       </div>

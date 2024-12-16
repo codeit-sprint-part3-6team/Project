@@ -1,6 +1,6 @@
 import Sidebar from '@/components/common/sidebar/Sidebar';
 import styles from './edit.module.css';
-import ReturnButton from '@/components/product/edit/ReturnButton';
+import ReturnButton from '@/components/common/button/ReturnButton';
 import MainTitle from '@/components/product/edit/MainTitle';
 import MemberTitle from '@/components/product/edit/MemberTitle';
 import InviteTitle from '@/components/product/edit/InviteTitle';

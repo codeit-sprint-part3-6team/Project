@@ -64,10 +64,8 @@ function SignIn() {
       console.log(response.accessToken);
       sessionStorage.setItem('accessToken', response.accessToken);
       router.push('/mydashboard');
-    } catch (error: any) {
-      if (error?.message) {
-        setResponseMessage(error.message);
-      }
+    } catch (error) {
+      setResponseMessage(error.message);
       setIsModalVisible(true);
     }
   };
@@ -79,7 +77,7 @@ function SignIn() {
 
   return (
     <>
-      <div className={styles.signin_container}>
+      <div className={styles['signin-container']}>
         <div className={styles.logo}>
           <Logo />
         </div>
@@ -117,14 +115,14 @@ function SignIn() {
             autoComplete="password"
           />
 
-          <div className={styles.login_button}>
+          <div className={styles['login-button']}>
             <CDSButton btnType="auth" type="submit" disabled={disabled}>
               로그인
             </CDSButton>
           </div>
         </form>
 
-        <p className={styles.signupText}>
+        <p className={styles['signup-text']}>
           회원이 아니신가요? <Link href={'/signup'}>회원가입하기</Link>
         </p>
       </div>

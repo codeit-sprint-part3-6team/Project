@@ -1,0 +1,33 @@
+.column {
+  flex-shrink: 0;
+
+  width: 354px;
+
+  padding: 20px;
+  border-right: 1px solid var(--gray-bright);
+}
+
+.column-title {
+  position: relative;
+
+  margin-bottom: 25px;
+  padding-left: 16px;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.column-title::before {
+  content: '';
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background-color: var(--violet);
+}

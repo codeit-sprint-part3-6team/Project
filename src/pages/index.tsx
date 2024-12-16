@@ -1,11 +1,19 @@
-import Codeit from 'public/ic/ic_codeit.svg';
+import Header from '@/components/product/landing/Header';
+import Main from '@/components/product/landing/Main';
+import Footer from '@/components/product/landing/Footer';
 
 export default function Home() {
   return (
-    <>
-      중급 프로젝트-taskify
-      <br />
-      <Codeit width={50} height={50} />
-    </>
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'var(--black)',
+      }}
+    >
+      <Header />
+      <Main />
+      <Footer />
+    </div>
   );
 }

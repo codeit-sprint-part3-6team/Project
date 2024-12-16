@@ -4,6 +4,7 @@
   background-color: var(--white);
   padding: 20px 12px 0 8px;
   position: fixed;
+  border-right: 1px solid var(--gray-medium);
 }
 
 .logo {
@@ -119,7 +120,7 @@
     margin-bottom: 14px;
   }
 
-  .logo img:nth-child(2) {
+  .logo svg:nth-child(2) {
     display: none;
   }
 

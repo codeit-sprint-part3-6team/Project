@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 36px;
+  font-family: 'Pretandard';
 }
 
 .title {
@@ -20,7 +21,7 @@
 }
 
 .card_container {
-  background-color: #171717;
+  background-color: var(--black-dark);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   width: 378px;
@@ -31,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #4b4b4b;
+  background-color: var(--black-bright);
   height: 260px;
 }
 

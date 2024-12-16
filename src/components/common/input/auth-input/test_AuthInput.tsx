@@ -1,4 +1,4 @@
-import AuthInput from '@/components/common/input/AuthInput';
+import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import { useState } from 'react';
 
 export default function TestAuthInput() {

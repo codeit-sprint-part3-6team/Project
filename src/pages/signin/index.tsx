@@ -1,15 +1,15 @@
 import { ChangeEvent, FocusEvent, FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { postSignin } from '@/lib/signin/postSignin';
 import styles from './index.module.css';
-import Logo from 'public/images/img_signinlogo.svg';
-import AuthInput from '@/components/common/input/AuthInput';
+import Link from 'next/link';
+import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import CDSButton from '@/components/common/button/CDSButton';
-import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
-import { emailValidation, passwordValidation } from '@/utils/authValidation';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
-import { postSignin } from '@/lib/signin/postSignin';
+import Logo from 'public/images/img_signinlogo.svg';
+import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
+import { emailValidation, passwordValidation } from '@/utils/authValidation';
 
 const INITIAL_VALUES = {
   email: '',

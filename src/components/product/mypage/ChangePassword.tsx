@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import CDSButton from '@/components/common/button/CDSButton';
 import clsx from 'clsx';
 import changePassword from '@/lib/mypage/changePassword';
+import CDSButton from '@/components/common/button/CDSButton';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import styles from './ChangePassword.module.css';

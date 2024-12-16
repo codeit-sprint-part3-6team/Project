@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react';
-import Plus from 'public/ic/ic_imgplus.svg';
-import CDSButton from '@/components/common/button/CDSButton';
-import uploadImage from '@/lib/mypage/uploadImage';
-import Image from 'next/image';
-import clsx from 'clsx';
-import modifyProfile from '@/lib/mypage/modifyProfile';
-import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
-import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/settingSlice';
 import { AppDispatch, RootState } from '@/redux/store';
+import uploadImage from '@/lib/mypage/uploadImage';
+import modifyProfile from '@/lib/mypage/modifyProfile';
+import CDSButton from '@/components/common/button/CDSButton';
+import ProfileImageInput from './ProfileImageInput';
+import ProfileInfoForm from './ProfileInfoForm';
+import ProfileModifyModal from './ProfileModifyModal';
 import styles from './ModifyProfile.module.css';
 
 interface ModifyValue {
@@ -20,7 +18,7 @@ interface ModifyValue {
 export default function ModifyProfile() {
   const user = useSelector((state: RootState) => state.userInfo.user);
   const [values, setValues] = useState<ModifyValue>({
-    nickname: user?.nickname || '', // user가 없을 경우 기본값 설정
+    nickname: user?.nickname || '',
     profileImageUrl: user?.profileImageUrl || '',
   });
   const [preview, setPreview] = useState<string | null>(null);
@@ -51,6 +49,7 @@ export default function ModifyProfile() {
     }));
   };
 
+  // 프로필 변경 클릭시 함수
   const handleSubmit = async () => {
     try {
       let imageUrl = values.profileImageUrl;
@@ -95,46 +94,16 @@ export default function ModifyProfile() {
     <section className={styles[`modify-profile`]}>
       <p className={styles.title}>프로필</p>
       <div className={styles[`profile-box`]}>
-        <div className={styles[`img-input-box`]}>
-          <label htmlFor="profile-image" className={styles[`label-input`]}>
-            {preview ? (
-              <div className={styles[`preview-container`]}>
-                <Image
-                  src={preview}
-                  alt="프로필 미리보기 이미지"
-                  fill
-                  className={styles[`img-preview`]}
-                />
-              </div>
-            ) : (
-              <Plus className={styles.plus} width={18} height={18} />
-            )}
-          </label>
-          <input
-            type="file"
-            id="profile-image"
-            onChange={handleImageChange}
-            className={styles[`img-input`]}
+        <ProfileImageInput
+          preview={preview}
+          onImageChange={handleImageChange}
+        />
+        <div>
+          <ProfileInfoForm
+            email={user?.email || ''}
+            nickname={values.nickname}
+            onNicknameChange={handleValueChange}
           />
-        </div>
-        <div className={styles[`input-box`]}>
-          <div>
-            <p className={styles[`sub-title`]}>이메일</p>
-            <input
-              className={clsx(styles.input, styles[`email-input`])}
-              readOnly
-              value={user?.email || ''}
-            />
-          </div>
-          <div>
-            <p className={styles[`sub-title`]}>닉네임</p>
-            <input
-              name="nickname"
-              value={values.nickname}
-              onChange={handleValueChange}
-              className={styles.input}
-            />
-          </div>
           <div className={styles[`save-button`]}>
             <CDSButton btnType="profile_save" onClick={handleSubmit}>
               저장
@@ -143,12 +112,10 @@ export default function ModifyProfile() {
         </div>
       </div>
       {modal && (
-        <OverlayContainer>
-          <AuthModal
-            message="프로필 수정이 완료되었습니다."
-            handleCancelClick={handleCancelClick}
-          />
-        </OverlayContainer>
+        <ProfileModifyModal
+          message="프로필 수정이 완료되었습니다."
+          onCancel={handleCancelClick}
+        />
       )}
     </section>
   );

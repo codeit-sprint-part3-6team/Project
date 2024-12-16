@@ -12,7 +12,7 @@ function TestUserProfile() {
           'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk1MSwidGVhbUlkIjoiMTEtNiIsImlhdCI6MTczNDA4MjM2MCwiaXNzIjoic3AtdGFza2lmeSJ9.1OCu1v8l8V9qtW1sghPM-O7NmEL_LuyIDFqPgb1lhWI',
       },
     });
-    const data = response.data;
+    const { data } = response;
     setUser(data);
   };
 
@@ -21,7 +21,7 @@ function TestUserProfile() {
   }, []);
 
   if (!user) {
-    return;
+    return null;
   }
 
   return (
@@ -53,7 +53,7 @@ function TestUserProfile() {
         nickname={user.nickname}
         profileImageUrl={user?.profileImageUrl}
         type="dashboard_detail"
-        onlyImg={true}
+        onlyImg
       />
 
       <br />

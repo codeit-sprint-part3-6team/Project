@@ -1,11 +1,11 @@
 .title_container {
 	width: 620px; 
-	height: 344px;
+	height: 477px;
 	border-radius: 16px;
 	padding: 32px 28px 32px 28px;
 	margin-top: 22px;
   background-color: var(--white);
-	gap: 10px
+	gap: 10px;
 }
 
 .member_section {
@@ -19,6 +19,16 @@
 	font-size: 24px;
 	line-height: 32px;
 	padding-left: 14px;
+}
+
+.button_section {
+	display: flex;
+  gap: 20px;
+}
+
+.mobile_hidden_button {
+  margin-top: 3px;
+  display: block;
 }
 
 .sub_title {
@@ -42,7 +52,7 @@
 @media screen and (max-width: 743px) {
 	.title_container {
 		width: 284px;
-		height: 312px;
+		height: 406px;
 		border-radius: 8px;
 		padding: 20px 16px 20px 16px;
 	}
@@ -50,6 +60,10 @@
 	.title {
 		font-size: 20px;
 	}
+
+  .mobile_hidden_button {
+    display: none;
+  }
 
 	.sub_title {
 		margin-top: 10px;

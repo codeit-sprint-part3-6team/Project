@@ -1,0 +1,22 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+	padding-right: 28px;
+	padding-left: 28px;
+	margin-top: 15px;
+}
+
+.line {
+	margin-top: 15px;
+	border-color: var(--gray-light); 
+}
+
+@media screen and (max-width: 743px) {
+  .container {
+    margin-top: 13px;
+  }
+
+  .line {
+    margin-top: 13px;
+  }
+}

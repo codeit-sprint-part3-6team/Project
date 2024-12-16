@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+
+  width: fit-content;
+  min-height: calc(100vh - 70px);
+
+  margin-top: 70px;
+  margin-left: 280px;
+
+  background-color: var(--gray-brightes);
+}
+
+.add-column {
+  width: 354px;
+
+  margin: 68px 20px 0;
+}

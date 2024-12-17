@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import styles from './index.module.css';
-import SigninForm from '@/components/product/auth/SigninForm';
+import styles from '../signin/index.module.css';
+import SignupForm from '@/components/product/auth/SignupForm';
 import Logo from 'public/images/img_signinlogo.svg';
 
-function SignIn() {
+function SignUp() {
   return (
     <>
       <div className={styles['signin-container']}>
@@ -12,16 +12,16 @@ function SignIn() {
             <Logo />
           </div>
         </Link>
-        <p className={styles.text}>오늘도 만나서 반가워요!</p>
+        <p className={styles.text}>첫 방문을 환영합니다!</p>
 
-        <SigninForm />
+        <SignupForm />
 
         <p className={styles['link-text']}>
-          회원이 아니신가요? <Link href={'/signup'}>회원가입하기</Link>
+          이미 회원이신가요? <Link href={'/signin'}>로그인하기</Link>
         </p>
       </div>
     </>
   );
 }
 
-export default SignIn;
+export default SignUp;

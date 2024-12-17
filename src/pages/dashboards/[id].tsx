@@ -4,12 +4,13 @@ import getColumns from '@/lib/dashboard/getColumns';
 import { useEffect, useState } from 'react';
 import styles from '@/pages/dashboards/Dashboard.module.css';
 import Column from '@/components/dashboard/column/Column';
+import { Column as ColumnType } from '@/type/column';
 import { useRouter } from 'next/router';
 
 function DashBoard() {
   const router = useRouter();
   const { id } = router.query;
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState<ColumnType[]>([]);
 
   const fetchColumns = async () => {
     try {

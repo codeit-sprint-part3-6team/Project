@@ -17,4 +17,4 @@ interface GetColumnsResponse {
   data: Column[];
 }
 
-export type { GetColumnParams, GetColumnsResponse };
+export type { GetColumnParams, Column, GetColumnsResponse };

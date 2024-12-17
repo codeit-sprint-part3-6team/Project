@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import '@/styles/fonts.css';
+import '@/styles/normalize.css';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import store from '@/redux/store';

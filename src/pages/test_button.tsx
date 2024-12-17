@@ -90,7 +90,7 @@ function ButtonPage() {
       <br />
       <CDSButton
         btnType="dashboard_card"
-        badge="green"
+        badge="#7ac555"
         owner
         onClick={handleClick}
       >

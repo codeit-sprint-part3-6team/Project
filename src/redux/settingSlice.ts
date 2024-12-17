@@ -4,7 +4,7 @@ import { User, UserInfoState } from '@/type/userInfo';
 // 초기 상태 정의
 const initialState: UserInfoState = {
   user: {
-    id: '',
+    id: null,
     email: '',
     nickname: '',
     profileImageUrl: '',

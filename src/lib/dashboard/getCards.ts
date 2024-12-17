@@ -3,7 +3,7 @@ import { GetCardParams, GetCardsResponse } from '@/type/card';
 
 const getCards = async ({
   teamId,
-  size = 5,
+  size = 4,
   cursorId = null,
   columnId,
 }: GetCardParams): Promise<GetCardsResponse> => {

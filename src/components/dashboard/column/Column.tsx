@@ -18,7 +18,8 @@ function Column({ targetId, title }: ColumnProp) {
 
   const handleObserver = useCallback(
     ([entry]) => {
-      if (entry.isIntersecting) fetchCards(columnData.cursorId);
+      if (entry.isIntersecting && columnData.cursorId)
+        fetchCards(columnData.cursorId);
     },
     [fetchCards, columnData.cursorId],
   );
@@ -32,15 +33,14 @@ function Column({ targetId, title }: ColumnProp) {
     }
 
     fetchCards();
-  }, []);
+  }, [fetchCards]);
+
   return (
     <div className={styles.column}>
       <div className={styles['column-title-section']}>
         <div className={styles['column-title']}>
           {title}
-          <span className={styles['column-size']}>
-            {columnData.cards.length}
-          </span>
+          <span className={styles['column-size']}>{columnData.totalCount}</span>
         </div>
         <Link
           href={`/dashboard/${targetId}/edit`}

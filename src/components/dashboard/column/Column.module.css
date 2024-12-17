@@ -107,8 +107,7 @@
   }
 
   .card-section {
-    overflow-y: hidden;
-
+    max-height: 440px;
     height: fit-content;
 
     margin-top: 16px;

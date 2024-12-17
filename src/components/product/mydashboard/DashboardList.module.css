@@ -39,6 +39,74 @@
   color: var(--black-medium);
 }
 
+.modal {
+  background-color: var(--white);
+  width: 584px;
+  height: 344px;
+  padding: 32px;
+  border-radius: 10px;
+}
+
+.modal h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--black-medium);
+}
+
+.modal h3 {
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.modal input {
+  margin-top: 8px;
+  border: 1px solid var(--gray-medium);
+  width: 100%;
+  padding: 15px 16px;
+  border-radius: 8px;
+}
+
+.modal input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black-medium);
+}
+
+.color-picker {
+  margin-top: 16px;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 8px;
+}
+
+.color-circle:hover {
+  cursor: pointer;
+}
+
+.color-picker .color-circle {
+  width: 30px;
+  height: 30px;
+  border: none;
+  margin: 0;
+  position: relative;
+}
+
+.color-selected::after {
+  content: '✓';
+  font-size: 18px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 8px;
+}
+
 @media screen and (max-width: 1199px) {
   .dashboard-container {
     margin-left: 200px;
@@ -63,5 +131,22 @@
 
   .pagination {
     max-width: 260px;
+  }
+
+  .modal {
+    width: 327px;
+    height: 312px;
+  }
+
+  .modal h2 {
+    font-size: 20px;
+  }
+
+  .modal h3 {
+    font-size: 16px;
+  }
+
+  .modal input::placeholder {
+    font-size: 14px;
   }
 }

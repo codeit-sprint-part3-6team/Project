@@ -62,6 +62,7 @@
   color: var(--gray);
   padding: 12px;
   line-height: 26px;
+  font-weight: 500;
 }
 
 .dashboard-item {

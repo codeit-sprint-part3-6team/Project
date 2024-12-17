@@ -13,6 +13,8 @@
 .normal {
   width: 84px;
   height: 32px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .button-content {

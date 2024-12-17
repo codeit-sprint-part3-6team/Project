@@ -5,6 +5,7 @@ import Logo from 'public/images/img_logo.svg';
 import TextLogo from 'public/images/img_textlogo.svg';
 import PlusBtn from 'public/ic/ic_plus.svg';
 import CrownIcon from 'public/ic/ic_crown.svg';
+import CDSButton from '../button/CDSButton';
 
 export default function Sidebar() {
   const [menu, setMenu] = useState([]);
@@ -103,23 +104,17 @@ export default function Sidebar() {
 
         {/* 페이지네이션 컨트롤 */}
         <div className={styles.pagination}>
-          <button
-            type="button"
-            className={styles['pagination-button']}
+          <CDSButton
+            btnType="pagination_prev"
             onClick={() => handlePageChange('prev')}
             disabled={currentPage === 1 || isLoading}
-          >
-            이전
-          </button>
+          />
 
-          <button
-            type="button"
-            className={styles['pagination-button']}
+          <CDSButton
+            btnType="pagination_next"
             onClick={() => handlePageChange('next')}
             disabled={currentPage === totalPages || isLoading}
-          >
-            다음
-          </button>
+          />
         </div>
       </div>
     </div>

@@ -32,12 +32,18 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     height: '48px',
     borderRadius: '8px',
     border: 'none',
+    position: 'relative',
   },
   '& .MuiSvgIcon-root': {
-    position: 'fixed',
-    left: '9px',
     color: '#9fa6b2',
   },
+
+  '& .MuiButtonBase-root': {
+    position: 'absolute',
+    left: '3px',
+    color: '#9fa6b2',
+  },
+
   '& .MuiInputBase-input': {
     fontFamily: "'Pretendard', sans-serif",
     fontWeight: 400,

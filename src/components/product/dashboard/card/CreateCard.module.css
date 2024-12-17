@@ -4,6 +4,12 @@
   border-radius: 16px;
   padding: 32px 0px 32px 32px;
   background-color: var(--white);
+
+  @media screen and (max-width: 743px) {
+    width: 380px;
+    height: 70%;
+    margin: 0px 24px;
+  }
 }
 
 .scrollable-content {
@@ -15,6 +21,10 @@
 .section {
   width: 100%;
   margin-bottom: 32px;
+
+  @media screen and (max-width: 743px) {
+    margin-bottom: 24px;
+  }
 }
 
 .title {
@@ -22,6 +32,11 @@
   font-size: 24px;
   line-height: 32px;
   color: var(--black-medium);
+
+  @media screen and (max-width: 743px) {
+    font-size: 20px;
+    line-height: 23.87px;
+  }
 }
 
 .topic {
@@ -30,23 +45,34 @@
   font-size: 18px;
   line-height: 21.48px;
   color: var(--black-medium);
+
+  @media screen and (max-width: 743px) {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 19.09px;
+  }
 }
 
 .name-select {
   width: 100%;
   height: 48px;
   border: 1px solid var(--gray-medium);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 11px 16px;
   font-weight: 400;
   font-size: 16px;
   color: var(--black-medium);
 }
 
-.name-select::placeholder {
+.name-select::placeholder,
+.description-input::placeholder {
   font-weight: 400;
   font-size: 16px;
   color: var(--gray-dark);
+
+  @media screen and (max-width: 743px) {
+    font-size: 14px;
+  }
 }
 
 .topic-box {
@@ -54,8 +80,28 @@
   align-items: center;
   gap: 2px;
 }
+
 .require {
   font-weight: 400;
   font-size: 16px;
   color: var(--violet);
+}
+
+.description-input {
+  width: 100%;
+  height: 126px;
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  padding: 15px 16px;
+  resize: none;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--black-medium);
+}
+
+.button-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
 }

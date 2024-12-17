@@ -10,7 +10,7 @@ function DashBoard() {
 
   const fetchColumns = async () => {
     try {
-      const response = await getColumns({ teamId: '11-6', dashboardId: 12794 });
+      const response = await getColumns({ teamId: '11-6', dashboardId: 12837 });
 
       const { data, result } = response;
 

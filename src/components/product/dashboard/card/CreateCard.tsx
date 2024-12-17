@@ -5,9 +5,17 @@ import DeadlineInput from '@/components/common/input/info-input/DeadlineInput';
 import CDSButton from '@/components/common/button/CDSButton';
 import ProfileImageInput from '../../mypage/ProfileImageInput';
 import styles from './CreateCard.module.css';
+import CardImageInput from './CardImageInput';
 
-export default function CreateCard() {
+interface CreateCardProps {
+  onClose: () => void;
+}
+
+export default function CreateCard({ onClose }: CreateCardProps) {
   const handleClick = () => {};
+  const handleCancelClick = () => {
+    onClose();
+  };
   return (
     <OverlayContainer>
       <div className={styles.container}>
@@ -19,11 +27,10 @@ export default function CreateCard() {
             <p className={styles.topic}>담당자</p>
             <input
               type="text"
-              placeholder="이름을 입력해 주세요"
-              autocomplete="off"
+              placeholder="이름을 입력해 주세요."
               className={styles[`name-select`]}
             />
-            <div class="options" id="comboOptions">
+            <div id="comboOptions">
               <div>옵션 1</div>
               <div>옵션 2</div>
               <div>옵션 3</div>
@@ -44,7 +51,10 @@ export default function CreateCard() {
               <p className={styles.topic}>설명</p>
               <p className={styles.require}>*</p>
             </div>
-            <input placeholder="설명을 입력해 주세요" />
+            <textarea
+              className={styles[`description-input`]}
+              placeholder="설명을 입력해 주세요."
+            />
           </section>
           <section className={styles.section}>
             <DeadlineInput />
@@ -60,10 +70,10 @@ export default function CreateCard() {
           </section>
           <section className={styles.section}>
             <p className={styles.topic}>이미지</p>
-            <ProfileImageInput />
+            <CardImageInput />
           </section>
-          <section>
-            <CDSButton btnType="modal" onClick={handleClick}>
+          <section className={styles[`button-box`]}>
+            <CDSButton btnType="modal" onClick={handleCancelClick}>
               취소
             </CDSButton>
             <CDSButton btnType="modal_colored" onClick={handleClick}>

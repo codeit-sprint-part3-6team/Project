@@ -1,11 +1,12 @@
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useColumnData from '@/hooks/useColumnData';
+import CreateCard from '@/components/product/dashboard/card/CreateCard';
 
 interface ColumnProp {
   targetId: number;
@@ -15,6 +16,7 @@ interface ColumnProp {
 function Column({ targetId, title }: ColumnProp) {
   const { columnData, fetchCards } = useColumnData(targetId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
+  const [modal, setModal] = useState(false);
 
   const handleObserver = useCallback(
     ([entry]) => {
@@ -25,6 +27,10 @@ function Column({ targetId, title }: ColumnProp) {
   );
 
   const endPoint = useIntersectionObserver(handleObserver);
+
+  const handleClick = () => {
+    setModal(true);
+  };
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -49,7 +55,7 @@ function Column({ targetId, title }: ColumnProp) {
           <SettingIcon className={styles['icon-setting']} />
         </Link>
       </div>
-      <CDSButton btnType="todo" />
+      <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
         {columnData.cards.map((card) => (
           <Card
@@ -65,6 +71,7 @@ function Column({ targetId, title }: ColumnProp) {
           <div ref={endPoint} className={styles['end-point']} />
         )}
       </div>
+      {modal && <CreateCard onClose={() => setModal(false)} />}
     </div>
   );
 }

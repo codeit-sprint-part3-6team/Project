@@ -13,6 +13,8 @@ interface CardProps {
 }
 
 function Card({ imageUrl, id, title, tags, dueDate }: CardProps) {
+  const fomattedDueDate = formatDate(dueDate);
+
   return (
     <button type="button" className={styles.card}>
       <CardImage image={imageUrl} name={title} />
@@ -28,7 +30,7 @@ function Card({ imageUrl, id, title, tags, dueDate }: CardProps) {
           </div>
           <div className={styles['card-date']}>
             <CalendarIcon className={styles['icon-calendar']} />
-            <span className={styles.date}>{formatDate(dueDate)}</span>
+            <span className={styles.date}>{fomattedDueDate}</span>
           </div>
           <div className={styles.badge}>B</div>
         </div>

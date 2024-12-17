@@ -8,7 +8,7 @@ import styles from './edit.module.css';
 
 export default function EditPage() {
   // 대시보드 삭제
-  const handleClick = (e) => {
+  const handleDeleteClick = (e) => {
     console.log(e);
   };
 
@@ -23,7 +23,7 @@ export default function EditPage() {
           <InviteTitle />
         </div>
         <div className={styles.button}>
-          <CDSButton btnType="dashboard_delete" onClick={handleClick}>
+          <CDSButton btnType="dashboard_delete" onClick={handleDeleteClick}>
             대시보드 삭제하기
           </CDSButton>
         </div>

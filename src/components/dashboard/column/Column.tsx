@@ -51,16 +51,19 @@ function Column({ targetId, columnTitle }: ColumnProp) {
       </div>
       <CDSButton btnType="todo" />
       <div className={styles['card-section']}>
-        {columnData.cards.map(({ imageUrl, id, title, tags, dueDate }) => (
-          <Card
-            key={`card_${id}`}
-            imageUrl={imageUrl}
-            id={id}
-            title={title}
-            tags={tags}
-            dueDate={dueDate}
-          />
-        ))}
+        {columnData.cards.map(
+          ({ imageUrl, id, title, tags, dueDate, assignee: { nickname } }) => (
+            <Card
+              key={`card_${id}`}
+              imageUrl={imageUrl}
+              id={id}
+              title={title}
+              tags={tags}
+              dueDate={dueDate}
+              nickname={nickname}
+            />
+          ),
+        )}
         {columnData.cursorId && (
           <div ref={endPoint} className={styles['end-point']} />
         )}

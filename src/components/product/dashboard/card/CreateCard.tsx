@@ -1,18 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import DeadlineInput from '@/components/common/input/info-input/DeadlineInput';
 import CDSButton from '@/components/common/button/CDSButton';
-import ProfileImageInput from '../../mypage/ProfileImageInput';
-import styles from './CreateCard.module.css';
+import cardImageUpload from '@/lib/dashboard/CardImageUpload';
 import CardImageInput from './CardImageInput';
+import styles from './CreateCard.module.css';
 
 interface CreateCardProps {
+  targetId: number;
   onClose: () => void;
 }
 
-export default function CreateCard({ onClose }: CreateCardProps) {
-  const handleClick = () => {};
+export default function CreateCard({ targetId, onClose }: CreateCardProps) {
+  const [preview, setPreview] = useState<string | null>(null);
+  const [image, setImage] = useState<File | null>(null);
+
+  // 생성 버튼 클릭시 함수
+  const handleSubmit = async () => {
+    try {
+      let imageUrl = null;
+
+      if (image) {
+        imageUrl = await cardImageUpload(image, targetId);
+      }
+
+      // const putData = {
+      //   nickname: values.nickname,
+      //   profileImageUrl: imageUrl,
+      // };
+      // const newProfile = await modifyProfile(putData);
+      // setValues({
+      //   nickname: newProfile.nickname,
+      //   profileImageUrl: newProfile.profileImageUrl,
+      // });
+      onClose(); // 모달 닫기
+    } catch (error) {
+      console.error('handleSubmit Error:', error);
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImage(file);
+      const imgURL = URL.createObjectURL(file);
+      setPreview(imgURL);
+    }
+  };
+  console.log(preview);
+
   const handleCancelClick = () => {
     onClose();
   };
@@ -70,13 +107,16 @@ export default function CreateCard({ onClose }: CreateCardProps) {
           </section>
           <section className={styles.section}>
             <p className={styles.topic}>이미지</p>
-            <CardImageInput />
+            <CardImageInput
+              preview={preview}
+              onImageChange={handleImageChange}
+            />
           </section>
           <section className={styles[`button-box`]}>
             <CDSButton btnType="modal" onClick={handleCancelClick}>
               취소
             </CDSButton>
-            <CDSButton btnType="modal_colored" onClick={handleClick}>
+            <CDSButton btnType="modal_colored" onClick={handleSubmit}>
               생성
             </CDSButton>
           </section>

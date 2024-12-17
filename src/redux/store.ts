@@ -23,7 +23,7 @@ const loadState = () => {
 const store = configureStore({
   reducer: {
     userInfo: userInfoReducer, // userInfo 상태를 처리하는 리듀서를 설정
-  },
+  } as any,
   preloadedState: loadState(), // 새로 고침 되어도 이전 상태 유지
 });
 

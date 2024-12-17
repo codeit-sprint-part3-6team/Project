@@ -2,7 +2,7 @@ import Sidebar from '@/components/common/sidebar/Sidebar';
 import CDSButton from '@/components/common/button/CDSButton';
 import getColumns from '@/lib/dashboard/getColumns';
 import { useEffect, useState, useCallback } from 'react';
-import styles from '@/pages/dashboards/Dashboard.module.css';
+import styles from '@/pages/dashboard/Dashboard.module.css';
 import Column from '@/components/dashboard/column/Column';
 import { Column as ColumnType } from '@/type/column';
 import { useRouter } from 'next/router';

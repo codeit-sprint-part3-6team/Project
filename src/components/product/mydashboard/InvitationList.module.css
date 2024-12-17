@@ -38,45 +38,56 @@
   margin-top: 24px;
   margin-left: 340px;
   background-color: var(--white);
-  width: 1022px;
+  max-width: 1022px;
 }
 
 .table {
-  width: 1022px;
-  padding: 0 76px;
+  width: 100%;
+  border-collapse: collapse;
+  padding-left: 60px;
 }
 
-.table-head {
-  width: 798px;
-  display: flex;
-  justify-content: space-between;
+.table-head th,
+.table-body td {
+  text-align: left;
+  padding: 20px 76px;
+  border-bottom: 1px solid var(--gray-bright);
 }
 
-.table-title {
+.table-head th:nth-child(3),
+.table-body td:nth-child(3) {
+  text-align: center;
+  justify-content: center;
+}
+
+.table-head th {
   font-size: 16px;
   font-weight: 400;
   color: var(--gray-dark);
-  text-align: left;
-  padding-bottom: 20px;
 }
 
-.table-body {
-  width: 860px;
-  display: flex;
-  gap: 235px;
-}
-
-.table-content {
+.table-body td {
   font-size: 16px;
   font-weight: 400;
   color: var(--black-medium);
-  margin-bottom: 30px;
+}
+
+.table-content-title {
+  display: none;
 }
 
 .invitation-btn {
   display: flex;
   gap: 10px;
-  margin-left: 40px;
+}
+
+.table-body tr:last-child td {
+  border-bottom: none; /* 마지막 줄은 선 제거 */
+}
+
+.invitation-btn {
+  display: flex;
+  gap: 10px;
   font-weight: 500;
 }
 
@@ -85,11 +96,94 @@
     max-width: 504px;
     margin-left: 200px;
   }
+
+  .table {
+    max-width: 450px;
+    margin-left: 28px;
+  }
+
+  .table-head th,
+  .table-body td {
+    padding: 20px 0;
+  }
+
+  .head {
+    padding: 18px 28px;
+    margin-top: 48px;
+  }
 }
 
 @media screen and (max-width: 743px) {
   .invitation-container {
     max-width: 260px;
     margin-left: 90px;
+  }
+
+  .head {
+    padding: 24px 16px;
+    margin-top: 24px;
+  }
+
+  .table-content-title {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gray-dark);
+    width: 38px;
+  }
+
+  .table-content {
+    display: flex;
+    gap: 24px;
+  }
+
+  .table-body td {
+    border: none;
+    margin-bottom: 3px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .table {
+    display: block; /* 테이블 레이아웃을 블록으로 변경 */
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .table-head {
+    display: none; /* 헤더는 모바일에서 숨김 */
+  }
+
+  .table-body {
+    display: flex;
+    flex-direction: column; /* 세로 카드 구조 */
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 10px 16px;
+    background-color: var(--white);
+    border-bottom: 1px solid var(--gray-bright);
+  }
+
+  .table-body tr {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .table-body td {
+    display: flex;
+    padding: 4px 0;
+    font-size: 14px;
+    color: var(--black-medium);
+  }
+
+  /* 수락/거절 버튼 */
+  .invitation-btn {
+    justify-content: flex-start;
+    margin-top: 10px;
   }
 }

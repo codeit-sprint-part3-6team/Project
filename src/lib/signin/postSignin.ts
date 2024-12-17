@@ -8,11 +8,11 @@ type valuesProps = {
 type userDataResponse = {
   accessToken: string;
   user: {
-    id: number;
+    id: string;
     email: string;
     nickname: string;
     profileImageUrl: string;
-    createAt: string;
+    createdAt: string;
     updatedAt: string;
   };
 };

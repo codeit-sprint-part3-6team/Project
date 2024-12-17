@@ -65,7 +65,6 @@ function SignIn() {
 
     try {
       const response = await postSignin(values);
-      console.log(response.accessToken);
       sessionStorage.setItem('accessToken', response.accessToken);
       // 리덕스 액션 호출
       dispatch(

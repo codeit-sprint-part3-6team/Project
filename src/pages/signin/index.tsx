@@ -1,15 +1,18 @@
 import { ChangeEvent, FocusEvent, FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { postSignin } from '@/lib/signin/postSignin';
-import styles from './index.module.css';
 import Link from 'next/link';
 import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import CDSButton from '@/components/common/button/CDSButton';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
+import { useDispatch } from 'react-redux';
+import { setUserInfo } from '@/redux/settingSlice';
+import { AppDispatch } from '@/redux/store';
 import Logo from 'public/images/img_signinlogo.svg';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
 import { emailValidation, passwordValidation } from '@/utils/authValidation';
+import styles from './index.module.css';
 
 const INITIAL_VALUES = {
   email: '',
@@ -24,6 +27,7 @@ function SignIn() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const isEmailValid = emailValidation(values.email);
@@ -63,6 +67,12 @@ function SignIn() {
       const response = await postSignin(values);
       console.log(response.accessToken);
       sessionStorage.setItem('accessToken', response.accessToken);
+      // 리덕스 액션 호출
+      dispatch(
+        setUserInfo({
+          user: response.user,
+        }),
+      );
       router.push('/mydashboard');
     } catch (error) {
       setResponseMessage(error.message);

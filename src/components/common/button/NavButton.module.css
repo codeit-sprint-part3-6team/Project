@@ -1,0 +1,33 @@
+.button {
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: none;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gray);
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+.button + .button {
+  margin-left: 16px;
+}
+
+.button.management::before,
+.button.invite::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url('/ic/ic_setting.svg') no-repeat;
+  background-size: 100%;
+  margin-right: 8px;
+}
+
+.button.invite::before {
+  background: url('/ic/ic_plus.svg') no-repeat;
+  background-size: 100%;
+}

@@ -17,7 +17,7 @@ export default function InviteTitle() {
   };
 
   const handleAdaptChange = () => {
-    alert('생성버튼누름');
+    setIsModalOpen(false);
   };
 
   const openModal = () => setIsModalOpen(true);

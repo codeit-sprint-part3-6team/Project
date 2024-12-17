@@ -17,7 +17,6 @@ function Column({ targetId, columnTitle }: ColumnProp) {
   const { columnData, fetchCards } = useColumnData(targetId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
   const [modal, setModal] = useState(false);
-  console.log(targetId);
 
   const handleObserver = useCallback(
     ([entry]) => {

@@ -5,6 +5,7 @@ import ko from 'date-fns/locale/ko';
 import { useState } from 'react';
 import { styled } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import format from 'date-fns/format';
 import styles from './DeadlineInput.module.css';
 
 // 라이브러리 글로벌 테마 생성
@@ -37,13 +38,11 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiSvgIcon-root': {
     color: '#9fa6b2',
   },
-
   '& .MuiButtonBase-root': {
     position: 'absolute',
     left: '3px',
     color: '#9fa6b2',
   },
-
   '& .MuiInputBase-input': {
     fontFamily: "'Pretendard', sans-serif",
     fontWeight: 400,
@@ -58,7 +57,6 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       opacity: '1',
     },
   },
-
   [theme.breakpoints.down(743)]: {
     // 라이브러리 모바일 환경
     '& .MuiInputBase-input': {
@@ -70,11 +68,21 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export default function DeadlineInput(): JSX.Element {
+interface DeadlineInputProps {
+  onDateChange: (date: string) => void;
+}
+
+export default function DeadlineInput({
+  onDateChange,
+}: DeadlineInputProps): JSX.Element {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleChange = (newValue: Date | null): void => {
     setSelectedDate(newValue);
+    const formattedDate = selectedDate
+      ? format(selectedDate, 'yyyy-MM-dd HH:mm')
+      : '';
+    onDateChange(formattedDate);
   };
 
   return (

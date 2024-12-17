@@ -1,0 +1,35 @@
+.navbar {
+  border-bottom: 1px solid #d9d9d9;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  padding: 0 80px 0 40px;
+  margin-left: 280px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black-medium);
+}
+
+.right-nav {
+  display: flex;
+}
+
+.user-profile {
+  margin-left: 72px;
+  position: relative;
+}
+
+.user-profile::before {
+  content: '';
+  background: #d9d9d9;
+  width: 1px;
+  height: 38px;
+  position: absolute;
+  top: 0;
+  left: -36px;
+}

@@ -141,10 +141,16 @@ export default function InvitationList() {
             {invitations.map((invite) => (
               <tr key={invite.id} className={styles['table-body']}>
                 <td className={styles['table-content']}>
-                  {invite.dashboard.title}
+                  <span className={styles['table-content-title']}>이름</span>
+                  <span className={styles['table-content-dashboard']}>
+                    {invite.dashboard.title}
+                  </span>
                 </td>
                 <td className={styles['table-content']}>
-                  {invite.inviter.nickname}
+                  <span className={styles['table-content-title']}>초대자</span>
+                  <span className={styles['table-content-dashbaord']}>
+                    {invite.inviter.nickname}
+                  </span>
                 </td>
                 <td className={styles['invitation-btn']}>
                   {invite.inviteAccepted ? (

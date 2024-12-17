@@ -19,14 +19,7 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'sprint-fe-project.s3.ap-northeast-2.amazonaws.com',
-        pathname: '/**',
-      },
-    ],
-    formats: ['image/avif', 'image/webp'],
+    domains: ['sprint-fe-project.s3.ap-northeast-2.amazonaws.com'], // 외부 이미지 도메인 추가
   },
 };
 

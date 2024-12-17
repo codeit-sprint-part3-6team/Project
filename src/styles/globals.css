@@ -1,43 +1,45 @@
+@import './normalize.css';
+
 :root {
   /* Whites */
-  --white: #FFFFFF;
+  --white: #ffffff;
 
   /* Blacks */
   --black: #000000;
   --black-dark: #171717;
   --black-medium: #333236;
-  --black-bright: #4B4B4B;
+  --black-bright: #4b4b4b;
 
   /* Grays */
   --gray: #787486;
-  --gray-dark: #9FA6B2;
-  --gray-medium: #D9D9D9;
-  --gray-bright: #EEEEEE;
-  --gray-brightes: #FAFAFA;
+  --gray-dark: #9fa6b2;
+  --gray-medium: #d9d9d9;
+  --gray-bright: #eeeeee;
+  --gray-brightes: #fafafa;
+  --gray-background: #f5f5f5;
 
   /* Violets */
-  --violet: #5534DA;
-  --violet-bright: #F1EFFD;
+  --violet: #5534da;
+  --violet-bright: #f1effd;
 
   /* Reds */
-  --red: #D6173A;
+  --red: #d6173a;
 
   /* Greens */
-  --green: #7AC555;
+  --green: #7ac555;
 
   /* Purples */
-  --purple: #760DDE;
+  --purple: #760dde;
 
   /* Oranges */
-  --orange: #FFA500;
+  --orange: #ffa500;
 
   /* Blues */
-  --blue: #76A5EA;
+  --blue: #76a5ea;
 
   /* Pinks */
-  --pink: #E876EA;
+  --pink: #e876ea;
 }
-
 
 *,
 *::after,
@@ -45,15 +47,22 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
 }
 
-html { 
+html {
   font-size: 62.5%; /* 1rem = 10px */
-  font-family: "Pretend", sans-serif;
-}  
+  font-family: 'Pretendard', sans-serif;
+}
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+body {
+  background-color: var(--gray-brightes);
+}
+
+ul {
+  list-style: none;
 }

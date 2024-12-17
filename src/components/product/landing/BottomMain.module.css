@@ -1,0 +1,98 @@
+.main_container {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  font-family: 'Pretandard';
+}
+
+.title {
+  text-align: start;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.41px;
+}
+
+.main_section {
+  display: flex;
+  flex-direction: row;
+  width: 1200px;
+  margin: 0 auto;
+  gap: 40px;
+}
+
+.card_container {
+  background-color: var(--black-dark);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  width: 378px;
+  overflow: hidden;
+}
+
+.card_image_section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black-bright);
+  height: 260px;
+}
+
+.card_image {
+  width: 300px;
+  height: auto;
+}
+
+.text_section {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-left: 32px;
+  padding-top: 33px;
+  padding-bottom: 33px;
+}
+
+.text_title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.48px;
+}
+
+.text_explanation {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.09px;
+}
+
+@media screen and (max-width: 1199px) {
+  .main_section {
+    width: 100%;
+    flex-direction: column;
+    gap: 35px;
+  }
+
+  .card_container {
+    width: 378px;
+  }
+
+  .title {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .main_section {
+    gap: 30px;
+  }
+
+  .card_container {
+    width: 343px;
+  }
+
+  .title {
+    font-size: 22px;
+    line-height: 26.25px;
+  }
+
+  .card_image {
+    width: 260px;
+  }
+}

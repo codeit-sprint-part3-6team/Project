@@ -68,34 +68,37 @@ function ButtonPage() {
         대시보드 삭제하기
       </CDSButton>
       <br />
-      <CDSButton btnType="dashboard_card" badge="green" onClick={handleClick}>
+      <CDSButton btnType="dashboard_card" badge="#7ac555" onClick={handleClick}>
         비브리지
       </CDSButton>
       <br />
-      <CDSButton btnType="dashboard_card" badge="purple" onClick={handleClick}>
+      <CDSButton btnType="dashboard_card" badge="#760dde" onClick={handleClick}>
         비브리지
       </CDSButton>
       <br />
-      <CDSButton btnType="dashboard_card" badge="orange" onClick={handleClick}>
+      <CDSButton btnType="dashboard_card" badge="#ffa500" onClick={handleClick}>
         비브리지
       </CDSButton>
       <br />
-      <CDSButton btnType="dashboard_card" badge="blue" onClick={handleClick}>
+      <CDSButton btnType="dashboard_card" badge="#76a5ea" onClick={handleClick}>
         비브리지
       </CDSButton>
       <br />
-      <CDSButton btnType="dashboard_card" badge="pink" onClick={handleClick}>
+      <CDSButton btnType="dashboard_card" badge="#e876ea" onClick={handleClick}>
         비브리지
       </CDSButton>
       <br />
       <CDSButton
         btnType="dashboard_card"
-        badge="green"
+        badge="#7ac555"
         owner
         onClick={handleClick}
       >
         비브리지
       </CDSButton>
+      <br />
+      <CDSButton btnType="pagination_prev" onClick={handleClick} disabled />
+      <CDSButton btnType="pagination_next" onClick={handleClick} />
     </div>
   );
 }

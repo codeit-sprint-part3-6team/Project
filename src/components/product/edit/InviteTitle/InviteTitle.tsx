@@ -84,7 +84,7 @@ export default function InviteTitle() {
       </div>
       <div className={styles.name_section}>
         <h2 className={styles.sub_title}>이메일</h2>
-        <InviteList members={mockMembers} />
+        <InviteList invitations={mockMembers} handleDeleteButtonClick={} />
       </div>
     </section>
   );

@@ -6,6 +6,13 @@
 	margin-top: 15px;
 }
 
+.title {
+  margin-top: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
 .line {
 	margin-top: 15px;
 	border-color: var(--gray-light); 
@@ -18,7 +25,13 @@
     margin-top: 13px;
   }
   
+  .title {
+    margin-top: 3px;
+  }
+
   .line {
     margin-top: 13px;
+    font-size: 14px;
+    line-height: 24px;
   }
 }

@@ -1,15 +1,17 @@
-import { DashboardMember } from '@/type/edit_dashboard';
-import UserProfile from '@/components/common/userprofile/UserProfile';
+import { DashboardInvitation } from '@/type/edit_dashboard';
 import CDSButton from '@/components/common/button/CDSButton';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './InviteList.module.css';
 
-interface MeberListProps {
-  members: DashboardMember[] | undefined;
+interface InviteListProps {
+  invitations: DashboardInvitation[] | undefined;
+  handleDeleteButtonClick: (invitationId: number) => void;
 }
-
-export default function MemberList({ members }: MeberListProps) {
+export default function MemberList({
+  invitations,
+  handleDeleteButtonClick,
+}: InviteListProps) {
   const [user, setUser] = useState<any>();
 
   const getData = async () => {
@@ -33,22 +35,24 @@ export default function MemberList({ members }: MeberListProps) {
     return null;
   }
 
-  /** 취소기능추가 */
   const handleClick = (e) => {
-    console.log(e);
+    handleDeleteButtonClick(e);
   };
 
   return (
     <div>
-      {members?.map((member, index) => (
-        <div key={member.id}>
+      {invitations?.map((invitation, index) => (
+        <div key={invitation.id}>
           <div className={styles.container}>
-            <UserProfile nickname={user.email} />
-            <CDSButton btnType="delete" onClick={handleClick}>
+            <h1 className={styles.title}>{user.email}</h1>
+            <CDSButton
+              btnType="delete"
+              onClick={() => handleClick(invitation.id)}
+            >
               취소
             </CDSButton>
           </div>
-          {index < members.length - 1 && <hr className={styles.line} />}
+          {index < invitations.length - 1 && <hr className={styles.line} />}
         </div>
       ))}
     </div>

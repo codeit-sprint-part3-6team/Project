@@ -10,10 +10,10 @@ import CreateCard from '@/components/product/dashboard/card/CreateCard';
 
 interface ColumnProp {
   targetId: number;
-  title: string;
+  columnTitle: string;
 }
 
-function Column({ targetId, title }: ColumnProp) {
+function Column({ targetId, columnTitle }: ColumnProp) {
   const { columnData, fetchCards } = useColumnData(targetId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
   const [modal, setModal] = useState(false);
@@ -46,7 +46,7 @@ function Column({ targetId, title }: ColumnProp) {
     <div className={styles.column}>
       <div className={styles['column-title-section']}>
         <div className={styles['column-title']}>
-          {title}
+          {columnTitle}
           <span className={styles['column-size']}>{columnData.totalCount}</span>
         </div>
         <Link
@@ -58,16 +58,19 @@ function Column({ targetId, title }: ColumnProp) {
       </div>
       <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
-        {columnData.cards.map((card) => (
-          <Card
-            key={`card_${card.id}`}
-            imageUrl={card.imageUrl}
-            id={card.id}
-            title={card.title}
-            tags={card.tags}
-            dueDate={card.dueDate}
-          />
-        ))}
+        {columnData.cards.map(
+          ({ imageUrl, id, title, tags, dueDate, assignee: { nickname } }) => (
+            <Card
+              key={`card_${id}`}
+              imageUrl={imageUrl}
+              id={id}
+              title={title}
+              tags={tags}
+              dueDate={dueDate}
+              nickname={nickname}
+            />
+          ),
+        )}
         {columnData.cursorId && (
           <div ref={endPoint} className={styles['end-point']} />
         )}

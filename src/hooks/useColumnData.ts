@@ -5,7 +5,7 @@ import { GetCardsResponse } from '@/type/card';
 function useColumnData(targetId: number) {
   const [columnData, setColumnData] = useState<GetCardsResponse>({
     cards: [],
-    totalCount: null,
+    totalCount: 0,
     cursorId: null,
   });
 

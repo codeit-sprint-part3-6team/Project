@@ -46,7 +46,9 @@ function CDSButton({
    */
   const renderBadge = () =>
     btnType === 'dashboard_card' &&
-    badge && <span className={clsx(styles.badge, styles[badge])} />;
+    badge && (
+      <span className={clsx(styles.badge)} style={{ backgroundColor: badge }} />
+    );
 
   const renderArrowIcon = () => {
     if (btnType === 'pagination_prev')

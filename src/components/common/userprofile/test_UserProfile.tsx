@@ -1,18 +1,26 @@
 import { useEffect, useState } from 'react';
-import axios from '../../../pages/api/axios';
+import axios from 'axios';
 import UserProfile from './UserProfile';
 
 function TestUserProfile() {
   const [user, setUser] = useState<any>();
 
   const getData = async () => {
-    const response = await axios.get('/users/me', {
-      headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk1MSwidGVhbUlkIjoiMTEtNiIsImlhdCI6MTczNDA4MjM2MCwiaXNzIjoic3AtdGFza2lmeSJ9.1OCu1v8l8V9qtW1sghPM-O7NmEL_LuyIDFqPgb1lhWI',
+    const response = await axios.get(
+      'https://sp-taskify-api.vercel.app/11-6/users/me',
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk1MSwidGVhbUlkIjoiMTEtNiIsImlhdCI6MTczNDA4MjM2MCwiaXNzIjoic3AtdGFza2lmeSJ9.1OCu1v8l8V9qtW1sghPM-O7NmEL_LuyIDFqPgb1lhWI',
+        },
       },
+<<<<<<< HEAD
     });
     const { data } = response;
+=======
+    );
+    const data = response.data;
+>>>>>>> bf766a2c6549dc5f27773a615bad9f5634c1c2d0
     setUser(data);
   };
 
@@ -52,8 +60,13 @@ function TestUserProfile() {
       <UserProfile
         nickname={user.nickname}
         profileImageUrl={user?.profileImageUrl}
+<<<<<<< HEAD
         type="dashboard_detail"
         onlyImg
+=======
+        type="dashboard-detail"
+        onlyImg={true}
+>>>>>>> bf766a2c6549dc5f27773a615bad9f5634c1c2d0
       />
 
       <br />
@@ -62,7 +75,7 @@ function TestUserProfile() {
       <UserProfile
         nickname={user.nickname}
         profileImageUrl={user?.profileImageUrl}
-        type="todo_detail"
+        type="todo-detail"
       />
 
       <br />
@@ -71,7 +84,7 @@ function TestUserProfile() {
       <UserProfile
         nickname={user.nickname}
         profileImageUrl={user?.profileImageUrl}
-        type="todo_create"
+        type="todo-create"
       />
     </>
   );

@@ -1,5 +1,4 @@
 import instance from '../instance';
-import { DashboardInvitations } from 'src/types/dashboardTypes';
 
 const deleteDashboardInvitation = async (
   dashboardId: string | undefined,

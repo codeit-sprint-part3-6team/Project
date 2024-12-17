@@ -2,11 +2,12 @@ import instance from '../instance';
 
 interface GetInvitationsParams {
   size: number;
-  cursorId?: number;
+  cursorId: number;
+  title?: string;
 }
 
 interface GetInvitationsResponse {
-  cursorId: number | null;
+  cursorId: number;
   invitations: Invitaion[];
 }
 

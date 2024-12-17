@@ -1,0 +1,10 @@
+.box {
+  padding: 20px;
+
+  @media screen and (max-width: 1199px) {
+    padding: 16px;
+  }
+  @media screen and (max-width: 743px) {
+    padding: 16px 12px;
+  }
+}

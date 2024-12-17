@@ -2,7 +2,12 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 // BadgeColor: 배지 색상 타입.
 // 허용되는 색상: 'green', 'purple', 'orange', 'blue', 'pink'
-export type BadgeColor = 'green' | 'purple' | 'orange' | 'blue' | 'pink';
+export type BadgeColor =
+  | '#7ac555'
+  | '#760dde'
+  | '#ffa500'
+  | '#76a5ea'
+  | '#e876ea';
 
 // 버튼의 타입과 관련된 클래스 리스트.
 export const types = {
@@ -53,6 +58,9 @@ export const types = {
   },
   pagination_next: {
     classes: ['pagination', 'next', 'border'],
+  },
+  profile_save: {
+    classes: ['profile', 'save', 'colored'],
   },
 };
 

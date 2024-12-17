@@ -2,28 +2,26 @@ import instance from '../instance';
 
 type valuesProps = {
   email: string;
+  nickname: string;
   password: string;
 };
 
 type userDataResponse = {
-  accessToken: string;
-  user: {
-    id: number;
-    email: string;
-    nickname: string;
-    profileImageUrl: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  id: string;
+  email: string;
+  nickname: string;
+  profileImageUrl: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
-export const postSignin = async (
+export const postSignup = async (
   values: valuesProps,
 ): Promise<userDataResponse> => {
   try {
-    const { data } = await instance.post('11-6/auth/login', values);
+    const { data } = await instance.post('11-6/users', values);
     return data;
-  } catch (error: any) {
+  } catch (error) {
     if (error.response) {
       return Promise.reject(error.response.data);
     }

@@ -9,14 +9,14 @@ import { useRouter } from 'next/router';
 
 function DashBoard() {
   const router = useRouter();
-  const { id } = router.query;
+  const { query } = router;
   const [lists, setLists] = useState<ColumnType[]>([]);
 
   const fetchColumns = async () => {
     try {
       const response = await getColumns({
         teamId: '11-6',
-        dashboardId: Number(id),
+        dashboardId: Number(query.id),
       });
 
       const { data, result } = response;
@@ -30,8 +30,8 @@ function DashBoard() {
   };
 
   useEffect(() => {
-    if (id) fetchColumns();
-  }, [id]);
+    if (query.id) fetchColumns();
+  }, [query.id]);
 
   return (
     <div>

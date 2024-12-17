@@ -1,0 +1,135 @@
+.column {
+  flex-shrink: 0;
+
+  width: 354px;
+  height: 100%;
+
+  padding: 20px;
+  border-right: 1px solid var(--gray-bright);
+}
+
+.column-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.column-title {
+  position: relative;
+
+  padding-left: 16px;
+
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.btn-edit-column {
+  width: 24px;
+  height: 24px;
+
+  border: 0;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.icon-setting {
+  width: 100%;
+  height: 100%;
+}
+
+.btn-edit-column span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  border: 0;
+  clip: rect(0 0 0 0);
+}
+
+.column-size {
+  margin-left: 12px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background-color: var(--gray-bright);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  color: var(--gray);
+}
+
+.column-title::before {
+  content: '';
+
+  position: absolute;
+  top: 50%;
+  left: 0;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background-color: var(--violet);
+}
+
+.card-section {
+  overflow-y: scroll;
+
+  height: calc(100% - 108px);
+
+  margin-top: 16px;
+}
+
+.card-section::-webkit-scrollbar {
+  display: none;
+}
+
+.end-point {
+  height: 1px;
+}
+
+@media screen and (max-width: 1199px) {
+  .column {
+    width: 100%;
+    height: fit-content;
+
+    margin-top: 22px;
+    padding: 0 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--gray-bright);
+  }
+
+  .card-section {
+    max-height: 440px;
+    height: fit-content;
+
+    margin-top: 16px;
+    margin-bottom: 4px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .column {
+    width: calc(100% - 24px);
+
+    margin: 16px 12px;
+    padding: 0;
+  }
+
+  .card-section {
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+
+  .btn-edit-column {
+    width: 22px;
+    height: 22px;
+  }
+}

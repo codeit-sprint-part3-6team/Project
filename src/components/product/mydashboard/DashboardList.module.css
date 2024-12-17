@@ -1,7 +1,11 @@
+.dashboard-container {
+  max-width: 1022px;
+  margin-left: 340px;
+}
+
 .dashboard-list {
   max-width: 1022px;
   padding-top: 40px;
-  margin-left: 340px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 13px;
@@ -22,11 +26,11 @@
 }
 
 .pagination {
-  margin-left: 340px;
   margin-top: 12px;
   display: flex;
   align-items: center;
   gap: 16px;
+  justify-content: flex-end;
 }
 
 .pagination-text {
@@ -36,24 +40,28 @@
 }
 
 @media screen and (max-width: 1199px) {
+  .dashboard-container {
+    margin-left: 200px;
+  }
   .dashboard-list {
     max-width: 504px;
-    margin-left: 200px;
     grid-template-columns: repeat(2, 1fr);
   }
 
   .pagination {
-    margin-left: 200px;
+    max-width: 504px;
   }
 }
 
 @media screen and (max-width: 743px) {
-  .dashboard-list {
+  .dashboard-container {
     margin-left: 90px;
+  }
+  .dashboard-list {
     grid-template-columns: repeat(1, 1fr);
   }
 
   .pagination {
-    margin-left: 90px;
+    max-width: 260px;
   }
 }

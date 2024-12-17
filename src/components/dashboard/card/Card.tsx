@@ -10,9 +10,13 @@ interface CardProps {
   title: string;
   tags: string[];
   dueDate: string;
+  nickname: string;
 }
 
-function Card({ imageUrl, id, title, tags, dueDate }: CardProps) {
+function Card({ imageUrl, id, title, tags, dueDate, nickname }: CardProps) {
+  const fomattedDueDate = formatDate(dueDate);
+  const nameInitial = nickname[0].toUpperCase();
+
   return (
     <button type="button" className={styles.card}>
       <CardImage image={imageUrl} name={title} />
@@ -28,9 +32,9 @@ function Card({ imageUrl, id, title, tags, dueDate }: CardProps) {
           </div>
           <div className={styles['card-date']}>
             <CalendarIcon className={styles['icon-calendar']} />
-            <span className={styles.date}>{formatDate(dueDate)}</span>
+            <span className={styles.date}>{fomattedDueDate}</span>
           </div>
-          <div className={styles.badge}>B</div>
+          <div className={styles.badge}>{nameInitial}</div>
         </div>
       </div>
     </button>

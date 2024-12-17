@@ -16,8 +16,8 @@ import Button from './Button';
 function CDSButton({
   children,
   btnType,
-  badge,
-  owner,
+  badge = null,
+  owner = false,
   ...props
 }: CDSButtonProps) {
   /**
@@ -70,10 +70,5 @@ function CDSButton({
     </Button>
   );
 }
-
-CDSButton.defaultProps = {
-  badge: null,
-  owner: false,
-};
 
 export default CDSButton;

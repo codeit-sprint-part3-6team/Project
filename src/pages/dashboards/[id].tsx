@@ -2,15 +2,21 @@ import Sidebar from '@/components/common/sidebar/Sidebar';
 import CDSButton from '@/components/common/button/CDSButton';
 import getColumns from '@/lib/dashboard/getColumns';
 import { useEffect, useState } from 'react';
-import styles from '@/pages/dashboard/Dashboard.module.css';
+import styles from '@/pages/dashboards/Dashboard.module.css';
 import Column from '@/components/dashboard/column/Column';
+import { useRouter } from 'next/router';
 
 function DashBoard() {
+  const router = useRouter();
+  const { id } = router.query;
   const [lists, setLists] = useState([]);
 
   const fetchColumns = async () => {
     try {
-      const response = await getColumns({ teamId: '11-6', dashboardId: 12794 });
+      const response = await getColumns({
+        teamId: '11-6',
+        dashboardId: Number(id),
+      });
 
       const { data, result } = response;
 
@@ -23,8 +29,8 @@ function DashBoard() {
   };
 
   useEffect(() => {
-    fetchColumns();
-  }, []);
+    if (id) fetchColumns();
+  }, [id]);
 
   return (
     <div>

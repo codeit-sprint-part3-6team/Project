@@ -8,7 +8,7 @@ type valuesProps = {
 type userDataResponse = {
   accessToken: string;
   user: {
-    id: string;
+    id: number;
     email: string;
     nickname: string;
     profileImageUrl: string;

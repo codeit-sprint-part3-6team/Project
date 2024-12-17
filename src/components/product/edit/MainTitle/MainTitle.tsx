@@ -1,8 +1,6 @@
-import { useEffect, useState, FormEvent } from 'react';
-import { useRouter } from 'next/router';
-import { style } from '@mui/system';
-import TitleTagInput from '@/components/common/input/TitleTagInput';
+import { useState } from 'react';
 import CDSButton from '@/components/common/button/CDSButton';
+import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import ColorSelector from './ColorSelector';
 import styles from './MainTitle.module.css';
 
@@ -10,12 +8,12 @@ export default function MainTitle() {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [title, setTitle] = useState('');
 
-  const handleChange1 = (e) => {
-    setTitle(e.target.value);
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
   };
 
   // 변경 버튼 누르면 대시보드가 수정되게해야됨.
-  const handleClick = (e) => {
+  const handleEditDashboard = (e) => {
     console.log(e);
   };
 
@@ -30,7 +28,7 @@ export default function MainTitle() {
               label="대시보드 이름"
               placeholder="제목을 입력해주세요."
               value={title}
-              onChange={handleChange1}
+              onChange={handleChange}
               required
             />
             <ColorSelector
@@ -41,7 +39,7 @@ export default function MainTitle() {
           </div>
         </div>
         <div className={styles.sheader_button}>
-          <CDSButton btnType="auth" onClick={handleClick}>
+          <CDSButton btnType="auth" onClick={handleEditDashboard}>
             변경
           </CDSButton>
         </div>

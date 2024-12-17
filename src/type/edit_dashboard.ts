@@ -30,3 +30,8 @@ export interface DashboardInvitation {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface DashboardInvitations {
+  totalCount: number;
+  invitations: DashboardInvitation[];
+}

@@ -31,6 +31,27 @@
   display: block;
 }
 
+.invite_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background-color: var(--violet);
+  width: 105px;
+  height: 32px;
+  border-radius: 4px;
+  border-color: var(--violet);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16.71px;
+  color: var(--white);
+}
+
+.plus_button {
+  width: 11.33px;
+  height: 11.33px;
+}
+
 .sub_title {
 	margin-top: 20px;
 	font-weight: 400;
@@ -63,6 +84,11 @@
 
   .mobile_hidden_button {
     display: none;
+  }
+
+  .invite_button {
+    font-size: 12px;
+    line-height: 18.71px;
   }
 
 	.sub_title {

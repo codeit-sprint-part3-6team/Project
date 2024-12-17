@@ -1,66 +1,27 @@
+import { useState } from 'react';
 import CDSButton from '@/components/common/button/CDSButton';
-import { DashboardMember } from '@/type/edit_dashboard';
+import WhitePlus from 'public/ic/ic_whiteplus.svg';
+import InviteModal from '@/components/common/modal/general/GeneralModal';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
 
 export default function InviteTitle() {
-  const handleClick = (e) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePageChange = (e) => {
     console.log(e);
   };
 
-  // mock데이터를 api로 변경하는 것이 최종 목표
-  const mockMembers: DashboardMember[] = [
-    {
-      id: 1,
-      email: 'john.doe@example.com',
-      nickname: 'John Doe',
-      profileImageUrl: '/path/to/profile1.jpg',
-      createdAt: '2023-12-01T12:34:56Z',
-      updatedAt: '2023-12-01T12:34:56Z',
-      isOwner: false,
-      userId: 101,
-    },
-    {
-      id: 2,
-      email: 'jane.smith@example.com',
-      nickname: 'Jane Smith',
-      profileImageUrl: '/path/to/profile2.jpg',
-      createdAt: '2023-12-01T12:34:56Z',
-      updatedAt: '2023-12-01T12:34:56Z',
-      isOwner: false,
-      userId: 102,
-    },
-    {
-      id: 3,
-      email: 'alice.johnson@example.com',
-      nickname: 'Alice Johnson',
-      profileImageUrl: null,
-      createdAt: '2023-12-01T12:34:56Z',
-      updatedAt: '2023-12-01T12:34:56Z',
-      isOwner: false,
-      userId: 103,
-    },
-    {
-      id: 4,
-      email: 'alice.johnson@example.com',
-      nickname: 'Alice Johnson',
-      profileImageUrl: null,
-      createdAt: '2023-12-01T12:34:56Z',
-      updatedAt: '2023-12-01T12:34:56Z',
-      isOwner: false,
-      userId: 103,
-    },
-    {
-      id: 5,
-      email: 'alice.johnson@example.com',
-      nickname: 'Alice Johnson',
-      profileImageUrl: null,
-      createdAt: '2023-12-01T12:34:56Z',
-      updatedAt: '2023-12-01T12:34:56Z',
-      isOwner: false,
-      userId: 104,
-    },
-  ];
+  const handleCancleChange = () => {
+    alert('취소버튼누름');
+  };
+
+  const handleAdaptChange = () => {
+    alert('생성버튼누름');
+  };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <section className={styles.title_container}>
@@ -70,22 +31,35 @@ export default function InviteTitle() {
           <div className={styles.pagination_button}>
             <CDSButton
               btnType="pagination_prev"
-              onClick={handleClick}
+              onClick={handlePageChange}
               disabled
             />
-            <CDSButton btnType="pagination_next" onClick={handleClick} />
+            <CDSButton btnType="pagination_next" onClick={handlePageChange} />
           </div>
           <div className={styles.mobile_hidden_button}>
-            <CDSButton btnType="normal_colored" onClick={handleClick}>
-              초대하기
-            </CDSButton>
+            <button
+              type="button"
+              className={styles.invite_button}
+              onClick={openModal}
+            >
+              <WhitePlus className={styles.plus_button} /> 초대하기
+            </button>
           </div>
         </div>
       </div>
       <div className={styles.name_section}>
         <h2 className={styles.sub_title}>이메일</h2>
-        <InviteList invitations={mockMembers} handleDeleteButtonClick={} />
+        <InviteList />
       </div>
+      <InviteModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title="초대하기"
+        cancletitle="취소"
+        handleCancleClick={handleCancleChange}
+        adapttitle="생성"
+        handleAdaptClick={handleAdaptChange}
+      />
     </section>
   );
 }

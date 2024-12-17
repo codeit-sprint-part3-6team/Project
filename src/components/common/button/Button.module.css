@@ -226,11 +226,12 @@
   }
 
   .column {
-    max-width: 544px;
+    /* max-width: 544px; */
+    max-width: none;
   }
 
   .todo {
-    max-width: 544px;
+    max-width: none;
   }
 
   .dashboard.add,
@@ -278,13 +279,11 @@
   }
 
   .column {
-    max-width: 284px;
     height: 66px;
     font-size: 16px;
   }
 
   .todo {
-    max-width: 282px;
     height: 32px;
   }
 

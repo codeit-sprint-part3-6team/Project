@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CDSButton from '../button/CDSButton';
+import CDSButton from '../../button/CDSButton';
 import styles from './CommentInput.module.css';
 
 export default function CommentInput() {

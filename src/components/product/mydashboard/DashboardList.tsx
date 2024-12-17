@@ -120,7 +120,7 @@ export default function DashboardList() {
             <h3>대시보드 이름</h3>
             <input
               type="text"
-              placeholder="대시보드 이름"
+              placeholder="대시보드 이름을 입력해주세요"
               value={newDashboardName}
               onChange={(e) => setNewDashboardName(e.target.value)}
               className={styles['modal-input']}

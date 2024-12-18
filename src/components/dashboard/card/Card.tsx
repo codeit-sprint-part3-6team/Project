@@ -6,6 +6,7 @@ import formatDate from '@/utils/formatDate';
 import useModal from '@/hooks/useModal';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import DetailCardModal from '@/components/common/modal/detail-cards/DetailCardModal';
+import UserProfile from '@/components/common/userprofile/UserProfile';
 
 interface CardProps {
   imageUrl: string;
@@ -14,6 +15,7 @@ interface CardProps {
   tags: string[];
   dueDate: string;
   nickname: string;
+  profileImage: string | null;
   columnTitle: string;
 }
 
@@ -24,11 +26,11 @@ function Card({
   tags,
   dueDate,
   nickname,
+  profileImage,
   columnTitle,
 }: CardProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const fomattedDueDate = formatDate(dueDate);
-  const nameInitial = nickname[0].toUpperCase();
 
   return (
     <>
@@ -48,7 +50,14 @@ function Card({
               <CalendarIcon className={styles['icon-calendar']} />
               <span className={styles.date}>{fomattedDueDate}</span>
             </div>
-            <div className={styles.badge}>{nameInitial}</div>
+            <div className={styles.badge}>
+              <UserProfile
+                type="dashboard-detail"
+                profileImageUrl={profileImage}
+                nickname={nickname}
+                onlyImg
+              />
+            </div>
           </div>
         </div>
       </button>

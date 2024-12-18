@@ -52,7 +52,14 @@ function Column({ targetId, columnTitle }: ColumnProp) {
       <CDSButton btnType="todo" />
       <div className={styles['card-section']}>
         {columnData.cards.map(
-          ({ imageUrl, id, title, tags, dueDate, assignee: { nickname } }) => (
+          ({
+            imageUrl,
+            id,
+            title,
+            tags,
+            dueDate,
+            assignee: { nickname, profileImageUrl },
+          }) => (
             <Card
               key={`card_${id}`}
               imageUrl={imageUrl}
@@ -61,6 +68,7 @@ function Column({ targetId, columnTitle }: ColumnProp) {
               tags={tags}
               dueDate={dueDate}
               nickname={nickname}
+              profileImage={profileImageUrl}
               columnTitle={columnTitle}
             />
           ),

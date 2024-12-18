@@ -17,6 +17,7 @@ import { RootState } from '@/redux/store';
 import deleteCard from '@/lib/dashboard/deleteCard';
 
 interface DetailCardModalProps {
+  title: string;
   cardId: number;
   columnTitle: string;
   closeModal: () => void;
@@ -24,6 +25,7 @@ interface DetailCardModalProps {
 }
 
 function DetailCardModal({
+  title,
   cardId,
   columnTitle,
   closeModal,
@@ -94,7 +96,7 @@ function DetailCardModal({
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>새로운 일정 관리 Taskify</h2>
+      <h2 className={styles.title}>{title}</h2>
       <div className={styles['btn-section']}>
         {id === card.assignee.id && (
           <Dropdown

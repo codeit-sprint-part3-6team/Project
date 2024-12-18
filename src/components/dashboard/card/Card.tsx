@@ -67,6 +67,7 @@ function Card({
       {isOpen && (
         <OverlayContainer>
           <DetailCardModal
+            title={title}
             cardId={id}
             columnTitle={columnTitle}
             closeModal={closeModal}

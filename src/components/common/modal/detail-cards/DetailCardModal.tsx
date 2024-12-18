@@ -85,7 +85,11 @@ function DetailCardModal({
       <div className={styles['author-section']}>
         <div>
           <div className={styles['author-title']}>담당자</div>
-          <UserProfile type="todo-detail" nickname={card.assignee.nickname} />
+          <UserProfile
+            type="todo-detail"
+            profileImageUrl={card.assignee.profileImageUrl}
+            nickname={card.assignee.nickname}
+          />
         </div>
         <div>
           <div className={styles['author-title']}>마감일</div>
@@ -132,6 +136,7 @@ function DetailCardModal({
           {commentsResponse.comments.map((comment) => (
             <Comment
               key={`comment_${comment.id}`}
+              profileImageUrl={comment.author.profileImageUrl}
               nickname={comment.author.nickname}
               updatedAt={comment.updatedAt}
               content={comment.content}

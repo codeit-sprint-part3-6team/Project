@@ -154,25 +154,3 @@
 .option:hover {
   background-color: var(--gray-background);
 }
-
-.tags {
-  max-width: 100%;
-  flex-wrap: wrap;
-  margin-top: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.tags:empty {
-  display: none;
-}
-
-.tag {
-  display: flex;
-  align-items: center;
-}
-
-.delete-button {
-  cursor: pointer;
-}

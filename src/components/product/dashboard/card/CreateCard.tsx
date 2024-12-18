@@ -13,6 +13,7 @@ import UserProfile from '@/components/common/userprofile/UserProfile';
 import ToggleButton from 'public/ic/ic_dropdown.svg';
 import CardImageInput from './CardImageInput';
 import styles from './CreateCard.module.css';
+import TagManager from './TagManager';
 
 interface CreateCardProps {
   targetId: number;
@@ -235,27 +236,13 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
             <DeadlineInput onDateChange={handleDateChange} />
           </section>
           <section className={styles.section}>
-            <TitleTagInput
-              label="태그"
-              placeholder="입력 후 Enter"
-              onKeyDown={handleKeyDown}
-              required
+            <TagManager
+              tags={tags}
+              onAddTag={(tag) => setTags((prev) => [...prev, tag])}
+              onRemoveTag={(tag) =>
+                setTags((prev) => prev.filter((t) => t !== tag))
+              }
             />
-            <div className={styles.tags}>
-              {tags.map((tag) => (
-                <Chip key={`${dashboardId}_${tag}`} chipType="tag">
-                  <p className={styles.tag}>
-                    {tag}
-                    <DeleteButton
-                      className={styles[`delete-button`]}
-                      width={14}
-                      height={14}
-                      onClick={() => handleTagRemove(tag)}
-                    />
-                  </p>
-                </Chip>
-              ))}
-            </div>
           </section>
           <section className={styles.section}>
             <p className={styles.topic}>이미지</p>

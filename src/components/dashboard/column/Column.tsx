@@ -16,7 +16,7 @@ interface ColumnProp {
 function Column({ targetId, columnTitle }: ColumnProp) {
   const { columnData, fetchCards } = useColumnData(targetId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
 
   const handleObserver = useCallback(
     ([entry]) => {
@@ -74,8 +74,13 @@ function Column({ targetId, columnTitle }: ColumnProp) {
           <div ref={endPoint} className={styles['end-point']} />
         )}
       </div>
-      {modal && (
-        <CreateCard targetId={targetId} onClose={() => setModal(false)} />
+      {modal && ( // 카드 생성 모달 띄우기기
+        <CreateCard
+          targetId={targetId}
+          onClose={() => {
+            setModal(false);
+          }}
+        />
       )}
     </div>
   );

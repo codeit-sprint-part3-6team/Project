@@ -13,9 +13,9 @@ const getMembers = async ({ teamId, page = 1, size = 20, dashboardId }) => {
     return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      throw new Error(`이미지 업로드에 실패했어요: ${error.message}`);
+      throw new Error(`데이터 가져오기에 실패했어요: ${error.message}`);
     } else {
-      throw new Error('이미지 업로드에 실패했어요: 알 수 없는 오류');
+      throw new Error('데이터 가져오기에 실패했어요: 알 수 없는 오류');
     }
   }
 };

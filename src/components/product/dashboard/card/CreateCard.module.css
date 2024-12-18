@@ -1,6 +1,6 @@
 .container {
   width: 616px;
-  height: 90%;
+  height: 80%;
   border-radius: 16px;
   padding: 32px 0px 32px 32px;
   background-color: var(--white);
@@ -52,18 +52,10 @@
   }
 }
 
-.name-select {
-  width: 100%;
-  height: 48px;
-  border: 1px solid var(--gray-medium);
-  border-radius: 8px;
-  padding: 11px 16px;
-  font-weight: 400;
-  font-size: 16px;
-  color: var(--black-medium);
+.input-box {
+  position: relative;
 }
 
-.name-select::placeholder,
 .description-input::placeholder {
   font-weight: 400;
   font-size: 16px;
@@ -103,4 +95,84 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
+}
+
+.input-box {
+  position: relative;
+}
+
+.name-select {
+  width: 100%;
+  height: 48px;
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  padding: 11px 16px;
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--black-medium);
+  background-color: var(--white);
+}
+
+.name-select::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--gray-dark);
+
+  @media screen and (max-width: 743px) {
+    font-size: 14px;
+  }
+}
+
+.toggle-button {
+  position: absolute;
+  right: 16px;
+  top: 11px;
+  cursor: pointer;
+}
+
+.dropdown {
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--white);
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  max-height: 100px;
+  overflow-y: auto;
+  margin-top: 1px;
+  padding: 8px 16px 0px 16px;
+}
+
+.option {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--black-medium);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.option:hover {
+  background-color: var(--gray-background);
+}
+
+.tags {
+  max-width: 100%;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tags:empty {
+  display: none;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+}
+
+.delete-button {
+  cursor: pointer;
 }

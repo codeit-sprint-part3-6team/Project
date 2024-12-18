@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import DeadlineInput from '@/components/common/input/info-input/DeadlineInput';
 import CDSButton from '@/components/common/button/CDSButton';
-import cardImageUpload from '@/lib/dashboard/CardImageUpload';
+import cardImageUpload from '@/lib/dashboard/cardImageUpload';
+import postCard from '@/lib/dashboard/postCard';
+import getMembers from '@/lib/dashboard/getMembers';
+import Chip from '@/components/common/chip/Chip';
+import DeleteButton from 'public/ic/ic_x.svg';
+import UserProfile from '@/components/common/userprofile/UserProfile';
+import ToggleButton from 'public/ic/ic_dropdown.svg';
 import CardImageInput from './CardImageInput';
 import styles from './CreateCard.module.css';
-import getMembers from '@/lib/dashboard/getMembers';
-import { useRouter } from 'next/router';
-import postCard from '@/lib/dashboard/postCard';
 
 interface CreateCardProps {
   targetId: number;
@@ -32,10 +36,15 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
   const [members, setMembers] = useState<Member[]>([]);
   const [selectedMemberNickname, setSelectedMemberNickname] =
     useState<string>('');
+  const [selectedMemberProfileImage, setSelectedMemberProfileImage] =
+    useState<string>('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  console.log(tags);
   const { query } = useRouter();
   const dashboardId = Number(query.id);
 
@@ -54,9 +63,9 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
   };
 
   const handleTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.trim() === '') return;
-    if (tags.includes(e.target.value.trim())) return; // 중복 태그 방지
-    setTags((prevTags) => [...prevTags, e.target.value.trim()]);
+    const newTag = e.target.value.trim();
+    if (!newTag || tags.includes(newTag)) return; // 빈 문자열 또는 중복 태그 방지
+    setTags((prevTags) => [...prevTags, newTag]);
     e.target.value = ''; // 입력 필드 초기화
   };
 
@@ -84,7 +93,7 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
       }
     };
     fetchMembers();
-  }, []);
+  }, [dashboardId]);
 
   // 생성 버튼 클릭시 함수
   const handleSubmit = async () => {
@@ -135,6 +144,16 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
   const handleCancelClick = () => {
     onClose();
   };
+
+  const handleOptionClick = (nickname: string, profileImageUrl: string) => {
+    setSelectedMemberNickname(nickname);
+    setSelectedMemberProfileImage(profileImageUrl);
+    setIsDropdownOpen(false);
+  };
+
+  const handleToggle = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
   return (
     <OverlayContainer>
       <div className={styles.container}>
@@ -144,20 +163,53 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
           </section>
           <section className={styles.section}>
             <p className={styles.topic}>담당자</p>
-            <input
-              type="text"
-              list="memberList"
-              placeholder="이름을 입력해 주세요."
-              className={styles[`name-select`]}
-              onChange={(e) => setSelectedMemberNickname(e.target.value)}
-            />
-            <datalist id="memberList">
-              {members.map((member) => (
-                <option key={member.userId} value={member.nickname}>
-                  {member.nickname}
-                </option>
-              ))}
-            </datalist>
+            <div className={styles[`input-box`]}>
+              {selectedMemberNickname ? (
+                <div className={styles[`name-select`]}>
+                  <UserProfile
+                    type="todo-create"
+                    nickname={selectedMemberNickname}
+                    profileImageUrl={selectedMemberProfileImage}
+                    onlyImg={false}
+                  />
+                </div>
+              ) : (
+                <input
+                  type="text"
+                  value={selectedMemberNickname}
+                  disabled
+                  placeholder="이름을 선택해 주세요."
+                  className={styles[`name-select`]}
+                  onChange={(e) => setSelectedMemberNickname(e.target.value)}
+                />
+              )}
+              <ToggleButton
+                className={styles[`toggle-button`]}
+                width={26}
+                height={26}
+                onClick={handleToggle}
+              />
+            </div>
+            {isDropdownOpen && (
+              <div className={styles.dropdown}>
+                {members.map((member) => (
+                  <div
+                    key={member.userId}
+                    className={styles.option}
+                    onClick={() =>
+                      handleOptionClick(member.nickname, member.profileImageUrl)
+                    }
+                  >
+                    <UserProfile
+                      type="todo-create"
+                      nickname={member.nickname}
+                      profileImageUrl={member.profileImageUrl}
+                      onlyImg={false}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
           <section className={styles.section}>
             <TitleTagInput
@@ -192,13 +244,17 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
             />
             <div className={styles.tags}>
               {tags.map((tag) => (
-                <div
-                  key={tag}
-                  className={styles.tag}
-                  onDoubleClick={() => handleTagRemove(tag)}
-                >
-                  {tag}
-                </div>
+                <Chip key={`${dashboardId}_${tag}`} chipType="tag">
+                  <p className={styles.tag}>
+                    {tag}
+                    <DeleteButton
+                      className={styles[`delete-button`]}
+                      width={14}
+                      height={14}
+                      onClick={() => handleTagRemove(tag)}
+                    />
+                  </p>
+                </Chip>
               ))}
             </div>
           </section>

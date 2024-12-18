@@ -61,6 +61,7 @@ function Column({ targetId, columnTitle }: ColumnProp) {
               tags={tags}
               dueDate={dueDate}
               nickname={nickname}
+              columnTitle={columnTitle}
             />
           ),
         )}

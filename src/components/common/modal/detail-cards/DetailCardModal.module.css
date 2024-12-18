@@ -1,0 +1,325 @@
+.container {
+  position: relative;
+
+  width: 730px;
+  max-height: 702px;
+  height: 80%;
+
+  padding: 30px 38px 33px 18px;
+
+  border-radius: 8px;
+  background-color: var(--white);
+}
+
+.title {
+  margin-bottom: 28px;
+
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  color: var(--black-medium);
+}
+
+.btn-section {
+  position: absolute;
+  top: 30px;
+  right: 38px;
+
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.icon-kebab {
+  width: 28px;
+  height: 28px;
+}
+
+.btn-close {
+  border: 0;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.icon-close {
+  width: 32px;
+  height: 32px;
+}
+
+.author-section {
+  position: absolute;
+  top: 80px;
+  right: 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  width: 200px;
+
+  padding: 14px 16px;
+
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+}
+
+.author-title {
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.author-content {
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--black-medium);
+}
+
+.content-section {
+  overflow: scroll;
+
+  width: 470px;
+  height: calc(100% - 90px);
+}
+
+.content-section::-webkit-scrollbar {
+  display: none;
+}
+
+.chip-section {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.status {
+  flex-shrink: 0;
+
+  width: 63px;
+}
+
+.bar {
+  width: 1px;
+  height: 20px;
+
+  margin: 0 20px;
+
+  background-color: var(--gray-medium);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.description {
+  margin-bottom: 8px;
+  padding: 10px;
+
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.card-image {
+  width: 445px;
+  height: 260px;
+}
+
+.comment-input-section {
+  position: relative;
+
+  width: 450px;
+}
+
+.comment-label {
+  width: 100%;
+
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  color: var(--black-medium);
+}
+
+.comment-input {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 4px;
+  padding: 16px;
+
+  border: 1px solid var(--gray-medium);
+  border-radius: 6px;
+
+  font-size: 14px;
+  line-height: 24px;
+
+  resize: none;
+}
+
+.btn-add-comment {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+
+  width: 83px;
+  height: 32px;
+
+  border: 1px solid var(--gray-medium);
+  border-radius: 4px;
+  background-color: var(--white);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--violet);
+
+  cursor: pointer;
+}
+
+.btn-add-comment:disabled {
+  background-color: var(--gray-bright);
+
+  color: var(--gray);
+
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 1199px) {
+  .container {
+    width: 678px;
+
+    padding: 24px 32px;
+  }
+
+  .title {
+    margin-bottom: 24px;
+  }
+
+  .btn-section {
+    top: 24px;
+    right: 32px;
+  }
+
+  .author-section {
+    width: 181px;
+  }
+
+  .content-section {
+    width: 420px;
+    height: calc(100% - 80px);
+  }
+
+  .chip-section {
+    margin-bottom: 16px;
+  }
+
+  .description {
+    margin-bottom: 16px;
+    padding: 0;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 246px;
+
+    margin-bottom: 24px;
+  }
+
+  .comment-input-section {
+    width: 100%;
+  }
+
+  .btn-add-comment {
+    right: 11px;
+
+    width: 77px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .container {
+    width: 327px;
+
+    padding: 16px;
+  }
+
+  .title {
+    margin-top: 40px;
+
+    font-size: 20px;
+  }
+
+  .btn-section {
+    top: 16px;
+    right: 16px;
+
+    gap: 16px;
+  }
+
+  .icon-kebab {
+    width: 20px;
+    height: 20px;
+  }
+
+  .icon-close {
+    width: 24px;
+    height: 24px;
+  }
+
+  .author-section {
+    position: static;
+
+    flex-direction: row;
+    gap: 62px;
+
+    width: 100%;
+
+    margin-bottom: 16px;
+    padding: 9px 16px;
+  }
+
+  .author-content {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .content-section {
+    width: 100%;
+    height: calc(100% - 190px);
+  }
+
+  .bar {
+    margin: 0 12px;
+  }
+
+  .tags {
+    gap: 8px;
+  }
+
+  .description {
+    margin-bottom: 32px;
+  }
+
+  .card-image {
+    height: 168px;
+  }
+
+  .comment-input {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .btn-add-comment {
+    right: 12px;
+    bottom: 20px;
+
+    width: 84px;
+    height: 28px;
+  }
+}

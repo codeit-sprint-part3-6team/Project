@@ -1,0 +1,100 @@
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  margin-top: 24px;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nickname {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--black-medium);
+}
+
+.date {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--gray-dark);
+}
+
+.content {
+  margin-bottom: 6px;
+
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--black-medium);
+}
+
+.edit,
+.delete {
+  border: 0;
+  background-color: var(--white);
+
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--gray-dark);
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.edit {
+  margin-right: 14px;
+}
+
+@media screen and (max-width: 1199px) {
+  .content {
+    margin-bottom: 10px;
+  }
+
+  .edit {
+    margin-right: 12px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .comment {
+    gap: 8px;
+
+    margin-top: 16px;
+  }
+
+  .title-section {
+    margin-bottom: 8px;
+  }
+
+  .nickname {
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .date {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .content {
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .edit,
+  .delete {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .edit {
+    margin-right: 8px;
+  }
+}

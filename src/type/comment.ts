@@ -4,6 +4,13 @@ interface GetCommentsParmas {
   cardId: number;
 }
 
+interface PostCommentParams {
+  content: string;
+  cardId: number;
+  columnId: number;
+  dashboardId: number;
+}
+
 interface Comment {
   id: number;
   content: string;
@@ -22,4 +29,9 @@ interface GetCommentsResponse {
   cursorId: number | null;
 }
 
-export type { GetCommentsParmas, GetCommentsResponse };
+export type {
+  GetCommentsParmas,
+  PostCommentParams,
+  GetCommentsResponse,
+  Comment,
+};

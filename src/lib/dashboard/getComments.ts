@@ -2,7 +2,7 @@ import axios from '@/lib/instance';
 import { GetCommentsParmas, GetCommentsResponse } from '@/type/comment';
 
 const getComments = async ({
-  size = 5,
+  size = 3,
   cursorId = null,
   cardId,
 }: GetCommentsParmas): Promise<GetCommentsResponse> => {

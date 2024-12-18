@@ -190,6 +190,10 @@
   cursor: not-allowed;
 }
 
+.end-point {
+  height: 1px;
+}
+
 @media screen and (max-width: 1199px) {
   .container {
     width: 678px;

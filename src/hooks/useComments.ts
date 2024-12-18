@@ -3,6 +3,7 @@ import { Comment as CommentType, GetCommentsResponse } from '@/type/comment';
 import postComment from '@/lib/dashboard/postComment';
 import getComments from '@/lib/dashboard/getComments';
 import deleteComment from '@/lib/dashboard/deleteComment';
+import putComment from '@/lib/dashboard/putComment';
 
 const useComments = (
   cardId: number,
@@ -63,11 +64,36 @@ const useComments = (
     }
   };
 
+  const updateComment = async (commentId: number, newContent: string) => {
+    try {
+      const updatedComment = await putComment({
+        commentId,
+        content: newContent,
+      });
+
+      setCommentsResponse((prev) =>
+        prev
+          ? {
+              ...prev,
+              comments: prev.comments.map((comment) =>
+                comment.id === commentId
+                  ? { ...comment, content: updatedComment.content }
+                  : comment,
+              ),
+            }
+          : null,
+      );
+    } catch (error) {
+      console.error('댓글 수정 실패:', error);
+    }
+  };
+
   return {
     commentsResponse,
     addComment,
     loadMoreComments,
     removeComment,
+    updateComment,
     isSubmitting,
   };
 };

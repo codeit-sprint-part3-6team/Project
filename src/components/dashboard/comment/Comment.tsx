@@ -1,10 +1,8 @@
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import styles from '@/components/dashboard/comment/Comment.module.css';
-import useComments from '@/hooks/useComments';
-import deleteComment from '@/lib/dashboard/deleteComment';
 import { RootState } from '@/redux/store';
 import formatDate from '@/utils/formatDate';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 interface CommentProps {
@@ -15,6 +13,7 @@ interface CommentProps {
   createdAt: string;
   content: string;
   removeComment: (commentId: number) => void;
+  updateComment: (commentId: number, newContent: string) => void;
 }
 
 function Comment({
@@ -25,12 +24,25 @@ function Comment({
   createdAt,
   content,
   removeComment,
+  updateComment,
 }: CommentProps) {
   const {
     user: { id },
   } = useSelector((state: RootState) => state.userInfo);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(content);
 
-  const handleEdit = () => {};
+  const handleSave = () => {
+    if (editedContent.trim() !== content) {
+      updateComment(commentId, editedContent);
+    }
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setEditedContent(content); // 수정 취소 시 원래 내용으로 되돌리기
+    setIsEditing(false);
+  };
 
   const handleDelete = useCallback(() => {
     removeComment(commentId);
@@ -49,10 +61,39 @@ function Comment({
           <span className={styles.nickname}>{nickname}</span>
           <span className={styles.date}>{formatDate(createdAt, true)}</span>
         </div>
-        <div className={styles.content}>{content}</div>
+        {isEditing ? (
+          <div className={styles['content-edit']}>
+            <textarea
+              className={styles['content-textarea']}
+              value={editedContent}
+              onChange={(e) => setEditedContent(e.target.value)}
+            />
+            <button
+              type="button"
+              className={styles['btn-save']}
+              onClick={handleSave}
+            >
+              저장
+            </button>
+            <button
+              type="button"
+              className={styles['btn-cancel']}
+              onClick={handleCancel}
+            >
+              취소
+            </button>
+          </div>
+        ) : (
+          <div className={styles.content}>{content}</div>
+        )}
+        {/* <div className={styles.content}>{content}</div> */}
         {id === authorId && (
           <div>
-            <button type="button" className={styles.edit} onClick={handleEdit}>
+            <button
+              type="button"
+              className={styles.edit}
+              onClick={() => setIsEditing(true)}
+            >
               수정
             </button>
             <button

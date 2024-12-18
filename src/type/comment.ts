@@ -29,9 +29,15 @@ interface GetCommentsResponse {
   cursorId: number | null;
 }
 
+interface PutCommentParams {
+  commentId: number;
+  content: string;
+}
+
 export type {
   GetCommentsParmas,
   PostCommentParams,
   GetCommentsResponse,
+  PutCommentParams,
   Comment,
 };

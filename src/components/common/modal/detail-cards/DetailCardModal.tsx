@@ -40,6 +40,7 @@ function DetailCardModal({
     addComment,
     loadMoreComments,
     removeComment,
+    updateComment,
     isSubmitting,
   } = useComments(cardId, null);
   const [newComment, setNewComment] = useState('');
@@ -199,6 +200,7 @@ function DetailCardModal({
                 createdAt={createdAt}
                 content={content}
                 removeComment={removeComment}
+                updateComment={updateComment}
               />
             ),
           )}

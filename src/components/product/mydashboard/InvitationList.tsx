@@ -116,7 +116,7 @@ export default function InvitationList() {
               width={24}
               height={24}
               onClick={handleSearch}
-              style={{ cursor: 'pointer' }}
+              className={styles.icon}
             />
             <input
               placeholder="검색"

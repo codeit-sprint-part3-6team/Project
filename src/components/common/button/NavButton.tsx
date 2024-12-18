@@ -3,7 +3,7 @@ import styles from './NavButton.module.css';
 type NavButtonProps = {
   btnType: 'management' | 'invite';
   buttonName: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 function NavButton({ btnType, buttonName, onClick }: NavButtonProps) {

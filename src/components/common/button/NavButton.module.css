@@ -31,3 +31,15 @@
   background: url('/ic/ic_plus.svg') no-repeat;
   background-size: 100%;
 }
+
+@media screen and (max-width: 1199px) {
+  .button + .button {
+    margin-left: 12px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .button + .button {
+    margin-left: 6px;
+  }
+}

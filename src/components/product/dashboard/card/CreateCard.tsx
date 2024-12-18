@@ -111,7 +111,7 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
       // selectedMember가 없을 경우 오류 처리
       if (!selectedMember) {
         alert('담당자를 선택해주세요.');
-        return; // 추가 처리 없이 함수를 종료합니다.
+        return; // 추가 처리 없이 함수를 종료
       }
 
       const createData = {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
@@ -6,10 +6,9 @@ import DeadlineInput from '@/components/common/input/info-input/DeadlineInput';
 import CDSButton from '@/components/common/button/CDSButton';
 import cardImageUpload from '@/lib/dashboard/cardImageUpload';
 import postCard from '@/lib/dashboard/postCard';
-import getMembers from '@/lib/dashboard/getMembers';
-import Chip from '@/components/common/chip/Chip';
-import DeleteButton from 'public/ic/ic_x.svg';
 import UserProfile from '@/components/common/userprofile/UserProfile';
+import useMembers from '@/hooks/useMembers';
+import useCardImageUploader from '@/hooks/useCardImageUploader';
 import ToggleButton from 'public/ic/ic_dropdown.svg';
 import CardImageInput from './CardImageInput';
 import styles from './CreateCard.module.css';
@@ -20,21 +19,7 @@ interface CreateCardProps {
   onClose: () => void;
 }
 
-interface Member {
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-  isOwner: boolean;
-  userId: number;
-}
-
 export default function CreateCard({ targetId, onClose }: CreateCardProps) {
-  const [preview, setPreview] = useState<string | null>(null);
-  const [image, setImage] = useState<File | null>(null);
-  const [members, setMembers] = useState<Member[]>([]);
   const [selectedMemberNickname, setSelectedMemberNickname] =
     useState<string>('');
   const [selectedMemberProfileImage, setSelectedMemberProfileImage] =
@@ -47,6 +32,8 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
 
   const { query } = useRouter();
   const dashboardId = Number(query.id);
+  const { members } = useMembers({ teamId: '11-6', dashboardId });
+  const { image, preview, handleImageChange } = useCardImageUploader();
 
   const handleDateChange = (date: string) => {
     setFormattedDate(date);
@@ -61,39 +48,6 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
   ) => {
     setDescription(e.target.value);
   };
-
-  const handleTagInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTag = e.target.value.trim();
-    if (!newTag || tags.includes(newTag)) return; // 빈 문자열 또는 중복 태그 방지
-    setTags((prevTags) => [...prevTags, newTag]);
-    e.target.value = ''; // 입력 필드 초기화
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      const inputElement = e.target as HTMLInputElement;
-      handleTagInput({
-        target: inputElement,
-      } as React.ChangeEvent<HTMLInputElement>);
-    }
-  };
-
-  const handleTagRemove = (tagToRemove: string) => {
-    setTags((prevTags) => prevTags.filter((tag) => tag !== tagToRemove));
-  };
-
-  useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        const data = await getMembers({ teamId: `11-6`, dashboardId });
-        setMembers(data.members);
-      } catch (error) {
-        console.error('멤버 데이터 가져오기 실패:', error);
-      }
-    };
-    fetchMembers();
-  }, [dashboardId]);
 
   // 생성 버튼 클릭시 함수
   const handleSubmit = async () => {
@@ -129,15 +83,6 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
       onClose(); // 모달 닫기
     } catch (error) {
       console.error('handleSubmit Error:', error);
-    }
-  };
-
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImage(file);
-      const imgURL = URL.createObjectURL(file);
-      setPreview(imgURL);
     }
   };
 
@@ -196,9 +141,20 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
                   <div
                     key={member.userId}
                     className={styles.option}
+                    role="button"
+                    tabIndex={0}
                     onClick={() =>
                       handleOptionClick(member.nickname, member.profileImageUrl)
                     }
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleOptionClick(
+                          member.nickname,
+                          member.profileImageUrl,
+                        );
+                      }
+                    }}
                   >
                     <UserProfile
                       type="todo-create"

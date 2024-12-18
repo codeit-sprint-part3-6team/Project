@@ -15,6 +15,16 @@
   color: var(--black-medium);
 }
 
+.title.createdByMe::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 17px;
+  background: url('/ic/ic_crown.svg');
+  background-size: 100%;
+  margin-left: 8px;
+}
+
 .right-nav {
   display: flex;
 }

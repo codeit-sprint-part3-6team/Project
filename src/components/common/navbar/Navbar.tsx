@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import instance from '@/lib/instance';
 import styles from './Navbar.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -8,9 +7,10 @@ import { RootState } from '@/redux/store';
 import NavButton from '../button/NavButton';
 import UserProfile from '../userprofile/UserProfile';
 import InvitedMember from '../invitedmember/InvitedMember';
+import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
 
 function Navbar() {
-  const [dashboardTitle, setDashboardTitle] = useState('');
+  const [dashboardData, setDashboardData] = useState(null);
   const [invitedMember, setInvitedMember] = useState([]);
   const user = useSelector((state: RootState) => state.userInfo.user);
   const [clientUser, setClientUser] = useState(null);
@@ -30,27 +30,32 @@ function Navbar() {
     }
 
     const fetchDashboardData = async () => {
-      const membersResponse = await instance.get(
-        `11-6/members?dashboardId=${router.query.id}`,
-      );
-      setInvitedMember(membersResponse.data.members);
+      const memberData = await getMember(router.query.id);
+      setInvitedMember(memberData);
 
-      const titleResponse = await instance.get(
-        `11-6/dashboards/${router.query.id}`,
-      );
-      setDashboardTitle(titleResponse.data.title);
+      const dashboardData = await getDashboard(router.query.id);
+      setDashboardData(dashboardData);
     };
 
     fetchDashboardData();
   }, [router.query.id]);
 
+  const renderTitle = () => {
+    if (!isMyPage) return <h3 className={styles.title}>계정관리</h3>;
+    if (!isMyDashboard) return <h3 className={styles.title}>내 대시보드</h3>;
+
+    return (
+      <h3
+        className={`${styles.title} ${dashboardData?.createdByMe && `${styles.createdByMe}`}`}
+      >
+        {dashboardData?.title}
+      </h3>
+    );
+  };
+
   return (
     <div className={styles.navbar}>
-      {!dashboardTitle ? (
-        <h3 className={styles.title}>내 대시보드</h3>
-      ) : (
-        <h3 className={styles.title}>{dashboardTitle}</h3>
-      )}
+      {renderTitle()}
 
       <div className={styles['right-nav']}>
         {isMyDashboard && isMyPage && (

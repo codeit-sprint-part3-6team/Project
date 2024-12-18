@@ -12,6 +12,8 @@ import formatDate from '@/utils/formatDate';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useComments from '@/hooks/useComments';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface DetailCardModalProps {
   cardId: number;
@@ -24,6 +26,9 @@ function DetailCardModal({
   columnTitle,
   closeModal,
 }: DetailCardModalProps) {
+  const {
+    user: { id },
+  } = useSelector((state: RootState) => state.userInfo);
   const [card, setCard] = useState<Card | null>(null);
   const { commentsResponse, addComment, loadMoreComments, isSubmitting } =
     useComments(cardId, null);
@@ -72,15 +77,17 @@ function DetailCardModal({
     <div className={styles.container}>
       <h2 className={styles.title}>새로운 일정 관리 Taskify</h2>
       <div className={styles['btn-section']}>
-        <Dropdown
-          menus={[
-            { label: '수정하기', value: 'edit' },
-            { label: '삭제하기', value: 'delete' },
-          ]}
-          onMenuClick={handleMenuClick}
-        >
-          <KebabIcon className={styles['icon-kebab']} />
-        </Dropdown>
+        {id === card.assignee.id && (
+          <Dropdown
+            menus={[
+              { label: '수정하기', value: 'edit' },
+              { label: '삭제하기', value: 'delete' },
+            ]}
+            onMenuClick={handleMenuClick}
+          >
+            <KebabIcon className={styles['icon-kebab']} />
+          </Dropdown>
+        )}
         <button
           type="button"
           className={styles['btn-close']}

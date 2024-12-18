@@ -26,7 +26,7 @@ function DetailCardModal({
 }: DetailCardModalProps) {
   const [card, setCard] = useState<Card | null>(null);
   const [commentsResponse, setCommentsResponse] =
-    useState<GetCommentsResponse | null>();
+    useState<GetCommentsResponse | null>(null);
 
   const handleMenuClick = (value: string) => {
     closeModal();
@@ -34,29 +34,21 @@ function DetailCardModal({
     else if (value === 'delete') console.log('delete');
   };
 
-  const fetchCardDetail = async () => {
+  const fetchData = async () => {
     try {
-      const response = await getCardDetail({ cardId });
-
-      setCard(response);
+      const [cardDetail, comments] = await Promise.all([
+        getCardDetail({ cardId }),
+        getComments({ cardId }),
+      ]);
+      setCard(cardDetail);
+      setCommentsResponse(comments);
     } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const fetchCardComment = async () => {
-    try {
-      const response = await getComments({ cardId });
-
-      setCommentsResponse(response);
-    } catch (error) {
-      console.error(error);
+      console.error('Error fetching data:', error);
     }
   };
 
   useEffect(() => {
-    fetchCardDetail();
-    fetchCardComment();
+    fetchData();
   }, [cardId]);
 
   if (!card || !commentsResponse) return null;
@@ -133,15 +125,22 @@ function DetailCardModal({
           </button>
         </div>
         <div className="comment-section">
-          {commentsResponse.comments.map((comment) => (
-            <Comment
-              key={`comment_${comment.id}`}
-              profileImageUrl={comment.author.profileImageUrl}
-              nickname={comment.author.nickname}
-              updatedAt={comment.updatedAt}
-              content={comment.content}
-            />
-          ))}
+          {commentsResponse.comments.map(
+            ({
+              id,
+              author: { nickname, profileImageUrl },
+              updatedAt,
+              content,
+            }) => (
+              <Comment
+                key={`comment_${id}`}
+                profileImageUrl={profileImageUrl}
+                nickname={nickname}
+                updatedAt={updatedAt}
+                content={content}
+              />
+            ),
+          )}
         </div>
       </div>
     </div>

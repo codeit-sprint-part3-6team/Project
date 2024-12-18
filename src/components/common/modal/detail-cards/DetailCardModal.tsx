@@ -152,13 +152,14 @@ function DetailCardModal({
           {commentsResponse.comments.map(
             ({
               id,
-              author: { nickname, profileImageUrl },
+              author: { id: authorId, nickname, profileImageUrl },
               updatedAt,
               content,
             }) => (
               <Comment
                 key={`comment_${id}`}
                 profileImageUrl={profileImageUrl}
+                authorId={authorId}
                 nickname={nickname}
                 updatedAt={updatedAt}
                 content={content}

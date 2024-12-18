@@ -1,8 +1,11 @@
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import styles from '@/components/dashboard/comment/Comment.module.css';
+import { RootState } from '@/redux/store';
 import formatDate from '@/utils/formatDate';
+import { useSelector } from 'react-redux';
 
 interface CommentProps {
+  authorId: number;
   nickname: string;
   profileImageUrl: string | null;
   updatedAt: string;
@@ -10,11 +13,15 @@ interface CommentProps {
 }
 
 function Comment({
+  authorId,
   nickname,
   profileImageUrl,
   updatedAt,
   content,
 }: CommentProps) {
+  const {
+    user: { id },
+  } = useSelector((state: RootState) => state.userInfo);
   return (
     <div className={styles.comment}>
       <UserProfile
@@ -29,14 +36,16 @@ function Comment({
           <span className={styles.date}>{formatDate(updatedAt, true)}</span>
         </div>
         <div className={styles.content}>{content}</div>
-        <div>
-          <button type="button" className={styles.edit}>
-            수정
-          </button>
-          <button type="button" className={styles.delete}>
-            삭제
-          </button>
-        </div>
+        {id === authorId && (
+          <div>
+            <button type="button" className={styles.edit}>
+              수정
+            </button>
+            <button type="button" className={styles.delete}>
+              삭제
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

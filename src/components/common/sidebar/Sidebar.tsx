@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { Dashboard } from '@/type/dashboard';
 import styles from '@/components/common/sidebar/Sidebar.module.css';
-import getDashboards from '@/lib/mydashboard/getDashboard';
+import useSidebarDashboards from '@/hooks/useSidebar';
 import Logo from 'public/images/img_logo.svg';
 import TextLogo from 'public/images/img_textlogo.svg';
 import PlusBtn from 'public/ic/ic_plus.svg';
@@ -8,48 +11,15 @@ import CrownIcon from 'public/ic/ic_crown.svg';
 import CDSButton from '../button/CDSButton';
 
 export default function Sidebar() {
-  const [menu, setMenu] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [cursorId, setCursorId] = useState<number | null>(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [dashbaords, setDashboards] = useState<Dashboard[]>([]);
 
-  const pageSize = 10;
+  const { isLoading, totalPages, fetchSidebarDashboards } =
+    useSidebarDashboards();
 
-  useEffect(() => {
-    const fetchDashboards = async () => {
-      try {
-        setIsLoading(true);
-        const response = await getDashboards({
-          page: currentPage,
-          size: pageSize,
-          cursorId: cursorId || 0,
-          navigationMethod: 'pagination',
-        });
-
-        const { dashboards, totalCount, cursorId: newCursorId } = response;
-
-        const formattedDashboards = dashboards.map(
-          ({ id, title, color, createdByMe }) => ({
-            id,
-            title,
-            color,
-            createdByMe,
-          }),
-        );
-
-        setMenu(formattedDashboards);
-        setCursorId(newCursorId);
-        setTotalPages(Math.ceil(totalCount / pageSize));
-      } catch (error) {
-        console.error('대시보드 데이터를 가져오는데 실패했습니다:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchDashboards();
-  }, [currentPage, cursorId]);
+  const sidebarDashboards = useSelector(
+    (state: RootState) => state.dashboard.sidebarDashboards,
+  );
 
   const handlePageChange = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && currentPage > 1) {
@@ -58,6 +28,14 @@ export default function Sidebar() {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
+
+  useEffect(() => {
+    fetchSidebarDashboards(currentPage);
+  }, [currentPage]);
+
+  useEffect(() => {
+    setDashboards(sidebarDashboards);
+  }, [sidebarDashboards]);
 
   return (
     <div className={styles.sidebar}>
@@ -80,26 +58,33 @@ export default function Sidebar() {
           </div>
 
           {/* 동적으로 렌더링되는 메뉴 */}
-          <ul className={styles['menu-list']}>
-            {menu.map((item) => (
-              <li key={item.id} className={styles['menu-list-dashboard']}>
-                <div className={styles['dashboard-item']}>
-                  <span
-                    className={styles['color-circle']}
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className={styles['dashboard-title']}>
-                    {item.title}
-                  </span>
-                  {item.createdByMe && (
-                    <span className={styles['crown-icon']}>
-                      <CrownIcon width={16} height={16} />
+          {dashbaords && dashbaords.length > 0 ? (
+            <ul className={styles['menu-list']}>
+              {dashbaords.map((item) => (
+                <li
+                  key={`Sidebar_${item.id}`}
+                  className={styles['menu-list-dashboard']}
+                >
+                  <div className={styles['dashboard-item']}>
+                    <span
+                      className={styles['color-circle']}
+                      style={{ backgroundColor: item.color }}
+                    />
+                    <span className={styles['dashboard-title']}>
+                      {item.title}
                     </span>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
+                    {item.createdByMe && (
+                      <span className={styles['crown-icon']}>
+                        <CrownIcon width={16} height={16} />
+                      </span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <span>대시보드가 없습니다.</span>
+          )}
         </div>
 
         {/* 페이지네이션 컨트롤 */}
@@ -109,7 +94,6 @@ export default function Sidebar() {
             onClick={() => handlePageChange('prev')}
             disabled={currentPage === 1 || isLoading}
           />
-
           <CDSButton
             btnType="pagination_next"
             onClick={() => handlePageChange('next')}

@@ -4,17 +4,23 @@ import getDashboards from '@/lib/mydashboard/getDashboard';
 import postDashboards from '@/lib/mydashboard/postDashboard';
 import CDSButton from '@/components/common/button/CDSButton';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
+import useSidebarDashboards from '@/hooks/useSidebar';
+import { Dashboard } from '@/type/dashboard';
+import { BadgeColor } from '@/type/button';
 import styles from './DashboardList.module.css';
 
 export default function DashboardList() {
-  const [dashboards, setDashboards] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
+  const [totalPages, setTotalPages] = useState(0);
+  const [dashboards, setDashboards] = useState<Dashboard[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [newDashboardName, setNewDashboardName] = useState('');
   const [selectedColor, setSelectedColor] = useState('#7ac555');
   const [isLoading, setIsLoading] = useState(false);
+
+  const pageSize = 5;
+
+  const { fetchSidebarDashboards } = useSidebarDashboards();
 
   const router = useRouter();
 
@@ -40,11 +46,11 @@ export default function DashboardList() {
   const fetchDashboards = async () => {
     const response = await getDashboards({
       page: currentPage,
-      size: 5,
+      size: pageSize,
       navigationMethod: 'pagination',
     });
     setDashboards(response.dashboards);
-    setTotalPages(Math.ceil(response.totalCount / 5));
+    setTotalPages(Math.ceil(response.totalCount / pageSize));
   };
 
   const handleNewDashboard = async () => {
@@ -54,16 +60,16 @@ export default function DashboardList() {
     }
 
     setIsLoading(true);
-
     try {
       await postDashboards({
         title: newDashboardName,
         color: selectedColor,
       });
+      await fetchDashboards();
+      await fetchSidebarDashboards(currentPage);
       closeModal();
-      fetchDashboards();
     } catch (error) {
-      alert(error.message || '대시보드 생성에 실패했습니다.');
+      console.error('대시보드 생성 실패:', error);
     } finally {
       setIsLoading(false);
     }
@@ -76,21 +82,30 @@ export default function DashboardList() {
   return (
     <div className={styles['dashboard-container']}>
       <ul className={styles['dashboard-list']}>
-        <CDSButton btnType="dashboard_add" onClick={openModal}>
-          새로운 대시보드
-        </CDSButton>
-        {dashboards.map((item) => (
-          <li key={item.id} className={styles.dashboard}>
-            <CDSButton
-              btnType="dashboard_card"
-              badge={item.color}
-              owner={item.createdByMe}
-              onClick={() => handleClick(item.id)}
-            >
-              {item.title}
-            </CDSButton>
+        <li>
+          <CDSButton btnType="dashboard_add" onClick={openModal}>
+            새로운 대시보드
+          </CDSButton>
+        </li>
+
+        {Array.isArray(dashboards) && dashboards.length > 0 ? (
+          dashboards.map((item) => (
+            <li key={`DashboardList_${item.id}`} className={styles.dashboard}>
+              <CDSButton
+                btnType="dashboard_card"
+                badge={item.color as BadgeColor}
+                owner={item.createdByMe}
+                onClick={() => handleClick(item.id)}
+              >
+                {item.title}
+              </CDSButton>
+            </li>
+          ))
+        ) : (
+          <li className={styles['menu-list-dashboard']}>
+            <span>대시보드가 없습니다.</span>
           </li>
-        ))}
+        )}
       </ul>
 
       {/* 페이지네이션 */}

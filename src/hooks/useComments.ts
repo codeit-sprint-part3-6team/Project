@@ -28,7 +28,7 @@ const useComments = (
       });
       setCommentsResponse((prev) => ({
         ...prev,
-        comments: [...(prev?.comments || []), addedComment],
+        comments: [addedComment, ...(prev?.comments || [])],
       }));
     } catch (error) {
       console.error('댓글 추가 실패:', error);

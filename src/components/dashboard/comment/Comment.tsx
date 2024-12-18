@@ -8,7 +8,7 @@ interface CommentProps {
   authorId: number;
   nickname: string;
   profileImageUrl: string | null;
-  updatedAt: string;
+  createdAt: string;
   content: string;
 }
 
@@ -16,7 +16,7 @@ function Comment({
   authorId,
   nickname,
   profileImageUrl,
-  updatedAt,
+  createdAt,
   content,
 }: CommentProps) {
   const {
@@ -33,7 +33,7 @@ function Comment({
       <div>
         <div className={styles['title-section']}>
           <span className={styles.nickname}>{nickname}</span>
-          <span className={styles.date}>{formatDate(updatedAt, true)}</span>
+          <span className={styles.date}>{formatDate(createdAt, true)}</span>
         </div>
         <div className={styles.content}>{content}</div>
         {id === authorId && (

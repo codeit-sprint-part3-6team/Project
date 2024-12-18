@@ -147,9 +147,10 @@ function DetailCardModal({
           <button
             type="button"
             className={styles['btn-add-comment']}
-            onClick={() =>
-              addComment(newComment, card.columnId, card.dashboardId)
-            }
+            onClick={() => {
+              addComment(newComment, card.columnId, card.dashboardId);
+              setNewComment('');
+            }}
             disabled={isSubmitting || !newComment.trim()}
           >
             입력
@@ -158,17 +159,17 @@ function DetailCardModal({
         <div className="comment-section">
           {commentsResponse.comments.map(
             ({
-              id,
+              id: commentId,
               author: { id: authorId, nickname, profileImageUrl },
-              updatedAt,
+              createdAt,
               content,
             }) => (
               <Comment
-                key={`comment_${id}`}
+                key={`comment_${commentId}`}
                 profileImageUrl={profileImageUrl}
                 authorId={authorId}
                 nickname={nickname}
-                updatedAt={updatedAt}
+                createdAt={createdAt}
                 content={content}
               />
             ),

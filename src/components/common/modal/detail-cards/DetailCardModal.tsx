@@ -3,17 +3,15 @@ import Dropdown from '@/components/common/dropdown/Dropdown';
 import Chip from '@/components/common/chip/Chip';
 import CloseIcon from 'public/ic/ic_x.svg';
 import KebabIcon from 'public/ic/ic_kebab.svg';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import getCardDetail from '@/lib/dashboard/getCardDetail';
 import { Card } from '@/type/card';
 import CardImage from '@/components/dashboard/card/CardImage';
-import getComments from '@/lib/dashboard/getComments';
-import { Comment as CommentType, GetCommentsResponse } from '@/type/comment';
 import Comment from '@/components/dashboard/comment/Comment';
 import formatDate from '@/utils/formatDate';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import postComment from '@/lib/dashboard/postComment';
+import useComments from '@/hooks/useComments';
 
 interface DetailCardModalProps {
   cardId: number;
@@ -27,10 +25,10 @@ function DetailCardModal({
   closeModal,
 }: DetailCardModalProps) {
   const [card, setCard] = useState<Card | null>(null);
-  const [commentsResponse, setCommentsResponse] =
-    useState<GetCommentsResponse | null>(null);
+  const { commentsResponse, addComment, loadMoreComments, isSubmitting } =
+    useComments(cardId, null);
   const [newComment, setNewComment] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
   const handleMenuClick = (value: string) => {
     closeModal();
@@ -40,12 +38,9 @@ function DetailCardModal({
 
   const fetchData = async () => {
     try {
-      const [cardDetail, comments] = await Promise.all([
-        getCardDetail({ cardId }),
-        getComments({ cardId }),
-      ]);
+      const cardDetail = await getCardDetail({ cardId });
       setCard(cardDetail);
-      setCommentsResponse(comments);
+      loadMoreComments();
     } catch (error) {
       console.error('데이터 요청 실패:', error);
     }
@@ -53,56 +48,21 @@ function DetailCardModal({
 
   const handleObserver = useCallback(
     async ([entry]) => {
-      if (entry.isIntersecting && commentsResponse.cursorId) {
-        try {
-          const newCommentsResponse = await getComments({
-            cardId,
-            cursorId: commentsResponse.cursorId,
-          });
-
-          setCommentsResponse((prev) => ({
-            ...newCommentsResponse,
-            comments: [
-              ...(prev.comments || []),
-              ...newCommentsResponse.comments,
-            ],
-          }));
-        } catch (error) {
-          console.error('댓글을 불러오는데 실패했습니다:', error);
-        }
+      if (entry.isIntersecting && commentsResponse?.cursorId) {
+        loadMoreComments(commentsResponse.cursorId);
       }
     },
-    [commentsResponse?.cursorId, cardId],
+    [commentsResponse?.cursorId, loadMoreComments],
   );
 
   const endPoint = useIntersectionObserver(handleObserver);
 
-  const handleAddComment = async () => {
-    if (!newComment.trim()) return;
-
-    setIsSubmitting(true);
-    try {
-      const addedComment: CommentType = await postComment({
-        content: newComment,
-        cardId,
-        columnId: card.columnId,
-        dashboardId: card.dashboardId,
-      });
-
-      setCommentsResponse((prev) => ({
-        ...prev,
-        comments: [...(prev?.comments || []), addedComment],
-      }));
-
-      setNewComment('');
-    } catch (error) {
-      console.error('댓글 추가 실패:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     fetchData();
   }, [cardId]);
 
@@ -180,7 +140,9 @@ function DetailCardModal({
           <button
             type="button"
             className={styles['btn-add-comment']}
-            onClick={handleAddComment}
+            onClick={() =>
+              addComment(newComment, card.columnId, card.dashboardId)
+            }
             disabled={isSubmitting || !newComment.trim()}
           >
             입력

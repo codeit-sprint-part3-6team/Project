@@ -12,23 +12,10 @@
   color: #d25b68 !important;
 }
 
-.test {
+.avatar-group {
   --AvatarGroup-gap: -8px;
   --Avatar-size: 38px;
   --Avatar-ringSize: 2px !important;
-}
-
-@media screen and (max-width: 743px) {
-  .avatar {
-    font-size: 14px !important;
-    font-weight: 600 !important;
-  }
-
-  .test {
-    --AvatarGroup-gap: -10px;
-    --Avatar-size: 34px;
-    --Avatar-ringSize: 2px !important;
-  }
 }
 
 @media screen and (max-width: 1199px) {
@@ -38,6 +25,15 @@
 }
 
 @media screen and (max-width: 743px) {
+  .avatar {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+  }
+
+  .avatar-group {
+    --Avatar-size: 34px;
+  }
+
   .invited-member {
     margin-left: 16px;
   }

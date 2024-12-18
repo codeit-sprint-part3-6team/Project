@@ -31,6 +31,7 @@
 
 .left-section {
   display: flex;
+  align-items: center;
   margin-right: 72px;
   position: relative;
 }
@@ -71,15 +72,16 @@
 @media screen and (max-width: 743px) {
   .navbar {
     height: 60px;
-    padding: 0 8px 0 0;
+    padding: 0 12px 0 0;
     margin-left: 67px;
   }
 
   .left-section {
-    margin-right: 32px;
+    margin-right: 24px;
   }
 
   .left-section::before {
-    right: -16px;
+    height: 34px;
+    right: -12px;
   }
 }

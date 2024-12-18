@@ -39,7 +39,19 @@
 }
 
 @media screen and (max-width: 743px) {
+  .button {
+    border-radius: 6px;
+    height: 30px;
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
   .button + .button {
     margin-left: 6px;
+  }
+
+  .button.management::before,
+  .button.invite::before {
+    display: none;
   }
 }

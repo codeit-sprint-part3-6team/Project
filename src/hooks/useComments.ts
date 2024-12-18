@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Comment as CommentType, GetCommentsResponse } from '@/type/comment';
 import postComment from '@/lib/dashboard/postComment';
 import getComments from '@/lib/dashboard/getComments';
+import deleteComment from '@/lib/dashboard/deleteComment';
 
 const useComments = (
   cardId: number,
@@ -49,7 +50,26 @@ const useComments = (
     }
   };
 
-  return { commentsResponse, addComment, loadMoreComments, isSubmitting };
+  const removeComment = async (commentId: number) => {
+    try {
+      await deleteComment(commentId);
+      setCommentsResponse((prev) => ({
+        ...prev,
+        comments:
+          prev?.comments.filter((comment) => comment.id !== commentId) || [],
+      }));
+    } catch (error) {
+      console.error('댓글 삭제 실패:', error);
+    }
+  };
+
+  return {
+    commentsResponse,
+    addComment,
+    loadMoreComments,
+    removeComment,
+    isSubmitting,
+  };
 };
 
 export default useComments;

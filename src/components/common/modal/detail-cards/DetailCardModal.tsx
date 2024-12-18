@@ -35,8 +35,13 @@ function DetailCardModal({
     user: { id },
   } = useSelector((state: RootState) => state.userInfo);
   const [card, setCard] = useState<Card | null>(null);
-  const { commentsResponse, addComment, loadMoreComments, isSubmitting } =
-    useComments(cardId, null);
+  const {
+    commentsResponse,
+    addComment,
+    loadMoreComments,
+    removeComment,
+    isSubmitting,
+  } = useComments(cardId, null);
   const [newComment, setNewComment] = useState('');
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
@@ -187,11 +192,13 @@ function DetailCardModal({
             }) => (
               <Comment
                 key={`comment_${commentId}`}
+                commentId={commentId}
                 profileImageUrl={profileImageUrl}
                 authorId={authorId}
                 nickname={nickname}
                 createdAt={createdAt}
                 content={content}
+                removeComment={removeComment}
               />
             ),
           )}

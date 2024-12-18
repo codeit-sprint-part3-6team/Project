@@ -13,6 +13,7 @@ import styles from './CreateCard.module.css';
 import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
 import AssigneeSection from './AssigneeSection';
+import DescriptionInput from './DescriptionInput';
 
 interface CreateCardProps {
   targetId: number;
@@ -116,18 +117,10 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
               required
             />
           </section>
-          <section className={styles.section}>
-            <div className={styles[`topic-box`]}>
-              <p className={styles.topic}>설명</p>
-              <p className={styles.require}>*</p>
-            </div>
-            <textarea
-              className={styles[`description-input`]}
-              placeholder="설명을 입력해 주세요."
-              value={description}
-              onChange={handleDescriptionChange}
-            />
-          </section>
+          <DescriptionInput
+            value={description}
+            onChange={handleDescriptionChange}
+          />
           <section className={styles.section}>
             <DeadlineInput onDateChange={handleDateChange} />
           </section>

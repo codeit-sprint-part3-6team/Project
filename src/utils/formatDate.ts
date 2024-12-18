@@ -1,14 +1,27 @@
 const formatDate = (date: string, includeTime: boolean = false): string => {
-  const dateObj = new Date(date);
-  const year = dateObj.getFullYear();
-  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-  const day = String(dateObj.getDate()).padStart(2, '0');
-  let formattedDate = `${year}.${month}.${day}`;
+  if (!date) {
+    console.error('Invalid date string');
+    return '';
+  }
 
-  if (includeTime) {
-    const hours = String(dateObj.getHours()).padStart(2, '0');
-    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
-    formattedDate += ` ${hours}:${minutes}`;
+  let formattedDate = '';
+
+  let datePart: string;
+  let timePart: string;
+  if (date.includes('T')) {
+    [datePart, timePart] = date.split('T');
+  } else if (date.includes(' ')) {
+    [datePart, timePart] = date.split(' ');
+  }
+
+  const [year, month, day] = datePart.split('-');
+  formattedDate = `${year}.${month}.${day}`;
+
+  if (includeTime && timePart) {
+    const time = timePart.split('.')[0];
+    if (time) {
+      formattedDate += ` ${time.substring(0, 5)}`;
+    }
   }
 
   return formattedDate;

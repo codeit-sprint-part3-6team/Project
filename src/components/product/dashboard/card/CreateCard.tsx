@@ -44,7 +44,6 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
   const [tags, setTags] = useState<string[]>([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  console.log(tags);
   const { query } = useRouter();
   const dashboardId = Number(query.id);
 

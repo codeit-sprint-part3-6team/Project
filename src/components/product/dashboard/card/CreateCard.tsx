@@ -9,6 +9,7 @@ import postCard from '@/lib/dashboard/postCard';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import useMembers from '@/hooks/useMembers';
 import useCardImageUploader from '@/hooks/useCardImageUploader';
+import useAssigneeSelector from '@/hooks/useAssigneeSelector';
 import ToggleButton from 'public/ic/ic_dropdown.svg';
 import CardImageInput from './CardImageInput';
 import styles from './CreateCard.module.css';
@@ -20,20 +21,22 @@ interface CreateCardProps {
 }
 
 export default function CreateCard({ targetId, onClose }: CreateCardProps) {
-  const [selectedMemberNickname, setSelectedMemberNickname] =
-    useState<string>('');
-  const [selectedMemberProfileImage, setSelectedMemberProfileImage] =
-    useState<string>('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const { query } = useRouter();
   const dashboardId = Number(query.id);
   const { members } = useMembers({ teamId: '11-6', dashboardId });
   const { image, preview, handleImageChange } = useCardImageUploader();
+  const {
+    selectedMemberNickname,
+    selectedMemberProfileImage,
+    isDropdownOpen,
+    handleToggle,
+    handleOptionClick,
+  } = useAssigneeSelector();
 
   const handleDateChange = (date: string) => {
     setFormattedDate(date);
@@ -90,15 +93,6 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
     onClose();
   };
 
-  const handleOptionClick = (nickname: string, profileImageUrl: string) => {
-    setSelectedMemberNickname(nickname);
-    setSelectedMemberProfileImage(profileImageUrl);
-    setIsDropdownOpen(false);
-  };
-
-  const handleToggle = () => {
-    setIsDropdownOpen((prevState) => !prevState);
-  };
   return (
     <OverlayContainer>
       <div className={styles.container}>
@@ -125,7 +119,6 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
                   disabled
                   placeholder="이름을 선택해 주세요."
                   className={styles[`name-select`]}
-                  onChange={(e) => setSelectedMemberNickname(e.target.value)}
                 />
               )}
               <ToggleButton

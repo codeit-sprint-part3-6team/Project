@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import DeadlineInput from '@/components/common/input/info-input/DeadlineInput';
-import CDSButton from '@/components/common/button/CDSButton';
 import cardImageUpload from '@/lib/dashboard/cardImageUpload';
 import postCard from '@/lib/dashboard/postCard';
 import UserProfile from '@/components/common/userprofile/UserProfile';
@@ -14,6 +13,7 @@ import ToggleButton from 'public/ic/ic_dropdown.svg';
 import CardImageInput from './CardImageInput';
 import styles from './CreateCard.module.css';
 import TagManager from './TagManager';
+import ButtonSection from './ButtonSection';
 
 interface CreateCardProps {
   targetId: number;
@@ -200,14 +200,7 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
               onImageChange={handleImageChange}
             />
           </section>
-          <section className={styles[`button-box`]}>
-            <CDSButton btnType="modal" onClick={handleCancelClick}>
-              취소
-            </CDSButton>
-            <CDSButton btnType="modal_colored" onClick={handleSubmit}>
-              생성
-            </CDSButton>
-          </section>
+          <ButtonSection onCancel={handleCancelClick} onSubmit={handleSubmit} />
         </div>
       </div>
     </OverlayContainer>

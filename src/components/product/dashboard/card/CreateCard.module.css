@@ -90,13 +90,6 @@
   color: var(--black-medium);
 }
 
-.button-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
 .input-box {
   position: relative;
 }

@@ -5,7 +5,7 @@ import CloseIcon from 'public/ic/ic_x.svg';
 import KebabIcon from 'public/ic/ic_kebab.svg';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import getCardDetail from '@/lib/dashboard/getCardDetail';
-import { Card } from '@/type/card';
+import { Card, GetCardsResponse } from '@/type/card';
 import CardImage from '@/components/dashboard/card/CardImage';
 import Comment from '@/components/dashboard/comment/Comment';
 import formatDate from '@/utils/formatDate';
@@ -14,17 +14,20 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useComments from '@/hooks/useComments';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import deleteCard from '@/lib/dashboard/deleteCard';
 
 interface DetailCardModalProps {
   cardId: number;
   columnTitle: string;
   closeModal: () => void;
+  setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
 }
 
 function DetailCardModal({
   cardId,
   columnTitle,
   closeModal,
+  setColumnData,
 }: DetailCardModalProps) {
   const {
     user: { id },
@@ -35,10 +38,26 @@ function DetailCardModal({
   const [newComment, setNewComment] = useState('');
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
-  const handleMenuClick = (value: string) => {
+  // 카드 삭제 함수
+  const handleCardDelete = async () => {
+    try {
+      await deleteCard(cardId);
+      alert('카드가 삭제되었습니다.');
+      setColumnData((prev) => ({
+        ...prev,
+        cards: prev.cards.filter((columnCard) => columnCard.id !== cardId), // 삭제된 카드 제외
+      }));
+    } catch (error) {
+      console.error('카드 삭제 오류:', error);
+    }
+  };
+
+  const handleMenuClick = async (value: string) => {
     closeModal();
     if (value === 'edit') alert('수정하기 모달 오픈');
-    else if (value === 'delete') console.log('delete');
+    else if (value === 'delete') {
+      await handleCardDelete();
+    }
   };
 
   const fetchData = async () => {

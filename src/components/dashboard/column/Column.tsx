@@ -13,7 +13,7 @@ interface ColumnProp {
 }
 
 function Column({ columnId, columnTitle }: ColumnProp) {
-  const { columnData, fetchCards } = useColumnData(columnId);
+  const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
   const handleObserver = useCallback(
@@ -70,6 +70,7 @@ function Column({ columnId, columnTitle }: ColumnProp) {
               nickname={nickname}
               profileImage={profileImageUrl}
               columnTitle={columnTitle}
+              setColumnData={setColumnData}
             />
           ),
         )}

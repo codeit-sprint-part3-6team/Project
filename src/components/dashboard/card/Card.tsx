@@ -7,6 +7,7 @@ import useModal from '@/hooks/useModal';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import DetailCardModal from '@/components/common/modal/detail-cards/DetailCardModal';
 import UserProfile from '@/components/common/userprofile/UserProfile';
+import { GetCardsResponse } from '@/type/card';
 
 interface CardProps {
   imageUrl: string;
@@ -17,6 +18,7 @@ interface CardProps {
   nickname: string;
   profileImage: string | null;
   columnTitle: string;
+  setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
 }
 
 function Card({
@@ -28,6 +30,7 @@ function Card({
   nickname,
   profileImage,
   columnTitle,
+  setColumnData,
 }: CardProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const fomattedDueDate = formatDate(dueDate);
@@ -67,6 +70,7 @@ function Card({
             cardId={id}
             columnTitle={columnTitle}
             closeModal={closeModal}
+            setColumnData={setColumnData}
           />
         </OverlayContainer>
       )}

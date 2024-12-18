@@ -56,7 +56,7 @@ function Comment({
         onlyImg
         nickname={nickname}
       />
-      <div>
+      <div className={styles.wrap}>
         <div className={styles['title-section']}>
           <span className={styles.nickname}>{nickname}</span>
           <span className={styles.date}>{formatDate(createdAt, true)}</span>
@@ -70,24 +70,23 @@ function Comment({
             />
             <button
               type="button"
-              className={styles['btn-save']}
-              onClick={handleSave}
-            >
-              저장
-            </button>
-            <button
-              type="button"
               className={styles['btn-cancel']}
               onClick={handleCancel}
             >
               취소
             </button>
+            <button
+              type="button"
+              className={styles['btn-save']}
+              onClick={handleSave}
+            >
+              저장
+            </button>
           </div>
         ) : (
           <div className={styles.content}>{content}</div>
         )}
-        {/* <div className={styles.content}>{content}</div> */}
-        {id === authorId && (
+        {!isEditing && id === authorId && (
           <div>
             <button
               type="button"

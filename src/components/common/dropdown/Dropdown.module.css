@@ -11,6 +11,7 @@
 
 .dropdown-menus {
   position: absolute;
+  z-index: 1;
   right: -3px;
 
   display: flex;

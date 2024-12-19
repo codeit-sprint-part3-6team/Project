@@ -7,7 +7,6 @@ import { AppDispatch } from '@/redux/store';
 import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import CheckBox from '@/components/common/checkbox/CheckBox';
 import CDSButton from '@/components/common/button/CDSButton';
-import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { postSignup } from '@/lib/signup/postSignup';
 import { postSignin } from '@/lib/signin/postSignin';
@@ -195,12 +194,10 @@ function SignupForm() {
       </form>
 
       {isModalVisible && (
-        <OverlayContainer>
-          <AuthModal
-            message={responseMessage}
-            handleCancelClick={handleCancelClick}
-          />
-        </OverlayContainer>
+        <AuthModal
+          message={responseMessage}
+          handleCancelClick={handleCancelClick}
+        />
       )}
     </>
   );

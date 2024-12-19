@@ -1,15 +1,18 @@
 import CDSButton from '../../button/CDSButton';
+import OverlayContainer from '../overlay-container/OverlayContainer';
 import styles from './AuthModal.module.css';
 
 function AuthModal({ message, handleCancelClick }) {
   return (
-    <div className={styles['authModal-section']}>
-      <p className={styles.message}>{message}</p>
+    <OverlayContainer>
+      <div className={styles['authModal-section']}>
+        <p className={styles.message}>{message}</p>
 
-      <CDSButton btnType="modal_single" onClick={handleCancelClick}>
-        확인
-      </CDSButton>
-    </div>
+        <CDSButton btnType="modal_single" onClick={handleCancelClick}>
+          확인
+        </CDSButton>
+      </div>
+    </OverlayContainer>
   );
 }
 

@@ -8,6 +8,7 @@ import Column from '@/components/dashboard/column/Column';
 import { Column as ColumnType } from '@/type/column';
 import { useRouter } from 'next/router';
 import GeneralModal from '@/components/common/modal/general/GeneralModal';
+import Navbar from '@/components/common/navbar/Navbar';
 
 function DashBoard() {
   const { query } = useRouter();
@@ -21,7 +22,7 @@ function DashBoard() {
     setNewColumn('');
   };
 
-  const handleCancleClick = () => {
+  const handleCancelClick = () => {
     closeModal();
   };
 
@@ -65,6 +66,7 @@ function DashBoard() {
   return (
     <div>
       <Sidebar />
+      <Navbar />
       <div className={styles.container}>
         {columns.map(({ id, title }) => (
           <Column
@@ -84,14 +86,16 @@ function DashBoard() {
       {/* 모달창 */}
       {showModal && (
         <GeneralModal
+          label="이름"
+          placeholder="컬럼 이름을 입력해 주세요"
           isOpen={showModal}
           onClose={closeModal}
           title="새로운 컬럼 추가"
           inputValue={newColumn}
           onInputChange={(value) => setNewColumn(value)}
-          cancletitle="취소"
-          handleCancleClick={handleCancleClick}
-          adapttitle="생성"
+          cancelTitle="취소"
+          handleCancelClick={handleCancelClick}
+          adaptTitle="생성"
           handleAdaptClick={handleAdaptClick}
         />
       )}

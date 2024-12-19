@@ -6,7 +6,7 @@
 
   border: 1px solid var(--gray-medium);
   border-radius: 8px;
-  background-color: none;
+  background: none;
   padding: 0 16px;
 
   font-size: 16px;
@@ -30,12 +30,12 @@
   display: inline-block;
   margin-right: 8px;
 
-  background-image: url('/ic/ic_setting.svg') no-repeat;
+  background: url('/ic/ic_setting.svg') no-repeat;
   background-size: 100%;
 }
 
 .button.invite::before {
-  background-image: url('/ic/ic_plus.svg') no-repeat;
+  background: url('/ic/ic_plus.svg') no-repeat;
   background-size: 100%;
 }
 

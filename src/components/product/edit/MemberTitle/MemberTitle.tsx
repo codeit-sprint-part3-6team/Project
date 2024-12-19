@@ -23,7 +23,7 @@ export default function MemberTitle() {
       </div>
       <div className={styles.name_section}>
         <h2 className={styles.sub_title}>이름</h2>
-        <MemberList />
+        {/* <MemberList /> */}
       </div>
     </section>
   );

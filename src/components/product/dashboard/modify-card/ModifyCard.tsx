@@ -8,11 +8,11 @@ import postCard from '@/lib/dashboard/postCard';
 import useMembers from '@/hooks/useMembers';
 import useCardImageUploader from '@/hooks/useCardImageUploader';
 import useAssigneeSelector from '@/hooks/useAssigneeSelector';
-import CardImageInput from './CardImageInput';
-import TagManager from './TagManager';
-import ButtonSection from './ButtonSection';
-import AssigneeSection from './AssigneeSection';
-import DescriptionInput from './DescriptionInput';
+import AssigneeSection from '../card/AssigneeSection';
+import DescriptionInput from '../card/DescriptionInput';
+import TagManager from '../card/TagManager';
+import CardImageInput from '../card/CardImageInput';
+import ButtonSection from '../card/ButtonSection';
 import styles from './CreateCard.module.css';
 
 interface ModifyCardProps {

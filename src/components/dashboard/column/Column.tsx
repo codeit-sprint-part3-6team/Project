@@ -145,6 +145,7 @@ function Column({
       {isEditModalOpen && (
         <GeneralModal
           label="이름"
+          placeholder="수정할 이름을 입력해 주세요"
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
           title="컬럼 제목 수정"

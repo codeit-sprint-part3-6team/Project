@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { UserInfoState } from '@/type/userInfo';
 import { DashboardState } from '@/type/dashboard';
+import { CardInfoState } from '@/type/card';
 import userInfoReducer from './settingSlice';
 import dashboardReducer from './dashboardSlice';
+import cardInfoReducer from './cardSlice';
 
 // 최초 세션 스토리지에서 상태를 로드하는 함수
 const loadState = () => {
@@ -26,6 +28,7 @@ const store = configureStore({
   reducer: {
     userInfo: userInfoReducer, // userInfo 상태를 처리하는 리듀서를 설정
     dashboard: dashboardReducer,
+    cardInfo: cardInfoReducer,
   } as any,
   preloadedState: loadState() as { userInfo: UserInfoState }, // 새로 고침 되어도 이전 상태 유지
 });
@@ -34,6 +37,7 @@ const store = configureStore({
 export type RootState = {
   userInfo: UserInfoState;
   dashboard: DashboardState;
+  cardInfo: CardInfoState;
 };
 export type AppDispatch = typeof store.dispatch;
 

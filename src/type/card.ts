@@ -34,4 +34,34 @@ interface GetCardsResponse {
   cursorId: number;
 }
 
-export type { GetCardParams, GetCardDetailParams, GetCardsResponse, Card };
+interface CardInfo {
+  id: number;
+  title: string;
+  description: string;
+  tags: string[];
+  dueDate: string;
+  assignee: {
+    profileImageUrl: string;
+    nickname: string;
+    id: number;
+  };
+  imageUrl: string;
+  teamId: string;
+  columnId: number;
+  createdAt: string;
+  updatedAt: string;
+  dashboardId: number;
+}
+
+interface CardInfoState {
+  cardDetailInfo: CardInfo;
+}
+
+export type {
+  GetCardParams,
+  GetCardDetailParams,
+  GetCardsResponse,
+  Card,
+  CardInfo,
+  CardInfoState,
+};

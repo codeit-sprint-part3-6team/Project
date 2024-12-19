@@ -12,9 +12,10 @@ import formatDate from '@/utils/formatDate';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useComments from '@/hooks/useComments';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '@/redux/store';
 import deleteCard from '@/lib/dashboard/deleteCard';
+import { setCardInfo } from '@/redux/cardSlice';
 
 interface DetailCardModalProps {
   title: string;
@@ -46,6 +47,7 @@ function DetailCardModal({
     isSubmitting,
   } = useComments(cardId, null);
   const [newComment, setNewComment] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
 
   // 카드 삭제 함수
   const handleCardDelete = async () => {
@@ -74,6 +76,7 @@ function DetailCardModal({
     try {
       const cardDetail = await getCardDetail({ cardId });
       setCard(cardDetail);
+      dispatch(setCardInfo(cardDetail));
       loadMoreComments();
     } catch (error) {
       console.error('데이터 요청 실패:', error);

@@ -1,5 +1,18 @@
-import { GetDashboardsParams, GetDashboardsResponse } from '@/type/dashboard';
+import { Dashboard } from '@/type/dashboard';
 import instance from '../instance';
+
+export interface GetDashboardsParams {
+  cursorId?: number;
+  page: number;
+  size: number;
+  navigationMethod: 'infiniteScroll' | 'pagination';
+}
+
+export interface GetDashboardsResponse {
+  cursorId: number | null;
+  totalCount: number;
+  dashboards: Dashboard[];
+}
 
 export default async function getDashboards(
   params: GetDashboardsParams,

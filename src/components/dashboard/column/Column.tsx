@@ -1,9 +1,10 @@
+import { useState, useCallback, useEffect, useRef } from 'react';
+import SettingIcon from 'public/ic/ic_setting.svg';
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
-import { useCallback, useEffect, useRef } from 'react';
-import SettingIcon from 'public/ic/ic_setting.svg';
-import Link from 'next/link';
+import putColumns from '@/lib/dashboard/putColumns';
+import GeneralModal from '@/components/common/modal/general/GeneralModal';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useColumnData from '@/hooks/useColumnData';
 
@@ -12,9 +13,39 @@ interface ColumnProp {
   columnTitle: string;
 }
 
-function Column({ columnId, columnTitle }: ColumnProp) {
+function Column({ columnId, columnTitle: initialTitle }: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
-  const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
+  const isFirstRender = useRef(true);
+  const [showModal, setShowModal] = useState(false);
+  const [columnTitle, setColumnTitle] = useState(initialTitle);
+  const [editedTitle, setEditedTitle] = useState(columnTitle);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
+
+  const handleCancleClick = () => {
+    closeModal();
+    setEditedTitle(columnTitle);
+  };
+
+  const handleAdaptClick = async () => {
+    try {
+      const updatedColumn = await putColumns({
+        title: editedTitle,
+        columnId,
+      });
+
+      setColumnTitle(updatedColumn.title);
+      setColumnData((prev) => ({
+        ...prev,
+        title: updatedColumn.title,
+      }));
+
+      closeModal();
+    } catch (error) {
+      alert(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
+    }
+  };
 
   const handleObserver = useCallback(
     ([entry]) => {
@@ -42,12 +73,13 @@ function Column({ columnId, columnTitle }: ColumnProp) {
           {columnTitle}
           <span className={styles['column-size']}>{columnData.totalCount}</span>
         </div>
-        <Link
-          href={`/dashboard/${columnId}/edit`}
+        <button
+          type="button"
           className={styles['btn-edit-column']}
+          onClick={openModal}
         >
           <SettingIcon className={styles['icon-setting']} />
-        </Link>
+        </button>
       </div>
       <CDSButton btnType="todo" />
       <div className={styles['card-section']}>
@@ -78,6 +110,21 @@ function Column({ columnId, columnTitle }: ColumnProp) {
           <div ref={endPoint} className={styles['end-point']} />
         )}
       </div>
+
+      {/* 모달창 */}
+      {showModal && (
+        <GeneralModal
+          isOpen={showModal}
+          onClose={closeModal}
+          title="컬럼 제목 수정"
+          inputValue={editedTitle}
+          onInputChange={(value) => setEditedTitle(value)}
+          cancletitle="삭제"
+          handleCancleClick={handleCancleClick}
+          adapttitle="변경"
+          handleAdaptClick={handleAdaptClick}
+        />
+      )}
     </div>
   );
 }

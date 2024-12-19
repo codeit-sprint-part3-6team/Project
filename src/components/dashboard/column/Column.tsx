@@ -1,7 +1,7 @@
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -15,6 +15,12 @@ interface ColumnProp {
 
 function Column({ columnId, columnTitle }: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
+  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
+
+  const handleClick = () => {
+    // 카드 생성 모달 띄우기 위한 함수수
+    setModal(true);
+  };
 
   const handleObserver = useCallback(
     ([entry]) => {

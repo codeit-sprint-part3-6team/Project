@@ -137,10 +137,18 @@ export default function ModifyCard({
         imageUrl = await cardImageUpload(image, cardInfo.columnId);
       }
 
+      const selectedMember = members.find(
+        (member) => member.nickname === selectedMemberNickname,
+      );
+
+      const selectedColumn = columns.data.find(
+        (column) => column.title === selectedColumnTitle,
+      );
+
       const putData = {
-        assigneeUserId: cardInfo.assignee.id,
+        assigneeUserId: selectedMember.userId,
         dashboardId,
-        columnId: cardInfo.columnId,
+        columnId: selectedColumn.id,
         title,
         description,
         dueDate: formattedDate,

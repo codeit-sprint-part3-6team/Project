@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import styles from './Navbar.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
@@ -8,6 +7,7 @@ import NavButton from '../button/NavButton';
 import UserProfile from '../userprofile/UserProfile';
 import InvitedMember from '../invitedmember/InvitedMember';
 import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
+import Dropdown from '../dropdown/Dropdown';
 
 function Navbar() {
   const [dashboardData, setDashboardData] = useState(null);
@@ -53,6 +53,15 @@ function Navbar() {
     );
   };
 
+  const handleDropdownClick = (value: string) => {
+    if (value === 'mypage') {
+      router.push('/mypage');
+    } else if (value === 'logout') {
+      sessionStorage.removeItem('accessToken');
+      router.push('/');
+    }
+  };
+
   return (
     <div className={styles.navbar}>
       {renderTitle()}
@@ -80,15 +89,23 @@ function Navbar() {
           </div>
         )}
 
-        <Link href={'/mypage'}>
-          {clientUser && (
-            <UserProfile
-              type="header"
-              nickname={clientUser.nickname}
-              profileImageUrl={clientUser.profileImageUrl}
-            />
-          )}
-        </Link>
+        <div className={styles.dropdown}>
+          <Dropdown
+            onMenuClick={handleDropdownClick}
+            menus={[
+              { label: '마이페이지', value: 'mypage' },
+              { label: '로그아웃', value: 'logout' },
+            ]}
+          >
+            {clientUser && (
+              <UserProfile
+                type="header"
+                nickname={clientUser.nickname}
+                profileImageUrl={clientUser.profileImageUrl}
+              />
+            )}
+          </Dropdown>
+        </div>
       </div>
     </div>
   );

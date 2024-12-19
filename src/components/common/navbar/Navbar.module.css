@@ -56,6 +56,11 @@
   background-color: var(--gray-medium);
 }
 
+.dropdown div > ul {
+  top: 50px;
+  right: -10px;
+}
+
 @media screen and (max-width: 1199px) {
   .navbar {
     padding: 0 32px 0 0;

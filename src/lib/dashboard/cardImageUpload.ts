@@ -2,14 +2,14 @@ import instance from '../instance';
 
 export default async function cardImageUpload(
   file: File,
-  targetId: number,
+  columnId: number,
 ): Promise<string> {
   try {
     const formData = new FormData();
     formData.append('image', file);
 
     const res = await instance.post(
-      `/11-6/columns/${targetId}/card-image`,
+      `/11-6/columns/${columnId}/card-image`,
       formData,
     );
 

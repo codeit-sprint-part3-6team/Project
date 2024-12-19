@@ -9,12 +9,12 @@ import useColumnData from '@/hooks/useColumnData';
 import CreateCard from '@/components/product/dashboard/card/CreateCard';
 
 interface ColumnProp {
-  targetId: number;
+  columnId: number;
   columnTitle: string;
 }
 
-function Column({ targetId, columnTitle }: ColumnProp) {
-  const { columnData, fetchCards } = useColumnData(targetId);
+function Column({ columnId, columnTitle }: ColumnProp) {
+  const { columnData, fetchCards } = useColumnData(columnId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
   const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
 
@@ -50,7 +50,7 @@ function Column({ targetId, columnTitle }: ColumnProp) {
           <span className={styles['column-size']}>{columnData.totalCount}</span>
         </div>
         <Link
-          href={`/dashboard/${targetId}/edit`}
+          href={`/dashboard/${columnId}/edit`}
           className={styles['btn-edit-column']}
         >
           <SettingIcon className={styles['icon-setting']} />
@@ -77,7 +77,7 @@ function Column({ targetId, columnTitle }: ColumnProp) {
       </div>
       {modal && ( // 카드 생성 모달 띄우기기
         <CreateCard
-          targetId={targetId}
+          columnId={columnId}
           onClose={() => {
             setModal(false);
           }}

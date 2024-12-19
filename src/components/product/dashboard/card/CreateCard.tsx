@@ -16,13 +16,13 @@ import DescriptionInput from './DescriptionInput';
 import styles from './CreateCard.module.css';
 
 interface CreateCardProps {
-  targetId: number;
+  columnId: number;
   onClose: () => void;
   onUpdate: () => void;
 }
 
 export default function CreateCard({
-  targetId,
+  columnId,
   onClose,
   onUpdate,
 }: CreateCardProps) {
@@ -79,7 +79,7 @@ export default function CreateCard({
     try {
       let imageUrl = null;
       if (image) {
-        imageUrl = await cardImageUpload(image, targetId);
+        imageUrl = await cardImageUpload(image, columnId);
       }
 
       const selectedMember = members.find(
@@ -94,7 +94,7 @@ export default function CreateCard({
       const createData = {
         assigneeUserId: selectedMember.userId,
         dashboardId,
-        columnId: targetId,
+        columnId,
         title,
         description,
         dueDate: formattedDate,

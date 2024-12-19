@@ -6,7 +6,6 @@ import { setUserInfo } from '@/redux/settingSlice';
 import { AppDispatch } from '@/redux/store';
 import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import CDSButton from '@/components/common/button/CDSButton';
-import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { postSignin } from '@/lib/signin/postSignin';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
@@ -124,12 +123,10 @@ function SigninForm() {
       </form>
 
       {isModalVisible && (
-        <OverlayContainer>
-          <AuthModal
-            message={responseMessage}
-            handleCancelClick={handleCancelClick}
-          />
-        </OverlayContainer>
+        <AuthModal
+          message={responseMessage}
+          handleCancelClick={handleCancelClick}
+        />
       )}
     </>
   );

@@ -1,0 +1,41 @@
+.invited-member {
+  margin-left: 40px;
+}
+
+.avatar {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.avatar-overflow {
+  background-color: var(--pink-background) !important;
+
+  color: var(--pink-text) !important;
+}
+
+.avatar-group {
+  --AvatarGroup-gap: -8px;
+  --Avatar-size: 38px;
+  --Avatar-ringSize: 2px !important;
+}
+
+@media screen and (max-width: 1199px) {
+  .invited-member {
+    margin-left: 32px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .avatar {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+  }
+
+  .avatar-group {
+    --Avatar-size: 34px;
+  }
+
+  .invited-member {
+    margin-left: 16px;
+  }
+}

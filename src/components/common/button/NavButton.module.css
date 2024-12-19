@@ -1,0 +1,66 @@
+.button {
+  display: flex;
+  align-items: center;
+
+  height: 40px;
+
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  background-color: none;
+  padding: 0 16px;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--gray);
+
+  cursor: pointer;
+}
+
+.button + .button {
+  margin-left: 16px;
+}
+
+.button.management::before,
+.button.invite::before {
+  content: '';
+
+  width: 20px;
+  height: 20px;
+
+  display: inline-block;
+  margin-right: 8px;
+
+  background-image: url('/ic/ic_setting.svg') no-repeat;
+  background-size: 100%;
+}
+
+.button.invite::before {
+  background-image: url('/ic/ic_plus.svg') no-repeat;
+  background-size: 100%;
+}
+
+@media screen and (max-width: 1199px) {
+  .button + .button {
+    margin-left: 12px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .button {
+    height: 30px;
+
+    border-radius: 6px;
+    padding: 0 10px;
+
+    font-size: 14px;
+  }
+
+  .button + .button {
+    margin-left: 6px;
+  }
+
+  .button.management::before,
+  .button.invite::before {
+    display: none;
+  }
+}

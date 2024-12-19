@@ -1,0 +1,159 @@
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  width: 100%;
+
+  margin-top: 24px;
+}
+
+.wrap {
+  width: 100%;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nickname {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  color: var(--black-medium);
+}
+
+.date {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--gray-dark);
+}
+
+.content-textarea {
+  width: 100%;
+  height: 34px;
+
+  margin-bottom: 6px;
+  padding: 5px;
+
+  font-size: 14px;
+  line-height: 24px;
+
+  resize: none;
+}
+
+.btn-save,
+.btn-cancel {
+  border: 0;
+  background-color: var(--white);
+
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--gray-dark);
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.btn-cancel {
+  margin-right: 14px;
+}
+
+.content-textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.content {
+  margin-bottom: 6px;
+
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--black-medium);
+}
+
+.edit,
+.delete {
+  border: 0;
+  background-color: var(--white);
+
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--gray-dark);
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.edit {
+  margin-right: 14px;
+}
+
+@media screen and (max-width: 1199px) {
+  .content {
+    margin-bottom: 10px;
+  }
+
+  .edit {
+    margin-right: 12px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .comment {
+    gap: 8px;
+
+    margin-top: 16px;
+  }
+
+  .title-section {
+    margin-bottom: 8px;
+  }
+
+  .nickname {
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .date {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .content-textarea {
+    height: 28px;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .btn-save,
+  .btn-cancel {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .btn-cancel {
+    margin-right: 8px;
+  }
+
+  .content {
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .edit,
+  .delete {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  .edit {
+    margin-right: 8px;
+  }
+}

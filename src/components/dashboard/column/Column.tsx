@@ -14,7 +14,7 @@ interface ColumnProp {
 }
 
 function Column({ columnId, columnTitle }: ColumnProp) {
-  const { columnData, fetchCards } = useColumnData(columnId);
+  const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
   const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
 
@@ -59,7 +59,14 @@ function Column({ columnId, columnTitle }: ColumnProp) {
       <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
         {columnData.cards.map(
-          ({ imageUrl, id, title, tags, dueDate, assignee: { nickname } }) => (
+          ({
+            imageUrl,
+            id,
+            title,
+            tags,
+            dueDate,
+            assignee: { nickname, profileImageUrl },
+          }) => (
             <Card
               key={`card_${id}`}
               imageUrl={imageUrl}
@@ -68,6 +75,9 @@ function Column({ columnId, columnTitle }: ColumnProp) {
               tags={tags}
               dueDate={dueDate}
               nickname={nickname}
+              profileImage={profileImageUrl}
+              columnTitle={columnTitle}
+              setColumnData={setColumnData}
             />
           ),
         )}

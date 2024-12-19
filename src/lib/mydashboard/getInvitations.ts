@@ -1,36 +1,5 @@
+import { GetInvitationsParams, GetInvitationsResponse } from '@/type/dashboard';
 import instance from '../instance';
-
-interface GetInvitationsParams {
-  size: number;
-  cursorId: number;
-  title?: string;
-}
-
-interface GetInvitationsResponse {
-  cursorId: number;
-  invitations: Invitaion[];
-}
-
-interface Invitaion {
-  id: number;
-  inviter: {
-    nickname: string;
-    email: string;
-    id: number;
-  };
-  dashboard: {
-    title: string;
-    id: number;
-  };
-  invitee: {
-    nickname: string;
-    email: string;
-    id: number;
-  };
-  inviteAccepted: boolean;
-  createdAt: string;
-  updatedAt: string;
-}
 
 export default async function getinvitations(
   params: GetInvitationsParams,

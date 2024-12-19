@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { UserInfoState } from '@/type/userInfo';
 import userInfoReducer from './settingSlice';
+import dashboardReducer, { DashboardState } from './dashboardSlice';
 
 // 최초 세션 스토리지에서 상태를 로드하는 함수
 const loadState = () => {
@@ -23,13 +24,15 @@ const loadState = () => {
 const store = configureStore({
   reducer: {
     userInfo: userInfoReducer, // userInfo 상태를 처리하는 리듀서를 설정
-  },
+    dashboard: dashboardReducer,
+  } as any,
   preloadedState: loadState() as { userInfo: UserInfoState }, // 새로 고침 되어도 이전 상태 유지
 });
 
 // 상태와 디스패치 타입 정의
 export type RootState = {
   userInfo: UserInfoState;
+  dashboard: DashboardState;
 };
 export type AppDispatch = typeof store.dispatch;
 

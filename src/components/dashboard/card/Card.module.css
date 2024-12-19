@@ -77,17 +77,6 @@
 
   bottom: 0;
   right: 0;
-
-  width: 24px;
-  height: 24px;
-
-  border-radius: 50%;
-  background-color: #a3c4a2;
-
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 15px;
-  color: var(--white);
 }
 
 @media screen and (max-width: 1199px) {
@@ -154,13 +143,5 @@
   .icon-calendar {
     width: 14px;
     height: 14px;
-  }
-
-  .badge {
-    width: 22px;
-    height: 22px;
-
-    font-size: 10px;
-    line-height: 12px;
   }
 }

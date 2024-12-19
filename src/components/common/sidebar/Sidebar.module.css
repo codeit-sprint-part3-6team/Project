@@ -51,29 +51,112 @@
   list-style: none;
   padding: 0;
   margin: 10px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-list-dashboard-active {
+  background-color: var(--violet-bright);
 }
 
 .menu-icon {
   font-size: 16px;
 }
 
-.menu-list-dashboard {
-  font-size: 18px;
-  color: var(--gray);
-  padding: 12px;
-  line-height: 26px;
-  font-weight: 500;
-}
-
 .dashboard-item {
   display: flex;
   align-items: center;
+  border-style: none;
+  width: 100%;
+  height: 42px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.dashboard-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--gray);
 }
 
 .crown-icon {
   display: inline-block;
   margin-left: 8px;
   vertical-align: middle;
+}
+
+.modal {
+  background-color: var(--white);
+  width: 584px;
+  height: 344px;
+  padding: 32px;
+  border-radius: 10px;
+}
+
+.modal h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--black-medium);
+}
+
+.modal h3 {
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.modal input {
+  height: 50px;
+  margin-top: 8px;
+  border: 1px solid var(--gray-medium);
+  width: 100%;
+  padding: 0 16px;
+  border-radius: 8px;
+}
+
+.modal input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--black-medium);
+}
+
+.modal-input:focus {
+  border: 1px solid var(--gray-medium);
+}
+
+.color-picker {
+  margin-top: 16px;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 8px;
+}
+
+.color-circle:hover {
+  cursor: pointer;
+}
+
+.color-picker .color-circle {
+  width: 30px;
+  height: 30px;
+  border: none;
+  margin: 0;
+  position: relative;
+}
+
+.color-selected::after {
+  content: '✓';
+  font-size: 18px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 @media (max-width: 1199px) {
@@ -135,5 +218,22 @@
 
   .pagination {
     display: none;
+  }
+
+  .modal {
+    width: 327px;
+    height: 312px;
+  }
+
+  .modal h2 {
+    font-size: 20px;
+  }
+
+  .modal h3 {
+    font-size: 16px;
+  }
+
+  .modal input::placeholder {
+    font-size: 14px;
   }
 }

@@ -1,26 +1,29 @@
 .returnButton {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: 8px;
   font-size: 16px;
   font-weight: 500;
   line-height: 26px;
-  cursor: pointer;
+  background: none;
+  border: none;
 }
 
 .icon {
   width: 20px;
   height: 20px;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 743px) {
   .returnButton {
+    gap: 6px;
     font-size: 14px;
     line-height: 24px;
   }
 
   .icon {
-    width: 2rem;
-    height: 2rem;
+    width: 18px;
+    height: 18px;
   }
 }

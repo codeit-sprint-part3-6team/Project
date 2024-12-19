@@ -5,6 +5,7 @@
   }
   @media screen and (max-width: 743px) {
     width: 100%;
+    min-width: 300px;
   }
 }
 

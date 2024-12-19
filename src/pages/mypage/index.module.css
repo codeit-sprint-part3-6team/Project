@@ -1,11 +1,17 @@
 .container {
   display: flex;
   background-color: var(--gray-background);
+  min-width: 371px;
 }
 
 .space {
-  margin-left: 280px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.box {
+  margin-left: 280px;
 
   @media screen and (max-width: 1199px) {
     margin-left: 160px;

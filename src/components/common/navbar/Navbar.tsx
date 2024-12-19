@@ -1,13 +1,14 @@
 import styles from './Navbar.module.css';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import NavButton from '../button/NavButton';
 import UserProfile from '../userprofile/UserProfile';
 import InvitedMember from '../invitedmember/InvitedMember';
-import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
+import GeneralModal from '../modal/general/GeneralModal';
 import Dropdown from '../dropdown/Dropdown';
+import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
 
 function Navbar() {
   const [dashboardData, setDashboardData] = useState(null);
@@ -15,6 +16,13 @@ function Navbar() {
   const user = useSelector((state: RootState) => state.userInfo.user);
   const [clientUser, setClientUser] = useState(null);
   const router = useRouter();
+  // 모달
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [emailValue, setEmailValue] = useState('');
+
+  const handleCancelClick = () => {
+    setIsModalOpen(false);
+  };
 
   const isMyDashboard = router.pathname !== '/mydashboard';
   const isMyPage = router.pathname !== '/mypage';
@@ -82,7 +90,21 @@ function Navbar() {
             <NavButton
               btnType="invite"
               buttonName="초대하기"
-              onClick={() => alert('초대하기')}
+              onClick={() => setIsModalOpen(true)}
+            />
+
+            <GeneralModal
+              label="이메일"
+              placeholder="이메일을 입력해 주세요"
+              isOpen={isModalOpen}
+              onClose={handleCancelClick}
+              title="초대하기"
+              inputValue={emailValue}
+              onInputChange={(value) => setEmailValue(value)}
+              cancelTitle="취소"
+              adaptTitle="초대"
+              handleCancelClick={handleCancelClick}
+              handleAdaptClick={() => alert('초대')}
             />
 
             <InvitedMember invitedMember={invitedMember} />

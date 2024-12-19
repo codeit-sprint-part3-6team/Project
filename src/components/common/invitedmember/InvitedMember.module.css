@@ -8,8 +8,9 @@
 }
 
 .avatar-overflow {
-  background: #f4d7da !important;
-  color: #d25b68 !important;
+  background-color: var(--pink-background) !important;
+
+  color: var(--pink-text) !important;
 }
 
 .avatar-group {

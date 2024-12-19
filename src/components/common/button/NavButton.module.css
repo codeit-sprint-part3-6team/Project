@@ -1,14 +1,18 @@
 .button {
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  background: none;
-  height: 40px;
   display: flex;
   align-items: center;
+
+  height: 40px;
+
+  border: 1px solid var(--gray-medium);
+  border-radius: 8px;
+  background-color: none;
+  padding: 0 16px;
+
   font-size: 16px;
   font-weight: 500;
   color: var(--gray);
-  padding: 0 16px;
+
   cursor: pointer;
 }
 
@@ -19,16 +23,19 @@
 .button.management::before,
 .button.invite::before {
   content: '';
-  display: inline-block;
+
   width: 20px;
   height: 20px;
-  background: url('/ic/ic_setting.svg') no-repeat;
-  background-size: 100%;
+
+  display: inline-block;
   margin-right: 8px;
+
+  background-image: url('/ic/ic_setting.svg') no-repeat;
+  background-size: 100%;
 }
 
 .button.invite::before {
-  background: url('/ic/ic_plus.svg') no-repeat;
+  background-image: url('/ic/ic_plus.svg') no-repeat;
   background-size: 100%;
 }
 
@@ -40,10 +47,12 @@
 
 @media screen and (max-width: 743px) {
   .button {
-    border-radius: 6px;
     height: 30px;
-    font-size: 14px;
+
+    border-radius: 6px;
     padding: 0 10px;
+
+    font-size: 14px;
   }
 
   .button + .button {

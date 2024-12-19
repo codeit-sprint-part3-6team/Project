@@ -27,7 +27,7 @@ const store = configureStore({
     userInfo: userInfoReducer, // userInfo 상태를 처리하는 리듀서를 설정
     dashboard: dashboardReducer,
   } as any,
-  preloadedState: loadState(), // 새로 고침 되어도 이전 상태 유지
+  preloadedState: loadState() as { userInfo: UserInfoState }, // 새로 고침 되어도 이전 상태 유지
 });
 
 // 상태와 디스패치 타입 정의

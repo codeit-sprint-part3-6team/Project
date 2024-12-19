@@ -1,11 +1,12 @@
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useColumnData from '@/hooks/useColumnData';
+import CreateCard from '@/components/product/dashboard/card/CreateCard';
 
 interface ColumnProp {
   columnId: number;
@@ -14,6 +15,12 @@ interface ColumnProp {
 
 function Column({ columnId, columnTitle }: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
+  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
+
+  const handleClick = () => {
+    // 카드 생성 모달 띄우기 위한 함수수
+    setModal(true);
+  };
 
   const handleObserver = useCallback(
     ([entry]) => {
@@ -43,7 +50,7 @@ function Column({ columnId, columnTitle }: ColumnProp) {
           <SettingIcon className={styles['icon-setting']} />
         </Link>
       </div>
-      <CDSButton btnType="todo" />
+      <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
         {columnData.cards.map(
           ({
@@ -72,6 +79,15 @@ function Column({ columnId, columnTitle }: ColumnProp) {
           <div ref={endPoint} className={styles['end-point']} />
         )}
       </div>
+      {modal && ( // 카드 생성 모달 띄우기기
+        <CreateCard
+          columnId={columnId}
+          onClose={() => {
+            setModal(false);
+          }}
+          onUpdate={() => fetchCards(null, columnData.totalCount + 1, true)}
+        />
+      )}
     </div>
   );
 }

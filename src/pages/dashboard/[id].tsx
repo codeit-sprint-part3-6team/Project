@@ -67,7 +67,12 @@ function DashBoard() {
       <Sidebar />
       <div className={styles.container}>
         {columns.map(({ id, title }) => (
-          <Column key={`column_${id}`} columnId={id} columnTitle={title} />
+          <Column
+            key={`column_${id}`}
+            columnId={id}
+            columnTitle={title}
+            setColumns={setColumns}
+          />
         ))}
         <div className={styles['add-column']}>
           <CDSButton onClick={openModal} btnType="column">

@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
@@ -7,25 +7,54 @@ import putColumns from '@/lib/dashboard/putColumns';
 import GeneralModal from '@/components/common/modal/general/GeneralModal';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useColumnData from '@/hooks/useColumnData';
+import useModal from '@/hooks/useModal';
+import deleteColumns from '@/lib/dashboard/deleteColumns';
+import { Column as ColumnType } from '@/type/column';
+import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
+import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 
 interface ColumnProp {
   columnId: number;
   columnTitle: string;
+  setColumns: React.Dispatch<React.SetStateAction<ColumnType[]>>;
 }
 
-function Column({ columnId, columnTitle: initialTitle }: ColumnProp) {
+function Column({
+  columnId,
+  columnTitle: initialTitle,
+  setColumns,
+}: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
-  const isFirstRender = useRef(true);
-  const [showModal, setShowModal] = useState(false);
   const [columnTitle, setColumnTitle] = useState(initialTitle);
   const [editedTitle, setEditedTitle] = useState(columnTitle);
 
-  const openModal = () => setShowModal(true);
-  const closeModal = () => setShowModal(false);
+  // const { isOpen, openModal, closeModal } = useModal();
+  const {
+    isOpen: isEditModalOpen,
+    openModal: openEditModal,
+    closeModal: closeEditModal,
+  } = useModal();
+  const {
+    isOpen: isConfirmModalOpen,
+    openModal: openConfirmModal,
+    closeModal: closeConfirmModal,
+  } = useModal();
 
   const handleCancleClick = () => {
-    closeModal();
-    setEditedTitle(columnTitle);
+    closeEditModal();
+    openConfirmModal();
+  };
+
+  const handleDeleteClick = async () => {
+    try {
+      await deleteColumns(columnId);
+
+      setColumns((prev) => prev.filter(({ id }) => id !== columnId));
+      closeEditModal();
+      setEditedTitle(columnTitle);
+    } catch (error) {
+      alert(`컬럼 삭제 에러: ${error}`);
+    }
   };
 
   const handleAdaptClick = async () => {
@@ -41,7 +70,7 @@ function Column({ columnId, columnTitle: initialTitle }: ColumnProp) {
         title: updatedColumn.title,
       }));
 
-      closeModal();
+      closeEditModal();
     } catch (error) {
       alert(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
     }
@@ -58,11 +87,6 @@ function Column({ columnId, columnTitle: initialTitle }: ColumnProp) {
   const endPoint = useIntersectionObserver(handleObserver);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
     fetchCards();
   }, [fetchCards]);
 
@@ -76,7 +100,7 @@ function Column({ columnId, columnTitle: initialTitle }: ColumnProp) {
         <button
           type="button"
           className={styles['btn-edit-column']}
-          onClick={openModal}
+          onClick={openEditModal}
         >
           <SettingIcon className={styles['icon-setting']} />
         </button>
@@ -111,11 +135,11 @@ function Column({ columnId, columnTitle: initialTitle }: ColumnProp) {
         )}
       </div>
 
-      {/* 모달창 */}
-      {showModal && (
+      {/* 모달창 - 수정 */}
+      {isEditModalOpen && (
         <GeneralModal
-          isOpen={showModal}
-          onClose={closeModal}
+          isOpen={isEditModalOpen}
+          onClose={closeEditModal}
           title="컬럼 제목 수정"
           inputValue={editedTitle}
           onInputChange={(value) => setEditedTitle(value)}
@@ -124,6 +148,16 @@ function Column({ columnId, columnTitle: initialTitle }: ColumnProp) {
           adapttitle="변경"
           handleAdaptClick={handleAdaptClick}
         />
+      )}
+      {/* 모달창 - 삭제 */}
+      {isConfirmModalOpen && (
+        <OverlayContainer>
+          <DeleteCardsModal
+            message="컬럼의 모든 카드가 삭제됩니다."
+            handleCancelClick={() => closeConfirmModal()}
+            handleDeleteClick={handleDeleteClick}
+          />
+        </OverlayContainer>
       )}
     </div>
   );

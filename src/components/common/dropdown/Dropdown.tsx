@@ -1,5 +1,5 @@
 import styles from '@/components/common/dropdown/Dropdown.module.css';
-import useDropdown from '@/hooks/useDropDown';
+import useDropdown from '@/hooks/useDropdown';
 import { PropsWithChildren } from 'react';
 
 type Menu = {

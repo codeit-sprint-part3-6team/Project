@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
@@ -30,6 +30,7 @@ export default function CreateCard({
   const [description, setDescription] = useState('');
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const { query } = useRouter();
   const dashboardId = Number(query.id);
@@ -56,6 +57,22 @@ export default function CreateCard({
   ) => {
     setDescription(e.target.value);
   };
+
+  useEffect(() => {
+    // 모든 조건이 만족하면 disabled를 false로 설정
+    if (
+      selectedMemberNickname.trim() &&
+      title.trim() &&
+      description.trim() &&
+      tags.length > 0 &&
+      image &&
+      formattedDate
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [title, description, tags, image, formattedDate, selectedMemberNickname]);
 
   // 생성 버튼 클릭시 함수
   const handleSubmit = async () => {
@@ -145,7 +162,11 @@ export default function CreateCard({
               onImageChange={handleImageChange}
             />
           </section>
-          <ButtonSection onCancel={handleCancelClick} onSubmit={handleSubmit} />
+          <ButtonSection
+            onCancel={handleCancelClick}
+            onSubmit={handleSubmit}
+            isDisabled={isDisabled}
+          />
         </div>
       </div>
     </OverlayContainer>

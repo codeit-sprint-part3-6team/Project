@@ -1,4 +1,4 @@
-import { ColorSelectorProps } from '@/type/color';
+import { ColorSelectorProps } from '@/type/Color';
 import Check from 'public/ic/ic_whitecheck.svg';
 import styles from './ColorSelector.module.css';
 

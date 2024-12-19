@@ -6,6 +6,7 @@ import styles from './GeneralModal.module.css';
 
 export interface GeneralModalProps {
   label: string;
+  placeholder: string;
   isOpen: boolean;
   onClose: () => void;
   title: string;
@@ -19,6 +20,7 @@ export interface GeneralModalProps {
 
 export default function GeneralModal({
   label,
+  placeholder,
   isOpen,
   onClose,
   title,
@@ -49,7 +51,7 @@ export default function GeneralModal({
         <div className={styles.top}>
           <TitleTagInput
             label={label}
-            placeholder="제목을 입력해주세요."
+            placeholder={placeholder}
             value={inputValue} // 부모로부터 받은 값
             onChange={(e) => onInputChange(e.target.value)} // 부모로 값 전달
             required={false}

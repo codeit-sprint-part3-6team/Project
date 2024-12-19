@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Cancle from 'public/ic/ic_x.svg';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import CDSButton from '@/components/common/button/CDSButton';
@@ -8,6 +7,8 @@ export interface GeneralModalProps {
   isOpen: boolean;
   onClose: () => void;
   title: string;
+  inputValue: string;
+  onInputChange: (value: string) => void;
   cancletitle: string;
   handleCancleClick: () => void;
   adapttitle: string;
@@ -18,18 +19,14 @@ export default function GeneralModal({
   isOpen,
   onClose,
   title,
+  inputValue,
+  onInputChange,
   cancletitle,
   handleCancleClick,
   adapttitle,
   handleAdaptClick,
 }: GeneralModalProps) {
-  const [inputValue, setInputValue] = useState('');
-
   if (!isOpen) return null;
-
-  const handleChange = (e) => {
-    setInputValue(e.target.value);
-  };
 
   return (
     <div className={styles.modal_container}>
@@ -48,10 +45,10 @@ export default function GeneralModal({
         </div>
         <div className={styles.top}>
           <TitleTagInput
-            label="이메일"
+            label="이름"
             placeholder="제목을 입력해주세요."
-            value={inputValue}
-            onChange={handleChange}
+            value={inputValue} // 부모로부터 받은 값
+            onChange={(e) => onInputChange(e.target.value)} // 부모로 값 전달
             required
           />
         </div>

@@ -1,5 +1,30 @@
-import { PutInvitationsParams, PutInvitationsResponse } from '@/type/dashboard';
 import instance from '../instance';
+
+export interface PutInvitationsParams {
+  invitationId: number;
+  inviteAccepted: boolean;
+}
+
+export interface PutInvitationsResponse {
+  id: number;
+  inviter: {
+    nickname: string;
+    email: string;
+    id: number;
+  };
+  dashboard: {
+    title: string;
+    id: number;
+  };
+  invitee: {
+    nickname: string;
+    email: string;
+    id: number;
+  };
+  inviteAccepted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default async function putInvitations(
   params: PutInvitationsParams,

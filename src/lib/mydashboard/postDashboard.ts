@@ -1,19 +1,5 @@
+import { PostDashboardsParams, PostDashboardsResponse } from '@/type/dashboard';
 import instance from '../instance';
-
-interface PostDashboardsParams {
-  title: string;
-  color: string;
-}
-
-interface PostDashboardsResponse {
-  id: number;
-  title: string;
-  color: string;
-  createdAt: string;
-  updatedAt: string;
-  createdByMe: boolean;
-  userId: number;
-}
 
 export default async function postDashboards(
   params: PostDashboardsParams,

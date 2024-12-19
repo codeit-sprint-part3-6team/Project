@@ -116,7 +116,7 @@ export default function InvitationList() {
               width={24}
               height={24}
               onClick={handleSearch}
-              style={{ cursor: 'pointer' }}
+              className={styles.icon}
             />
             <input
               placeholder="검색"
@@ -139,7 +139,10 @@ export default function InvitationList() {
 
           <tbody>
             {invitations.map((invite) => (
-              <tr key={invite.id} className={styles['table-body']}>
+              <tr
+                key={`InvitationList_${invite.id}`}
+                className={styles['table-body']}
+              >
                 <td className={styles['table-content']}>
                   <span className={styles['table-content-title']}>이름</span>
                   <span className={styles['table-content-dashboard']}>

@@ -60,10 +60,11 @@
 }
 
 .modal input {
+  height: 50px;
   margin-top: 8px;
   border: 1px solid var(--gray-medium);
   width: 100%;
-  padding: 15px 16px;
+  padding: 0 16px;
   border-radius: 8px;
 }
 
@@ -71,6 +72,10 @@
   font-size: 16px;
   font-weight: 400;
   color: var(--black-medium);
+}
+
+.modal-input:focus {
+  border: 1px solid var(--gray-medium);
 }
 
 .color-picker {

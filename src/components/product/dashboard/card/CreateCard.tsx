@@ -9,11 +9,11 @@ import useMembers from '@/hooks/useMembers';
 import useCardImageUploader from '@/hooks/useCardImageUploader';
 import useAssigneeSelector from '@/hooks/useAssigneeSelector';
 import CardImageInput from './CardImageInput';
-import styles from './CreateCard.module.css';
 import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
 import AssigneeSection from './AssigneeSection';
 import DescriptionInput from './DescriptionInput';
+import styles from './CreateCard.module.css';
 
 interface CreateCardProps {
   targetId: number;
@@ -82,12 +82,10 @@ export default function CreateCard({
         imageUrl = await cardImageUpload(image, targetId);
       }
 
-      // 선택된 멤버를 찾아 userId를 설정
       const selectedMember = members.find(
         (member) => member.nickname === selectedMemberNickname,
       );
 
-      // selectedMember가 없을 경우 오류 처리
       if (!selectedMember) {
         alert('담당자를 선택해주세요.');
         return;

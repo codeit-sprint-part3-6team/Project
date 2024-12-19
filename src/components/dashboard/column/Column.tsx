@@ -14,7 +14,6 @@ import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCards
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import CreateCard from '@/components/product/dashboard/card/CreateCard';
 
-
 interface ColumnProp {
   columnId: number;
   columnTitle: string;
@@ -29,12 +28,19 @@ function Column({
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
   const [columnTitle, setColumnTitle] = useState(initialTitle);
   const [editedTitle, setEditedTitle] = useState(columnTitle);
+  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
+
+  const handleClick = () => {
+    // 카드 생성 모달 띄우기 위한 함수
+    setModal(true);
+  };
 
   const {
     isOpen: isEditModalOpen,
     openModal: openEditModal,
     closeModal: closeEditModal,
   } = useModal();
+
   const {
     isOpen: isConfirmModalOpen,
     openModal: openConfirmModal,
@@ -75,11 +81,6 @@ function Column({
     } catch (error) {
       alert(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
     }
-  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
-
-  const handleClick = () => {
-    // 카드 생성 모달 띄우기 위한 함수수
-    setModal(true);
   };
 
   const handleObserver = useCallback(
@@ -155,6 +156,7 @@ function Column({
           handleAdaptClick={handleAdaptClick}
         />
       )}
+
       {/* 모달창 - 삭제 */}
       {isConfirmModalOpen && (
         <OverlayContainer>
@@ -165,6 +167,7 @@ function Column({
           />
         </OverlayContainer>
       )}
+
       {modal && ( // 카드 생성 모달 띄우기기
         <CreateCard
           columnId={columnId}

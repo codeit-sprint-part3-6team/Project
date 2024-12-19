@@ -15,7 +15,7 @@ function TestUserProfile() {
         },
       },
     );
-    const data = response.data;
+    const { data } = response;
     setUser(data);
   };
 
@@ -24,7 +24,7 @@ function TestUserProfile() {
   }, []);
 
   if (!user) {
-    return;
+    return null;
   }
 
   return (
@@ -56,7 +56,7 @@ function TestUserProfile() {
         nickname={user.nickname}
         profileImageUrl={user?.profileImageUrl}
         type="dashboard-detail"
-        onlyImg={true}
+        onlyImg
       />
 
       <br />

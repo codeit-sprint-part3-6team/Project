@@ -12,6 +12,8 @@ import deleteColumns from '@/lib/dashboard/deleteColumns';
 import { Column as ColumnType } from '@/type/column';
 import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
+import CreateCard from '@/components/product/dashboard/card/CreateCard';
+
 
 interface ColumnProp {
   columnId: number;
@@ -73,6 +75,11 @@ function Column({
     } catch (error) {
       alert(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
     }
+  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
+
+  const handleClick = () => {
+    // 카드 생성 모달 띄우기 위한 함수수
+    setModal(true);
   };
 
   const handleObserver = useCallback(
@@ -104,7 +111,7 @@ function Column({
           <SettingIcon className={styles['icon-setting']} />
         </button>
       </div>
-      <CDSButton btnType="todo" />
+      <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
         {columnData.cards.map(
           ({
@@ -157,6 +164,15 @@ function Column({
             handleDeleteClick={handleDeleteClick}
           />
         </OverlayContainer>
+      )}
+      {modal && ( // 카드 생성 모달 띄우기기
+        <CreateCard
+          columnId={columnId}
+          onClose={() => {
+            setModal(false);
+          }}
+          onUpdate={() => fetchCards(null, columnData.totalCount + 1, true)}
+        />
       )}
     </div>
   );

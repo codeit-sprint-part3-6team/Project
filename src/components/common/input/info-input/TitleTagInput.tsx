@@ -2,10 +2,11 @@ import styles from './TitleTagInput.module.css';
 
 interface TitleTagInputProps {
   label: string;
-  placeholder?: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
+  placeholder: string;
+  value?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  required: boolean;
 }
 
 export default function TitleTagInput({
@@ -13,6 +14,7 @@ export default function TitleTagInput({
   placeholder,
   value,
   onChange,
+  onKeyDown,
   required = false,
 }: TitleTagInputProps) {
   return (
@@ -24,6 +26,7 @@ export default function TitleTagInput({
       <input
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         className={styles.input}
         placeholder={placeholder}
       />

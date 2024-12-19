@@ -1,3 +1,14 @@
+.container {
+  width: 672px;
+  @media screen and (max-width: 1199px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 743px) {
+    width: 100%;
+    min-width: 300px;
+  }
+}
+
 .box {
   padding: 20px;
 

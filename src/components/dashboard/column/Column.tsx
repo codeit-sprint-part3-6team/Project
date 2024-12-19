@@ -6,7 +6,7 @@ import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useColumnData from '@/hooks/useColumnData';
-import CreateCard from '@/components/product/dashboard/card/CreateCard';
+import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
 
 interface ColumnProp {
   columnId: number;

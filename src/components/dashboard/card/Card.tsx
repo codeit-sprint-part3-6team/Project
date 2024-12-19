@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from '@/components/dashboard/card/Card.module.css';
 import Chip from '@/components/common/chip/Chip';
 import CardImage from '@/components/dashboard/card/CardImage';
@@ -7,6 +8,7 @@ import useModal from '@/hooks/useModal';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import DetailCardModal from '@/components/common/modal/detail-cards/DetailCardModal';
 import UserProfile from '@/components/common/userprofile/UserProfile';
+import ModifyCard from '@/components/product/dashboard/modify-card/ModifyCard';
 import { GetCardsResponse } from '@/type/card';
 
 interface CardProps {
@@ -34,6 +36,11 @@ function Card({
 }: CardProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const fomattedDueDate = formatDate(dueDate);
+  const [isModifyModalOpen, setIsModifyModalOpen] = useState(false); // 할 일 수정 모달 관련
+
+  const handleCloseModifyModal = () => {
+    setIsModifyModalOpen(false);
+  };
 
   return (
     <>
@@ -72,7 +79,13 @@ function Card({
             columnTitle={columnTitle}
             closeModal={closeModal}
             setColumnData={setColumnData}
+            openModifyModal={() => setIsModifyModalOpen(true)}
           />
+        </OverlayContainer>
+      )}
+      {isModifyModalOpen && (
+        <OverlayContainer>
+          <ModifyCard closeModal={handleCloseModifyModal} />
         </OverlayContainer>
       )}
     </>

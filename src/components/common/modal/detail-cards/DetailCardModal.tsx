@@ -22,6 +22,7 @@ interface DetailCardModalProps {
   columnTitle: string;
   closeModal: () => void;
   setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
+  openModifyModal: () => void;
 }
 
 function DetailCardModal({
@@ -30,6 +31,7 @@ function DetailCardModal({
   columnTitle,
   closeModal,
   setColumnData,
+  openModifyModal,
 }: DetailCardModalProps) {
   const {
     user: { id },
@@ -61,8 +63,9 @@ function DetailCardModal({
 
   const handleMenuClick = async (value: string) => {
     closeModal();
-    if (value === 'edit') alert('수정하기 모달 오픈');
-    else if (value === 'delete') {
+    if (value === 'edit') {
+      openModifyModal();
+    } else if (value === 'delete') {
       await handleCardDelete();
     }
   };

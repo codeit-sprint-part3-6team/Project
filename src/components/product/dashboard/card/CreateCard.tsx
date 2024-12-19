@@ -18,9 +18,14 @@ import DescriptionInput from './DescriptionInput';
 interface CreateCardProps {
   targetId: number;
   onClose: () => void;
+  onUpdate: () => void;
 }
 
-export default function CreateCard({ targetId, onClose }: CreateCardProps) {
+export default function CreateCard({
+  targetId,
+  onClose,
+  onUpdate,
+}: CreateCardProps) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
@@ -81,9 +86,9 @@ export default function CreateCard({ targetId, onClose }: CreateCardProps) {
         tags,
         imageUrl,
       };
-      const newCard = await postCard(createData);
-      console.log(newCard);
-      onClose(); // 모달 닫기
+      await postCard(createData);
+      onUpdate();
+      onClose();
     } catch (error) {
       console.error('handleSubmit Error:', error);
     }

@@ -28,7 +28,6 @@ function Column({
   const [columnTitle, setColumnTitle] = useState(initialTitle);
   const [editedTitle, setEditedTitle] = useState(columnTitle);
 
-  // const { isOpen, openModal, closeModal } = useModal();
   const {
     isOpen: isEditModalOpen,
     openModal: openEditModal,

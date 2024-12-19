@@ -32,7 +32,7 @@ function useColumnData(targetId: number) {
     [targetId],
   );
 
-  return { columnData, fetchCards };
+  return { columnData, setColumnData, fetchCards };
 }
 
 export default useColumnData;

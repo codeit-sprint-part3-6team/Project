@@ -5,6 +5,10 @@ interface GetCardParams {
   columnId: number;
 }
 
+interface GetCardDetailParams {
+  cardId: number;
+}
+
 interface Card {
   id: number;
   title: string;
@@ -30,4 +34,4 @@ interface GetCardsResponse {
   cursorId: number;
 }
 
-export type { GetCardParams, GetCardsResponse };
+export type { GetCardParams, GetCardDetailParams, GetCardsResponse, Card };

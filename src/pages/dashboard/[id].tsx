@@ -37,7 +37,7 @@ function DashBoard() {
       <Sidebar />
       <div className={styles.container}>
         {columns.map(({ id, title }) => (
-          <Column key={`column_${id}`} targetId={id} columnTitle={title} />
+          <Column key={`column_${id}`} columnId={id} columnTitle={title} />
         ))}
         <div className={styles['add-column']}>
           <CDSButton btnType="column">새로운 컬럼 추가하기</CDSButton>

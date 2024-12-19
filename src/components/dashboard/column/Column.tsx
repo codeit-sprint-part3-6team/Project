@@ -8,12 +8,12 @@ import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import useColumnData from '@/hooks/useColumnData';
 
 interface ColumnProp {
-  targetId: number;
+  columnId: number;
   columnTitle: string;
 }
 
-function Column({ targetId, columnTitle }: ColumnProp) {
-  const { columnData, fetchCards } = useColumnData(targetId);
+function Column({ columnId, columnTitle }: ColumnProp) {
+  const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
   const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
   const handleObserver = useCallback(
@@ -43,7 +43,7 @@ function Column({ targetId, columnTitle }: ColumnProp) {
           <span className={styles['column-size']}>{columnData.totalCount}</span>
         </div>
         <Link
-          href={`/dashboard/${targetId}/edit`}
+          href={`/dashboard/${columnId}/edit`}
           className={styles['btn-edit-column']}
         >
           <SettingIcon className={styles['icon-setting']} />
@@ -52,7 +52,14 @@ function Column({ targetId, columnTitle }: ColumnProp) {
       <CDSButton btnType="todo" />
       <div className={styles['card-section']}>
         {columnData.cards.map(
-          ({ imageUrl, id, title, tags, dueDate, assignee: { nickname } }) => (
+          ({
+            imageUrl,
+            id,
+            title,
+            tags,
+            dueDate,
+            assignee: { nickname, profileImageUrl },
+          }) => (
             <Card
               key={`card_${id}`}
               imageUrl={imageUrl}
@@ -61,6 +68,9 @@ function Column({ targetId, columnTitle }: ColumnProp) {
               tags={tags}
               dueDate={dueDate}
               nickname={nickname}
+              profileImage={profileImageUrl}
+              columnTitle={columnTitle}
+              setColumnData={setColumnData}
             />
           ),
         )}

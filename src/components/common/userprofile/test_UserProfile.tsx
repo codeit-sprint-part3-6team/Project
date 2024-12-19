@@ -14,13 +14,8 @@ function TestUserProfile() {
             'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk1MSwidGVhbUlkIjoiMTEtNiIsImlhdCI6MTczNDA4MjM2MCwiaXNzIjoic3AtdGFza2lmeSJ9.1OCu1v8l8V9qtW1sghPM-O7NmEL_LuyIDFqPgb1lhWI',
         },
       },
-<<<<<<< HEAD
-    });
-    const { data } = response;
-=======
     );
-    const data = response.data;
->>>>>>> bf766a2c6549dc5f27773a615bad9f5634c1c2d0
+    const { data } = response;
     setUser(data);
   };
 
@@ -60,13 +55,8 @@ function TestUserProfile() {
       <UserProfile
         nickname={user.nickname}
         profileImageUrl={user?.profileImageUrl}
-<<<<<<< HEAD
-        type="dashboard_detail"
-        onlyImg
-=======
         type="dashboard-detail"
-        onlyImg={true}
->>>>>>> bf766a2c6549dc5f27773a615bad9f5634c1c2d0
+        onlyImg
       />
 
       <br />

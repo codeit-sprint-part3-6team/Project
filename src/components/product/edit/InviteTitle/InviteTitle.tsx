@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import WhitePlus from 'public/ic/ic_whiteplus.svg';
 import InviteModal from '@/components/common/modal/general/GeneralModal';
@@ -8,16 +9,16 @@ import InviteList from './InviteList';
 export default function InviteTitle() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handlePageChange = (e) => {
-    console.log(e);
+  const handlePageChange = (newPage) => {
+    alert('페이지네이션');
   };
 
   const handleCancleChange = () => {
-    alert('취소버튼누름');
+    setIsModalOpen(false);
   };
 
   const handleAdaptChange = () => {
-    setIsModalOpen(false);
+    alert('생성버튼누름');
   };
 
   const openModal = () => setIsModalOpen(true);

@@ -15,7 +15,7 @@ interface ColumnProp {
 
 function Column({ columnId, columnTitle }: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
-  const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
+  // const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
   const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
 
   const handleClick = () => {
@@ -34,10 +34,10 @@ function Column({ columnId, columnTitle }: ColumnProp) {
   const endPoint = useIntersectionObserver(handleObserver);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return;
+    // }
 
     fetchCards();
   }, [fetchCards]);

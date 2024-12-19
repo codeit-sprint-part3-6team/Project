@@ -5,6 +5,7 @@
 
 .space {
   margin-left: 280px;
+  width: 100%;
 
   @media screen and (max-width: 1199px) {
     margin-left: 160px;

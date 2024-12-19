@@ -9,7 +9,7 @@ export default function MainTitle() {
   const [title, setTitle] = useState('');
 
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    setTitle(e.target.value);
   };
 
   // 변경 버튼 누르면 대시보드가 수정되게해야됨.

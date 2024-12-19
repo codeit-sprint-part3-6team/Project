@@ -1,7 +1,7 @@
 import styles from '@/components/dashboard/column/Column.module.css';
 import CDSButton from '@/components/common/button/CDSButton';
 import Card from '@/components/dashboard/card/Card';
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect } from 'react';
 import SettingIcon from 'public/ic/ic_setting.svg';
 import Link from 'next/link';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
@@ -14,7 +14,6 @@ interface ColumnProp {
 
 function Column({ columnId, columnTitle }: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
-  const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
   const handleObserver = useCallback(
     ([entry]) => {
@@ -27,11 +26,6 @@ function Column({ columnId, columnTitle }: ColumnProp) {
   const endPoint = useIntersectionObserver(handleObserver);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
     fetchCards();
   }, [fetchCards]);
 

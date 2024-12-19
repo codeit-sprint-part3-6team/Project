@@ -3,7 +3,7 @@ import Dropdown from '@/components/common/dropdown/Dropdown';
 import Chip from '@/components/common/chip/Chip';
 import CloseIcon from 'public/ic/ic_x.svg';
 import KebabIcon from 'public/ic/ic_kebab.svg';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import getCardDetail from '@/lib/dashboard/getCardDetail';
 import { Card, GetCardsResponse } from '@/type/card';
 import CardImage from '@/components/dashboard/card/CardImage';
@@ -44,7 +44,6 @@ function DetailCardModal({
     isSubmitting,
   } = useComments(cardId, null);
   const [newComment, setNewComment] = useState('');
-  const isFirstRender = useRef(true); // StrictMode 때문에 api 2번 요청해서 임시로 추가
 
   // 카드 삭제 함수
   const handleCardDelete = async () => {
@@ -90,11 +89,6 @@ function DetailCardModal({
   const endPoint = useIntersectionObserver(handleObserver);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
     fetchData();
   }, [cardId]);
 

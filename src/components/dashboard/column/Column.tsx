@@ -11,9 +11,7 @@ import useModal from '@/hooks/useModal';
 import deleteColumns from '@/lib/dashboard/deleteColumns';
 import { Column as ColumnType } from '@/type/column';
 import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
-import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import CreateCard from '@/components/product/dashboard/card/CreateCard';
-
 
 interface ColumnProp {
   columnId: number;
@@ -29,19 +27,26 @@ function Column({
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
   const [columnTitle, setColumnTitle] = useState(initialTitle);
   const [editedTitle, setEditedTitle] = useState(columnTitle);
+  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
+
+  const handleClick = () => {
+    // 카드 생성 모달 띄우기 위한 함수
+    setModal(true);
+  };
 
   const {
     isOpen: isEditModalOpen,
     openModal: openEditModal,
     closeModal: closeEditModal,
   } = useModal();
+
   const {
     isOpen: isConfirmModalOpen,
     openModal: openConfirmModal,
     closeModal: closeConfirmModal,
   } = useModal();
 
-  const handleCancleClick = () => {
+  const handleCancelClick = () => {
     closeEditModal();
     openConfirmModal();
   };
@@ -75,11 +80,6 @@ function Column({
     } catch (error) {
       alert(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
     }
-  const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
-
-  const handleClick = () => {
-    // 카드 생성 모달 띄우기 위한 함수수
-    setModal(true);
   };
 
   const handleObserver = useCallback(
@@ -144,27 +144,28 @@ function Column({
       {/* 모달창 - 수정 */}
       {isEditModalOpen && (
         <GeneralModal
+          label="이름"
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
           title="컬럼 제목 수정"
           inputValue={editedTitle}
           onInputChange={(value) => setEditedTitle(value)}
-          cancletitle="삭제"
-          handleCancleClick={handleCancleClick}
-          adapttitle="변경"
+          cancelTitle="삭제"
+          handleCancelClick={handleCancelClick}
+          adaptTitle="변경"
           handleAdaptClick={handleAdaptClick}
         />
       )}
+
       {/* 모달창 - 삭제 */}
       {isConfirmModalOpen && (
-        <OverlayContainer>
-          <DeleteCardsModal
-            message="컬럼의 모든 카드가 삭제됩니다."
-            handleCancelClick={() => closeConfirmModal()}
-            handleDeleteClick={handleDeleteClick}
-          />
-        </OverlayContainer>
+        <DeleteCardsModal
+          message="컬럼의 모든 카드가 삭제됩니다."
+          handleCancelClick={() => closeConfirmModal()}
+          handleDeleteClick={handleDeleteClick}
+        />
       )}
+
       {modal && ( // 카드 생성 모달 띄우기기
         <CreateCard
           columnId={columnId}

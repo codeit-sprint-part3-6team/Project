@@ -1,67 +1,70 @@
-import Cancle from 'public/ic/ic_x.svg';
+import Cancel from 'public/ic/ic_x.svg';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import CDSButton from '@/components/common/button/CDSButton';
+import OverlayContainer from '../overlay-container/OverlayContainer';
 import styles from './GeneralModal.module.css';
 
 export interface GeneralModalProps {
+  label: string;
   isOpen: boolean;
   onClose: () => void;
   title: string;
   inputValue: string;
   onInputChange: (value: string) => void;
-  cancletitle: string;
-  handleCancleClick: () => void;
-  adapttitle: string;
+  cancelTitle: string;
+  handleCancelClick: () => void;
+  adaptTitle: string;
   handleAdaptClick: () => void;
 }
 
 export default function GeneralModal({
+  label,
   isOpen,
   onClose,
   title,
   inputValue,
   onInputChange,
-  cancletitle,
-  handleCancleClick,
-  adapttitle,
+  cancelTitle,
+  handleCancelClick,
+  adaptTitle,
   handleAdaptClick,
 }: GeneralModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.modal_container}>
-      <div className={styles.modal_section}>
+    <OverlayContainer>
+      <div className={styles['modal-section']}>
         <div className={styles.top}>
           <div>
-            <h1>{title}</h1>
+            <h1 className={styles.title}>{title}</h1>
             <button
               type="button"
-              className={styles.close_button}
+              className={styles['close-button']}
               onClick={onClose}
             >
-              <Cancle className={styles.cancle_button} />
+              <Cancel className={styles['cancel-button']} />
             </button>
           </div>
         </div>
         <div className={styles.top}>
           <TitleTagInput
-            label="이름"
+            label={label}
             placeholder="제목을 입력해주세요."
             value={inputValue} // 부모로부터 받은 값
             onChange={(e) => onInputChange(e.target.value)} // 부모로 값 전달
-            required
+            required={false}
           />
         </div>
         <div className={styles.top}>
-          <CDSButton btnType="modal" onClick={handleCancleClick}>
-            {cancletitle}
+          <CDSButton btnType="modal" onClick={handleCancelClick}>
+            {cancelTitle}
           </CDSButton>
           <span style={{ margin: '0 5px' }} />
           <CDSButton btnType="modal_colored" onClick={handleAdaptClick}>
-            {adapttitle}
+            {adaptTitle}
           </CDSButton>
         </div>
       </div>
-    </div>
+    </OverlayContainer>
   );
 }

@@ -11,18 +11,16 @@ type memberProps = {
 };
 
 function InvitedMember({ invitedMember }) {
-  const [count, setCount] = useState<number>(4);
-  const visibleAvatars = count;
-  const overflowThreshold = count;
+  const [visibleAvatars, setVisibleAvatars] = useState(4);
 
   useEffect(() => {
     const updatePageSize = () => {
       if (window.innerWidth >= 1199) {
-        setCount(4); // 데스크탑
+        setVisibleAvatars(4); // 데스크탑
       } else if (window.innerWidth >= 743) {
-        setCount(3); // 태블릿
+        setVisibleAvatars(3); // 태블릿
       } else {
-        setCount(2); // 모바일
+        setVisibleAvatars(2); // 모바일
       }
     };
 
@@ -47,9 +45,9 @@ function InvitedMember({ invitedMember }) {
                 />
               ))}
 
-            {invitedMember.length > overflowThreshold && (
+            {invitedMember.length > visibleAvatars && (
               <Avatar className={styles['avatar-overflow']}>
-                +{invitedMember.length - overflowThreshold}
+                +{invitedMember.length - visibleAvatars}
               </Avatar>
             )}
           </AvatarGroup>

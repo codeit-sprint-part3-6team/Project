@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { UserInfoState } from '@/type/userInfo';
+import { DashboardState } from '@/type/dashboard';
 import userInfoReducer from './settingSlice';
 import dashboardReducer from './dashboardSlice';
-import { DashboardState } from '@/type/dashboard';
 
 // 최초 세션 스토리지에서 상태를 로드하는 함수
 const loadState = () => {

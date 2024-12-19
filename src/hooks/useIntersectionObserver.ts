@@ -9,7 +9,7 @@ function useIntersectionObserver(callback: IntersectionObserverCallback) {
 
     observerRef.current = new IntersectionObserver(callback, {
       root: elementRef.current.parentNode as Element,
-      threshold: 0.95,
+      threshold: 0,
     });
 
     observerRef.current.observe(elementRef.current);

@@ -1,0 +1,37 @@
+.container {
+	display: flex;
+	justify-content: space-between;
+	padding-right: 28px;
+	padding-left: 28px;
+	margin-top: 15px;
+}
+
+.title {
+  margin-top: 5px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.line {
+	margin-top: 15px;
+	border-color: var(--gray-light); 
+}
+
+@media screen and (max-width: 743px) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 13px;
+  }
+  
+  .title {
+    margin-top: 3px;
+  }
+
+  .line {
+    margin-top: 13px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+}

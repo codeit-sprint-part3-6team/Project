@@ -81,7 +81,7 @@ function Column({ targetId, columnTitle }: ColumnProp) {
           onClose={() => {
             setModal(false);
           }}
-          onUpdate={() => fetchCards(undefined, true)}
+          onUpdate={() => fetchCards(null, columnData.totalCount + 1, true)}
         />
       )}
     </div>

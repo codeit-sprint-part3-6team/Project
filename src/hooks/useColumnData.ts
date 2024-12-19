@@ -10,10 +10,11 @@ function useColumnData(targetId: number) {
   });
 
   const fetchCards = useCallback(
-    async (cursor?: number, reset = false) => {
+    async (cursor?: number, size = 4, reset = false) => {
       try {
         const response = await getCards({
           teamId: '11-6',
+          size,
           columnId: targetId,
           cursorId: cursor,
         });

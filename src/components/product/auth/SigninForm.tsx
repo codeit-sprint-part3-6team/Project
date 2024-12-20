@@ -26,17 +26,24 @@ function SigninForm() {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
+  // localStorage에서 email 가져오기
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const email = localStorage.getItem('email');
+      if (email) {
+        setValues((prevValues) => ({
+          ...prevValues,
+          email,
+        }));
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const isEmailValid = emailValidation(values.email);
     const isPasswordValid = passwordValidation(values.password);
     setDisabled(!(isEmailValid && isPasswordValid));
   }, [values]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem('accessToken')) {
-      router.push('/mydashboard');
-    }
-  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -71,6 +78,8 @@ function SigninForm() {
         }),
       );
 
+      localStorage.setItem('email', values.email);
+
       router.push('/mydashboard');
     } catch (error) {
       setResponseMessage(error.message);
@@ -82,6 +91,7 @@ function SigninForm() {
     setIsModalVisible(false);
     setResponseMessage(null);
   };
+
   return (
     <>
       <form onSubmit={onSubmit}>

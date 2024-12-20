@@ -1,9 +1,19 @@
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from './index.module.css';
 import SigninForm from '@/components/product/auth/SigninForm';
 import Logo from 'public/images/img_signinlogo.svg';
 
 function SignIn() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('accessToken')) {
+      router.push('/mydashboard');
+    }
+  }, []);
+
   return (
     <>
       <div className={styles['signin-container']}>

@@ -1,5 +1,5 @@
 import styles from './Navbar.module.css';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
@@ -9,20 +9,24 @@ import InvitedMember from '../invitedmember/InvitedMember';
 import GeneralModal from '../modal/general/GeneralModal';
 import Dropdown from '../dropdown/Dropdown';
 import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
+import { postInvite } from '@/lib/invite/postInvite';
+import AuthModal from '../modal/auth/AuthModal';
+
+const INITIAL_VALUES = {
+  email: '',
+};
 
 function Navbar() {
   const [dashboardData, setDashboardData] = useState(null);
   const [invitedMember, setInvitedMember] = useState([]);
   const user = useSelector((state: RootState) => state.userInfo.user);
   const [clientUser, setClientUser] = useState(null);
-  const router = useRouter();
-  // 모달
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [emailValue, setEmailValue] = useState('');
-
-  const handleCancelClick = () => {
-    setIsModalOpen(false);
-  };
+  const [emailValue, setEmailValue] = useState(INITIAL_VALUES);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const isMyDashboard = router.pathname !== '/mydashboard';
   const isMyPage = router.pathname !== '/mypage';
@@ -48,6 +52,14 @@ function Navbar() {
     fetchDashboardData();
   }, [router.query.id]);
 
+  // 초대 요청을 보내고 alert
+  useEffect(() => {
+    if (!isModalOpen && alertMessage) {
+      alert(alertMessage);
+      setAlertMessage(null);
+    }
+  }, [isModalOpen, alertMessage]);
+
   const renderTitle = () => {
     if (!isMyPage) return <h3 className={styles.title}>계정관리</h3>;
     if (!isMyDashboard) return <h3 className={styles.title}>내 대시보드</h3>;
@@ -67,6 +79,29 @@ function Navbar() {
     } else if (value === 'logout') {
       sessionStorage.removeItem('accessToken');
       router.push('/');
+    }
+  };
+
+  const handleCancelClick = () => {
+    setIsModalOpen(false);
+    setIsModalVisible(false);
+  };
+
+  const submitInvite = async () => {
+    const id = Number(router.query.id);
+
+    try {
+      const response = await postInvite({ id, email: emailValue.email });
+      setIsModalOpen(false);
+      setEmailValue(INITIAL_VALUES);
+      setAlertMessage(
+        `${response.invitee.nickname}님께 초대 요청을 보냈습니다.`,
+      );
+    } catch (error) {
+      setIsModalOpen(false);
+      setResponseMessage(error.message);
+      setIsModalVisible(true);
+      setEmailValue(INITIAL_VALUES);
     }
   };
 
@@ -99,13 +134,20 @@ function Navbar() {
               isOpen={isModalOpen}
               onClose={handleCancelClick}
               title="초대하기"
-              inputValue={emailValue}
-              onInputChange={(value) => setEmailValue(value)}
+              inputValue={emailValue.email}
+              onInputChange={(value) => setEmailValue({ email: value })}
               cancelTitle="취소"
               adaptTitle="초대"
               handleCancelClick={handleCancelClick}
-              handleAdaptClick={() => alert('초대')}
+              handleAdaptClick={submitInvite}
             />
+
+            {isModalVisible && (
+              <AuthModal
+                message={responseMessage}
+                handleCancelClick={handleCancelClick}
+              />
+            )}
 
             <InvitedMember invitedMember={invitedMember} />
           </div>

@@ -4,6 +4,7 @@ import getInvitations from '@/lib/mydashboard/getInvitations';
 import debounce from '@/utils/debounce';
 import SearchIcon from 'public/ic/ic_search.svg';
 import CDSButton from '@/components/common/button/CDSButton';
+import NoInvitationImg from 'public/ic/ic_uncall.svg';
 import styles from './InvitationList.module.css';
 
 export default function InvitationList() {
@@ -128,57 +129,72 @@ export default function InvitationList() {
           </div>
         </div>
 
-        <table className={styles.table}>
-          <thead>
-            <tr className={styles['table-head']}>
-              <th className={styles['table-title']}>이름</th>
-              <th className={styles['table-title']}>초대자</th>
-              <th className={styles['table-title']}>수락 여부</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {invitations.map((invite) => (
-              <tr
-                key={`InvitationList_${invite.id}`}
-                className={styles['table-body']}
-              >
-                <td className={styles['table-content']}>
-                  <span className={styles['table-content-title']}>이름</span>
-                  <span className={styles['table-content-dashboard']}>
-                    {invite.dashboard.title}
-                  </span>
-                </td>
-                <td className={styles['table-content']}>
-                  <span className={styles['table-content-title']}>초대자</span>
-                  <span className={styles['table-content-dashbaord']}>
-                    {invite.inviter.nickname}
-                  </span>
-                </td>
-                <td className={styles['invitation-btn']}>
-                  {invite.inviteAccepted ? (
-                    <span>수락됨</span>
-                  ) : (
-                    <>
-                      <CDSButton
-                        btnType="normal_colored"
-                        onClick={() => handleInvitation('accept', invite.id)}
-                      >
-                        <span>수락</span>
-                      </CDSButton>
-                      <CDSButton
-                        btnType="normal"
-                        onClick={() => handleInvitation('reject', invite.id)}
-                      >
-                        <span>거절</span>
-                      </CDSButton>
-                    </>
-                  )}
-                </td>
+        {invitations.length > 0 ? (
+          <table className={styles.table}>
+            <thead>
+              <tr className={styles['table-head']}>
+                <th className={styles['table-title']}>이름</th>
+                <th className={styles['table-title']}>초대자</th>
+                <th className={styles['table-title']}>수락 여부</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {invitations.map((invite) => (
+                <tr
+                  key={`InvitationList_${invite.id}`}
+                  className={styles['table-body']}
+                >
+                  <td className={styles['table-content']}>
+                    <span className={styles['table-content-title']}>이름</span>
+                    <span className={styles['table-content-dashboard']}>
+                      {invite.dashboard.title}
+                    </span>
+                  </td>
+                  <td className={styles['table-content']}>
+                    <span className={styles['table-content-title']}>
+                      초대자
+                    </span>
+                    <span className={styles['table-content-dashbaord']}>
+                      {invite.inviter.nickname}
+                    </span>
+                  </td>
+                  <td className={styles['invitation-btn']}>
+                    {invite.inviteAccepted ? (
+                      <span>수락됨</span>
+                    ) : (
+                      <>
+                        <CDSButton
+                          btnType="normal_colored"
+                          onClick={() => handleInvitation('accept', invite.id)}
+                        >
+                          <span>수락</span>
+                        </CDSButton>
+                        <CDSButton
+                          btnType="normal"
+                          onClick={() => handleInvitation('reject', invite.id)}
+                        >
+                          <span>거절</span>
+                        </CDSButton>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className={styles['no-invitations']}>
+            <NoInvitationImg
+              width={100}
+              height={100}
+              className={styles['no-invitations-icon']}
+            />
+            <p className={styles['no-invitations-text']}>
+              아직 초대받은 대시보드가 없어요
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

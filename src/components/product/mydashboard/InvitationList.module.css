@@ -97,6 +97,21 @@
   font-weight: 500;
 }
 
+.no-invitations {
+  padding: 120px 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.no-invitations-text {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--gray-dark);
+}
+
 @media screen and (max-width: 1199px) {
   .invitation-container {
     max-width: 504px;
@@ -116,6 +131,11 @@
   .head {
     padding: 18px 28px;
     margin-top: 48px;
+  }
+
+  .no-invitations {
+    padding: 120px 130px;
+    gap: 24px;
   }
 }
 
@@ -147,6 +167,20 @@
   .table-body td {
     border: none;
     margin-bottom: 3px;
+  }
+
+  .no-invitations {
+    padding: 100px 52.5px 80px 52.5px;
+    gap: 16px;
+  }
+
+  .no-invitations-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .no-invitations-text {
+    font-size: 12px;
   }
 }
 

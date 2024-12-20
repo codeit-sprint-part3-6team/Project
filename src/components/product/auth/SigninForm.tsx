@@ -10,6 +10,7 @@ import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { postSignin } from '@/lib/signin/postSignin';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
 import { emailValidation, passwordValidation } from '@/utils/authValidation';
+import CheckBox from '@/components/common/checkbox/CheckBox';
 
 const INITIAL_VALUES = {
   email: '',
@@ -23,6 +24,7 @@ function SigninForm() {
   const [disabled, setDisabled] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -69,7 +71,11 @@ function SigninForm() {
 
     try {
       const response = await postSignin(values);
-      sessionStorage.setItem('accessToken', response.accessToken);
+      if (isChecked) {
+        localStorage.setItem('accessToken', response.accessToken);
+      } else {
+        sessionStorage.setItem('accessToken', response.accessToken);
+      }
 
       // 리덕스 액션 호출
       dispatch(
@@ -90,6 +96,10 @@ function SigninForm() {
   const handleCancelClick = () => {
     setIsModalVisible(false);
     setResponseMessage(null);
+  };
+
+  const onChange = () => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -123,6 +133,14 @@ function SigninForm() {
           error={passwordValid}
           errorMessage={ERROR_MESSAGE.PASSWORD_MIN_LENGTH}
           autoComplete="password"
+        />
+
+        <CheckBox
+          name="login"
+          id="login"
+          htmlFor="login"
+          text="로그인 상태 유지"
+          onChange={onChange}
         />
 
         <div className={styles['login-button']}>

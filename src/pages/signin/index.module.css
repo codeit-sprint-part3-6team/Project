@@ -1,12 +1,14 @@
 .signin-container {
   margin: 223px auto 158px auto;
+
   width: 520px;
 }
 
 .logo {
+  margin: 0 auto;
+
   width: 200px;
   height: 280px;
-  margin: 0 auto;
 }
 
 .logo svg {
@@ -15,16 +17,18 @@
 }
 
 .text {
+  margin: 10px 0 30px;
+
   font-size: 20px;
   font-weight: 500;
   line-height: 32px;
   color: var(--black-medium);
   text-align: center;
-  margin: 10px 0 30px;
 }
 
 .link-text {
   margin-top: 24px;
+
   font-size: 16px;
   font-weight: 400;
   text-align: center;
@@ -38,12 +42,14 @@
 @media screen and (max-width: 743px) {
   .signin-container {
     margin: 73px auto 0 auto;
+
     width: 350px;
   }
 
   .text {
+    margin: 8px 0 36px;
+
     font-size: 18px;
     line-height: 26px;
-    margin: 8px 0 36px;
   }
 }

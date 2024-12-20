@@ -24,12 +24,14 @@ import useColumnData from '@/hooks/useColumnData';
 interface ModifyCardProps {
   closeModal: () => void;
   columnTitle: string;
+  columnId: number;
   onUpdate: () => void;
 }
 
 export default function ModifyCard({
   closeModal,
   columnTitle,
+  columnId,
   onUpdate,
 }: ModifyCardProps) {
   const cardInfo = useSelector(
@@ -41,7 +43,7 @@ export default function ModifyCard({
   const [tags, setTags] = useState(cardInfo?.tags || []);
   const [columns, setColumns] = useState<GetColumnsResponse | null>(null);
   const [selectedColumnTitle, setSelectedColumnTitle] = useState(columnTitle);
-  const [selectedColumnId, setSelectedColumnId] = useState<number>(null);
+  const [selectedColumnId, setSelectedColumnId] = useState<number>(columnId);
   const [isOtherDropdownOpen, setIsOtherDropdownOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const { query } = useRouter();
@@ -57,8 +59,7 @@ export default function ModifyCard({
     handleToggle,
     handleOptionClick,
   } = useAssigneeSelector(cardInfo?.assignee || null);
-  const { columnData, setColumnData, fetchCards } =
-    useColumnData(selectedColumnId);
+  const { columnData, fetchCards } = useColumnData(selectedColumnId);
 
   const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
@@ -126,7 +127,7 @@ export default function ModifyCard({
 
       await putCard(putData, cardInfo.id);
       onUpdate();
-      fetchCards(null, columnData.totalCount + 1, true); // size=1
+      fetchCards({ size: columnData.totalCount + 1, reset: true }); // size=1
 
       closeModal();
     } catch (error) {

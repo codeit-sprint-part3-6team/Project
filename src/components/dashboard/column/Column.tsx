@@ -71,6 +71,7 @@ function Column({ columnId, columnTitle }: ColumnProp) {
               nickname={nickname}
               profileImage={profileImageUrl}
               columnTitle={columnTitle}
+              columnId={columnId}
               setColumnData={setColumnData}
               onUpdate={() => fetchCards({ reset: true })}
             />

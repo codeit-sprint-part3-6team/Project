@@ -20,6 +20,7 @@ interface CardProps {
   nickname: string;
   profileImage: string | null;
   columnTitle: string;
+  columnId: number;
   setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
   onUpdate: () => void;
 }
@@ -33,6 +34,7 @@ function Card({
   nickname,
   profileImage,
   columnTitle,
+  columnId,
   setColumnData,
   onUpdate,
 }: CardProps) {
@@ -90,6 +92,7 @@ function Card({
           <ModifyCard
             closeModal={handleCloseModifyModal}
             columnTitle={columnTitle}
+            columnId={columnId}
             onUpdate={onUpdate}
           />
         </OverlayContainer>

@@ -78,3 +78,12 @@
 .option:hover {
   background-color: var(--gray-background);
 }
+
+.calculate {
+  display: flex;
+  gap: 5px;
+}
+
+.space {
+  width: 22px;
+}

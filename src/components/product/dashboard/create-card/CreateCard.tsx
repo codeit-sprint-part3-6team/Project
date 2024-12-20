@@ -35,7 +35,7 @@ export default function CreateCard({
   const { query } = useRouter();
   const dashboardId = Number(query.id);
   const { members } = useMembers({ teamId: '11-6', dashboardId });
-  const { image, preview, handleImageChange } = useCardImageUploader();
+  const { image, preview, handleImageChange } = useCardImageUploader(null);
   const {
     selectedMemberNickname,
     selectedMemberProfileImage,
@@ -142,7 +142,7 @@ export default function CreateCard({
             onChange={handleDescriptionChange}
           />
           <section className={styles.section}>
-            <DeadlineInput onDateChange={handleDateChange} />
+            <DeadlineInput onDateChange={handleDateChange} initialDate={null} />
           </section>
           <section className={styles.section}>
             <TagManager

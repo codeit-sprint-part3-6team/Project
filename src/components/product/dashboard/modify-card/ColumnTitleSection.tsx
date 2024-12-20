@@ -2,21 +2,20 @@ import React from 'react';
 import ToggleButton from 'public/ic/ic_dropdown.svg';
 import { Column } from '@/type/column';
 import Chip from '@/components/common/chip/Chip';
+import Check from 'public/ic/ic_grayCheck.svg';
 import styles from './ColumnTitleSection.module.css';
 
 interface ColumnTitleSectionProps {
-  columns: { result: string; data: Column[] }; // id와 title만 사용
-  selectedColumnTitle: string; // 현재 선택된 타이틀
-
+  columns: { result: string; data: Column[] };
+  selectedColumnTitle: string;
   isDropdownOpen: boolean;
   onToggleDropdown: () => void;
-  onSelectMember: (title: string) => void;
+  onSelectMember: (title: string, id: number) => void;
 }
 
 export default function ColumnTitleSection({
   columns,
   selectedColumnTitle,
-
   isDropdownOpen,
   onToggleDropdown,
   onSelectMember,
@@ -53,15 +52,22 @@ export default function ColumnTitleSection({
               className={styles.option}
               role="button"
               tabIndex={0}
-              onClick={() => onSelectMember(title)}
+              onClick={() => onSelectMember(title, id)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  onSelectMember(title);
+                  onSelectMember(title, id);
                 }
               }}
             >
-              <Chip chipType="status">{title}</Chip>
+              <div className={styles.calculate}>
+                {title === selectedColumnTitle ? (
+                  <Check width={22} height={22} />
+                ) : (
+                  <div className={styles.space}></div>
+                )}
+                <Chip chipType="status">{title}</Chip>
+              </div>
             </div>
           ))}
         </div>

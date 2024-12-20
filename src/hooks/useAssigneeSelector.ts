@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
-export default function useAssigneeSelector(initialAssignee) {
+export default function useAssigneeSelector(
+  initialAssignee = { nickname: '', profileImageUrl: '' },
+) {
   const [selectedMemberNickname, setSelectedMemberNickname] = useState<string>(
-    initialAssignee.nickname,
+    initialAssignee.nickname || '',
   );
   const [selectedMemberProfileImage, setSelectedMemberProfileImage] =
     useState<string>(initialAssignee.profileImageUrl);

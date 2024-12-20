@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
@@ -8,6 +8,10 @@ import useCardImageUploader from '@/hooks/useCardImageUploader';
 import useAssigneeSelector from '@/hooks/useAssigneeSelector';
 import cardImageUpload from '@/lib/dashboard/cardImageUpload';
 import DeadlineInput from '@/components/common/input/info-input/DeadlineInput';
+import clsx from 'clsx';
+import getColumns from '@/lib/dashboard/getColumns';
+import putCard from '@/lib/dashboard/putCard';
+import { GetColumnsResponse } from '@/type/column';
 import AssigneeSection from '../create-card/AssigneeSection';
 import TagManager from '../create-card/TagManager';
 import DescriptionInput from '../create-card/DescriptionInput';
@@ -15,26 +19,18 @@ import CardImageInput from '../create-card/CardImageInput';
 import styles from './ModifyCard.module.css';
 import ModifyButtonSection from './ModifyButtonSection';
 import ColumnTitleSection from './ColumnTitleSection';
-import clsx from 'clsx';
-import { GetColumnsResponse } from '@/type/column';
-import getColumns from '@/lib/dashboard/getColumns';
-import putCard from '@/lib/dashboard/putCard';
+import useColumnData from '@/hooks/useColumnData';
 
 interface ModifyCardProps {
-  // imageUrl: string;
-  // id: number;
-  // title: string;
-  // tags: string[];
-  // dueDate: string;
-  // nickname: string;
-  // profileImage: string | null;
   closeModal: () => void;
   columnTitle: string;
+  onUpdate: () => void;
 }
 
 export default function ModifyCard({
   closeModal,
   columnTitle,
+  onUpdate,
 }: ModifyCardProps) {
   const cardInfo = useSelector(
     (state: RootState) => state.cardInfo.cardDetailInfo,
@@ -45,6 +41,7 @@ export default function ModifyCard({
   const [tags, setTags] = useState(cardInfo?.tags || []);
   const [columns, setColumns] = useState<GetColumnsResponse | null>(null);
   const [selectedColumnTitle, setSelectedColumnTitle] = useState(columnTitle);
+  const [selectedColumnId, setSelectedColumnId] = useState<number>(null);
   const [isOtherDropdownOpen, setIsOtherDropdownOpen] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
   const { query } = useRouter();
@@ -60,44 +57,15 @@ export default function ModifyCard({
     handleToggle,
     handleOptionClick,
   } = useAssigneeSelector(cardInfo?.assignee || null);
+  const { columnData, setColumnData, fetchCards } =
+    useColumnData(selectedColumnId);
 
-  // 최초 입력값을 저장하기 위해 useRef 사용
-  const initialValuesRef = useRef({
-    columnTitle,
-    members,
-    title: cardInfo?.title || '',
-    description: cardInfo?.description || '',
-    tags: cardInfo?.tags || [],
-    image: cardInfo?.imageUrl || null,
-    dueDate: cardInfo?.dueDate || null,
-  });
-
-  useEffect(() => {
-    // 최초 입력값과 현재 값을 비교하여 disabled 상태 설정
-    const isChanged =
-      title !== initialValuesRef.current.title ||
-      description !== initialValuesRef.current.description ||
-      tags.length !== initialValuesRef.current.tags.length ||
-      String(image) !== initialValuesRef.current.image ||
-      formattedDate !== initialValuesRef.current.dueDate ||
-      selectedColumnTitle !== initialValuesRef.current.columnTitle;
-
-    setIsDisabled(!isChanged);
-  }, [
-    title,
-    description,
-    tags,
-    image,
-    formattedDate,
-    selectedMemberNickname,
-    selectedColumnTitle,
-  ]);
-
-  const handleTitleOptionClick = (columnsTitle: string) => {
+  const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
+    setSelectedColumnId(id);
     setIsOtherDropdownOpen(false);
   };
-
+  console.log(selectedColumnId);
   const handleDateChange = (date: string) => {
     setFormattedDate(date);
   };
@@ -132,7 +100,7 @@ export default function ModifyCard({
   // 생성 버튼 클릭시 함수
   const handleSubmit = async () => {
     try {
-      let imageUrl = null;
+      let imageUrl = cardInfo?.imageUrl || null;
       if (image) {
         imageUrl = await cardImageUpload(image, cardInfo.columnId);
       }
@@ -155,7 +123,10 @@ export default function ModifyCard({
         tags,
         imageUrl,
       };
+
       await putCard(putData, cardInfo.id);
+      onUpdate();
+      fetchCards(null, columnData.totalCount + 1, true); // size=1
 
       closeModal();
     } catch (error) {
@@ -221,7 +192,7 @@ export default function ModifyCard({
         <ModifyButtonSection
           onCancel={closeModal}
           onSubmit={handleSubmit}
-          isDisabled={isDisabled}
+          // isDisabled={isDisabled}
         />
       </div>
     </div>

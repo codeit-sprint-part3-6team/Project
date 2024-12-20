@@ -21,6 +21,7 @@ interface CardProps {
   profileImage: string | null;
   columnTitle: string;
   setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
+  onUpdate: () => void;
 }
 
 function Card({
@@ -33,6 +34,7 @@ function Card({
   profileImage,
   columnTitle,
   setColumnData,
+  onUpdate,
 }: CardProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const fomattedDueDate = formatDate(dueDate);
@@ -88,6 +90,7 @@ function Card({
           <ModifyCard
             closeModal={handleCloseModifyModal}
             columnTitle={columnTitle}
+            onUpdate={onUpdate}
           />
         </OverlayContainer>
       )}

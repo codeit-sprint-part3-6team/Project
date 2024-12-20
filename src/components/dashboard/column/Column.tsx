@@ -72,6 +72,7 @@ function Column({ columnId, columnTitle }: ColumnProp) {
               profileImage={profileImageUrl}
               columnTitle={columnTitle}
               setColumnData={setColumnData}
+              onUpdate={() => fetchCards(null, columnData.totalCount + 1, true)}
             />
           ),
         )}

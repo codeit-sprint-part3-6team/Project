@@ -133,7 +133,7 @@ export default function Sidebar() {
               })}
             </ul>
           ) : (
-            <span>대시보드가 없습니다.</span>
+            <span> </span>
           )}
         </div>
 

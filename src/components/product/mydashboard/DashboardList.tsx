@@ -102,9 +102,7 @@ export default function DashboardList() {
             </li>
           ))
         ) : (
-          <li className={styles['menu-list-dashboard']}>
-            <span>대시보드가 없습니다.</span>
-          </li>
+          <li className={styles['menu-list-dashboard']} />
         )}
       </ul>
 

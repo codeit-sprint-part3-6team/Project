@@ -24,12 +24,14 @@ import AssigneeSection from '../create-card/AssigneeSection';
 interface ModifyCardProps {
   closeModal: () => void;
   columnTitle: string;
+  columnId: number;
   onUpdate: () => void;
 }
 
 export default function ModifyCard({
   closeModal,
   columnTitle,
+  columnId,
   onUpdate,
 }: ModifyCardProps) {
   const cardInfo = useSelector(

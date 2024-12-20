@@ -25,7 +25,7 @@ function Column({ columnId, columnTitle }: ColumnProp) {
   const handleObserver = useCallback(
     ([entry]) => {
       if (entry.isIntersecting && columnData.cursorId)
-        fetchCards(columnData.cursorId);
+        fetchCards({ cursor: columnData.cursorId });
     },
     [fetchCards, columnData.cursorId],
   );
@@ -71,8 +71,9 @@ function Column({ columnId, columnTitle }: ColumnProp) {
               nickname={nickname}
               profileImage={profileImageUrl}
               columnTitle={columnTitle}
+              columnId={columnId}
               setColumnData={setColumnData}
-              onUpdate={() => fetchCards(null, columnData.totalCount + 1, true)}
+              onUpdate={() => fetchCards({ reset: true })}
             />
           ),
         )}
@@ -86,7 +87,9 @@ function Column({ columnId, columnTitle }: ColumnProp) {
           onClose={() => {
             setModal(false);
           }}
-          onUpdate={() => fetchCards(null, columnData.totalCount + 1, true)}
+          onUpdate={() =>
+            fetchCards({ size: columnData.totalCount + 1, reset: true })
+          }
         />
       )}
     </div>

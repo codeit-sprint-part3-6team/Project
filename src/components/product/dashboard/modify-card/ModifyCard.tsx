@@ -2,24 +2,24 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import putCardSubmit from '@/lib/dashboard/putCardSubmit';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import useMembers from '@/hooks/useMembers';
 import useCardImageUploader from '@/hooks/useCardImageUploader';
 import useAssigneeSelector from '@/hooks/useAssigneeSelector';
-import cardImageUpload from '@/lib/dashboard/cardImageUpload';
 import DeadlineInput from '@/components/common/input/info-input/DeadlineInput';
 import clsx from 'clsx';
 import getColumns from '@/lib/dashboard/getColumns';
-import putCard from '@/lib/dashboard/putCard';
+import useColumnData from '@/hooks/useColumnData';
+import useButtonState from '@/hooks/useModifyButtonState';
 import { GetColumnsResponse } from '@/type/column';
-import AssigneeSection from '../create-card/AssigneeSection';
 import TagManager from '../create-card/TagManager';
 import DescriptionInput from '../create-card/DescriptionInput';
 import CardImageInput from '../create-card/CardImageInput';
 import styles from './ModifyCard.module.css';
 import ModifyButtonSection from './ModifyButtonSection';
 import ColumnTitleSection from './ColumnTitleSection';
-import useColumnData from '@/hooks/useColumnData';
+import AssigneeSection from '../create-card/AssigneeSection';
 
 interface ModifyCardProps {
   closeModal: () => void;
@@ -35,18 +35,33 @@ export default function ModifyCard({
   const cardInfo = useSelector(
     (state: RootState) => state.cardInfo.cardDetailInfo,
   );
-  const [title, setTitle] = useState(cardInfo?.title || '');
-  const [description, setDescription] = useState(cardInfo?.description || '');
-  const [formattedDate, setFormattedDate] = useState(cardInfo?.dueDate || null);
-  const [tags, setTags] = useState(cardInfo?.tags || []);
+  const [title, setTitle] = useState<string>(cardInfo?.title || '');
+  const [description, setDescription] = useState<string>(
+    cardInfo?.description || '',
+  );
+  const [formattedDate, setFormattedDate] = useState<string>(
+    cardInfo?.dueDate || null,
+  );
+  const [tags, setTags] = useState<string[]>(cardInfo?.tags || []);
   const [columns, setColumns] = useState<GetColumnsResponse | null>(null);
-  const [selectedColumnTitle, setSelectedColumnTitle] = useState(columnTitle);
+  const [selectedColumnTitle, setSelectedColumnTitle] =
+    useState<string>(columnTitle);
   const [selectedColumnId, setSelectedColumnId] = useState<number>(null);
-  const [isOtherDropdownOpen, setIsOtherDropdownOpen] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isOtherDropdownOpen, setIsOtherDropdownOpen] =
+    useState<boolean>(false);
+
   const { query } = useRouter();
   const dashboardId = Number(query.id);
   const { members } = useMembers({ teamId: '11-6', dashboardId });
+  const [initialData, setInitialData] = useState({
+    title: cardInfo?.title || '',
+    description: cardInfo?.description || '',
+    dueDate: cardInfo?.dueDate || null,
+    tags: cardInfo?.tags || [],
+    columnTitle,
+    assigneeNickname: cardInfo?.assignee?.nickname || '',
+  });
+
   const { image, preview, handleImageChange } = useCardImageUploader(
     cardInfo?.imageUrl || null,
   );
@@ -57,15 +72,56 @@ export default function ModifyCard({
     handleToggle,
     handleOptionClick,
   } = useAssigneeSelector(cardInfo?.assignee || null);
-  const { columnData, setColumnData, fetchCards } =
-    useColumnData(selectedColumnId);
+
+  // 컬럼 정보 가져오기
+  useEffect(() => {
+    const fetchColumns = async () => {
+      try {
+        const data = await getColumns({ teamId: '11-6', dashboardId });
+        setColumns(data);
+      } catch (error) {
+        console.error('Failed to fetch columns:', error);
+      }
+    };
+
+    fetchColumns();
+  }, [dashboardId]);
+
+  // 버튼 활성화 상태 관리
+  const { isDisabled, checkIfModified } = useButtonState({
+    title,
+    description,
+    formattedDate,
+    tags,
+    selectedColumnTitle,
+    preview,
+    selectedMemberNickname,
+    initialData,
+    cardInfoImageUrl: cardInfo?.imageUrl || null,
+  });
+
+  // 입력값 변경 여부 체크
+  useEffect(() => {
+    checkIfModified();
+  }, [
+    title,
+    description,
+    formattedDate,
+    tags,
+    selectedColumnTitle,
+    preview,
+    selectedMemberNickname,
+    cardInfo?.imageUrl,
+    initialData,
+    checkIfModified,
+  ]);
 
   const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
     setSelectedColumnId(id);
     setIsOtherDropdownOpen(false);
   };
-  console.log(selectedColumnId);
+
   const handleDateChange = (date: string) => {
     setFormattedDate(date);
   };
@@ -84,54 +140,23 @@ export default function ModifyCard({
     setIsOtherDropdownOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    const fetchColumns = async () => {
-      try {
-        const data = await getColumns({ teamId: '11-6', dashboardId });
-        setColumns(data);
-      } catch (error) {
-        console.error('Failed to fetch columns:', error);
-      }
-    };
-
-    fetchColumns();
-  }, [dashboardId]);
-
-  // 생성 버튼 클릭시 함수
-  const handleSubmit = async () => {
-    try {
-      let imageUrl = cardInfo?.imageUrl || null;
-      if (image) {
-        imageUrl = await cardImageUpload(image, cardInfo.columnId);
-      }
-
-      const selectedMember = members.find(
-        (member) => member.nickname === selectedMemberNickname,
-      );
-
-      const selectedColumn = columns.data.find(
-        (column) => column.title === selectedColumnTitle,
-      );
-
-      const putData = {
-        assigneeUserId: selectedMember.userId,
-        dashboardId,
-        columnId: selectedColumn.id,
-        title,
-        description,
-        dueDate: formattedDate,
-        tags,
-        imageUrl,
-      };
-
-      await putCard(putData, cardInfo.id);
-      onUpdate();
-      fetchCards(null, columnData.totalCount + 1, true); // size=1
-
-      closeModal();
-    } catch (error) {
-      console.error('handleSubmit Error:', error);
-    }
+  // 수정 버튼 클릭시 함수
+  const handleSubmit = () => {
+    putCardSubmit({
+      image,
+      cardInfo,
+      members,
+      selectedMemberNickname,
+      columns,
+      selectedColumnTitle,
+      title,
+      description,
+      formattedDate,
+      tags,
+      dashboardId,
+      onUpdate,
+      closeModal,
+    });
   };
 
   return (
@@ -192,7 +217,7 @@ export default function ModifyCard({
         <ModifyButtonSection
           onCancel={closeModal}
           onSubmit={handleSubmit}
-          // isDisabled={isDisabled}
+          isDisabled={isDisabled}
         />
       </div>
     </div>

@@ -27,30 +27,34 @@ function Navbar() {
   const [responseMessage, setResponseMessage] = useState('');
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const router = useRouter();
+  const {
+    pathname,
+    query: { id },
+  } = router;
 
-  const isMyDashboard = router.pathname !== '/mydashboard';
-  const isMyPage = router.pathname !== '/mypage';
-  const isEdit = router.pathname !== '/edit';
+  const isMyDashboard = pathname !== '/mydashboard';
+  const isMyPage = pathname !== '/mypage';
+  const isEdit = pathname !== '/edit';
 
   useEffect(() => {
     setClientUser(user);
   }, [user]);
 
   useEffect(() => {
-    if (!router.query.id) {
+    if (!id) {
       return;
     }
 
     const fetchDashboardData = async () => {
-      const memberData = await getMember(router.query.id);
+      const memberData = await getMember(id);
       setInvitedMember(memberData);
 
-      const dashboardData = await getDashboard(router.query.id);
+      const dashboardData = await getDashboard(id);
       setDashboardData(dashboardData);
     };
 
     fetchDashboardData();
-  }, [router.query.id]);
+  }, [id]);
 
   // 초대 요청을 보내고 alert
   useEffect(() => {

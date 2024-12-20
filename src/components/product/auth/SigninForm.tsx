@@ -4,12 +4,13 @@ import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/settingSlice';
 import { AppDispatch } from '@/redux/store';
-import AuthInput from '@/components/common/input/auth-input/AuthInput';
-import CDSButton from '@/components/common/button/CDSButton';
-import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { postSignin } from '@/lib/signin/postSignin';
 import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
 import { emailValidation, passwordValidation } from '@/utils/authValidation';
+import AuthInput from '@/components/common/input/auth-input/AuthInput';
+import CDSButton from '@/components/common/button/CDSButton';
+import AuthModal from '@/components/common/modal/auth/AuthModal';
+import CheckBox from '@/components/common/checkbox/CheckBox';
 
 const INITIAL_VALUES = {
   email: '',
@@ -20,21 +21,25 @@ function SigninForm() {
   const [values, setValues] = useState(INITIAL_VALUES);
   const [emailValid, setEmailValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
-  const [disabled, setDisabled] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    const isEmailValid = emailValidation(values.email);
-    const isPasswordValid = passwordValidation(values.password);
-    setDisabled(!(isEmailValid && isPasswordValid));
-  }, [values]);
+  const isEmailValid = emailValidation(values.email);
+  const isPasswordValid = passwordValidation(values.password);
 
+  // localStorage에서 email 가져오기
   useEffect(() => {
-    if (sessionStorage.getItem('accessToken')) {
-      router.push('/mydashboard');
+    if (typeof window !== 'undefined') {
+      const email = localStorage.getItem('email');
+      if (email) {
+        setValues((prevValues) => ({
+          ...prevValues,
+          email,
+        }));
+      }
     }
   }, []);
 
@@ -62,7 +67,11 @@ function SigninForm() {
 
     try {
       const response = await postSignin(values);
-      sessionStorage.setItem('accessToken', response.accessToken);
+      if (isChecked) {
+        localStorage.setItem('accessToken', response.accessToken);
+      } else {
+        sessionStorage.setItem('accessToken', response.accessToken);
+      }
 
       // 리덕스 액션 호출
       dispatch(
@@ -71,6 +80,8 @@ function SigninForm() {
         }),
       );
 
+      localStorage.setItem('email', values.email);
+
       router.push('/mydashboard');
     } catch (error) {
       setResponseMessage(error.message);
@@ -78,10 +89,6 @@ function SigninForm() {
     }
   };
 
-  const handleCancelClick = () => {
-    setIsModalVisible(false);
-    setResponseMessage(null);
-  };
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -115,8 +122,20 @@ function SigninForm() {
           autoComplete="password"
         />
 
+        <CheckBox
+          name="login"
+          id="login"
+          htmlFor="login"
+          text="로그인 상태 유지"
+          onChange={() => setIsChecked(!isChecked)}
+        />
+
         <div className={styles['login-button']}>
-          <CDSButton btnType="auth" type="submit" disabled={disabled}>
+          <CDSButton
+            btnType="auth"
+            type="submit"
+            disabled={!(isEmailValid && isPasswordValid)}
+          >
             로그인
           </CDSButton>
         </div>
@@ -125,7 +144,10 @@ function SigninForm() {
       {isModalVisible && (
         <AuthModal
           message={responseMessage}
-          handleCancelClick={handleCancelClick}
+          handleCancelClick={() => {
+            setIsModalVisible(false);
+            setResponseMessage(null);
+          }}
         />
       )}
     </>

@@ -81,6 +81,7 @@ function Navbar() {
     if (value === 'mypage') {
       router.push('/mypage');
     } else if (value === 'logout') {
+      localStorage.removeItem('accessToken');
       sessionStorage.removeItem('accessToken');
       router.push('/');
     }

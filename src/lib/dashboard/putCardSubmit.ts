@@ -15,6 +15,8 @@ const putCardSubmit = async ({
   dashboardId,
   onUpdate,
   closeModal,
+  fetchCards,
+  columnData,
 }) => {
   try {
     let imageUrl = cardInfo?.imageUrl || null;
@@ -40,9 +42,10 @@ const putCardSubmit = async ({
       tags,
       imageUrl,
     };
-
+    console.log(columnData);
     await putCard(putData, cardInfo.id);
     onUpdate();
+    fetchCards({ size: columnData.totalCount + 1, reset: true });
     closeModal();
   } catch (error) {
     console.error('handleSubmit Error:', error);

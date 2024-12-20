@@ -18,7 +18,7 @@ function Column({ columnId, columnTitle }: ColumnProp) {
   const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
 
   const handleClick = () => {
-    // 카드 생성 모달 띄우기 위한 함수수
+    // 카드 생성 모달 띄우기 위한 함수
     setModal(true);
   };
 

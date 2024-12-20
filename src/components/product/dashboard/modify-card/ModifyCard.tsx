@@ -48,7 +48,7 @@ export default function ModifyCard({
   const [columns, setColumns] = useState<GetColumnsResponse | null>(null);
   const [selectedColumnTitle, setSelectedColumnTitle] =
     useState<string>(columnTitle);
-  const [selectedColumnId, setSelectedColumnId] = useState<number>(null);
+  const [selectedColumnId, setSelectedColumnId] = useState<number>(columnId);
   const [isOtherDropdownOpen, setIsOtherDropdownOpen] =
     useState<boolean>(false);
 
@@ -117,6 +117,7 @@ export default function ModifyCard({
     initialData,
     checkIfModified,
   ]);
+  const { columnData, fetchCards } = useColumnData(selectedColumnId);
 
   const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
@@ -142,6 +143,12 @@ export default function ModifyCard({
     setIsOtherDropdownOpen((prev) => !prev);
   };
 
+  useEffect(() => {
+    if (selectedColumnId) {
+      fetchCards({ reset: true });
+    }
+  }, [selectedColumnId, fetchCards]);
+
   // 수정 버튼 클릭시 함수
   const handleSubmit = () => {
     putCardSubmit({
@@ -158,7 +165,10 @@ export default function ModifyCard({
       dashboardId,
       onUpdate,
       closeModal,
+      columnData,
+      fetchCards,
     });
+    console.log('Updated columnData:', columnData);
   };
 
   return (

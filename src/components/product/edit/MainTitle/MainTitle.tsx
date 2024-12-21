@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
+import putDashboards from '@/lib/editdashboard/putDashboards';
 import ColorSelector from './ColorSelector';
 import styles from './MainTitle.module.css';
 
@@ -11,6 +13,8 @@ interface MainTitleProps {
 export default function MainTitle({ dashboardtitle }: MainTitleProps) {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [title, setTitle] = useState('');
+  const router = useRouter();
+  const dashboardId = Number(router.query.id);
 
   const handleChange = (e) => {
     setTitle(e.target.value);

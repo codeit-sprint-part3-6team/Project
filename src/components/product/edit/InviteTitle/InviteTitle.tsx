@@ -40,7 +40,6 @@ export default function InviteTitle() {
       setAlertMessage(
         `${response.invitee.nickname}님께 초대 요청을 보냈습니다.`,
       );
-      setInvitations((prev) => [...prev, response]);
     } catch (error) {
       setIsModalOpen(false);
       setResponseMessage(error.message);

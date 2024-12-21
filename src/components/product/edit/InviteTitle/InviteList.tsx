@@ -1,5 +1,7 @@
 import CDSButton from '@/components/common/button/CDSButton';
 import { Invitaion } from '@/type/dashboard';
+import deleteInvitation from '@/lib/editdashboard/deleteDashboardsInvitations';
+import { useRouter } from 'next/router';
 import styles from './InviteList.module.css';
 
 interface InviteListProps {
@@ -7,8 +9,15 @@ interface InviteListProps {
 }
 
 export default function InviteList({ invitations }: InviteListProps) {
-  const handleClick = () => {
-    alert('삭제버튼누름');
+  const router = useRouter();
+  const dashboardId = Number(router.query.id);
+
+  const handleDeleteClick = async (invitationId: number) => {
+    try {
+      await deleteInvitation(dashboardId, invitationId);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   };
 
   return (
@@ -17,7 +26,10 @@ export default function InviteList({ invitations }: InviteListProps) {
         <div key={invitation.id}>
           <div className={styles.container}>
             <h1 className={styles.title}>{invitation.invitee.email}</h1>
-            <CDSButton btnType="delete" onClick={handleClick}>
+            <CDSButton
+              btnType="delete"
+              onClick={() => handleDeleteClick(invitation.id)}
+            >
               취소
             </CDSButton>
           </div>

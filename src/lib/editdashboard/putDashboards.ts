@@ -3,6 +3,7 @@ import instance from '../instance';
 interface PutDashboardsParams {
   title: string;
   color: string;
+  dashboardId: number;
 }
 
 interface PutDashboardsResponse {

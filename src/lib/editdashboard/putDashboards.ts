@@ -27,6 +27,7 @@ export default async function putDashboards(
       {
         title,
         color,
+        dashboardId,
       },
       {
         headers: {

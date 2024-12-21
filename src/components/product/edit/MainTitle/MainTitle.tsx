@@ -12,7 +12,7 @@ interface MainTitleProps {
 
 export default function MainTitle({ dashboardtitle }: MainTitleProps) {
   const [selectedColor, setSelectedColor] = useState<string>('');
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(dashboardtitle);
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
@@ -20,13 +20,23 @@ export default function MainTitle({ dashboardtitle }: MainTitleProps) {
     setTitle(e.target.value);
   };
 
-  // 변경 버튼 누르면 대시보드가 수정되게해야됨.
   const handleEditClick = async () => {
-    alert('변경버튼눌렀음');
+    if (dashboardId) {
+      try {
+        const data = await putDashboards({
+          title,
+          color: selectedColor,
+          dashboardId,
+        });
+        setTitle(data.title);
+      } catch (error) {
+        console.error('대시보드 수정 중 오류 발생:', error);
+      }
+    }
   };
 
   return (
-    <form className={styles.title_container}>
+    <div className={styles.title_container}>
       <div className={styles.header_section}>
         <div className={styles.header_top}>
           <h1 className={styles.title}>{dashboardtitle}</h1>
@@ -51,6 +61,6 @@ export default function MainTitle({ dashboardtitle }: MainTitleProps) {
           </CDSButton>
         </div>
       </div>
-    </form>
+    </div>
   );
 }

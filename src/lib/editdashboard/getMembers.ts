@@ -20,7 +20,7 @@ interface GetMembersResponse {
   totalCount: number;
 }
 
-export default async function postInvitations(
+export default async function getMembers(
   params: GetMembersParams,
 ): Promise<GetMembersResponse> {
   try {

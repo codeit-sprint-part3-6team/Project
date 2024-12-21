@@ -52,7 +52,7 @@ export default function InviteTitle() {
         <h2 className={styles.sub_title}>이메일</h2>
         {/* <InviteList /> */}
       </div>
-      <InviteModal
+    {/* <InviteModal
         isOpen={isModalOpen}
         onClose={closeModal}
         title="초대하기"
@@ -60,7 +60,7 @@ export default function InviteTitle() {
         handleCancleClick={handleCancleChange}
         adapttitle="생성"
         handleAdaptClick={handleAdaptChange}
-      />
+      /> */}
     </section>
   );
 }

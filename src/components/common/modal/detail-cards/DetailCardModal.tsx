@@ -1,21 +1,18 @@
+import { useState, useEffect } from 'react';
 import styles from '@/components/common/modal/detail-cards/DetailCardModal.module.css';
 import Dropdown from '@/components/common/dropdown/Dropdown';
-import Chip from '@/components/common/chip/Chip';
 import CloseIcon from 'public/ic/ic_x.svg';
 import KebabIcon from 'public/ic/ic_kebab.svg';
-import { useCallback, useEffect, useState } from 'react';
 import getCardDetail from '@/lib/dashboard/getCardDetail';
 import { Card, GetCardsResponse } from '@/type/card';
 import CardImage from '@/components/dashboard/card/CardImage';
-import Comment from '@/components/dashboard/comment/Comment';
-import formatDate from '@/utils/formatDate';
-import UserProfile from '@/components/common/userprofile/UserProfile';
-import useIntersectionObserver from '@/hooks/useIntersectionObserver';
-import useComments from '@/hooks/useComments';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/redux/store';
-import deleteCard from '@/lib/dashboard/deleteCard';
 import { setCardInfo } from '@/redux/cardSlice';
+import deleteCard from '@/lib/dashboard/deleteCard';
+import AuthorSection from './AuthorSection';
+import ChipSection from './ChipSection';
+import CommentSection from './CommentSection';
 
 interface DetailCardModalProps {
   title: string;
@@ -38,15 +35,6 @@ function DetailCardModal({
     user: { id },
   } = useSelector((state: RootState) => state.userInfo);
   const [card, setCard] = useState<Card | null>(null);
-  const {
-    commentsResponse,
-    addComment,
-    loadMoreComments,
-    removeComment,
-    updateComment,
-    isSubmitting,
-  } = useComments(cardId, null);
-  const [newComment, setNewComment] = useState('');
   const dispatch = useDispatch<AppDispatch>();
 
   // 카드 삭제 함수
@@ -77,28 +65,16 @@ function DetailCardModal({
       const cardDetail = await getCardDetail({ cardId });
       setCard(cardDetail);
       dispatch(setCardInfo(cardDetail));
-      loadMoreComments();
     } catch (error) {
       console.error('데이터 요청 실패:', error);
     }
   };
 
-  const handleObserver = useCallback(
-    async ([entry]) => {
-      if (entry.isIntersecting && commentsResponse?.cursorId) {
-        loadMoreComments(commentsResponse.cursorId);
-      }
-    },
-    [commentsResponse?.cursorId, loadMoreComments],
-  );
-
-  const endPoint = useIntersectionObserver(handleObserver);
-
   useEffect(() => {
     fetchData();
   }, [cardId]);
 
-  if (!card || !commentsResponse) return null;
+  if (!card) return null;
 
   return (
     <div className={styles.container}>
@@ -123,91 +99,24 @@ function DetailCardModal({
           <CloseIcon className={styles['icon-close']} />
         </button>
       </div>
-      <div className={styles['author-section']}>
-        <div>
-          <div className={styles['author-title']}>담당자</div>
-          <UserProfile
-            type="todo-detail"
-            profileImageUrl={card.assignee.profileImageUrl}
-            nickname={card.assignee.nickname}
-          />
-        </div>
-        <div>
-          <div className={styles['author-title']}>마감일</div>
-          <span className={styles['author-content']}>
-            {formatDate(card.dueDate, true)}
-          </span>
-        </div>
-      </div>
+      <AuthorSection card={card} />
       <div className={styles['content-section']}>
-        <div className={styles['chip-section']}>
-          <div className={styles.status}>
-            <Chip chipType="status">{columnTitle}</Chip>
-          </div>
-          <span className={styles.bar} />
-          <div className={styles.tags}>
-            {card.tags.map((tag) => (
-              <Chip key={`${cardId}_tag_${tag}`} chipType="tag">
-                {tag}
-              </Chip>
-            ))}
-          </div>
-        </div>
+        <ChipSection
+          columnTitle={columnTitle}
+          tags={card.tags}
+          cardId={cardId}
+        />
         <p className={styles.description}>{card.description}</p>
         <CardImage
           image={card.imageUrl}
           name={`${card.title} 이미지`}
           className={styles['card-image']}
         />
-        <div className={styles['comment-input-section']}>
-          <label htmlFor="comment" className={styles['comment-label']}>
-            댓글
-          </label>
-          <textarea
-            className={styles['comment-input']}
-            name="comment"
-            id="comment"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            placeholder="댓글 작성하기"
-          />
-          <button
-            type="button"
-            className={styles['btn-add-comment']}
-            onClick={() => {
-              addComment(newComment, card.columnId, card.dashboardId);
-              setNewComment('');
-            }}
-            disabled={isSubmitting || !newComment.trim()}
-          >
-            입력
-          </button>
-        </div>
-        <div className="comment-section">
-          {commentsResponse.comments.map(
-            ({
-              id: commentId,
-              author: { id: authorId, nickname, profileImageUrl },
-              createdAt,
-              content,
-            }) => (
-              <Comment
-                key={`comment_${commentId}`}
-                commentId={commentId}
-                profileImageUrl={profileImageUrl}
-                authorId={authorId}
-                nickname={nickname}
-                createdAt={createdAt}
-                content={content}
-                removeComment={removeComment}
-                updateComment={updateComment}
-              />
-            ),
-          )}
-        </div>
-        {commentsResponse.cursorId && (
-          <div ref={endPoint} className={styles['end-point']} />
-        )}
+        <CommentSection
+          cardId={cardId}
+          columnId={card.columnId}
+          dashboardId={card.dashboardId}
+        />
       </div>
     </div>
   );

@@ -1,5 +1,16 @@
-import { GetInvitationsParams, GetInvitationsResponse } from '@/type/dashboard';
+import { Invitaion } from '@/type/dashboard';
 import instance from '../instance';
+
+export interface GetInvitationsParams {
+  size: number;
+  cursorId: number;
+  title?: string;
+}
+
+export interface GetInvitationsResponse {
+  cursorId: number;
+  invitations: Invitaion[];
+}
 
 export default async function getinvitations(
   params: GetInvitationsParams,

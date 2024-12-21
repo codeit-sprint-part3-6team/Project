@@ -34,6 +34,7 @@ export default function CardImageInput({
         id="profile-image"
         onChange={onImageChange}
         className={styles[`img-input`]}
+        accept=".gif, .jpg, .png"
       />
     </div>
   );

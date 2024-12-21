@@ -7,6 +7,10 @@
   border-right: 1px solid var(--gray-medium);
 }
 
+.menu {
+  width: 100%;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -23,6 +27,7 @@
 }
 
 .color-circle {
+  flex-shrink: 0;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -56,6 +61,10 @@
   gap: 8px;
 }
 
+.menu-list-dashboard {
+  border-radius: 4px;
+}
+
 .menu-list-dashboard-active {
   background-color: var(--violet-bright);
 }
@@ -69,7 +78,7 @@
   align-items: center;
   border-style: none;
   width: 100%;
-  height: 42px;
+  height: 50px;
   padding: 8px 12px;
   cursor: pointer;
 }
@@ -78,9 +87,14 @@
   font-size: 18px;
   font-weight: 500;
   color: var(--gray);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .crown-icon {
+  flex-shrink: 0;
   display: inline-block;
   margin-left: 8px;
   vertical-align: middle;
@@ -170,7 +184,14 @@
 
   .menu-list-dashboard {
     font-size: 16px;
-    padding: 8px 10px;
+  }
+
+  .dashboard-item {
+    height: 42px;
+  }
+
+  .dashboard-title {
+    font-size: 16px;
   }
 }
 
@@ -197,7 +218,8 @@
   }
 
   .color-circle {
-    margin: 0 0 20px 0;
+    /* margin: 0 0 20px 0; */
+    margin: 0;
   }
 
   .logo {
@@ -206,6 +228,12 @@
 
   .logo svg:nth-child(2) {
     display: none;
+  }
+
+  .dashboard-item {
+    justify-content: center;
+    width: 40px;
+    height: 40px;
   }
 
   .dashboard-title {

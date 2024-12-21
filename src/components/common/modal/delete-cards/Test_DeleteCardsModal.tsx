@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import OverlayContainer from '../overlay-container/OverlayContainer';
 import DeleteCardsModal from './DeleteCardsModal';
 
 function TestDeleteCardsModal() {
@@ -20,13 +19,11 @@ function TestDeleteCardsModal() {
     <>
       <button onClick={onClick}>카드 삭제 모달</button>
       {Modal && (
-        <OverlayContainer>
-          <DeleteCardsModal
-            message={'컬럼의 모든 카드가 삭제됩니다.'}
-            handleCancelClick={handleCancelClick}
-            handleDeleteClick={handleDeleteClick}
-          />
-        </OverlayContainer>
+        <DeleteCardsModal
+          message={'컬럼의 모든 카드가 삭제됩니다.'}
+          handleCancelClick={handleCancelClick}
+          handleDeleteClick={handleDeleteClick}
+        />
       )}
     </>
   );

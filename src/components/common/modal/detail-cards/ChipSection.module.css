@@ -1,0 +1,41 @@
+.chip-section {
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.status {
+  flex-shrink: 0;
+}
+
+.bar {
+  width: 1px;
+  height: 20px;
+
+  margin: 0 20px;
+
+  background-color: var(--gray-medium);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+@media screen and (max-width: 1199px) {
+  .chip-section {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .bar {
+    margin: 0 12px;
+  }
+
+  .tags {
+    gap: 8px;
+  }
+}

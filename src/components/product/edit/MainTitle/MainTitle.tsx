@@ -20,7 +20,6 @@ export default function MainTitle() {
   const handleEditClick = async () => {
     try {
       const data = await putDashboards({
-        dashboardId,
         title,
         color: selectedColor,
       });

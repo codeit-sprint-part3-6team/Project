@@ -1,7 +1,6 @@
 import instance from '../instance';
 
 interface PutDashboardsParams {
-  dashboardId: number;
   title: string;
   color: string;
 }

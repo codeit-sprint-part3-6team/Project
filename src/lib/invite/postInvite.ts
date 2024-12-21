@@ -1,11 +1,11 @@
 import instance from '../instance';
 
-type inviteProps = {
+type InviteProps = {
   id: number;
   email: string;
 };
 
-type inviteResponse = {
+type InviteResponse = {
   createdAt: string;
   dashboard: {
     id: number;
@@ -27,10 +27,10 @@ type inviteResponse = {
   updatedAt: string;
 };
 
-export const postInvite = async ({
+const postInvite = async ({
   id,
   email,
-}: inviteProps): Promise<inviteResponse> => {
+}: InviteProps): Promise<InviteResponse> => {
   try {
     const { data } = await instance.post(`11-6/dashboards/${id}/invitations`, {
       email,
@@ -45,3 +45,5 @@ export const postInvite = async ({
     );
   }
 };
+
+export default postInvite;

@@ -42,10 +42,9 @@ const putCardSubmit = async ({
       tags,
       imageUrl,
     };
-    console.log(columnData);
     await putCard(putData, cardInfo.id);
-    onUpdate();
     fetchCards({ size: columnData.totalCount + 1, reset: true });
+    onUpdate();
     closeModal();
   } catch (error) {
     console.error('handleSubmit Error:', error);

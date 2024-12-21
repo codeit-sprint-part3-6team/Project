@@ -149,6 +149,9 @@ export default function ModifyCard({
     }
   }, [selectedColumnId, fetchCards]);
 
+  useEffect(() => {
+    console.log('Updated columnData:', columnData);
+  }, [columnData]);
   // 수정 버튼 클릭시 함수
   const handleSubmit = () => {
     putCardSubmit({
@@ -168,7 +171,6 @@ export default function ModifyCard({
       columnData,
       fetchCards,
     });
-    console.log('Updated columnData:', columnData);
   };
 
   return (

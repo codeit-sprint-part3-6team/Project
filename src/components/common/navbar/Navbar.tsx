@@ -9,7 +9,7 @@ import InvitedMember from '../invitedmember/InvitedMember';
 import GeneralModal from '../modal/general/GeneralModal';
 import Dropdown from '../dropdown/Dropdown';
 import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
-import { postInvite } from '@/lib/invite/postInvite';
+import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '../modal/auth/AuthModal';
 
 const INITIAL_VALUES = {
@@ -122,7 +122,7 @@ function Navbar() {
                 btnType="management"
                 buttonName="관리"
                 onClick={() =>
-                  router.push(`/dashboards/${router.query.id}/edit`)
+                  router.push(`/dashboard/${router.query.id}/edit`)
                 }
               />
             )}

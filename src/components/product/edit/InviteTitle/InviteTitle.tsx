@@ -6,13 +6,10 @@ import InviteModal from '@/components/common/modal/general/GeneralModal';
 import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import InvitedMember from '@/components/common/invitedmember/InvitedMember';
-import { getMember } from '@/lib/navbar/getNavbar';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
 
-const INITIAL_VALUES = {
-  email: '',
-};
+const INITIAL_VALUES = { email: '' };
 
 export default function InviteTitle() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,25 +19,9 @@ export default function InviteTitle() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [invitations, setInvitations] = useState([]);
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
 
-  useEffect(() => {
-    if (!id) {
-      return;
-    }
-
-    const fetchDashboardData = async () => {
-      const memberData = await getMember(id);
-      setInvitedMember(memberData);
-    };
-
-    fetchDashboardData();
-  }, [id]);
-
-  // 초대 요청을 보내고 alert
   useEffect(() => {
     if (!isModalOpen && alertMessage) {
       alert(alertMessage);
@@ -55,7 +36,6 @@ export default function InviteTitle() {
 
   const submitInvite = async () => {
     const id = Number(router.query.id);
-
     try {
       const response = await postInvite({ id, email: emailValue.email });
       setIsModalOpen(false);
@@ -63,7 +43,7 @@ export default function InviteTitle() {
       setAlertMessage(
         `${response.invitee.nickname}님께 초대 요청을 보냈습니다.`,
       );
-      console.log(`${response.invitee.email}`);
+      setInvitations((prev) => [...prev, response]);
     } catch (error) {
       setIsModalOpen(false);
       setResponseMessage(error.message);
@@ -94,7 +74,7 @@ export default function InviteTitle() {
             <CDSButton
               btnType="pagination_next"
               onClick={() => handlePageChange('next')}
-              disabled={currentPage === 1}
+              disabled={currentPage === 10}
             />
           </div>
           <div className={styles.mobile_hidden_button}>
@@ -110,7 +90,7 @@ export default function InviteTitle() {
       </div>
       <div className={styles.name_section}>
         <h2 className={styles.sub_title}>이메일</h2>
-        <InviteList />
+        <InviteList invitations={invitations} />
       </div>
       <div>
         <InviteModal
@@ -126,14 +106,12 @@ export default function InviteTitle() {
           handleCancelClick={handleCancelClick}
           handleAdaptClick={submitInvite}
         />
-
         {isModalVisible && (
           <AuthModal
             message={responseMessage}
             handleCancelClick={handleCancelClick}
           />
         )}
-
         <InvitedMember invitedMember={invitedMember} />
       </div>
     </section>

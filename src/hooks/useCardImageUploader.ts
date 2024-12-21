@@ -15,7 +15,6 @@ export default function useCardImageUploader() {
       // 확장자 검증
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
         alert('허용되지 않는 파일 형식입니다 (png, gif, jpg만 등록 가능)');
-        // e.target.value = '';
         return;
       }
 

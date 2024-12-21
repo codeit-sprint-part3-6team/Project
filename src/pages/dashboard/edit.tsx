@@ -16,6 +16,7 @@ export default function EditPage() {
   const handleDeleteClick = async () => {
     try {
       await deleteDashboard(Number(dashboardId));
+      router.push('/mydashboard');
     } catch (error) {
       throw new Error(`${error}`);
     }

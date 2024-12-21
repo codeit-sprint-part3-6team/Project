@@ -5,7 +5,6 @@ import WhitePlus from 'public/ic/ic_whiteplus.svg';
 import InviteModal from '@/components/common/modal/general/GeneralModal';
 import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
-import InvitedMember from '@/components/common/invitedmember/InvitedMember';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
 
@@ -13,7 +12,6 @@ const INITIAL_VALUES = { email: '' };
 
 export default function InviteTitle() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [invitedMember, setInvitedMember] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [emailValue, setEmailValue] = useState(INITIAL_VALUES);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -24,7 +22,6 @@ export default function InviteTitle() {
 
   useEffect(() => {
     if (!isModalOpen && alertMessage) {
-      alert(alertMessage);
       setAlertMessage(null);
     }
   }, [isModalOpen, alertMessage]);
@@ -112,7 +109,6 @@ export default function InviteTitle() {
             handleCancelClick={handleCancelClick}
           />
         )}
-        <InvitedMember invitedMember={invitedMember} />
       </div>
     </section>
   );

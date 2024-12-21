@@ -11,7 +11,7 @@ import useModal from '@/hooks/useModal';
 import deleteColumns from '@/lib/dashboard/deleteColumns';
 import { Column as ColumnType } from '@/type/column';
 import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
-import CreateCard from '@/components/product/dashboard/card/CreateCard';
+import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
 
 interface ColumnProp {
   columnId: number;

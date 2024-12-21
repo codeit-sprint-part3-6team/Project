@@ -10,12 +10,12 @@ import styles from './edit.module.css';
 
 export default function EditPage() {
   const router = useRouter();
-  const dashboardId = router.query.id;
+  const dashboardId = Number(router.query.id);
 
   // /dashboard/id/edit연결후 재확인
   const handleDeleteClick = async () => {
     try {
-      await deleteDashboard(Number(dashboardId));
+      await deleteDashboard(dashboardId);
       router.push('/mydashboard');
     } catch (error) {
       throw new Error(`${error}`);

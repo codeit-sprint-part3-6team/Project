@@ -2,6 +2,8 @@ import instance from '../instance';
 
 interface PutDashboardsParams {
   dashboardId: number;
+  title: string;
+  color: string;
 }
 
 interface PutDashboardsResponse {
@@ -14,16 +16,17 @@ interface PutDashboardsResponse {
   userId: number;
 }
 
-export default async function postInvitations(
+export default async function putDashboards(
   params: PutDashboardsParams,
 ): Promise<PutDashboardsResponse> {
   try {
-    const { dashboardId } = params;
+    const { title, color, dashboardId } = params;
 
     const { data } = await instance.post<PutDashboardsResponse>(
-      `/11-6/dashboards/{dashboardId}`,
+      `/11-6/dashboards/${dashboardId}`,
       {
-        dashboardId,
+        title,
+        color,
       },
       {
         headers: {
@@ -34,8 +37,10 @@ export default async function postInvitations(
     return data;
   } catch (error) {
     if (error.response) {
-      throw new Error(error.response.data.message || '초대에 실패했습니다.');
+      throw new Error(
+        error.response.data.message || '대시보드 수정에 실패했습니다.',
+      );
     }
-    throw new Error('초대 요청 중 문제가 발생했습니다.');
+    throw new Error('대시보드 수정 중 문제가 발생했습니다.');
   }
 }

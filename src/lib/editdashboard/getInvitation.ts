@@ -43,7 +43,7 @@ export default async function getInvitations({
       },
     );
     return data;
-  } catch (error: any) {
+  } catch (error) {
     if (error.response) {
       throw new Error(
         error.response.data.message || '초대목록 요청에 실패했습니다.',

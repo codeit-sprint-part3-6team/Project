@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import WhitePlus from 'public/ic/ic_whiteplus.svg';
 import InviteModal from '@/components/common/modal/general/GeneralModal';
-import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import getInvitations, {
   GetInvitationsResponse,
@@ -36,7 +35,7 @@ export default function InviteTitle() {
         setMembers(response.invitations);
         setTotalPages(Math.ceil(response.totalCount / 5));
       } catch (error) {
-        alert('Failed to fetch members');
+        throw new Error(`${error}`);
       }
     };
     fetchInvitations();
@@ -65,6 +64,9 @@ export default function InviteTitle() {
         <h1 className={styles.title}>초대 내역</h1>
         <div className={styles.button_section}>
           <div className={styles.pagination_button}>
+            <span className={styles.page_info}>
+              {totalPages} 페이지 중 {currentPage}
+            </span>
             <CDSButton
               btnType="pagination_prev"
               onClick={() => handlePageChange('prev')}
@@ -76,7 +78,7 @@ export default function InviteTitle() {
               disabled={currentPage === totalPages}
             />
           </div>
-          <div className={styles.mobile_hidden_button}>
+          <div className={styles.invite_button_section}>
             <button
               type="button"
               className={styles.invite_button}
@@ -89,7 +91,7 @@ export default function InviteTitle() {
       </div>
       <div className={styles.name_section}>
         <h2 className={styles.sub_title}>이메일</h2>
-        <InviteList invitations={members} />
+        <InviteList members={members} />
       </div>
       <div>
         <InviteModal

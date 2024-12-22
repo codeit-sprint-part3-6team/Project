@@ -23,10 +23,20 @@
 
 .button_section {
 	display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   gap: 20px;
 }
 
-.mobile_hidden_button {
+.page_info {
+  margin-right: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.invite_button_section {
   margin-top: 3px;
   display: block;
 }
@@ -65,6 +75,10 @@
 		width: 544px;
 	}
 
+  .pagination_button {
+    display: none;
+  }
+
 	.sub_title {
 		margin-top: 15px;
 	}
@@ -78,12 +92,25 @@
 		padding: 20px 16px 20px 16px;
 	}
 
+  .pagination_button {
+    display: block;
+  }
+
 	.title {
 		font-size: 20px;
 	}
 
-  .mobile_hidden_button {
-    display: none;
+  .button_section { 
+    margin-top: 5px;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .page_info {
+    margin-right: 10px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
   }
 
   .invite_button {
@@ -92,7 +119,7 @@
   }
 
 	.sub_title {
-		margin-top: 10px;
+		margin-top: 0px;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 24px;

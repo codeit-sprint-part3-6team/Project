@@ -5,10 +5,10 @@ import { useRouter } from 'next/router';
 import styles from './InviteList.module.css';
 
 interface InviteListProps {
-  invitations: Invitaion[];
+  members: Invitaion[];
 }
 
-export default function InviteList({ invitations }: InviteListProps) {
+export default function InviteList({ members }: InviteListProps) {
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
@@ -23,18 +23,18 @@ export default function InviteList({ invitations }: InviteListProps) {
 
   return (
     <div>
-      {invitations?.map((invitation, index) => (
-        <div key={invitation.id}>
+      {members?.map((member, index) => (
+        <div key={member.id}>
           <div className={styles.container}>
-            <h1 className={styles.title}>{invitation.invitee.email}</h1>
+            <h1 className={styles.title}>{member.invitee.email}</h1>
             <CDSButton
               btnType="delete"
-              onClick={() => handleDeleteClick(invitation.id)}
+              onClick={() => handleDeleteClick(member.id)}
             >
               취소
             </CDSButton>
           </div>
-          {index < invitations.length - 1 && <hr className={styles.line} />}
+          {index < members.length - 1 && <hr className={styles.line} />}
         </div>
       ))}
     </div>

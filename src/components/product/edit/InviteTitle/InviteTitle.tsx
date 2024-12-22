@@ -3,27 +3,28 @@ import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import WhitePlus from 'public/ic/ic_whiteplus.svg';
 import InviteModal from '@/components/common/modal/general/GeneralModal';
-import AuthModal from '@/components/common/modal/auth/AuthModal';
 import getInvitations, {
   GetInvitationsResponse,
 } from '@/lib/editdashboard/getInvitation';
+import putInvitations from '@/lib/mydashboard/putInvitations';
+import postInvite from '@/lib/invite/postInvite';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
-
-const INITIAL_VALUES = { email: '' };
 
 export default function InviteTitle() {
   const [members, setMembers] = useState<GetInvitationsResponse[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [emailValue, setEmailValue] = useState(INITIAL_VALUES);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [responseMessage, setResponseMessage] = useState('');
+  const [emailValue, setEmailValue] = useState<{ email: string }>({
+    email: '',
+  });
   const router = useRouter();
 
   useEffect(() => {
-    if (!router.query.id) return;
+    if (!router.query.id) {
+      return;
+    }
 
     const fetchInvitations = async () => {
       try {
@@ -43,11 +44,18 @@ export default function InviteTitle() {
 
   const handleCancelClick = () => {
     setIsModalOpen(false);
-    setIsModalVisible(false);
   };
 
   const submitInvite = async () => {
-    alert('초대버튼누름');
+    const id = Number(router.query.id);
+
+    try {
+      await postInvite({ id, email: emailValue.email });
+      setIsModalOpen(false);
+      router.reload();
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   };
 
   const handlePageChange = (direction: 'prev' | 'next') => {
@@ -107,12 +115,6 @@ export default function InviteTitle() {
           handleCancelClick={handleCancelClick}
           handleAdaptClick={submitInvite}
         />
-        {isModalVisible && (
-          <AuthModal
-            message={responseMessage}
-            handleCancelClick={handleCancelClick}
-          />
-        )}
       </div>
     </section>
   );

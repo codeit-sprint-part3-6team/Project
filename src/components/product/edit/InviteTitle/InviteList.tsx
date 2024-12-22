@@ -15,6 +15,7 @@ export default function InviteList({ invitations }: InviteListProps) {
   const handleDeleteClick = async (invitationId: number) => {
     try {
       await deleteInvitation(dashboardId, invitationId);
+      router.reload();
     } catch (error) {
       throw new Error(`${error}`);
     }

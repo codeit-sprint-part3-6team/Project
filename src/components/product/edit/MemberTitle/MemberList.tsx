@@ -23,7 +23,7 @@ interface MeberListProps {
 export default function MemberList({ members }: MeberListProps) {
   const router = useRouter();
 
-  const handleClick = async (memberId: number) => {
+  const handleDeleteClick = async (memberId: number) => {
     try {
       await deleteMembers(memberId);
       router.reload();
@@ -44,7 +44,7 @@ export default function MemberList({ members }: MeberListProps) {
             {member.isOwner ? (
               <Crown className={styles.crown} />
             ) : (
-              <CDSButton btnType="delete" onClick={() => handleClick(member.id)}>
+              <CDSButton btnType="delete" onClick={() => handleDeleteClick(member.id)}>
                 삭제
               </CDSButton>
             )}

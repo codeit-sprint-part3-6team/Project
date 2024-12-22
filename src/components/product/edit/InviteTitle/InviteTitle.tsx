@@ -73,7 +73,7 @@ export default function InviteTitle() {
             <CDSButton
               btnType="pagination_next"
               onClick={() => handlePageChange('next')}
-              disabled={currentPage === 10}
+              disabled={currentPage === totalPages}
             />
           </div>
           <div className={styles.mobile_hidden_button}>

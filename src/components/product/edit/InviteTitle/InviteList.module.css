@@ -3,7 +3,7 @@
 	justify-content: space-between;
 	padding-right: 28px;
 	padding-left: 28px;
-	margin-top: 6px;
+	margin-top: 10px;
 }
 
 .title {
@@ -14,7 +14,7 @@
 }
 
 .line {
-	margin-top: 15px;
+	margin-top: 10px;
 	border-color: var(--gray-light); 
 }
 

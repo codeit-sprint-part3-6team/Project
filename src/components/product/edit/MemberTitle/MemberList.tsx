@@ -22,32 +22,6 @@ interface MeberListProps {
 }
 
 export default function MemberList({ members }: MeberListProps) {
-  const [user, setUser] = useState<any>();
-  const [memberId, setMemberId] = useState<number | null>(null);
-
-  // 멤버 가져오기
-  const getData = async () => {
-    const response = await axios.get(
-      'https://sp-taskify-api.vercel.app/11-6/users/me',
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk1MSwidGVhbUlkIjoiMTEtNiIsImlhdCI6MTczNDMzNjUwOSwiaXNzIjoic3AtdGFza2lmeSJ9.UYsVZaBj6eSLL_QSdWlQZz7hBW3bi9PeivXtwt7Cs1c',
-        },
-      },
-    );
-    setUser(response.data);
-    setMemberId(response.data.id);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  if (!user) {
-    return null;
-  }
-
   /** 삭제기능추가 */
   const handleClick = async (memberId: number) => {
     try {
@@ -63,8 +37,8 @@ export default function MemberList({ members }: MeberListProps) {
         <div key={member.id}>
           <div className={styles.container}>
             <UserProfile
-              nickname={user.nickname}
-              profileImageUrl={user.profileImageUrl}
+              nickname={member.nickname}
+              profileImageUrl={member.profileImageUrl}
             />
             {member.isOwner ? (
               <Crown />

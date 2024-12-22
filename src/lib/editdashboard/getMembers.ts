@@ -30,8 +30,10 @@ export default async function getMembers(
     return data;
   } catch (error) {
     if (error.response) {
-      throw new Error(error.response.data.message || '초대에 실패했습니다.');
+      throw new Error(
+        error.response.data.message || '멤버조회에 실패했습니다.',
+      );
     }
-    throw new Error('초대 요청 중 문제가 발생했습니다.');
+    throw new Error('멤버조회 요청 중 문제가 발생했습니다.');
   }
 }

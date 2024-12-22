@@ -22,12 +22,11 @@ export default async function putDashboards(
   try {
     const { title, color, dashboardId } = params;
 
-    const { data } = await instance.post<PutDashboardsResponse>(
+    const { data } = await instance.put<PutDashboardsResponse>(
       `/11-6/dashboards/${dashboardId}`,
       {
         title,
         color,
-        dashboardId,
       },
       {
         headers: {
@@ -38,10 +37,10 @@ export default async function putDashboards(
     return data;
   } catch (error) {
     if (error.response) {
-      throw new Error(
-        error.response.data.message || '대시보드 수정에 실패했습니다.',
-      );
+      console.log('API 응답 에러:', error.response.data);
     }
-    throw new Error('대시보드 수정 중 문제가 발생했습니다.');
+    throw new Error(
+      error.response?.data?.message || '대시보드 수정에 실패했습니다.',
+    );
   }
 }

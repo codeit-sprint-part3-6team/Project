@@ -12,26 +12,24 @@ interface MainTitleProps {
 
 export default function MainTitle({ dashboardtitle }: MainTitleProps) {
   const [selectedColor, setSelectedColor] = useState<string>('');
-  const [title, setTitle] = useState(dashboardtitle);
+  const [title, setTitle] = useState(dashboardtitle || '');
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
   const handleEditClick = async () => {
-    if (dashboardId) {
-      try {
-        const data = await putDashboards({
-          title,
-          color: selectedColor,
-          dashboardId,
-        });
-        setTitle(data.title);
-      } catch (error) {
-        console.error('대시보드 수정 중 오류 발생:', error);
-      }
+    try {
+      const updatedTitle = await putDashboards({
+        title,
+        color: selectedColor,
+        dashboardId,
+      });
+      setTitle(updatedTitle.title);
+    } catch (error) {
+      alert(error.message || '타이틀과 색상 수정 중 오류가 발생했습니다.');
     }
   };
 

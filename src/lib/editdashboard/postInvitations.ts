@@ -33,7 +33,7 @@ export default async function postInvitations(
     const { dashboardId } = params;
 
     const { data } = await instance.post<PostInvitationsResponse>(
-      `/11-6/dashboards/{dashboardId}/invitations`,
+      `/11-6/dashboards/${dashboardId}/invitations`,
       {
         dashboardId,
       },

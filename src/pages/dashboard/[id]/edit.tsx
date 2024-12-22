@@ -4,12 +4,22 @@ import CDSButton from '@/components/common/button/CDSButton';
 import MainTitle from '@/components/product/edit/MainTitle/MainTitle';
 import MemberTitle from '@/components/product/edit/MemberTitle/MemberTitle';
 import InviteTitle from '@/components/product/edit/InviteTitle/InviteTitle';
+import deleteDashboard from '@/lib/editdashboard/deleteDashboards';
+import { useRouter } from 'next/router';
 import styles from './edit.module.css';
 
 export default function EditPage() {
-  // 대시보드 삭제
-  const handleDeleteClick = (e) => {
-    console.log(e);
+  const router = useRouter();
+  const dashboardId = Number(router.query.id);
+
+  // /dashboard/id/edit연결후 재확인
+  const handleDeleteClick = async () => {
+    try {
+      await deleteDashboard(dashboardId);
+      router.push('/mydashboard');
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   };
 
   return (

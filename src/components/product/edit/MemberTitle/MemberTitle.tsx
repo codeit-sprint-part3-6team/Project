@@ -10,11 +10,12 @@ export default function MemberTitle() {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const router = useRouter();
-  const dashboardId = Number(router.query.id);
 
   useEffect(() => {
-    if (!router.query.id) return;
-    
+    if (!router.query.id) {
+      return;
+    }
+
     const fetchMembers = async () => {
       try {
         const response = await getMembers({

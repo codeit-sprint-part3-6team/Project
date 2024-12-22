@@ -1,14 +1,14 @@
 import instance from '../instance';
 
-interface GetDashboardsInvitationsParams {
+interface GetInvitationsParams {
   page: number;
   size: number;
   dashboardId: number;
 }
 
-interface GetDashboardsInvitationsResponse {
+interface GetInvitationsResponse {
   totalCount: number;
-  invitations: {
+  invitations: Array<{
     id: number;
     inviter: {
       nickname: string;
@@ -27,21 +27,23 @@ interface GetDashboardsInvitationsResponse {
     inviteAccepted: boolean;
     createdAt: string;
     updatedAt: string;
-  };
+  }>;
 }
 
-export default async function getInvitations(
-  params: GetDashboardsInvitationsParams,
-): Promise<GetDashboardsInvitationsResponse> {
+export default async function getInvitations({
+  page,
+  size,
+  dashboardId,
+}: GetInvitationsParams): Promise<GetInvitationsResponse> {
   try {
-    const { data } = await instance.get<GetDashboardsInvitationsResponse>(
-      `/11-6/members`,
+    const { data } = await instance.get<GetInvitationsResponse>(
+      `/11-6/dashboards/${dashboardId}/invitations`,
       {
-        params,
+        params: { page, size },
       },
     );
     return data;
-  } catch (error) {
+  } catch (error: any) {
     if (error.response) {
       throw new Error(
         error.response.data.message || '초대목록 요청에 실패했습니다.',

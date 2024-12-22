@@ -5,26 +5,42 @@ import WhitePlus from 'public/ic/ic_whiteplus.svg';
 import InviteModal from '@/components/common/modal/general/GeneralModal';
 import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
+import getInvitations, {
+  GetInvitationsResponse,
+} from '@/lib/editdashboard/getInvitation';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
 
 const INITIAL_VALUES = { email: '' };
 
 export default function InviteTitle() {
+  const [members, setMembers] = useState<GetInvitationsResponse[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [emailValue, setEmailValue] = useState(INITIAL_VALUES);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
-  const [alertMessage, setAlertMessage] = useState<string | null>(null);
-  const [invitations, setInvitations] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
-    if (!isModalOpen && alertMessage) {
-      setAlertMessage(null);
-    }
-  }, [isModalOpen, alertMessage]);
+    if (!router.query.id) return;
+
+    const fetchInvitations = async () => {
+      try {
+        const response = await getInvitations({
+          page: currentPage,
+          size: 5,
+          dashboardId: Number(router.query.id),
+        });
+        setMembers(response.invitations);
+        setTotalPages(Math.ceil(response.totalCount / 5));
+      } catch (error) {
+        alert('Failed to fetch members');
+      }
+    };
+    fetchInvitations();
+  }, [router.query.id, currentPage]);
 
   const handleCancelClick = () => {
     setIsModalOpen(false);
@@ -32,26 +48,13 @@ export default function InviteTitle() {
   };
 
   const submitInvite = async () => {
-    const id = Number(router.query.id);
-    try {
-      const response = await postInvite({ id, email: emailValue.email });
-      setIsModalOpen(false);
-      setEmailValue(INITIAL_VALUES);
-      setAlertMessage(
-        `${response.invitee.nickname}님께 초대 요청을 보냈습니다.`,
-      );
-    } catch (error) {
-      setIsModalOpen(false);
-      setResponseMessage(error.message);
-      setIsModalVisible(true);
-      setEmailValue(INITIAL_VALUES);
-    }
+    alert('초대버튼누름');
   };
 
   const handlePageChange = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
-    } else if (direction === 'next' && currentPage < 10) {
+    } else if (direction === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -86,7 +89,7 @@ export default function InviteTitle() {
       </div>
       <div className={styles.name_section}>
         <h2 className={styles.sub_title}>이메일</h2>
-        <InviteList invitations={invitations} />
+        <InviteList invitations={members} />
       </div>
       <div>
         <InviteModal

@@ -28,6 +28,7 @@ export default function MainTitle({ dashboardtitle }: MainTitleProps) {
         dashboardId,
       });
       setTitle(updatedTitle.title);
+      router.reload();
     } catch (error) {
       alert(error.message || '타이틀과 색상 수정 중 오류가 발생했습니다.');
     }

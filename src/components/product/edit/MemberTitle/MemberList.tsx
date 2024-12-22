@@ -1,8 +1,7 @@
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import CDSButton from '@/components/common/button/CDSButton';
 import Crown from 'public/ic/ic_crown.svg';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useRouter } from 'next/router';
 import styles from './MemberList.module.css';
 import deleteMembers from '@/lib/editdashboard/deleteMembers';
 
@@ -22,10 +21,12 @@ interface MeberListProps {
 }
 
 export default function MemberList({ members }: MeberListProps) {
-  /** 삭제기능추가 */
+  const router = useRouter();
+
   const handleClick = async (memberId: number) => {
     try {
       await deleteMembers(memberId);
+      router.reload();
     } catch (error) {
       throw new Error(`${error}`);
     }

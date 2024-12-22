@@ -51,7 +51,6 @@ export default function ModifyCard({
   const [selectedColumnId, setSelectedColumnId] = useState<number>(columnId);
   const [isOtherDropdownOpen, setIsOtherDropdownOpen] =
     useState<boolean>(false);
-
   const { query } = useRouter();
   const dashboardId = Number(query.id);
   const { members } = useMembers({ teamId: '11-6', dashboardId });
@@ -79,7 +78,10 @@ export default function ModifyCard({
   useEffect(() => {
     const fetchColumns = async () => {
       try {
-        const data = await getColumns({ teamId: '11-6', dashboardId });
+        const data = await getColumns({
+          teamId: '11-6',
+          dashboardId,
+        });
         setColumns(data);
       } catch (error) {
         console.error('Failed to fetch columns:', error);
@@ -117,7 +119,8 @@ export default function ModifyCard({
     initialData,
     checkIfModified,
   ]);
-  const { columnData, fetchCards } = useColumnData(selectedColumnId);
+  const { columnData, setColumnData, fetchCards } =
+    useColumnData(selectedColumnId);
 
   const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
@@ -147,12 +150,8 @@ export default function ModifyCard({
     if (selectedColumnId) {
       fetchCards({ reset: true });
     }
-  }, [selectedColumnId, fetchCards]);
+  }, [selectedColumnId]);
 
-  useEffect(() => {
-    console.log('Updated columnData:', columnData);
-  }, [columnData]);
-  // 수정 버튼 클릭시 함수
   const handleSubmit = () => {
     putCardSubmit({
       image,
@@ -168,7 +167,6 @@ export default function ModifyCard({
       dashboardId,
       onUpdate,
       closeModal,
-      columnData,
       fetchCards,
     });
   };

@@ -16,7 +16,6 @@ const putCardSubmit = async ({
   onUpdate,
   closeModal,
   fetchCards,
-  columnData,
 }) => {
   try {
     let imageUrl = cardInfo?.imageUrl || null;
@@ -43,7 +42,7 @@ const putCardSubmit = async ({
       imageUrl,
     };
     await putCard(putData, cardInfo.id);
-    fetchCards({ size: columnData.totalCount + 1, reset: true });
+    fetchCards({ reset: true });
     onUpdate();
     closeModal();
   } catch (error) {

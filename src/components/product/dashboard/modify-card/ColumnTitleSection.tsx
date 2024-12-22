@@ -64,7 +64,7 @@ export default function ColumnTitleSection({
                 {title === selectedColumnTitle ? (
                   <Check width={22} height={22} />
                 ) : (
-                  <div className={styles.space}></div>
+                  <div className={styles.space} />
                 )}
                 <Chip chipType="status">{title}</Chip>
               </div>

@@ -6,13 +6,14 @@ import InviteModal from '@/components/common/modal/general/GeneralModal';
 import getInvitations, {
   GetInvitationsResponse,
 } from '@/lib/editdashboard/getInvitation';
-import putInvitations from '@/lib/mydashboard/putInvitations';
 import postInvite from '@/lib/invite/postInvite';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
 
 export default function InviteTitle() {
-  const [members, setMembers] = useState<GetInvitationsResponse[]>([]);
+  const [members, setMembers] = useState<GetInvitationsResponse['invitations']>(
+    [],
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);

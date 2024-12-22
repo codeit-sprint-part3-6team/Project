@@ -6,7 +6,7 @@ interface GetInvitationsParams {
   dashboardId: number;
 }
 
-interface GetInvitationsResponse {
+export interface GetInvitationsResponse {
   totalCount: number;
   invitations: Array<{
     id: number;

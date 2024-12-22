@@ -2,8 +2,8 @@ import UserProfile from '@/components/common/userprofile/UserProfile';
 import CDSButton from '@/components/common/button/CDSButton';
 import Crown from 'public/ic/ic_crown.svg';
 import { useRouter } from 'next/router';
-import styles from './MemberList.module.css';
 import deleteMembers from '@/lib/editdashboard/deleteMembers';
+import styles from './MemberList.module.css';
 
 interface DashboardMember {
   id: number;
@@ -44,7 +44,10 @@ export default function MemberList({ members }: MeberListProps) {
             {member.isOwner ? (
               <Crown className={styles.crown} />
             ) : (
-              <CDSButton btnType="delete" onClick={() => handleDeleteClick(member.id)}>
+              <CDSButton
+                btnType="delete"
+                onClick={() => handleDeleteClick(member.id)}
+              >
                 삭제
               </CDSButton>
             )}

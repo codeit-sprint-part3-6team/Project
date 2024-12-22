@@ -54,8 +54,8 @@ export default function EditPage() {
         <ReturnButton />
         <div className={styles.main_section}>
           <MainTitle dashboardtitle={dashboardTitle} />
-          {/*<MemberTitle />*/}
-          {/*<InviteTitle />*/}
+          <MemberTitle />
+          <InviteTitle />
         </div>
         <div className={styles.button}>
           <CDSButton btnType="dashboard_delete" onClick={handleDeleteClick}>

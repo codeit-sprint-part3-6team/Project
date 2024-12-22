@@ -1,43 +1,45 @@
 import CDSButton from '@/components/common/button/CDSButton';
-import getMembers from '@/lib/editdashboard/getMembers';
+import getMembers, { GetMembersResponse } from '@/lib/editdashboard/getMembers';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import MemberList from './MemberList';
 import styles from './MemberTitle.module.css';
 
 export default function MemberTitle() {
+  const [members, setMembers] = useState<GetMembersResponse['members']>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [members, setMembers] = useState<any[]>([]);
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const params = {
+        const response = await getMembers({
           page: currentPage,
-          size: 10,
+          size: 5,
           dashboardId,
-        };
-        const data = await getMembers(params);
-        setMembers(data.member);
-        setTotalPages(Math.ceil(data.totalCount / 10));
+        });
+        setMembers(response.members);
+        setTotalPages(Math.ceil(response.totalCount / 5));
       } catch (error) {
-        console.error('Error fetching members:', error);
+        alert('Failed to fetch members.');
       }
     };
-
     fetchMembers();
-  }, [currentPage, dashboardId]);
+  }, [dashboardId, currentPage]);
 
   const handlePageChange = (direction: 'prev' | 'next') => {
+    // 이전 페이지로 이동
     if (direction === 'prev' && currentPage > 1) {
-      setCurrentPage((prevPage) => prevPage - 1);
-    } else if (direction === 'next' && currentPage < totalPages) {
-      setCurrentPage((prevPage) => prevPage + 1);
+      setCurrentPage((prev) => prev - 1);
+    }
+    // 다음 페이지로 이동
+    else if (direction === 'next' && currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
     }
   };
+
 
   return (
     <section className={styles.title_container}>

@@ -1,10 +1,21 @@
-import { DashboardMember } from '@/type/edit_dashboard';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import CDSButton from '@/components/common/button/CDSButton';
 import Crown from 'public/ic/ic_crown.svg';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './MemberList.module.css';
+import deleteMembers from '@/lib/editdashboard/deleteMembers';
+
+interface DashboardMember {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+  isOwner: boolean;
+  userId: number;
+}
 
 interface MeberListProps {
   members: DashboardMember[] | undefined;
@@ -12,7 +23,9 @@ interface MeberListProps {
 
 export default function MemberList({ members }: MeberListProps) {
   const [user, setUser] = useState<any>();
+  const [memberId, setMemberId] = useState<number | null>(null);
 
+  // 멤버 가져오기
   const getData = async () => {
     const response = await axios.get(
       'https://sp-taskify-api.vercel.app/11-6/users/me',
@@ -24,6 +37,7 @@ export default function MemberList({ members }: MeberListProps) {
       },
     );
     setUser(response.data);
+    setMemberId(response.data.id);
   };
 
   useEffect(() => {
@@ -35,8 +49,12 @@ export default function MemberList({ members }: MeberListProps) {
   }
 
   /** 삭제기능추가 */
-  const handleClick = (e) => {
-    console.log(e);
+  const handleClick = async (memberId: number) => {
+    try {
+      await deleteMembers(memberId);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   };
 
   return (
@@ -51,7 +69,7 @@ export default function MemberList({ members }: MeberListProps) {
             {member.isOwner ? (
               <Crown />
             ) : (
-              <CDSButton btnType="delete" onClick={handleClick}>
+              <CDSButton btnType="delete" onClick={() => handleClick(member.id)}>
                 삭제
               </CDSButton>
             )}

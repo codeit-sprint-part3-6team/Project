@@ -6,8 +6,8 @@ interface GetMembersParams {
   dashboardId: number;
 }
 
-interface GetMembersResponse {
-  member: {
+export interface GetMembersResponse {
+  members: {
     id: number;
     userId: number;
     email: string;
@@ -16,7 +16,7 @@ interface GetMembersResponse {
     createdAt: string;
     updatedAt: string;
     isOwner: boolean;
-  };
+  }[];
   totalCount: number;
 }
 

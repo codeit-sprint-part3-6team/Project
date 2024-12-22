@@ -13,12 +13,14 @@ export default function MemberTitle() {
   const dashboardId = Number(router.query.id);
 
   useEffect(() => {
+    if (!router.query.id) return;
+    
     const fetchMembers = async () => {
       try {
         const response = await getMembers({
           page: currentPage,
           size: 5,
-          dashboardId,
+          dashboardId: Number(router.query.id),
         });
         setMembers(response.members);
         setTotalPages(Math.ceil(response.totalCount / 5));
@@ -27,15 +29,12 @@ export default function MemberTitle() {
       }
     };
     fetchMembers();
-  }, [dashboardId, currentPage]);
+  }, [router.query.id, currentPage]);
 
   const handlePageChange = (direction: 'prev' | 'next') => {
-    // 이전 페이지로 이동
     if (direction === 'prev' && currentPage > 1) {
       setCurrentPage((prev) => prev - 1);
-    }
-    // 다음 페이지로 이동
-    else if (direction === 'next' && currentPage < totalPages) {
+    } else if (direction === 'next' && currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
     }
   };

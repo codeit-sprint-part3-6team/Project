@@ -19,11 +19,11 @@ export default function MemberTitle() {
       try {
         const response = await getMembers({
           page: currentPage,
-          size: 5,
+          size: 4,
           dashboardId: Number(router.query.id),
         });
         setMembers(response.members);
-        setTotalPages(Math.ceil(response.totalCount / 5));
+        setTotalPages(Math.ceil(response.totalCount / 4));
       } catch (error) {
         alert('Failed to fetch members.');
       }

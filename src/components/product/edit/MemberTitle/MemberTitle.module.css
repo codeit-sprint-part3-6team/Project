@@ -21,6 +21,19 @@
 	padding-left: 14px;
 }
 
+.button {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.page_info {
+  margin-right: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+}
+
 .sub_title {
 	margin-top: 20px;
 	margin-bottom: 10px;
@@ -47,6 +60,13 @@
 		border-radius: 8px;
 		padding: 20px 16px 20px 16px;
 	}
+
+  .page_info {
+    margin-right: 10px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+  }
 
 	.title {
 		font-size: 20px;

@@ -41,7 +41,7 @@ export default function MemberList({ members }: MeberListProps) {
               profileImageUrl={member.profileImageUrl}
             />
             {member.isOwner ? (
-              <Crown />
+              <Crown className={styles.crown} />
             ) : (
               <CDSButton btnType="delete" onClick={() => handleClick(member.id)}>
                 삭제

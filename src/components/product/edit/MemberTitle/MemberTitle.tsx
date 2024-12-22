@@ -45,6 +45,9 @@ export default function MemberTitle() {
       <div className={styles.member_section}>
         <h1 className={styles.title}>구성원</h1>
         <div className={styles.button}>
+          <span className={styles.page_info}>
+            {currentPage} 페이지 중 {totalPages}
+          </span>
           <CDSButton
             btnType="pagination_prev"
             onClick={() => handlePageChange('prev')}

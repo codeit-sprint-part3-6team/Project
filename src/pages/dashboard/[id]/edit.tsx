@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import Sidebar from '@/components/common/sidebar/Sidebar';
 import ReturnButton from '@/components/common/button/ReturnButton';
 import CDSButton from '@/components/common/button/CDSButton';
@@ -6,13 +7,14 @@ import MemberTitle from '@/components/product/edit/MemberTitle/MemberTitle';
 import InviteTitle from '@/components/product/edit/InviteTitle/InviteTitle';
 import deleteDashboard from '@/lib/editdashboard/deleteDashboards';
 import { useRouter } from 'next/router';
+import getDashboards from '@/lib/mydashboard/getDashboard';
 import styles from './edit.module.css';
 
 export default function EditPage() {
   const router = useRouter();
   const dashboardId = Number(router.query.id);
+  const [dashboardTitle, setDashboardTitle] = useState<string | null>(null);
 
-  // /dashboard/id/edit연결후 재확인
   const handleDeleteClick = async () => {
     try {
       await deleteDashboard(dashboardId);
@@ -22,13 +24,36 @@ export default function EditPage() {
     }
   };
 
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      try {
+        const params = {
+          page: 1,
+          size: 10,
+          navigationMethod: 'pagination',
+        };
+        const data = await getDashboards(params);
+        const dashboard = data.dashboards.find((d) => d.id === dashboardId);
+        if (dashboard) {
+          setDashboardTitle(dashboard.title);
+        }
+      } catch (error) {
+        throw new Error(`${error}`);
+      }
+    };
+
+    if (dashboardId) {
+      fetchDashboard();
+    }
+  }, [dashboardId]);
+
   return (
     <main className={styles.container}>
       <Sidebar />
       <div className={styles.main_container}>
         <ReturnButton />
         <div className={styles.main_section}>
-          <MainTitle />
+          <MainTitle dashboardtitle={dashboardTitle} />
           <MemberTitle />
           <InviteTitle />
         </div>

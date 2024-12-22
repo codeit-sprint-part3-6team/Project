@@ -1,42 +1,35 @@
-import { DashboardMember } from '@/type/edit_dashboard';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import CDSButton from '@/components/common/button/CDSButton';
 import Crown from 'public/ic/ic_crown.svg';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useRouter } from 'next/router';
+import deleteMembers from '@/lib/editdashboard/deleteMembers';
 import styles from './MemberList.module.css';
+
+interface DashboardMember {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+  isOwner: boolean;
+  userId: number;
+}
 
 interface MeberListProps {
   members: DashboardMember[] | undefined;
 }
 
 export default function MemberList({ members }: MeberListProps) {
-  const [user, setUser] = useState<any>();
+  const router = useRouter();
 
-  const getData = async () => {
-    const response = await axios.get(
-      'https://sp-taskify-api.vercel.app/11-6/users/me',
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDk1MSwidGVhbUlkIjoiMTEtNiIsImlhdCI6MTczNDMzNjUwOSwiaXNzIjoic3AtdGFza2lmeSJ9.UYsVZaBj6eSLL_QSdWlQZz7hBW3bi9PeivXtwt7Cs1c',
-        },
-      },
-    );
-    setUser(response.data);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  if (!user) {
-    return null;
-  }
-
-  /** 삭제기능추가 */
-  const handleClick = (e) => {
-    console.log(e);
+  const handleDeleteClick = async (memberId: number) => {
+    try {
+      await deleteMembers(memberId);
+      router.reload();
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   };
 
   return (
@@ -45,13 +38,16 @@ export default function MemberList({ members }: MeberListProps) {
         <div key={member.id}>
           <div className={styles.container}>
             <UserProfile
-              nickname={user.nickname}
-              profileImageUrl={user.profileImageUrl}
+              nickname={member.nickname}
+              profileImageUrl={member.profileImageUrl}
             />
             {member.isOwner ? (
-              <Crown />
+              <Crown className={styles.crown} />
             ) : (
-              <CDSButton btnType="delete" onClick={handleClick}>
+              <CDSButton
+                btnType="delete"
+                onClick={() => handleDeleteClick(member.id)}
+              >
                 삭제
               </CDSButton>
             )}

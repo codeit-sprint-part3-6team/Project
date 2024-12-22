@@ -3,79 +3,66 @@ import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import WhitePlus from 'public/ic/ic_whiteplus.svg';
 import InviteModal from '@/components/common/modal/general/GeneralModal';
+import getInvitations, {
+  GetInvitationsResponse,
+} from '@/lib/editdashboard/getInvitation';
 import postInvite from '@/lib/invite/postInvite';
-import AuthModal from '@/components/common/modal/auth/AuthModal';
-import InvitedMember from '@/components/common/invitedmember/InvitedMember';
-import { getMember } from '@/lib/navbar/getNavbar';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
 
-const INITIAL_VALUES = {
-  email: '',
-};
-
 export default function InviteTitle() {
+  const [members, setMembers] = useState<GetInvitationsResponse['invitations']>(
+    [],
+  );
   const [currentPage, setCurrentPage] = useState(1);
-  const [invitedMember, setInvitedMember] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [emailValue, setEmailValue] = useState(INITIAL_VALUES);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [responseMessage, setResponseMessage] = useState('');
-  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [emailValue, setEmailValue] = useState<{ email: string }>({
+    email: '',
+  });
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
 
   useEffect(() => {
-    if (!id) {
+    if (!router.query.id) {
       return;
     }
 
-    const fetchDashboardData = async () => {
-      const memberData = await getMember(id);
-      setInvitedMember(memberData);
+    const fetchInvitations = async () => {
+      try {
+        const response = await getInvitations({
+          page: currentPage,
+          size: 5,
+          dashboardId: Number(router.query.id),
+        });
+        setMembers(response.invitations);
+        setTotalPages(Math.ceil(response.totalCount / 5));
+      } catch (error) {
+        throw new Error(`${error}`);
+      }
     };
-
-    fetchDashboardData();
-  }, [id]);
-
-  // 초대 요청을 보내고 alert
-  useEffect(() => {
-    if (!isModalOpen && alertMessage) {
-      alert(alertMessage);
-      setAlertMessage(null);
-    }
-  }, [isModalOpen, alertMessage]);
+    fetchInvitations();
+  }, [router.query.id, currentPage]);
 
   const handleCancelClick = () => {
     setIsModalOpen(false);
-    setIsModalVisible(false);
   };
 
   const submitInvite = async () => {
     const id = Number(router.query.id);
 
     try {
-      const response = await postInvite({ id, email: emailValue.email });
+      await postInvite({ id, email: emailValue.email });
       setIsModalOpen(false);
-      setEmailValue(INITIAL_VALUES);
-      setAlertMessage(
-        `${response.invitee.nickname}님께 초대 요청을 보냈습니다.`,
-      );
-      console.log(`${response.invitee.email}`);
+      router.reload();
     } catch (error) {
-      setIsModalOpen(false);
-      setResponseMessage(error.message);
-      setIsModalVisible(true);
-      setEmailValue(INITIAL_VALUES);
+      throw new Error(`${error}`);
     }
   };
 
   const handlePageChange = (direction: 'prev' | 'next') => {
     if (direction === 'prev' && currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
-    } else if (direction === 'next' && currentPage < 10) {
+    } else if (direction === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -86,6 +73,9 @@ export default function InviteTitle() {
         <h1 className={styles.title}>초대 내역</h1>
         <div className={styles.button_section}>
           <div className={styles.pagination_button}>
+            <span className={styles.page_info}>
+              {totalPages} 페이지 중 {currentPage}
+            </span>
             <CDSButton
               btnType="pagination_prev"
               onClick={() => handlePageChange('prev')}
@@ -94,10 +84,10 @@ export default function InviteTitle() {
             <CDSButton
               btnType="pagination_next"
               onClick={() => handlePageChange('next')}
-              disabled={currentPage === 1}
+              disabled={currentPage === totalPages}
             />
           </div>
-          <div className={styles.mobile_hidden_button}>
+          <div className={styles.invite_button_section}>
             <button
               type="button"
               className={styles.invite_button}
@@ -110,7 +100,7 @@ export default function InviteTitle() {
       </div>
       <div className={styles.name_section}>
         <h2 className={styles.sub_title}>이메일</h2>
-        <InviteList />
+        <InviteList members={members} />
       </div>
       <div>
         <InviteModal
@@ -126,15 +116,6 @@ export default function InviteTitle() {
           handleCancelClick={handleCancelClick}
           handleAdaptClick={submitInvite}
         />
-
-        {isModalVisible && (
-          <AuthModal
-            message={responseMessage}
-            handleCancelClick={handleCancelClick}
-          />
-        )}
-
-        <InvitedMember invitedMember={invitedMember} />
       </div>
     </section>
   );

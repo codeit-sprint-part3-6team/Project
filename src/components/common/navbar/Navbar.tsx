@@ -34,7 +34,7 @@ function Navbar() {
 
   const isMyDashboard = pathname !== '/mydashboard';
   const isMyPage = pathname !== '/mypage';
-  const isEdit = pathname !== '/edit';
+  const isEdit = pathname !== '/dashboard/[id]/edit';
 
   useEffect(() => {
     setClientUser(user);
@@ -78,12 +78,14 @@ function Navbar() {
   };
 
   const handleDropdownClick = (value: string) => {
-    if (value === 'mypage') {
-      router.push('/mypage');
-    } else if (value === 'logout') {
+    if (value === 'logout') {
       localStorage.removeItem('accessToken');
       sessionStorage.removeItem('accessToken');
       router.push('/');
+    } else if (value === 'mypage') {
+      router.push('/mypage');
+    } else if (value === 'mydashboard') {
+      router.push('/mydashboard');
     }
   };
 
@@ -162,8 +164,9 @@ function Navbar() {
           <Dropdown
             onMenuClick={handleDropdownClick}
             menus={[
-              { label: '마이페이지', value: 'mypage' },
               { label: '로그아웃', value: 'logout' },
+              { label: '내 정보', value: 'mypage' },
+              { label: '내 대시보드', value: 'mydashboard' },
             ]}
           >
             {clientUser && (

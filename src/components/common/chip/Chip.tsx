@@ -22,11 +22,7 @@ function Chip({ children, chipType, color }: PropsWithChildren<ChipProps>) {
   const renderDot = () =>
     chipType.startsWith('status') && <span className={styles.dot} />;
 
-  const className = clsx(
-    styles[chipType],
-    chipType === 'tag' && styles[color],
-    // chipType === 'tag' && getTagColor(styles),
-  );
+  const className = clsx(styles[chipType], chipType === 'tag' && styles[color]);
 
   return (
     <span className={className}>

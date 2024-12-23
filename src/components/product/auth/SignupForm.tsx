@@ -1,5 +1,5 @@
 import styles from './SigninForm.module.css';
-import { ChangeEvent, FocusEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/settingSlice';
@@ -32,36 +32,18 @@ function SignupForm() {
   const [passwordValid, setPasswordValid] = useState(false);
   const [nicknameValid, setNicknameValid] = useState(false);
   const [passwordCheckValid, setPasswordCheckValid] = useState(false);
-  const [disabled, setDisabled] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    const isEmailValid = emailValidation(values.email);
-    const isPasswordValid = passwordValidation(values.password);
-    const isNicknameValid = nicknameValidation(values.nickname);
-    const isPasswordCheckValid = passwordCheckValidation(
-      values.password,
-      values.passwordCheck,
-    );
-    setDisabled(
-      !(
-        isEmailValid &&
-        isPasswordValid &&
-        !isNicknameValid &&
-        !isPasswordCheckValid &&
-        values.checkbox
-      ),
-    );
-  }, [values]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem('accessToken')) {
-      router.push('/mydashboard');
-    }
-  }, []);
+  const isEmailValid = emailValidation(values.email);
+  const isPasswordValid = passwordValidation(values.password);
+  const isNicknameValid = nicknameValidation(values.nickname);
+  const isPasswordCheckValid = passwordCheckValidation(
+    values.password,
+    values.passwordCheck,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, type, value, checked } = e.target;
@@ -102,17 +84,12 @@ function SignupForm() {
           user: response.user,
         }),
       );
-
+      alert(`${values.nickname}님 가입이 완료되었습니다.`);
       router.push('/mydashboard');
     } catch (error) {
       setResponseMessage(error.message);
       setIsModalVisible(true);
     }
-  };
-
-  const handleCancelClick = () => {
-    setIsModalVisible(false);
-    setResponseMessage(null);
   };
 
   return (
@@ -187,7 +164,19 @@ function SignupForm() {
         />
 
         <div className={styles['login-button']}>
-          <CDSButton btnType="auth" type="submit" disabled={disabled}>
+          <CDSButton
+            btnType="auth"
+            type="submit"
+            disabled={
+              !(
+                isEmailValid &&
+                isPasswordValid &&
+                !isNicknameValid &&
+                !isPasswordCheckValid &&
+                values.checkbox
+              )
+            }
+          >
             가입하기
           </CDSButton>
         </div>
@@ -196,7 +185,10 @@ function SignupForm() {
       {isModalVisible && (
         <AuthModal
           message={responseMessage}
-          handleCancelClick={handleCancelClick}
+          handleCancelClick={() => {
+            setIsModalVisible(false);
+            setResponseMessage(null);
+          }}
         />
       )}
     </>

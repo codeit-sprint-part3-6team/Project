@@ -15,11 +15,14 @@ function ChipSection({ columnTitle, tags, cardId }: ChipSectionProps) {
       </div>
       <span className={styles.bar} />
       <div className={styles.tags}>
-        {tags.map((tag) => (
-          <Chip key={`${cardId}_tag_${tag}`} chipType="tag">
-            {tag}
-          </Chip>
-        ))}
+        {tags.map((tag) => {
+          const [tagText, tagColor] = tag.split('^');
+          return (
+            <Chip key={`${cardId}_tag_${tag}`} chipType="tag" color={tagColor}>
+              {tagText}
+            </Chip>
+          );
+        })}
       </div>
     </div>
   );

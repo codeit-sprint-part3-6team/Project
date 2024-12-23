@@ -8,6 +8,7 @@ import InviteTitle from '@/components/product/edit/InviteTitle/InviteTitle';
 import deleteDashboard from '@/lib/editdashboard/deleteDashboards';
 import { useRouter } from 'next/router';
 import getDashboards from '@/lib/mydashboard/getDashboard';
+import Navbar from '@/components/common/navbar/Navbar';
 import styles from './edit.module.css';
 
 export default function EditPage() {
@@ -27,12 +28,11 @@ export default function EditPage() {
   useEffect(() => {
     const fetchDashboard = async () => {
       try {
-        const params = {
+        const data = await getDashboards({
           page: 1,
           size: 10,
           navigationMethod: 'pagination',
-        };
-        const data = await getDashboards(params);
+        });
         const dashboard = data.dashboards.find((d) => d.id === dashboardId);
         if (dashboard) {
           setDashboardTitle(dashboard.title);
@@ -50,6 +50,7 @@ export default function EditPage() {
   return (
     <main className={styles.container}>
       <Sidebar />
+      <Navbar />
       <div className={styles.main_container}>
         <ReturnButton />
         <div className={styles.main_section}>

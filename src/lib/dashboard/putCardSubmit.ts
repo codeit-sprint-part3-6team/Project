@@ -1,6 +1,8 @@
 import cardImageUpload from '@/lib/dashboard/cardImageUpload';
 import putCard from '@/lib/dashboard/putCard';
 
+import { resetCardList } from '@/redux/cardListSlice';
+
 const putCardSubmit = async ({
   image,
   cardInfo,
@@ -16,6 +18,10 @@ const putCardSubmit = async ({
   onUpdate,
   closeModal,
   fetchCards,
+  columnData,
+  fetchColumns,
+  setColumnData,
+  dispatch,
 }) => {
   try {
     let imageUrl = cardInfo?.imageUrl || null;
@@ -41,10 +47,18 @@ const putCardSubmit = async ({
       tags,
       imageUrl,
     };
-    await putCard(putData, cardInfo.id);
-    fetchCards({ reset: true });
-    onUpdate();
-    closeModal();
+    const result = await putCard(putData, cardInfo.id);
+    setColumnData((prev) => ({
+      ...prev,
+      cards: [...(prev.cards || []), result],
+    }));
+    await fetchCards({
+      size: columnData.totalCount + 1,
+      reset: true,
+    });
+
+    await onUpdate();
+    await closeModal();
   } catch (error) {
     console.error('handleSubmit Error:', error);
   }

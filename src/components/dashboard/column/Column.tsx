@@ -12,17 +12,21 @@ import deleteColumns from '@/lib/dashboard/deleteColumns';
 import { Column as ColumnType } from '@/type/column';
 import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
 import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 interface ColumnProp {
   columnId: number;
   columnTitle: string;
   setColumns: React.Dispatch<React.SetStateAction<ColumnType[]>>;
+  fetchColumns: () => void;
 }
 
 function Column({
   columnId,
   columnTitle: initialTitle,
   setColumns,
+  fetchColumns,
 }: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
   const [columnTitle, setColumnTitle] = useState(initialTitle);
@@ -33,6 +37,11 @@ function Column({
     // 카드 생성 모달 띄우기 위한 함수
     setModal(true);
   };
+
+  const cardList = useSelector(
+    (state: RootState) => state.cardList.cardListInfo,
+  );
+  console.log(cardList);
 
   const {
     isOpen: isEditModalOpen,
@@ -101,7 +110,13 @@ function Column({
       <div className={styles['column-title-section']}>
         <div className={styles['column-title']}>
           {columnTitle}
-          <span className={styles['column-size']}>{columnData.totalCount}</span>
+          {cardList.cards.some((card) => card.columnId === columnId) ? (
+            <span className={styles['column-size']}>{cardList.totalCount}</span>
+          ) : (
+            <span className={styles['column-size']}>
+              {columnData.totalCount}
+            </span>
+          )}
         </div>
         <button
           type="button"
@@ -113,31 +128,66 @@ function Column({
       </div>
       <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
-        {columnData.cards.map(
-          ({
-            imageUrl,
-            id,
-            title,
-            tags,
-            dueDate,
-            assignee: { nickname, profileImageUrl },
-          }) => (
-            <Card
-              key={`card_${id}`}
-              imageUrl={imageUrl}
-              id={id}
-              title={title}
-              tags={tags}
-              dueDate={dueDate}
-              nickname={nickname}
-              profileImage={profileImageUrl}
-              columnTitle={columnTitle}
-              columnId={columnId}
-              setColumnData={setColumnData}
-              onUpdate={() => fetchCards({ reset: true })}
-            />
-          ),
-        )}
+        {cardList.cards.some((card) => card.columnId === columnId)
+          ? cardList.cards.map(
+              ({
+                imageUrl,
+                id,
+                title,
+                tags,
+                dueDate,
+                assignee: { nickname, profileImageUrl },
+              }) => (
+                <Card
+                  key={`card_${id}`}
+                  imageUrl={imageUrl}
+                  id={id}
+                  title={title}
+                  tags={tags}
+                  dueDate={dueDate}
+                  nickname={nickname}
+                  profileImage={profileImageUrl}
+                  columnTitle={columnTitle}
+                  columnId={columnId}
+                  setColumnData={setColumnData}
+                  onUpdate={() =>
+                    fetchCards({
+                      size: columnData.totalCount + 1,
+                      reset: true,
+                    })
+                  }
+                  fetchColumns={fetchColumns}
+                />
+              ),
+            )
+          : columnData.cards.map(
+              ({
+                imageUrl,
+                id,
+                title,
+                tags,
+                dueDate,
+                assignee: { nickname, profileImageUrl },
+              }) => (
+                <Card
+                  key={`card_${id}`}
+                  imageUrl={imageUrl}
+                  id={id}
+                  title={title}
+                  tags={tags}
+                  dueDate={dueDate}
+                  nickname={nickname}
+                  profileImage={profileImageUrl}
+                  columnTitle={columnTitle}
+                  columnId={columnId}
+                  setColumnData={setColumnData}
+                  onUpdate={() =>
+                    fetchCards({ size: columnData.totalCount + 1, reset: true })
+                  }
+                  fetchColumns={fetchColumns}
+                />
+              ),
+            )}
         {columnData.cursorId && (
           <div ref={endPoint} className={styles['end-point']} />
         )}

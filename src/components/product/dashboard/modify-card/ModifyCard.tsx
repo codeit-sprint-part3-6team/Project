@@ -20,12 +20,15 @@ import styles from './ModifyCard.module.css';
 import ModifyButtonSection from './ModifyButtonSection';
 import ColumnTitleSection from './ColumnTitleSection';
 import AssigneeSection from '../create-card/AssigneeSection';
+import { useDispatch } from 'react-redux';
+import { setCardList, resetCardList } from '@/redux/cardListSlice';
 
 interface ModifyCardProps {
   closeModal: () => void;
   columnTitle: string;
   columnId: number;
   onUpdate: () => void;
+  fetchColumns: () => void;
 }
 
 export default function ModifyCard({
@@ -33,7 +36,9 @@ export default function ModifyCard({
   columnTitle,
   columnId,
   onUpdate,
+  fetchColumns,
 }: ModifyCardProps) {
+  const dispatch = useDispatch();
   const cardInfo = useSelector(
     (state: RootState) => state.cardInfo.cardDetailInfo,
   );
@@ -45,7 +50,9 @@ export default function ModifyCard({
     cardInfo?.dueDate || null,
   );
   const [tags, setTags] = useState<string[]>(cardInfo?.tags || []);
-  const [columns, setColumns] = useState<GetColumnsResponse | null>(null);
+  const [columnsInfo, setColumnsInfo] = useState<GetColumnsResponse | null>(
+    null,
+  );
   const [selectedColumnTitle, setSelectedColumnTitle] =
     useState<string>(columnTitle);
   const [selectedColumnId, setSelectedColumnId] = useState<number>(columnId);
@@ -76,19 +83,19 @@ export default function ModifyCard({
 
   // 컬럼 정보 가져오기
   useEffect(() => {
-    const fetchColumns = async () => {
+    const fetchColumnsInfo = async () => {
       try {
         const data = await getColumns({
           teamId: '11-6',
           dashboardId,
         });
-        setColumns(data);
+        setColumnsInfo(data);
       } catch (error) {
         console.error('Failed to fetch columns:', error);
       }
     };
 
-    fetchColumns();
+    fetchColumnsInfo();
   }, [dashboardId]);
 
   // 버튼 활성화 상태 관리
@@ -121,7 +128,7 @@ export default function ModifyCard({
   ]);
   const { columnData, setColumnData, fetchCards } =
     useColumnData(selectedColumnId);
-
+  console.log(columnData);
   const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
     setSelectedColumnId(id);
@@ -152,13 +159,17 @@ export default function ModifyCard({
     }
   }, [selectedColumnId]);
 
+  useEffect(() => {
+    dispatch(setCardList(columnData));
+  }, [columnData]);
+
   const handleSubmit = () => {
     putCardSubmit({
       image,
       cardInfo,
       members,
       selectedMemberNickname,
-      columns,
+      columns: columnsInfo,
       selectedColumnTitle,
       title,
       description,
@@ -168,6 +179,10 @@ export default function ModifyCard({
       onUpdate,
       closeModal,
       fetchCards,
+      columnData,
+      fetchColumns,
+      setColumnData,
+      dispatch,
     });
   };
 
@@ -179,7 +194,7 @@ export default function ModifyCard({
         </section>
         <section className={clsx(styles.section, styles[`first-section`])}>
           <ColumnTitleSection
-            columns={columns}
+            columns={columnsInfo}
             selectedColumnTitle={selectedColumnTitle}
             isDropdownOpen={isOtherDropdownOpen}
             onToggleDropdown={handleOtherDropdownToggle}

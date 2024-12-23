@@ -23,6 +23,7 @@ interface CardProps {
   columnId: number;
   setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
   onUpdate: () => void;
+  fetchColumns: () => void;
 }
 
 function Card({
@@ -37,6 +38,7 @@ function Card({
   columnId,
   setColumnData,
   onUpdate,
+  fetchColumns,
 }: CardProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const fomattedDueDate = formatDate(dueDate);
@@ -94,6 +96,7 @@ function Card({
             columnTitle={columnTitle}
             columnId={columnId}
             onUpdate={onUpdate}
+            fetchColumns={fetchColumns}
           />
         </OverlayContainer>
       )}

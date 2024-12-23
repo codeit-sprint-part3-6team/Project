@@ -74,6 +74,7 @@ function DashBoard() {
             columnId={id}
             columnTitle={title}
             setColumns={setColumns}
+            fetchColumns={fetchColumns}
           />
         ))}
         <div className={styles['add-column']}>

@@ -4,8 +4,6 @@ import Footer from '@/components/product/landing/Footer';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 
 export default function Home() {
-  console.log('개발서버');
-
   const isNotRedirected = useAuthRedirect();
 
   if (!isNotRedirected) {

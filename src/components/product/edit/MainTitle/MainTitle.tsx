@@ -35,11 +35,11 @@ export default function MainTitle({ dashboardtitle }: MainTitleProps) {
   };
 
   return (
-    <div className={styles.title_container}>
-      <div className={styles.header_section}>
-        <div className={styles.header_top}>
+    <div className={styles['title-container']}>
+      <div className={styles['header-section']}>
+        <div className={styles['header-top']}>
           <h1 className={styles.title}>{dashboardtitle}</h1>
-          <div className={styles.sub_container}>
+          <div className={styles['sub-container']}>
             <TitleTagInput
               label="대시보드 이름"
               placeholder="제목을 입력해주세요."
@@ -54,7 +54,7 @@ export default function MainTitle({ dashboardtitle }: MainTitleProps) {
             />
           </div>
         </div>
-        <div className={styles.sheader_button}>
+        <div className={styles['sheader-button']}>
           <CDSButton btnType="auth" onClick={handleEditClick}>
             변경
           </CDSButton>

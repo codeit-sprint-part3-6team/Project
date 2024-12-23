@@ -5,30 +5,30 @@ import BottomMain from './BottumMain';
 
 export default function Module() {
   return (
-    <main className={styles.main_container}>
-      <section className={styles.main_section}>
-        <div className={styles.main_contentsection}>
-          <div className={styles.main_text}>
-            <h1 className={styles.main_title}>Point 1</h1>
-            <p className={styles.main_explanation}>
+    <main className={styles['main-container']}>
+      <section className={styles['main-section']}>
+        <div className={styles['main-contentsection']}>
+          <div className={styles['main-text']}>
+            <h1 className={styles['main-title']}>Point 1</h1>
+            <p className={styles['main-explanation']}>
               일의 우선순위를
               <br />
               관리하세요
             </p>
           </div>
-          <div className={styles.main_imgsection}>
-            <Landingimage2 className={styles.main_image} />
+          <div className={styles['main-imgsection']}>
+            <Landingimage2 className={styles['main-image']} />
           </div>
         </div>
       </section>
-      <section className={styles.main_reverse_section}>
-        <div className={styles.main_reverese_contentsection}>
-          <div className={styles.main_imgsection}>
-            <Landingimage3 className={styles.main_reverse_img} />
+      <section className={styles['main-reverse-section']}>
+        <div className={styles['main-reverese-contentsection']}>
+          <div className={styles['main-imgsection']}>
+            <Landingimage3 className={styles['main-reverse-img']} />
           </div>
-          <div className={styles.main_reverse_text}>
-            <h1 className={styles.main_reverse_title}>Point 2</h1>
-            <p className={styles.main_reverse_explanation}>
+          <div className={styles['main-reverse-text']}>
+            <h1 className={styles['main-reverse-title']}>Point 2</h1>
+            <p className={styles['main-reverse-explanation']}>
               해야 할 일을
               <br />
               등록하세요

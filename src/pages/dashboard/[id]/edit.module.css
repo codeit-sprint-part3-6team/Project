@@ -5,12 +5,12 @@
   margin-bottom: 40px;
 }
 
-.main_container {
+.main-container {
 	margin-top: 20px;
 	margin-left: 320px;
 }
 
-.main_section {
+.main-section {
 	display: flex;
   flex-direction: column;
 	gap: 24px;
@@ -21,13 +21,13 @@
 }
 
 @media screen and (max-width: 1199px) {
-	.main_container {
+	.main-container {
 		margin-left: 180px;
 	}
 }
 
 @media screen and (max-width: 743px) {
-	.main_container {
+	.main-container {
 		margin-left: 79px;
 	}
 }

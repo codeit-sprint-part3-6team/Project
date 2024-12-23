@@ -51,9 +51,9 @@ export default function EditPage() {
     <main className={styles.container}>
       <Sidebar />
       <Navbar />
-      <div className={styles.main_container}>
+      <div className={styles['main-container']}>
         <ReturnButton />
-        <div className={styles.main_section}>
+        <div className={styles['main-section']}>
           <MainTitle dashboardtitle={dashboardTitle} />
           <MemberTitle />
           <InviteTitle />

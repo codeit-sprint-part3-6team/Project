@@ -1,4 +1,4 @@
-.title_container {
+.title-container {
 	width: 620px; 
 	height: 477px;
 	border-radius: 16px;
@@ -8,7 +8,7 @@
 	gap: 10px;
 }
 
-.member_section {
+.member-section {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -21,7 +21,7 @@
 	padding-left: 14px;
 }
 
-.button_section {
+.button-section {
 	display: flex;
   text-align: center;
   align-items: center;
@@ -29,19 +29,19 @@
   gap: 20px;
 }
 
-.page_info {
+.page-info {
   margin-right: 20px;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
 }
 
-.invite_button_section {
+.invite-button-section {
   margin-top: 3px;
   display: block;
 }
 
-.invite_button {
+.invite-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,12 +57,12 @@
   color: var(--white);
 }
 
-.plus_button {
+.plus-button {
   width: 11.33px;
   height: 11.33px;
 }
 
-.sub_title {
+.sub-title {
 	margin-top: 20px;
 	font-weight: 400;
 	font-size: 16px;
@@ -71,28 +71,28 @@
 }
 
 @media screen and (max-width: 1199px) {
-	.title_container {
+	.title-container {
 		width: 544px;
 	}
 
-  .pagination_button {
+  .pagination-button {
     display: none;
   }
 
-	.sub_title {
+	.sub-title {
 		margin-top: 15px;
 	}
 }
 
 @media screen and (max-width: 743px) {
-	.title_container {
+	.title-container {
 		width: 284px;
 		height: 406px;
 		border-radius: 8px;
 		padding: 20px 16px 20px 16px;
 	}
 
-  .pagination_button {
+  .pagination-button {
     display: block;
   }
 
@@ -100,25 +100,25 @@
 		font-size: 20px;
 	}
 
-  .button_section { 
+  .button-section { 
     margin-top: 5px;
     flex-direction: column;
     gap: 0;
   }
 
-  .page_info {
+  .page-info {
     margin-right: 10px;
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
   }
 
-  .invite_button {
+  .invite-button {
     font-size: 12px;
     line-height: 18.71px;
   }
 
-	.sub_title {
+	.sub-title {
 		margin-top: 0px;
 		font-weight: 400;
 		font-size: 14px;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store';
 import putCardSubmit from '@/lib/dashboard/putCardSubmit';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
@@ -12,6 +12,7 @@ import clsx from 'clsx';
 import getColumns from '@/lib/dashboard/getColumns';
 import useColumnData from '@/hooks/useColumnData';
 import useButtonState from '@/hooks/useModifyButtonState';
+import { setCardList, resetCardList } from '@/redux/cardListSlice';
 import { GetColumnsResponse } from '@/type/column';
 import TagManager from '../create-card/TagManager';
 import DescriptionInput from '../create-card/DescriptionInput';
@@ -20,15 +21,12 @@ import styles from './ModifyCard.module.css';
 import ModifyButtonSection from './ModifyButtonSection';
 import ColumnTitleSection from './ColumnTitleSection';
 import AssigneeSection from '../create-card/AssigneeSection';
-import { useDispatch } from 'react-redux';
-import { setCardList, resetCardList } from '@/redux/cardListSlice';
 
 interface ModifyCardProps {
   closeModal: () => void;
   columnTitle: string;
   columnId: number;
   onUpdate: () => void;
-  fetchColumns: () => void;
 }
 
 export default function ModifyCard({
@@ -36,7 +34,6 @@ export default function ModifyCard({
   columnTitle,
   columnId,
   onUpdate,
-  fetchColumns,
 }: ModifyCardProps) {
   const dispatch = useDispatch();
   const cardInfo = useSelector(
@@ -128,7 +125,7 @@ export default function ModifyCard({
   ]);
   const { columnData, setColumnData, fetchCards } =
     useColumnData(selectedColumnId);
-  console.log(columnData);
+
   const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
     setSelectedColumnId(id);
@@ -180,9 +177,7 @@ export default function ModifyCard({
       closeModal,
       fetchCards,
       columnData,
-      fetchColumns,
       setColumnData,
-      dispatch,
     });
   };
 

@@ -50,7 +50,6 @@ interface CardInfo {
   columnId: number;
   createdAt: string;
   updatedAt: string;
-  dashboardId: number;
 }
 
 interface CardInfoState {

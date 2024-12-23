@@ -19,14 +19,12 @@ interface ColumnProp {
   columnId: number;
   columnTitle: string;
   setColumns: React.Dispatch<React.SetStateAction<ColumnType[]>>;
-  fetchColumns: () => void;
 }
 
 function Column({
   columnId,
   columnTitle: initialTitle,
   setColumns,
-  fetchColumns,
 }: ColumnProp) {
   const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
   const [columnTitle, setColumnTitle] = useState(initialTitle);
@@ -41,7 +39,6 @@ function Column({
   const cardList = useSelector(
     (state: RootState) => state.cardList.cardListInfo,
   );
-  console.log(cardList);
 
   const {
     isOpen: isEditModalOpen,
@@ -104,7 +101,9 @@ function Column({
   useEffect(() => {
     fetchCards();
   }, [fetchCards]);
-
+  console.log('카드리스트 카드:', cardList.cards);
+  console.log('컬럼데이터 카드:', columnData.cards);
+  console.log('컬럼아이디: ', columnId);
   return (
     <div className={styles.column}>
       <div className={styles['column-title-section']}>
@@ -156,7 +155,6 @@ function Column({
                       reset: true,
                     })
                   }
-                  fetchColumns={fetchColumns}
                 />
               ),
             )
@@ -184,7 +182,6 @@ function Column({
                   onUpdate={() =>
                     fetchCards({ size: columnData.totalCount + 1, reset: true })
                   }
-                  fetchColumns={fetchColumns}
                 />
               ),
             )}

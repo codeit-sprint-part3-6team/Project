@@ -40,7 +40,7 @@ function useColumnData(targetId: number) {
     },
     [targetId],
   );
-  console.log(columnData);
+
   return { columnData, setColumnData, fetchCards };
 }
 

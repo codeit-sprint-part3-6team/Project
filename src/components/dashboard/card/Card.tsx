@@ -10,6 +10,8 @@ import DetailCardModal from '@/components/common/modal/detail-cards/DetailCardMo
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import ModifyCard from '@/components/product/dashboard/modify-card/ModifyCard';
 import { GetCardsResponse } from '@/type/card';
+import { useDispatch } from 'react-redux';
+import { resetCardList } from '@/redux/cardListSlice';
 
 interface CardProps {
   imageUrl: string;
@@ -23,7 +25,6 @@ interface CardProps {
   columnId: number;
   setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
   onUpdate: () => void;
-  fetchColumns: () => void;
 }
 
 function Card({
@@ -38,7 +39,6 @@ function Card({
   columnId,
   setColumnData,
   onUpdate,
-  fetchColumns,
 }: CardProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const fomattedDueDate = formatDate(dueDate);
@@ -96,7 +96,6 @@ function Card({
             columnTitle={columnTitle}
             columnId={columnId}
             onUpdate={onUpdate}
-            fetchColumns={fetchColumns}
           />
         </OverlayContainer>
       )}

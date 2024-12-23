@@ -34,7 +34,7 @@ function Navbar() {
 
   const isMyDashboard = pathname !== '/mydashboard';
   const isMyPage = pathname !== '/mypage';
-  const isEdit = pathname !== '/edit';
+  const isEdit = pathname !== '/dashboard/[id]/edit';
 
   useEffect(() => {
     setClientUser(user);

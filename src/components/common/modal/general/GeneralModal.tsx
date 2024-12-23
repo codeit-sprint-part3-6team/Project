@@ -62,7 +62,11 @@ export default function GeneralModal({
             {cancelTitle}
           </CDSButton>
           <span style={{ margin: '0 5px' }} />
-          <CDSButton btnType="modal_colored" onClick={handleAdaptClick}>
+          <CDSButton
+            btnType="modal_colored"
+            onClick={handleAdaptClick}
+            disabled={inputValue === ''}
+          >
             {adaptTitle}
           </CDSButton>
         </div>

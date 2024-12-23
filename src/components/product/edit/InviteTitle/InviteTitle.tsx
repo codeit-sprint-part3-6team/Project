@@ -68,12 +68,12 @@ export default function InviteTitle() {
   };
 
   return (
-    <section className={styles.title_container}>
-      <div className={styles.member_section}>
+    <section className={styles['title-container']}>
+      <div className={styles['member-section']}>
         <h1 className={styles.title}>초대 내역</h1>
-        <div className={styles.button_section}>
-          <div className={styles.pagination_button}>
-            <span className={styles.page_info}>
+        <div className={styles['button-section']}>
+          <div className={styles['pagination-button']}>
+            <span className={styles['page-info']}>
               {totalPages} 페이지 중 {currentPage}
             </span>
             <CDSButton
@@ -87,19 +87,19 @@ export default function InviteTitle() {
               disabled={currentPage === totalPages}
             />
           </div>
-          <div className={styles.invite_button_section}>
+          <div className={styles['invite-button-section']}>
             <button
               type="button"
-              className={styles.invite_button}
+              className={styles['invite-button']}
               onClick={() => setIsModalOpen(true)}
             >
-              <WhitePlus className={styles.plus_button} /> 초대하기
+              <WhitePlus className={styles['plus-button']} /> 초대하기
             </button>
           </div>
         </div>
       </div>
-      <div className={styles.name_section}>
-        <h2 className={styles.sub_title}>이메일</h2>
+      <div className={styles['name-section']}>
+        <h2 className={styles['sub-title']}>이메일</h2>
         <InviteList members={members} />
       </div>
       <div>

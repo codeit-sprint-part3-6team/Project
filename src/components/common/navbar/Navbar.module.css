@@ -12,13 +12,27 @@
 }
 
 .title {
+  position: relative;
+
+  padding-right: 28px;
+  margin-right: 40px;
+  flex-shrink: 1;
+
   font-size: 20px;
   font-weight: 700;
   color: var(--black-medium);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .title.createdByMe::after {
   content: '';
+
+  position: absolute;
+  top: 0;
+  right: 0;
 
   display: inline-block;
 
@@ -27,11 +41,11 @@
 
   background-image: url('/ic/ic_crown.svg');
   background-size: 100%;
-  margin-left: 8px;
 }
 
 .right-nav {
   display: flex;
+  flex-shrink: 0;
 }
 
 .left-section {
@@ -39,12 +53,15 @@
 
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 
   margin-right: 72px;
 }
 
 .left-section::before {
   content: '';
+
+  flex-shrink: 0;
 
   position: absolute;
   top: 0;
@@ -54,6 +71,10 @@
   height: 38px;
 
   background-color: var(--gray-medium);
+}
+
+.left-section button {
+  flex-shrink: 0;
 }
 
 .dropdown div > ul {

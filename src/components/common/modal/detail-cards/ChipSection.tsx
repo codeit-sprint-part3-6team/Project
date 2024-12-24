@@ -11,7 +11,9 @@ function ChipSection({ columnTitle, tags, cardId }: ChipSectionProps) {
   return (
     <div className={styles['chip-section']}>
       <div className={styles.status}>
-        <Chip chipType="status">{columnTitle}</Chip>
+        <Chip chipType="status">
+          <span className={styles['status-text']}>{columnTitle}</span>
+        </Chip>
       </div>
       <span className={styles.bar} />
       <div className={styles.tags}>

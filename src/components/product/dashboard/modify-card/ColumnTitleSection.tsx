@@ -26,7 +26,9 @@ export default function ColumnTitleSection({
       <div className={styles[`input-box`]}>
         {selectedColumnTitle ? (
           <div className={styles[`name-select`]}>
-            <Chip chipType="status">{selectedColumnTitle}</Chip>
+            <Chip chipType="status">
+              <span className={styles.status}>{selectedColumnTitle}</span>
+            </Chip>
           </div>
         ) : (
           <input
@@ -62,11 +64,19 @@ export default function ColumnTitleSection({
             >
               <div className={styles.calculate}>
                 {title === selectedColumnTitle ? (
-                  <Check width={22} height={22} />
+                  <Check
+                    className={styles['check-icon']}
+                    width={22}
+                    height={22}
+                  />
                 ) : (
                   <div className={styles.space} />
                 )}
-                <Chip chipType="status">{title}</Chip>
+                <div className={styles['status-content']}>
+                  <Chip chipType="status">
+                    <span className={styles['status-select']}>{title}</span>
+                  </Chip>
+                </div>
               </div>
             </div>
           ))}

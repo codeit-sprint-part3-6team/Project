@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import getColumns from '@/lib/dashboard/getColumns';
 import useColumnData from '@/hooks/useColumnData';
 import useButtonState from '@/hooks/useModifyButtonState';
-import { setCardList, resetCardList } from '@/redux/cardListSlice';
+import { setCardList } from '@/redux/cardListSlice';
 import { GetColumnsResponse } from '@/type/column';
 import TagManager from '../create-card/TagManager';
 import DescriptionInput from '../create-card/DescriptionInput';
@@ -77,6 +77,7 @@ export default function ModifyCard({
     handleToggle,
     handleOptionClick,
   } = useAssigneeSelector(cardInfo?.assignee || null);
+  const { columnData, fetchCards } = useColumnData(columnId);
 
   // 컬럼 정보 가져오기
   useEffect(() => {
@@ -123,8 +124,6 @@ export default function ModifyCard({
     initialData,
     checkIfModified,
   ]);
-  const { columnData, setColumnData, fetchCards } =
-    useColumnData(selectedColumnId);
 
   const handleTitleOptionClick = (columnsTitle: string, id: number) => {
     setSelectedColumnTitle(columnsTitle);
@@ -175,9 +174,10 @@ export default function ModifyCard({
       dashboardId,
       onUpdate,
       closeModal,
-      fetchCards,
       columnData,
-      setColumnData,
+      dispatch,
+      initialData,
+      setInitialData,
     });
   };
 

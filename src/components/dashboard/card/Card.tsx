@@ -10,8 +10,6 @@ import DetailCardModal from '@/components/common/modal/detail-cards/DetailCardMo
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import ModifyCard from '@/components/product/dashboard/modify-card/ModifyCard';
 import { GetCardsResponse } from '@/type/card';
-import { useDispatch } from 'react-redux';
-import { resetCardList } from '@/redux/cardListSlice';
 
 interface CardProps {
   imageUrl: string;

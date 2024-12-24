@@ -38,7 +38,11 @@ export default function MainTitle({ dashboardtitle }: MainTitleProps) {
     <div className={styles['title-container']}>
       <div className={styles['header-section']}>
         <div className={styles['header-top']}>
-          <h1 className={styles.title}>{dashboardtitle}</h1>
+          <h1 className={styles.title}>
+            {dashboardtitle && dashboardtitle.length > 10
+              ? `${dashboardtitle.slice(0, 10)}...`
+              : dashboardtitle}
+          </h1>
           <div className={styles['sub-container']}>
             <TitleTagInput
               label="대시보드 이름"

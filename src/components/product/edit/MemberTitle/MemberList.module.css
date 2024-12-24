@@ -13,8 +13,9 @@
 }
 
 .line {
-	margin-top: 15px;
-	border-color: var(--gray-light); 
+	margin-top: 10px;
+  border: none;
+  border-top: 1px solid var(--gray-bright); 
 }
 
 @media screen and (max-width: 743px) {

@@ -29,7 +29,7 @@ export default function Footer() {
           <Facebook className={styles['footer-icon']} />
         </Link>
         <Link
-          href="https://www.facebook.com"
+          href="https://www.instagram.com"
           target="_blank"
           rel="noopener noreferrer"
         >

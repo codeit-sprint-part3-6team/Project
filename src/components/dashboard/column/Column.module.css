@@ -11,7 +11,6 @@
 .column-title-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   margin-bottom: 25px;
 }
@@ -27,6 +26,8 @@
 }
 
 .btn-edit-column {
+  flex-shrink: 0;
+
   width: 24px;
   height: 24px;
 

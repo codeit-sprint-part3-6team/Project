@@ -114,8 +114,8 @@ export default function CreateCard({
   };
 
   return (
-    <OverlayContainer>
-      <div className={styles.container}>
+    <OverlayContainer onClose={onClose}>
+      <div className={styles.container} onClick={(e) => e.stopPropagation()}>
         <div className={styles[`scrollable-content`]}>
           <section className={styles.section}>
             <p className={styles.title}>할 일 생성</p>

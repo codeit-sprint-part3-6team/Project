@@ -1,7 +1,11 @@
 import styles from './OverlayContainer.module.css';
 
-function OverlayContainer({ children }) {
-  return <div className={styles['overlay-container']}>{children}</div>;
+function OverlayContainer({ children, onClose }) {
+  return (
+    <div className={styles['overlay-container']} onClick={onClose}>
+      {children}
+    </div>
+  );
 }
 
 export default OverlayContainer;

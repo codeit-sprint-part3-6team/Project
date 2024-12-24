@@ -138,16 +138,20 @@ export default function Sidebar() {
         </div>
 
         <div className={styles.pagination}>
-          <CDSButton
-            btnType="pagination_prev"
-            onClick={() => handlePageChange('prev')}
-            disabled={currentPage === 1 || isSidebarLoading}
-          />
-          <CDSButton
-            btnType="pagination_next"
-            onClick={() => handlePageChange('next')}
-            disabled={currentPage === totalPages || isSidebarLoading}
-          />
+          {totalPages > 1 && (
+            <>
+              <CDSButton
+                btnType="pagination_prev"
+                onClick={() => handlePageChange('prev')}
+                disabled={currentPage === 1 || isSidebarLoading}
+              />
+              <CDSButton
+                btnType="pagination_next"
+                onClick={() => handlePageChange('next')}
+                disabled={currentPage === totalPages || isSidebarLoading}
+              />
+            </>
+          )}
         </div>
       </div>
 

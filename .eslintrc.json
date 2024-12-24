@@ -4,22 +4,12 @@
     "es2021": true,
     "node": true
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"] // 확장자 에러 표시 x
-      }
-    }
-  },
   "extends": [
-    "prettier",
-    "airbnb",
-    "airbnb-typescript",
-    "next/core-web-vitals",
-    "eslint:recommended", // 추천 규칙 적용
+    "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "next/core-web-vitals"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -29,8 +19,12 @@
   },
   "plugins": ["@typescript-eslint", "react", "prettier"],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/jsx-props-no-spreading": "off",
-    "prettier/prettier": "error" // 써보고 쓸데없는 오류가 발생할 경우 직접 설정
+    "react/react-in-jsx-scope": "off", // React 17 이상에서 필요 없음
+    "react/jsx-props-no-spreading": "off", // Props 스프레딩 허용
+    "@typescript-eslint/no-explicit-any": "off", // any 사용 허용
+    "no-console": "off", // console.log 허용
+    "prettier/prettier": "warn", // Prettier 규칙을 경고로
+    "no-unused-vars": "off", // 사용되지 않는 변수 경고 비활성화
+    "react-hooks/exhaustive-deps": "off" // useEffect 의존성 경고 비활성화
   }
 }

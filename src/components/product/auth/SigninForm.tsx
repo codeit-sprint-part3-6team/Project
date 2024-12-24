@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setUserInfo } from '@/redux/settingSlice';
 import { AppDispatch } from '@/redux/store';
 import { postSignin } from '@/lib/signin/postSignin';
-import { ERROR_MESSAGE, PLACEHOLDER } from '@/constants/messages';
+import { ERROR_MESSAGE, LABEL, PLACEHOLDER } from '@/constants/messages';
 import { emailValidation, passwordValidation } from '@/utils/authValidation';
 import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import CDSButton from '@/components/common/button/CDSButton';
@@ -126,7 +126,7 @@ function SigninForm() {
           name="login"
           id="login"
           htmlFor="login"
-          text="로그인 상태 유지"
+          text={LABEL.KEEP_LOGIN}
           onChange={() => setIsChecked(!isChecked)}
         />
 

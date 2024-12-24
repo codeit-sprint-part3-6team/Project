@@ -13,3 +13,7 @@ export const PLACEHOLDER = {
   PASSWORD_CONFIRM_PLACEHOLDER: '비밀번호를 한번 더 입력해 주세요',
   TERMS_PLACEHOLDER: '이용약관에 동의해 주세요',
 };
+
+export const LABEL = {
+  KEEP_LOGIN: '로그인 상태 유지',
+};

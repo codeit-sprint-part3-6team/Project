@@ -33,12 +33,14 @@
   font-weight: 700;
   line-height: 100px;
   text-align: center;
+  align-items: center;
+  justify-content: center;
   letter-spacing: -2px;
 }
 
 .textlogo {
   width: 327px;
-  height: 65px;
+  height: 90px;
 }
 
 .header-button {
@@ -70,6 +72,7 @@
 
   .textlogo {
     width: 253px;
+    height: 65px;
   }
 
   .header-button {

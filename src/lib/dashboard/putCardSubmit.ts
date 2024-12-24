@@ -70,10 +70,10 @@ const putCardSubmit = async ({
 
     dispatch(setCardList(response.data)); // 수정 후 컬럼의 카드 리스트 리덕스에 담아
     setInitialData(initialData);
-    // await onUpdate(); // fetchCards({ size: columnData.totalCount + 1, reset: true }); 로 카드 리스트 초기화인데 새로고침 하면 필요없어
+    await onUpdate(); // fetchCards({ size: columnData.totalCount + 1, reset: true }); 로 카드 리스트 초기화인데 새로고침 하면 필요없어
     await closeModal();
     alert('카드가 수정되었습니다.');
-    window.location.reload(); // 일단 새로고침
+    // window.location.reload(); // 일단 새로고침
   } catch (error) {
     console.error('handleSubmit Error:', error);
   }

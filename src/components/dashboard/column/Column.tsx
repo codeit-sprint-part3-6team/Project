@@ -12,6 +12,9 @@ import deleteColumns from '@/lib/dashboard/deleteColumns';
 import { Column as ColumnType } from '@/type/column';
 import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
 import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleState } from '@/redux/renderSlice';
+import { RootState } from '@/redux/store';
 
 interface ColumnProp {
   columnId: number;
@@ -28,6 +31,13 @@ function Column({
   const [columnTitle, setColumnTitle] = useState(initialTitle);
   const [editedTitle, setEditedTitle] = useState(columnTitle);
   const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
+
+  const dispatch = useDispatch();
+  const toggle = useSelector((state: RootState) => state.render.toggle); // Redux 상태 구독
+
+  const handleUpdate = () => {
+    dispatch(toggleState()); // Redux 상태 변경
+  };
 
   const handleClick = () => {
     // 카드 생성 모달 띄우기 위한 함수
@@ -93,8 +103,8 @@ function Column({
   const endPoint = useIntersectionObserver(handleObserver);
 
   useEffect(() => {
-    fetchCards();
-  }, [fetchCards]);
+    fetchCards({ reset: true });
+  }, [fetchCards, toggle]);
 
   return (
     <div className={styles.column}>
@@ -134,9 +144,7 @@ function Column({
               columnTitle={columnTitle}
               columnId={columnId}
               setColumnData={setColumnData}
-              onUpdate={() =>
-                fetchCards({ size: columnData.totalCount + 1, reset: true })
-              }
+              onUpdate={handleUpdate}
             />
           ),
         )}

@@ -11,7 +11,7 @@ import useModal from '@/hooks/useModal';
 import deleteColumns from '@/lib/dashboard/deleteColumns';
 import { Column as ColumnType } from '@/type/column';
 import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
-import CreateCard from '@/components/product/dashboard/card/CreateCard';
+import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
 
 interface ColumnProp {
   columnId: number;
@@ -85,7 +85,7 @@ function Column({
   const handleObserver = useCallback(
     ([entry]) => {
       if (entry.isIntersecting && columnData.cursorId)
-        fetchCards(columnData.cursorId);
+        fetchCards({ cursor: columnData.cursorId });
     },
     [fetchCards, columnData.cursorId],
   );
@@ -132,7 +132,11 @@ function Column({
               nickname={nickname}
               profileImage={profileImageUrl}
               columnTitle={columnTitle}
+              columnId={columnId}
               setColumnData={setColumnData}
+              onUpdate={() =>
+                fetchCards({ size: columnData.totalCount + 1, reset: true })
+              }
             />
           ),
         )}
@@ -173,7 +177,9 @@ function Column({
           onClose={() => {
             setModal(false);
           }}
-          onUpdate={() => fetchCards(null, columnData.totalCount + 1, true)}
+          onUpdate={() =>
+            fetchCards({ size: columnData.totalCount + 1, reset: true })
+          }
         />
       )}
     </div>

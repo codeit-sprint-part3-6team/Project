@@ -1,10 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  /* config options here */
   reactStrictMode: false,
-  output: 'export',
-  webpack(config, { isServer }) {
-    // SVG 로더 추가
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/, // SVG 파일을 찾습니다.
       use: [
@@ -16,19 +15,6 @@ const nextConfig: NextConfig = {
         },
       ],
     });
-
-    // publicPath 설정
-    config.output.publicPath = '/';
-
-    // devServer 설정 추가 (클라이언트 전용)
-    if (!isServer) {
-      config.devServer = {
-        ...config.devServer,
-        devMiddleware: {
-          publicPath: '/',
-        },
-      };
-    }
 
     return config;
   },

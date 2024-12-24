@@ -17,12 +17,22 @@
 
 .column-title {
   position: relative;
+  display: flex;
+
+  width: calc(100% - 30px);
 
   padding-left: 16px;
 
   font-size: 18px;
   font-weight: 700;
   line-height: 22px;
+}
+
+.column-title .title-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .btn-edit-column {

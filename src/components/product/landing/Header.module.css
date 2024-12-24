@@ -1,10 +1,10 @@
-.header_container {
+.header-container {
   font-family: 'Pretendard';
   color: var(--white);
   margin-bottom: 18.6px;
 }
 
-.header_section {
+.header-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@
   width: 100vw;
 }
 
-.header_image {
+.header-image {
   width: 722px;
   height: 422.76px;
   border-radius: 8px;
@@ -21,7 +21,7 @@
   max-width: none;
 }
 
-.header_title {
+.header-title {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -41,23 +41,23 @@
   height: 65px;
 }
 
-.header_button {
+.header-button {
   margin-top: 111px;
 }
 
 @media screen and (max-width: 1199px) {
-  .header_container {
+  .header-container {
     color: var(--white);
     margin-bottom: 8px;
   }
 
-  .header_image {
+  .header-image {
     width: 537.25px;
     height: 314.76px;
     margin-bottom: 26px;
   }
 
-  .header_title {
+  .header-title {
     gap: 24px;
   }
 
@@ -69,19 +69,19 @@
     width: 253px;
   }
 
-  .header_button {
+  .header-button {
     margin-top: 109px;
   }
 }
 
 @media screen and (max-width: 743px) {
-  .header_image {
+  .header-image {
     width: 267px;
     height: 168px;
     margin-bottom: 26px;
   }
 
-  .header_title {
+  .header-title {
     flex-direction: column;
     gap: 6px;
   }
@@ -96,7 +96,7 @@
     height: 51px;
   }
 
-  .header_button {
+  .header-button {
     margin-top: 101px;
   }
 }

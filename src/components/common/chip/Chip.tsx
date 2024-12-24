@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { ChipProps } from '@/type/chip';
 import { PropsWithChildren } from 'react';
 import styles from './Chip.module.css';
-import getTagColor from './helper';
+// import getTagColor from './helper';
 
 /**
  * Chip 컴포넌트
@@ -13,7 +13,7 @@ import getTagColor from './helper';
  * @param {React.ReactNode} props.children - Chip 내부에 렌더링할 내용
  * @returns {JSX.Element} Chip 컴포넌트의
  */
-function Chip({ children, chipType }: PropsWithChildren<ChipProps>) {
+function Chip({ children, chipType, color }: PropsWithChildren<ChipProps>) {
   /**
    * renderDot: status인 타입인 경우 점을 렌더링
    * - 조건: chipType.startsWith('status') -> status | status-option
@@ -22,10 +22,7 @@ function Chip({ children, chipType }: PropsWithChildren<ChipProps>) {
   const renderDot = () =>
     chipType.startsWith('status') && <span className={styles.dot} />;
 
-  const className = clsx(
-    styles[chipType],
-    chipType === 'tag' && getTagColor(styles),
-  );
+  const className = clsx(styles[chipType], chipType === 'tag' && styles[color]);
 
   return (
     <span className={className}>

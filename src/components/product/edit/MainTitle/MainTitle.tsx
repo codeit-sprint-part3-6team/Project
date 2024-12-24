@@ -1,42 +1,45 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
-import { useRouter } from 'next/router';
 import putDashboards from '@/lib/editdashboard/putDashboards';
 import ColorSelector from './ColorSelector';
 import styles from './MainTitle.module.css';
 
-export default function MainTitle() {
+interface MainTitleProps {
+  dashboardtitle: string | null;
+}
+
+export default function MainTitle({ dashboardtitle }: MainTitleProps) {
   const [selectedColor, setSelectedColor] = useState<string>('');
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(dashboardtitle || '');
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
-  // 변경 버튼 누르면 대시보드가 수정되게해야됨.
   const handleEditClick = async () => {
     try {
-      const data = await putDashboards({
+      const updatedTitle = await putDashboards({
         title,
         color: selectedColor,
+        dashboardId,
       });
-      // 확인용(url 업데이트후 확인 완료하면 삭제 예정)
-      console.log('Dashboard updated:', data);
+      setTitle(updatedTitle.title);
+      router.reload();
     } catch (error) {
       throw new Error(`${error}`);
     }
   };
 
   return (
-    <form className={styles.title_container}>
-      <div className={styles.header_section}>
-        <div className={styles.header_top}>
-          {/* {item.title}로 가져올 예정 */}
-          <h1 className={styles.title}>비브리지</h1>
-          <div className={styles.sub_container}>
+    <div className={styles['title-container']}>
+      <div className={styles['header-section']}>
+        <div className={styles['header-top']}>
+          <h1 className={styles.title}>{dashboardtitle}</h1>
+          <div className={styles['sub-container']}>
             <TitleTagInput
               label="대시보드 이름"
               placeholder="제목을 입력해주세요."
@@ -51,12 +54,12 @@ export default function MainTitle() {
             />
           </div>
         </div>
-        <div className={styles.sheader_button}>
+        <div className={styles['sheader-button']}>
           <CDSButton btnType="auth" onClick={handleEditClick}>
             변경
           </CDSButton>
         </div>
       </div>
-    </form>
+    </div>
   );
 }

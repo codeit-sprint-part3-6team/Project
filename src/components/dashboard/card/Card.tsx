@@ -54,11 +54,18 @@ function Card({
           <div className={styles['card-title']}>{title}</div>
           <div className={styles['description-section']}>
             <div className={styles['card-tags']}>
-              {tags.map((tag) => (
-                <Chip key={`${id}_tag_${tag}`} chipType="tag">
-                  {tag}
-                </Chip>
-              ))}
+              {tags.map((tag) => {
+                const [tagText, tagColor] = tag.split('^');
+                return (
+                  <Chip
+                    key={`${id}_tag_${tag}`}
+                    chipType="tag"
+                    color={tagColor}
+                  >
+                    {tagText}
+                  </Chip>
+                );
+              })}
             </div>
             <div className={styles['card-date']}>
               <CalendarIcon className={styles['icon-calendar']} />

@@ -107,23 +107,25 @@ export default function DashboardList() {
       </ul>
 
       {/* 페이지네이션 */}
-      <div className={styles.pagination}>
-        <span className={styles['pagination-text']}>
-          {totalPages} 페이지 중 {currentPage}
-        </span>
-        <div>
-          <CDSButton
-            btnType="pagination_prev"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          />
-          <CDSButton
-            btnType="pagination_next"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          />
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          <span className={styles['pagination-text']}>
+            {totalPages} 페이지 중 {currentPage}
+          </span>
+          <div>
+            <CDSButton
+              btnType="pagination_prev"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            />
+            <CDSButton
+              btnType="pagination_next"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 모달창 */}
       {showModal && (

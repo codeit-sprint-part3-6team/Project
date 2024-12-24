@@ -1,5 +1,5 @@
 .header-container {
-  font-family: 'Pretendard';
+  font-family: 'Pretendard', sans-serif;
   color: var(--white);
   margin-bottom: 18.6px;
 }
@@ -43,6 +43,9 @@
 
 .header-button {
   margin-top: 111px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
 }
 
 @media screen and (max-width: 1199px) {
@@ -98,5 +101,7 @@
 
   .header-button {
     margin-top: 101px;
+    font-size: 14px;
+    line-height: 24px;
   }
 }

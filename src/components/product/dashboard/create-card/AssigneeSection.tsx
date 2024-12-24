@@ -1,6 +1,7 @@
 import React from 'react';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import ToggleButton from 'public/ic/ic_dropdown.svg';
+import Check from 'public/ic/ic_grayCheck.svg';
 import styles from './AssigneeSection.module.css';
 
 interface AssigneeSectionProps {
@@ -67,12 +68,19 @@ export default function AssigneeSection({
                 }
               }}
             >
-              <UserProfile
-                type="todo-create"
-                nickname={member.nickname}
-                profileImageUrl={member.profileImageUrl}
-                onlyImg={false}
-              />
+              <div className={styles.calculate}>
+                {member.nickname === selectedMemberNickname ? (
+                  <Check width={22} height={22} />
+                ) : (
+                  <div className={styles.space}></div>
+                )}
+                <UserProfile
+                  type="todo-create"
+                  nickname={member.nickname}
+                  profileImageUrl={member.profileImageUrl}
+                  onlyImg={false}
+                />
+              </div>
             </div>
           ))}
         </div>

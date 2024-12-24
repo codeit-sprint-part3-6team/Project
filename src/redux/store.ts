@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { UserInfoState } from '@/type/userInfo';
 import { DashboardState } from '@/type/dashboard';
+import { CardInfoState } from '@/type/card';
+import { ColumnState } from '@/type/card';
 import userInfoReducer from './settingSlice';
 import dashboardReducer from './dashboardSlice';
+import cardInfoReducer from './cardSlice';
+import cardListReducer from './cardListSlice';
 
 // 스토리지 선택 함수 (localStorage 또는 sessionStorage)
 const getStorage = () => {
@@ -35,6 +39,8 @@ const store = configureStore({
   reducer: {
     userInfo: userInfoReducer,
     dashboard: dashboardReducer,
+    cardInfo: cardInfoReducer,
+    cardList: cardListReducer,
   } as any,
   preloadedState: loadState() as { userInfo: UserInfoState }, // 새로 고침 되어도 이전 상태 유지
 });
@@ -43,6 +49,8 @@ const store = configureStore({
 export type RootState = {
   userInfo: UserInfoState;
   dashboard: DashboardState;
+  cardInfo: CardInfoState;
+  cardList: ColumnState;
 };
 export type AppDispatch = typeof store.dispatch;
 

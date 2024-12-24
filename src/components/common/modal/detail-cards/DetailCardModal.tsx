@@ -6,8 +6,9 @@ import KebabIcon from 'public/ic/ic_kebab.svg';
 import getCardDetail from '@/lib/dashboard/getCardDetail';
 import { Card, GetCardsResponse } from '@/type/card';
 import CardImage from '@/components/dashboard/card/CardImage';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '@/redux/store';
+import { setCardInfo } from '@/redux/cardSlice';
 import deleteCard from '@/lib/dashboard/deleteCard';
 import AuthorSection from './AuthorSection';
 import ChipSection from './ChipSection';
@@ -19,6 +20,7 @@ interface DetailCardModalProps {
   columnTitle: string;
   closeModal: () => void;
   setColumnData: React.Dispatch<React.SetStateAction<GetCardsResponse>>;
+  openModifyModal: () => void;
 }
 
 function DetailCardModal({
@@ -27,11 +29,13 @@ function DetailCardModal({
   columnTitle,
   closeModal,
   setColumnData,
+  openModifyModal,
 }: DetailCardModalProps) {
   const {
     user: { id },
   } = useSelector((state: RootState) => state.userInfo);
   const [card, setCard] = useState<Card | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   // 카드 삭제 함수
   const handleCardDelete = async () => {
@@ -49,8 +53,9 @@ function DetailCardModal({
 
   const handleMenuClick = async (value: string) => {
     closeModal();
-    if (value === 'edit') alert('수정하기 모달 오픈');
-    else if (value === 'delete') {
+    if (value === 'edit') {
+      openModifyModal();
+    } else if (value === 'delete') {
       await handleCardDelete();
     }
   };
@@ -59,6 +64,7 @@ function DetailCardModal({
     try {
       const cardDetail = await getCardDetail({ cardId });
       setCard(cardDetail);
+      dispatch(setCardInfo(cardDetail));
     } catch (error) {
       console.error('데이터 요청 실패:', error);
     }

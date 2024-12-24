@@ -24,14 +24,8 @@
 }
 
 .user-nickname {
-  font-size: 16px;
   font-weight: 400;
-  color: #333236;
   margin-left: 12px;
-}
-
-.header .user-nickname {
-  font-weight: 500;
 }
 
 .dashboard-detail .user-img {

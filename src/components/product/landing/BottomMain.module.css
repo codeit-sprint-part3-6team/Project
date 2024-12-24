@@ -22,8 +22,7 @@
 
 .card-container {
   background-color: var(--black-dark);
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 8px;
   width: 378px;
   overflow: hidden;
 }
@@ -48,6 +47,8 @@
   padding-left: 32px;
   padding-top: 33px;
   padding-bottom: 33px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .text-title {

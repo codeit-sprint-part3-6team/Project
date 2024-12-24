@@ -93,19 +93,6 @@
 
     margin-bottom: 0;
   }
-
-  .description-section {
-    display: flex;
-    align-items: center;
-  }
-
-  .card-tags {
-    margin-bottom: 0;
-  }
-
-  .card-date {
-    margin-left: 16px;
-  }
 }
 
 @media screen and (max-width: 743px) {

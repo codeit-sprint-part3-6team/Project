@@ -26,12 +26,12 @@ function Dropdown({
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: Event) => {
       const target = e.target as HTMLDivElement;
       if (ref.current && !ref.current.contains(target)) closeDropdown();
     };
 
-    document.addEventListener('click', (e) => handleClickOutside(e));
+    document.addEventListener('click', handleClickOutside);
   }, [ref]);
 
   return (

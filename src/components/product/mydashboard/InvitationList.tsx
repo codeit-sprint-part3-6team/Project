@@ -130,7 +130,29 @@ export default function InvitationList() {
           </div>
         </div>
 
-        {invitations.length > 0 ? (
+        {!isLoading ? (
+          <div className={styles['skeleton-container']}>
+            <div className={styles['skeleton-title']}>
+              <div>이름</div>
+              <div>초대자</div>
+              <div>수락 여부</div>
+            </div>
+
+            {Array.from({ length: 10 }).map((_, index) => (
+              <div key={`skeleton_${index}`} className={styles['skeleton-row']}>
+                <div
+                  className={`${styles.skeleton} ${styles['skeleton-cell']}`}
+                />
+                <div
+                  className={`${styles.skeleton} ${styles['skeleton-cell']}`}
+                />
+                <div
+                  className={`${styles.skeleton} ${styles['skeleton-cell']}`}
+                />
+              </div>
+            ))}
+          </div>
+        ) : invitations.length > 0 ? (
           <table className={styles.table}>
             <thead>
               <tr className={styles['table-head']}>

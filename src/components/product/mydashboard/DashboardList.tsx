@@ -45,13 +45,20 @@ export default function DashboardList() {
   };
 
   const fetchDashboards = async () => {
-    const response = await getDashboards({
-      page: currentPage,
-      size: pageSize,
-      navigationMethod: 'pagination',
-    });
-    setDashboards(response.dashboards);
-    setTotalPages(Math.ceil(response.totalCount / pageSize));
+    setIsLoading(true);
+    try {
+      const response = await getDashboards({
+        page: currentPage,
+        size: pageSize,
+        navigationMethod: 'pagination',
+      });
+      setDashboards(response.dashboards);
+      setTotalPages(Math.ceil(response.totalCount / pageSize));
+    } catch (error) {
+      console.error('Error fetching dashboards:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleNewDashboard = async () => {
@@ -89,7 +96,16 @@ export default function DashboardList() {
           </CDSButton>
         </li>
 
-        {Array.isArray(dashboards) && dashboards.length > 0 ? (
+        {/* 스켈레톤 표시 */}
+        {!isLoading ? (
+          Array.from({ length: pageSize }).map((_, index) => (
+            <li key={`skeleton_${index}`} className={styles.dashboard}>
+              <div
+                className={`${styles.skeleton} ${styles['skeleton-card']}`}
+              />
+            </li>
+          ))
+        ) : Array.isArray(dashboards) && dashboards.length > 0 ? (
           dashboards.map((item) => (
             <li key={`DashboardList_${item.id}`} className={styles.dashboard}>
               <CDSButton

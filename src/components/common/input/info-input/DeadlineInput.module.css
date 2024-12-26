@@ -30,3 +30,7 @@
     font-size: 14px;
   }
 }
+
+.container input:focus {
+  border: none;
+}

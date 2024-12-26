@@ -85,7 +85,7 @@ export default function CreateCard({
 
     setIsSubmitting(true);
     try {
-      let imageUrl = null;
+      let imageUrl: string | null = null;
       if (image) {
         imageUrl = await cardImageUpload(image, columnId);
       }

@@ -6,6 +6,7 @@ import SearchIcon from 'public/ic/ic_search.svg';
 import CDSButton from '@/components/common/button/CDSButton';
 import NoInvitationImg from 'public/ic/ic_uncall.svg';
 import styles from './InvitationList.module.css';
+import { toast } from 'react-toastify';
 
 export default function InvitationList() {
   const [invitations, setInvitations] = useState([]);
@@ -22,7 +23,7 @@ export default function InvitationList() {
         invitationId,
         inviteAccepted,
       });
-      alert(
+      toast.success(
         action === 'accept' ? '초대를 수락했습니다.' : '초대를 거절했습니다.',
       );
 
@@ -37,7 +38,7 @@ export default function InvitationList() {
           : prev.filter((invite) => invite.id !== invitationId),
       );
     } catch (error) {
-      alert('초대 응답 처리 중 오류가 발생했습니다.');
+      toast.error('초대 응답 처리 중 오류가 발생했습니다.');
     }
   };
 

@@ -15,6 +15,7 @@ import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleState } from '@/redux/renderSlice';
 import { RootState } from '@/redux/store';
+import { toast } from 'react-toastify';
 
 interface ColumnProp {
   columnId: number;
@@ -69,7 +70,7 @@ function Column({
       closeEditModal();
       setEditedTitle(columnTitle);
     } catch (error) {
-      alert(`컬럼 삭제 에러: ${error}`);
+      toast.error(`컬럼 삭제 중 오류가 발생했습니다: ${error}`);
     }
   };
 
@@ -88,7 +89,7 @@ function Column({
 
       closeEditModal();
     } catch (error) {
-      alert(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
+      toast.error(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
     }
   };
 

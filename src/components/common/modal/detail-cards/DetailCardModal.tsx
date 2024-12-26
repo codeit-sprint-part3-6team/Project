@@ -13,6 +13,7 @@ import deleteCard from '@/lib/dashboard/deleteCard';
 import AuthorSection from './AuthorSection';
 import ChipSection from './ChipSection';
 import CommentSection from './CommentSection';
+import { toast } from 'react-toastify';
 
 interface DetailCardModalProps {
   title: string;
@@ -41,7 +42,7 @@ function DetailCardModal({
   const handleCardDelete = async () => {
     try {
       await deleteCard(cardId);
-      alert('카드가 삭제되었습니다.');
+      toast.success('카드가 삭제되었습니다.');
       setColumnData((prev) => ({
         ...prev,
         cards: prev.cards.filter((columnCard) => columnCard.id !== cardId), // 삭제된 카드 제외

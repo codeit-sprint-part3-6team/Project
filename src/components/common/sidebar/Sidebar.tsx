@@ -12,6 +12,7 @@ import PlusBtn from 'public/ic/ic_plus.svg';
 import CrownIcon from 'public/ic/ic_crown.svg';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import postDashboards from '@/lib/mydashboard/postDashboard';
+import { toast } from 'react-toastify';
 import CDSButton from '../button/CDSButton';
 
 export default function Sidebar() {
@@ -53,7 +54,7 @@ export default function Sidebar() {
 
   const handleNewDashboard = async () => {
     if (!newDashboardName.trim()) {
-      alert('대시보드 이름을 입력해주세요.');
+      toast.error('대시보드 이름을 입력해주세요.');
       return;
     }
 

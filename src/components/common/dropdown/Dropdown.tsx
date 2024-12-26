@@ -32,6 +32,10 @@ function Dropdown({
     };
 
     document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, [ref]);
 
   return (

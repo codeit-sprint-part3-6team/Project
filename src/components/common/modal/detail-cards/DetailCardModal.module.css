@@ -2,7 +2,7 @@
   position: relative;
 
   width: 730px;
-  max-height: 702px;
+  max-height: 966px;
   height: 80%;
 
   padding: 30px 38px 33px 18px;
@@ -114,6 +114,8 @@
 @media screen and (max-width: 743px) {
   .container {
     width: 327px;
+    height: 70%;
+    max-height: 766px;
 
     padding: 16px;
   }

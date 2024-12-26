@@ -9,10 +9,11 @@ import { Column as ColumnType } from '@/type/column';
 import { useRouter } from 'next/router';
 import GeneralModal from '@/components/common/modal/general/GeneralModal';
 import Navbar from '@/components/common/navbar/Navbar';
+import SkeletonColumn from '@/components/dashboard/column/SkeletonColumn';
 
 function DashBoard() {
   const { query } = useRouter();
-  const [columns, setColumns] = useState<ColumnType[]>([]);
+  const [columns, setColumns] = useState<ColumnType[] | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [newColumn, setNewColumn] = useState('');
 
@@ -28,7 +29,10 @@ function DashBoard() {
 
   const fetchColumns = useCallback(async () => {
     const dashboardId = Number(query.id);
+
     if (!dashboardId) return;
+    // setIsLoading(true);
+
     try {
       const { data, result } = await getColumns({
         teamId: '11-6',
@@ -37,9 +41,12 @@ function DashBoard() {
 
       if (result === 'SUCCESS') {
         setColumns(data);
+      } else {
+        setColumns([]);
       }
     } catch (error) {
       console.error('컬럼 조회 실패 : ', error);
+      setColumns([]);
     }
   }, [query.id]);
 
@@ -68,14 +75,18 @@ function DashBoard() {
       <Sidebar />
       <Navbar />
       <div className={styles.container}>
-        {columns.map(({ id, title }) => (
-          <Column
-            key={`column_${id}`}
-            columnId={id}
-            columnTitle={title}
-            setColumns={setColumns}
-          />
-        ))}
+        {columns === null
+          ? Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonColumn key={`skeleton_${index}`} />
+            ))
+          : columns.map(({ id, title }) => (
+              <Column
+                key={`column_${id}`}
+                columnId={id}
+                columnTitle={title}
+                setColumns={setColumns}
+              />
+            ))}
         <div className={styles['add-column']}>
           <CDSButton onClick={openModal} btnType="column">
             새로운 컬럼 추가하기

@@ -9,6 +9,8 @@ function useColumnData(targetId: number) {
     cursorId: null,
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const fetchCards = useCallback(
     async ({
       cursor,
@@ -19,6 +21,8 @@ function useColumnData(targetId: number) {
       size?: number;
       reset?: boolean;
     } = {}) => {
+      if (isLoading) return;
+      setIsLoading(true);
       try {
         const response = await getCards({
           teamId: '11-6',
@@ -36,12 +40,14 @@ function useColumnData(targetId: number) {
         }));
       } catch (error) {
         console.error('컬럼 조회 실패 : ', error);
+      } finally {
+        setIsLoading(false);
       }
     },
     [targetId],
   );
 
-  return { columnData, setColumnData, fetchCards };
+  return { columnData, setColumnData, fetchCards, isLoading };
 }
 
 export default useColumnData;

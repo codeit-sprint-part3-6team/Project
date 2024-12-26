@@ -5,6 +5,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  overflow: hidden;
 }
 
 .tags:empty {
@@ -12,8 +13,11 @@
 }
 
 .tag {
+  max-width: 100%;
   display: flex;
   align-items: center;
+  overflow: hidden;
+  word-break: break-word;
 }
 
 .delete-button {

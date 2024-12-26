@@ -10,10 +10,6 @@
   background-color: var(--gray-brightes);
 }
 
-.container::-webkit-scrollbar {
-  display: none;
-}
-
 .add-column {
   flex-shrink: 0;
 

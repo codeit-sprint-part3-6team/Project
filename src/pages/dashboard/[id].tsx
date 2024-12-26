@@ -73,7 +73,7 @@ function DashBoard() {
     <div>
       <Sidebar />
       <Navbar />
-      <div className={styles.container}>
+      <div className={`${styles.container} custom-scroll`}>
         {columns === null
           ? Array.from({ length: 4 }).map((_, index) => (
               <SkeletonColumn key={`skeleton_${index}`} />

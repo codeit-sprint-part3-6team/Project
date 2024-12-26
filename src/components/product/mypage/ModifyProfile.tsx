@@ -9,6 +9,7 @@ import ProfileImageInput from './ProfileImageInput';
 import ProfileInfoForm from './ProfileInfoForm';
 import ProfileModifyModal from './ProfileModifyModal';
 import styles from './ModifyProfile.module.css';
+import { toast } from 'react-toastify';
 
 interface ModifyValue {
   nickname: string;
@@ -77,7 +78,7 @@ export default function ModifyProfile() {
       );
       setModal(true);
     } catch (error) {
-      console.error(error);
+      toast.error(error.message);
     }
   };
 

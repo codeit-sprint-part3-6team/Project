@@ -7,11 +7,11 @@ export default function ColorSelector({
   setSelectedColor,
 }: ColorSelectorProps) {
   const colors = [
-    { code: '#7AC555', style: styles.colorGreen },
-    { code: '#760DDE', style: styles.colorPurple },
-    { code: '#FFA500', style: styles.colorOrange },
-    { code: '#76A5EA', style: styles.colorBlue },
-    { code: '#E876EA', style: styles.colorPink },
+    { code: '#7ac555', style: styles.colorGreen },
+    { code: '#760dde', style: styles.colorPurple },
+    { code: '#ffa500', style: styles.colorOrange },
+    { code: '#76a5ea', style: styles.colorBlue },
+    { code: '#e876ea', style: styles.colorPink },
   ];
 
   return (

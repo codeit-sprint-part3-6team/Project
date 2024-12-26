@@ -11,13 +11,15 @@
 .column-title-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 
   margin-bottom: 25px;
 }
 
 .column-title {
   position: relative;
+  display: flex;
+
+  width: calc(100% - 30px);
 
   padding-left: 16px;
 
@@ -26,7 +28,16 @@
   line-height: 22px;
 }
 
+.column-title .title-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .btn-edit-column {
+  flex-shrink: 0;
+
   width: 24px;
   height: 24px;
 
@@ -69,7 +80,7 @@
   content: '';
 
   position: absolute;
-  top: 50%;
+  top: 6px;
   left: 0;
 
   width: 8px;

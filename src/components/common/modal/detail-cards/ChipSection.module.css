@@ -9,6 +9,23 @@
   flex-shrink: 0;
 }
 
+.status > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status > span > span {
+  flex-shrink: 0;
+}
+
+.status .status-text {
+  max-width: 80px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .bar {
   width: 1px;
   height: 20px;

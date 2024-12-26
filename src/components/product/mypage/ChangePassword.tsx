@@ -53,7 +53,6 @@ export default function ChangePassword({
     setIsLoading(true);
     try {
       const { password, newPassword } = values;
-      console.log(values);
       const putData = { password, newPassword };
       await changePassword(putData);
 
@@ -66,7 +65,6 @@ export default function ChangePassword({
       setIsLoading(false);
     }
   };
-  console.log(values);
   const handleBlur = () => {
     const { newPassword, confirmPassword } = values;
     if (newPassword !== confirmPassword) {

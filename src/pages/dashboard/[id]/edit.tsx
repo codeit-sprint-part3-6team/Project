@@ -12,15 +12,17 @@ import Navbar from '@/components/common/navbar/Navbar';
 import styles from './edit.module.css';
 
 export default function EditPage() {
-  const router = useRouter();
-  const dashboardId = Number(router.query.id);
   const [dashboardTitle, setDashboardTitle] = useState<string | null>(null);
   const [dashboardColor, setDashboardColor] = useState<string | null>(null);
+  const router = useRouter();
+  const dashboardId = Number(router.query.id);
 
   const handleDeleteClick = async () => {
     try {
-      await deleteDashboard(dashboardId);
-      router.push('/mydashboard');
+      if (confirm('정말 삭제하시겠습니까?')) {
+        await deleteDashboard(dashboardId);
+        router.push('/mydashboard');
+      }
     } catch (error) {
       throw new Error(`${error}`);
     }

@@ -1,8 +1,10 @@
 .section {
+  max-width: calc(50% - 16px);
   width: 100%;
   margin-bottom: 32px;
 
   @media screen and (max-width: 743px) {
+    max-width: none;
     margin-bottom: 24px;
   }
 }
@@ -30,7 +32,7 @@
   height: 48px;
   border: 1px solid var(--gray-medium);
   border-radius: 8px;
-  padding: 11px 16px;
+  padding: 11px 46px 11px 16px;
   font-weight: 400;
   font-size: 16px;
   color: var(--black-medium);
@@ -85,5 +87,25 @@
 }
 
 .space {
+  flex-shrink: 0;
   width: 22px;
+}
+
+.status {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-content {
+  width: calc(100% - 30px);
+}
+
+.status-select {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.check-icon {
+  flex-shrink: 0;
 }

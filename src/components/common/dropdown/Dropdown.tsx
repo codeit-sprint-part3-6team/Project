@@ -1,6 +1,6 @@
 import styles from '@/components/common/dropdown/Dropdown.module.css';
 import useDropdown from '@/hooks/useDropdown';
-import { PropsWithChildren } from 'react';
+import { MouseEvent, PropsWithChildren, useEffect, useRef } from 'react';
 
 type Menu = {
   label: string;
@@ -18,14 +18,28 @@ function Dropdown({
   onMenuClick,
 }: PropsWithChildren<DropdownProps>) {
   const { isOpen, toggleDropdown, closeDropdown } = useDropdown();
+  const ref = useRef<HTMLDivElement | null>();
 
   const handleMenuClick = (value: string) => {
     onMenuClick(value);
     closeDropdown();
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLDivElement;
+      if (ref.current && !ref.current.contains(target)) closeDropdown();
+    };
+
+    document.addEventListener('click', (e) => handleClickOutside(e));
+  }, [ref]);
+
   return (
-    <div className={styles.dropdown}>
+    <div
+      ref={ref}
+      className={styles.dropdown}
+      onClick={(e) => e.stopPropagation()}
+    >
       <button
         type="button"
         className={styles['btn-dropdown']}

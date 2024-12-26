@@ -48,7 +48,7 @@ function SigninForm() {
 
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: value.replace(/\s/g, ''),
     }));
   };
 

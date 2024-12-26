@@ -12,12 +12,18 @@
 }
 
 .title {
+  overflow: hidden;
+  height: 32px;
+
+  margin-right: 84px;
   margin-bottom: 28px;
 
   font-size: 24px;
   font-weight: 700;
   line-height: 32px;
   color: var(--black-medium);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .btn-section {
@@ -113,7 +119,9 @@
   }
 
   .title {
+    margin-right: 0;
     margin-top: 40px;
+    margin-bottom: 8px;
 
     font-size: 20px;
   }

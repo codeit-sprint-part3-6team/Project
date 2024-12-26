@@ -51,7 +51,7 @@ function SignupForm() {
 
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : value.replace(/\s/g, ''),
     }));
   };
 

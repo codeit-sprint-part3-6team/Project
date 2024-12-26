@@ -111,7 +111,7 @@ function Column({
     <div className={styles.column}>
       <div className={styles['column-title-section']}>
         <div className={styles['column-title']}>
-          {columnTitle}
+          <span className={styles['title-text']}>{columnTitle}</span>
           <span className={styles['column-size']}>{columnData.totalCount}</span>
         </div>
         <button

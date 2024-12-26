@@ -68,7 +68,7 @@ function DashBoard() {
     <div>
       <Sidebar />
       <Navbar />
-      <div className={styles.container}>
+      <div className={`${styles.container} custom-scroll`}>
         {columns.map(({ id, title }) => (
           <Column
             key={`column_${id}`}

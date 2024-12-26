@@ -1,0 +1,162 @@
+.card {
+  display: block;
+  width: 100%;
+
+  margin-bottom: 16px;
+  padding: 16px 20px;
+
+  border: 1px solid var(--gray-medium);
+  border-radius: 6px;
+  background-color: var(--white);
+
+  cursor: pointer;
+}
+
+.card-image {
+  position: relative;
+  overflow: hidden;
+
+  flex-shrink: 0;
+
+  width: 100%;
+  height: 160px;
+
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.content-section {
+  width: 100%;
+}
+
+.card-title {
+  height: 26px;
+
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+.description-section {
+  position: relative;
+}
+
+.card-tags {
+  height: 28px;
+
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.card-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-date .date {
+  width: 60px;
+  height: 18px;
+
+  border-radius: 6px;
+}
+
+.icon-calendar {
+  width: 18px;
+  height: 18px;
+
+  border-radius: 6px;
+}
+
+.badge {
+  position: absolute;
+
+  bottom: 0;
+  right: 0;
+
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+}
+
+.card-image,
+.card-title,
+.card-tags,
+.icon-calendar,
+.date,
+.badge {
+  background-color: var(--gray-medium);
+  animation: loading 2s infinite linear;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0.99;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.99;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .card {
+    display: flex;
+    gap: 20px;
+
+    padding: 14px 20px;
+  }
+
+  .card-image {
+    width: 91px;
+    height: 53px;
+
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .card {
+    flex-direction: column;
+    gap: 4px;
+
+    margin-bottom: 10px;
+    padding: 12px 12px 5px 12px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 152px;
+
+    margin-bottom: 0;
+  }
+
+  .card-title {
+    height: 24px;
+
+    margin-bottom: 6px;
+  }
+
+  .description-section {
+    display: block;
+  }
+
+  .card-date {
+    height: 18px;
+
+    margin-top: 10px;
+    margin-left: 0;
+  }
+
+  .icon-calendar {
+    width: 14px;
+    height: 14px;
+  }
+
+  .badge {
+    width: 22px;
+    height: 22px;
+  }
+}

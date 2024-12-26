@@ -15,6 +15,7 @@ import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleState } from '@/redux/renderSlice';
 import { RootState } from '@/redux/store';
+import SkeletonCard from '@/components/dashboard/card/SkeletonCard';
 
 interface ColumnProp {
   columnId: number;
@@ -27,7 +28,8 @@ function Column({
   columnTitle: initialTitle,
   setColumns,
 }: ColumnProp) {
-  const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
+  const { columnData, setColumnData, fetchCards, isLoading } =
+    useColumnData(columnId);
   const [columnTitle, setColumnTitle] = useState(initialTitle);
   const [editedTitle, setEditedTitle] = useState(columnTitle);
   const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
@@ -123,31 +125,35 @@ function Column({
       </div>
       <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
-        {columnData.cards.map(
-          ({
-            imageUrl,
-            id,
-            title,
-            tags,
-            dueDate,
-            assignee: { nickname, profileImageUrl },
-          }) => (
-            <Card
-              key={`card_${id}`}
-              imageUrl={imageUrl}
-              id={id}
-              title={title}
-              tags={tags}
-              dueDate={dueDate}
-              nickname={nickname}
-              profileImage={profileImageUrl}
-              columnTitle={columnTitle}
-              columnId={columnId}
-              setColumnData={setColumnData}
-              onUpdate={handleUpdate}
-            />
-          ),
-        )}
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonCard key={`skeleton_${index}`} />
+            ))
+          : columnData.cards.map(
+              ({
+                imageUrl,
+                id,
+                title,
+                tags,
+                dueDate,
+                assignee: { nickname, profileImageUrl },
+              }) => (
+                <Card
+                  key={`card_${id}`}
+                  imageUrl={imageUrl}
+                  id={id}
+                  title={title}
+                  tags={tags}
+                  dueDate={dueDate}
+                  nickname={nickname}
+                  profileImage={profileImageUrl}
+                  columnTitle={columnTitle}
+                  columnId={columnId}
+                  setColumnData={setColumnData}
+                  onUpdate={handleUpdate}
+                />
+              ),
+            )}
         {columnData.cursorId && (
           <div ref={endPoint} className={styles['end-point']} />
         )}

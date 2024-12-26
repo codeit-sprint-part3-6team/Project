@@ -1,0 +1,130 @@
+.column {
+  flex-shrink: 0;
+
+  width: 354px;
+  height: 100%;
+
+  padding: 20px;
+  border-right: 1px solid var(--gray-bright);
+}
+
+.column-title-section {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+}
+
+.column-title {
+  position: relative;
+  display: flex;
+
+  width: calc(100% - 30px);
+
+  padding-left: 16px;
+  border-radius: 6px;
+}
+
+.column-title .title-text {
+  width: 100%;
+}
+
+.btn-edit-column {
+  flex-shrink: 0;
+
+  width: 24px;
+  height: 24px;
+
+  border-radius: 6px;
+}
+
+.column-size {
+  width: 20px;
+  height: 20px;
+
+  margin-left: 12px;
+  padding: 3px 6px;
+  border-radius: 4px;
+}
+
+.column-title::before {
+  content: '';
+
+  position: absolute;
+  top: 6px;
+  left: 0;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background-color: var(--violet);
+}
+
+.btn-add {
+  height: 40px;
+  border-radius: 6px;
+}
+
+.card-section {
+  margin-top: 16px;
+}
+
+.title-text,
+.column-size,
+.btn-edit-column,
+.btn-add {
+  background-color: var(--gray-medium);
+  animation: loading 2s infinite linear;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0.99;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.99;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .column {
+    width: 100%;
+    height: fit-content;
+
+    margin-top: 22px;
+    padding: 0 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--gray-bright);
+  }
+
+  .card-section {
+    max-height: 424px;
+    height: fit-content;
+
+    margin-top: 16px;
+    margin-bottom: 4px;
+  }
+}
+
+@media screen and (max-width: 743px) {
+  .column {
+    width: calc(100% - 24px);
+
+    margin: 16px 12px;
+    padding: 0;
+  }
+
+  .card-section {
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+
+  .btn-edit-column {
+    width: 22px;
+    height: 22px;
+  }
+}

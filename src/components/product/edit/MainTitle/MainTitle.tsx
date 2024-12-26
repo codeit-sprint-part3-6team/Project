@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import putDashboards from '@/lib/editdashboard/putDashboards';
 import ColorSelector from './ColorSelector';
 import styles from './MainTitle.module.css';
+import { toast } from 'react-toastify';
 
 interface MainTitleProps {
   dashboardtitle: string | null;
+  dashboardColor: string | null;
 }
 
-export default function MainTitle({ dashboardtitle }: MainTitleProps) {
-  const [selectedColor, setSelectedColor] = useState<string>('');
+export default function MainTitle({
+  dashboardtitle,
+  dashboardColor,
+}: MainTitleProps) {
+  const [selectedColor, setSelectedColor] = useState<string>(dashboardColor);
   const [title, setTitle] = useState(dashboardtitle || '');
   const router = useRouter();
   const dashboardId = Number(router.query.id);
@@ -28,7 +33,7 @@ export default function MainTitle({ dashboardtitle }: MainTitleProps) {
         dashboardId,
       });
       setTitle(updatedTitle.title);
-      router.reload();
+      toast.success('변경 사항이 저장되었습니다.');
     } catch (error) {
       throw new Error(`${error}`);
     }

@@ -84,3 +84,17 @@ ul {
 button {
   color: var(--black-medium);
 }
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px; /* 세로 스크롤바 폭 */
+  height: 8px; /* 가로 스크롤바 높이 */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--gary-scroll); /* 스크롤바 색상 */
+  border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0); /* 스크롤바 트랙 색상 */
+}

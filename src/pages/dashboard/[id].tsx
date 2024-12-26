@@ -31,7 +31,6 @@ function DashBoard() {
     const dashboardId = Number(query.id);
 
     if (!dashboardId) return;
-    // setIsLoading(true);
 
     try {
       const { data, result } = await getColumns({

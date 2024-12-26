@@ -3,7 +3,7 @@
 	justify-content: space-between;
 	padding-right: 28px;
 	padding-left: 28px;
-	margin-top: 10px;
+	margin-bottom: 16px;
 }
 
 .crown {
@@ -13,14 +13,14 @@
 }
 
 .line {
-	margin-top: 10px;
+	margin-bottom: 16px;
   border: none;
   border-top: 1px solid var(--gray-bright); 
 }
 
 @media screen and (max-width: 743px) {
   .container {
-    margin-top: 8px;
+    margin-bottom: 12px;
   }
 
   .crown {
@@ -31,6 +31,6 @@
   }
 
   .line {
-    margin-top: 13px;
+    margin-bottom: 12px;
   }
 }

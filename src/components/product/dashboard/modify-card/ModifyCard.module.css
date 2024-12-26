@@ -7,14 +7,17 @@
   @media screen and (max-width: 743px) {
     width: 380px;
     height: 70%;
-    margin: 0px 24px;
+    padding: 10px 6px;
   }
 }
 
 .scrollable-content {
   height: 100%;
   overflow-y: auto;
-  padding: 22px 25px;
+  padding: 22px 26px;
+  @media screen and (max-width: 743px) {
+    padding: 18px 14px;
+  }
 }
 
 .section {

@@ -36,6 +36,7 @@ export default function ChangePassword({
     new: false,
     confirm: false,
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = (field: 'current' | 'new' | 'confirm') => {
     setPasswordVisibility((prevVisibility) => ({
@@ -49,24 +50,23 @@ export default function ChangePassword({
   };
 
   const handleChangePassword = async () => {
+    setIsLoading(true);
     try {
       const { password, newPassword } = values;
+      console.log(values);
       const putData = { password, newPassword };
       await changePassword(putData);
 
-      setValues({
-        password: '',
-        newPassword: '',
-        confirmPassword: '',
-        error: null,
-      });
+      setValues(initialValue);
       setModal(true);
     } catch (e) {
       setModal(true);
       setErrorMessage(e.message);
+    } finally {
+      setIsLoading(false);
     }
   };
-
+  console.log(values);
   const handleBlur = () => {
     const { newPassword, confirmPassword } = values;
     if (newPassword !== confirmPassword) {
@@ -166,7 +166,7 @@ export default function ChangePassword({
         <CDSButton
           onClick={handleChangePassword}
           btnType="profile_save"
-          disabled={!isFormValid}
+          disabled={!isFormValid || isLoading}
         >
           변경
         </CDSButton>

@@ -38,6 +38,10 @@ export default function ModifyProfile() {
     }
   }, [user]);
 
+  const handleImageDelete = () => {
+    setPreview(null);
+  };
+
   const handleCancelClick = () => {
     setModal(false);
   };
@@ -56,6 +60,8 @@ export default function ModifyProfile() {
       let imageUrl = values.profileImageUrl;
       if (image) {
         imageUrl = await uploadImage(image);
+      } else if (!preview) {
+        imageUrl = null;
       }
       const putData = {
         nickname: values.nickname,
@@ -88,6 +94,9 @@ export default function ModifyProfile() {
       setImage(file);
       const imgURL = URL.createObjectURL(file);
       setPreview(imgURL);
+    } else {
+      setImage(null);
+      setPreview(null);
     }
   };
 
@@ -98,6 +107,7 @@ export default function ModifyProfile() {
         <ProfileImageInput
           preview={preview}
           onImageChange={handleImageChange}
+          onImageDelete={handleImageDelete}
         />
         <div>
           <ProfileInfoForm

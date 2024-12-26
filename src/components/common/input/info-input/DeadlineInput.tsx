@@ -78,6 +78,7 @@ export default function DeadlineInput({
   initialDate,
 }: DeadlineInputProps): JSX.Element {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (initialDate) {
@@ -94,16 +95,25 @@ export default function DeadlineInput({
   return (
     <ThemeProvider theme={globalTheme}>
       <section className={styles.container}>
-        <p className={styles.title}>마감일</p>
+        <div className={styles['topic-box']}>
+          <p className={styles.title}>마감일</p>
+          <p className={styles.require}>*</p>
+        </div>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
           <DateTimePicker
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
             value={selectedDate}
             onChange={handleChange}
-            slots={{ textField: StyledTextField }}
+            slots={{
+              textField: StyledTextField,
+            }}
             slotProps={{
               textField: {
                 fullWidth: true,
                 placeholder: '날짜를 입력해 주세요',
+                onClick: () => setOpen((prev) => !prev),
               },
             }}
           />

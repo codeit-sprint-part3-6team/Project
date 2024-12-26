@@ -8,6 +8,7 @@ import useSidebarDashboards from '@/hooks/useSidebar';
 import { Dashboard } from '@/type/dashboard';
 import { BadgeColor } from '@/type/button';
 import styles from './DashboardList.module.css';
+import { toast } from 'react-toastify';
 
 export default function DashboardList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -55,7 +56,7 @@ export default function DashboardList() {
 
   const handleNewDashboard = async () => {
     if (!newDashboardName.trim()) {
-      alert('대시보드 이름을 입력해주세요.');
+      toast.error('대시보드 이름을 입력해주세요.');
       return;
     }
 

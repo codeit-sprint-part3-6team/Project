@@ -11,6 +11,7 @@ import Dropdown from '../dropdown/Dropdown';
 import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
 import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '../modal/auth/AuthModal';
+import { toast } from 'react-toastify';
 
 const INITIAL_VALUES = {
   email: '',
@@ -59,7 +60,7 @@ function Navbar() {
   // 초대 요청을 보내고 alert
   useEffect(() => {
     if (!isModalOpen && alertMessage) {
-      alert(alertMessage);
+      toast.success(alertMessage);
       setAlertMessage(null);
     }
   }, [isModalOpen, alertMessage]);

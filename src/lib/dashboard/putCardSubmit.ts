@@ -1,6 +1,7 @@
 import cardImageUpload from '@/lib/dashboard/cardImageUpload';
 import putCard from '@/lib/dashboard/putCard';
 import { setCardInfo } from '@/redux/cardSlice';
+import { toast } from 'react-toastify';
 
 const putCardSubmit = async ({
   image,
@@ -47,9 +48,9 @@ const putCardSubmit = async ({
     const result = await putCard(putData, cardInfo.id);
     dispatch(setCardInfo(result)); // 수정한 카드의 데이터 리덕스에 담아
     setInitialData(initialData);
+    toast.success('카드가 수정되었습니다.');
     await onUpdate();
     await closeModal();
-    alert('카드가 수정되었습니다.');
   } catch (error) {
     console.error('handleSubmit Error:', error);
   }

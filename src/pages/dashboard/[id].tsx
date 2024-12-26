@@ -9,6 +9,7 @@ import { Column as ColumnType } from '@/type/column';
 import { useRouter } from 'next/router';
 import GeneralModal from '@/components/common/modal/general/GeneralModal';
 import Navbar from '@/components/common/navbar/Navbar';
+import { toast } from 'react-toastify';
 import SkeletonColumn from '@/components/dashboard/column/SkeletonColumn';
 
 function DashBoard() {
@@ -61,7 +62,7 @@ function DashBoard() {
       await fetchColumns();
       closeModal();
     } catch (error) {
-      alert(error.message || '컬럼 추가 중 오류가 발생했습니다.');
+      toast.error(error.message || '컬럼 추가 중 오류가 발생했습니다.');
     }
   };
 

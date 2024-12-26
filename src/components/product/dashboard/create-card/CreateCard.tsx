@@ -13,6 +13,7 @@ import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
 import AssigneeSection from './AssigneeSection';
 import DescriptionInput from './DescriptionInput';
+import { toast } from 'react-toastify';
 import styles from './CreateCard.module.css';
 
 interface CreateCardProps {
@@ -31,6 +32,7 @@ export default function CreateCard({
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { query } = useRouter();
   const dashboardId = Number(query.id);
@@ -76,8 +78,14 @@ export default function CreateCard({
 
   // 생성 버튼 클릭시 함수
   const handleSubmit = async () => {
+    if (isSubmitting) {
+      toast.error('이미 요청을 보내고 있습니다.');
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      let imageUrl = null;
+      let imageUrl: string | null = null;
       if (image) {
         imageUrl = await cardImageUpload(image, columnId);
       }
@@ -87,7 +95,7 @@ export default function CreateCard({
       );
 
       if (!selectedMember) {
-        alert('담당자를 선택해주세요.');
+        toast.error('담당자를 선택해주세요.');
         return;
       }
 
@@ -102,10 +110,13 @@ export default function CreateCard({
         imageUrl,
       };
       await postCard(createData);
+      toast.success('할 일 카드가 생성되었습니다.');
       onUpdate();
       onClose();
     } catch (error) {
-      console.error('handleSubmit Error:', error);
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -114,9 +125,9 @@ export default function CreateCard({
   };
 
   return (
-    <OverlayContainer>
-      <div className={styles.container}>
-        <div className={styles[`scrollable-content`]}>
+    <OverlayContainer onClose={onClose}>
+      <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+        <div className={`${styles[`scrollable-content`]} custom-scroll`}>
           <section className={styles.section}>
             <p className={styles.title}>할 일 생성</p>
           </section>
@@ -163,7 +174,7 @@ export default function CreateCard({
           <ButtonSection
             onCancel={handleCancelClick}
             onSubmit={handleSubmit}
-            isDisabled={isDisabled}
+            isDisabled={isDisabled || isSubmitting}
           />
         </div>
       </div>

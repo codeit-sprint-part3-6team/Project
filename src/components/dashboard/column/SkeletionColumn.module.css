@@ -22,17 +22,11 @@
   width: calc(100% - 30px);
 
   padding-left: 16px;
-
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 22px;
+  border-radius: 6px;
 }
 
 .column-title .title-text {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  width: 100%;
 }
 
 .btn-edit-column {
@@ -41,39 +35,16 @@
   width: 24px;
   height: 24px;
 
-  border: 0;
-  background-color: transparent;
-
-  cursor: pointer;
-}
-
-.icon-setting {
-  width: 100%;
-  height: 100%;
-}
-
-.btn-edit-column span {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  border: 0;
-  clip: rect(0 0 0 0);
+  border-radius: 6px;
 }
 
 .column-size {
+  width: 20px;
+  height: 20px;
+
   margin-left: 12px;
   padding: 3px 6px;
   border-radius: 4px;
-  background-color: var(--gray-bright);
-
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 14px;
-  color: var(--gray);
 }
 
 .column-title::before {
@@ -90,20 +61,33 @@
   background-color: var(--violet);
 }
 
+.btn-add {
+  height: 40px;
+  border-radius: 6px;
+}
+
 .card-section {
-  overflow-y: scroll;
-
-  height: calc(100% - 108px);
-
   margin-top: 16px;
 }
 
-.card-section::-webkit-scrollbar {
-  display: none;
+.title-text,
+.column-size,
+.btn-edit-column,
+.btn-add {
+  background-color: var(--gray-medium);
+  animation: loading 2s infinite linear;
 }
 
-.end-point {
-  height: 1px;
+@keyframes loading {
+  0% {
+    opacity: 0.99;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.99;
+  }
 }
 
 @media screen and (max-width: 1199px) {

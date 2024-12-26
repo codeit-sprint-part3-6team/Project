@@ -11,6 +11,7 @@ import Dropdown from '../dropdown/Dropdown';
 import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
 import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '../modal/auth/AuthModal';
+import { toast } from 'react-toastify';
 
 const INITIAL_VALUES = {
   email: '',
@@ -59,23 +60,10 @@ function Navbar() {
   // 초대 요청을 보내고 alert
   useEffect(() => {
     if (!isModalOpen && alertMessage) {
-      alert(alertMessage);
+      toast.success(alertMessage);
       setAlertMessage(null);
     }
   }, [isModalOpen, alertMessage]);
-
-  const renderTitle = () => {
-    if (!isMyPage) return <h3 className={styles.title}>계정관리</h3>;
-    if (!isMyDashboard) return <h3 className={styles.title}>내 대시보드</h3>;
-
-    return (
-      <h3
-        className={`${styles.title} ${dashboardData?.createdByMe && `${styles.createdByMe}`}`}
-      >
-        {dashboardData?.title}
-      </h3>
-    );
-  };
 
   const handleDropdownClick = (value: string) => {
     if (value === 'logout') {
@@ -112,6 +100,23 @@ function Navbar() {
     }
   };
 
+  if (isMyDashboard && isMyPage && !dashboardData) {
+    return;
+  }
+
+  const renderTitle = () => {
+    if (!isMyPage) return <h3 className={styles.title}>계정관리</h3>;
+    if (!isMyDashboard) return <h3 className={styles.title}>내 대시보드</h3>;
+
+    return (
+      <h3
+        className={`${styles.title} ${dashboardData?.createdByMe && `${styles.createdByMe}`}`}
+      >
+        {dashboardData?.title}
+      </h3>
+    );
+  };
+
   return (
     <div className={styles.navbar}>
       {renderTitle()}
@@ -119,7 +124,7 @@ function Navbar() {
       <div className={styles['right-nav']}>
         {isMyDashboard && isMyPage && (
           <div className={styles['left-section']}>
-            {isEdit && (
+            {isEdit && dashboardData.createdByMe && (
               <NavButton
                 btnType="management"
                 buttonName="관리"

@@ -1,0 +1,6 @@
+.toast {
+  color: var(--black-medium);
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}

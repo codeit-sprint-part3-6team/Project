@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import Landingimage1 from 'public/images/img_landingimage1.svg';
 import Textlogo from 'public/images/img_textlogo.svg';
 import CDSButton from '@/components/common/button/CDSButton';
@@ -13,7 +14,14 @@ export default function Header() {
   };
 
   return (
-    <header className={styles['header-container']}>
+    <motion.header
+      className={styles['header-container']}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 1,
+      }}
+    >
       <NavBar />
       <div className={styles['header-section']}>
         <Landingimage1 className={styles['header-image']} />
@@ -27,6 +35,6 @@ export default function Header() {
           </CDSButton>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

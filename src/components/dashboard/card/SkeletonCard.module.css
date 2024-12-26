@@ -9,8 +9,6 @@
   border-radius: 6px;
   background-color: var(--white);
 
-  text-align: left;
-
   cursor: pointer;
 }
 
@@ -32,11 +30,10 @@
 }
 
 .card-title {
-  margin-bottom: 10px;
+  height: 26px;
 
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 26px;
+  margin-bottom: 10px;
+  border-radius: 6px;
 }
 
 .description-section {
@@ -44,11 +41,10 @@
 }
 
 .card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
+  height: 28px;
 
   margin-bottom: 8px;
+  border-radius: 6px;
 }
 
 .card-date {
@@ -58,25 +54,51 @@
 }
 
 .card-date .date {
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  color: var(--gray);
+  width: 60px;
+  height: 18px;
+
+  border-radius: 6px;
 }
 
 .icon-calendar {
   width: 18px;
   height: 18px;
+
+  border-radius: 6px;
 }
 
 .badge {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   bottom: 0;
   right: 0;
+
+  width: 24px;
+  height: 24px;
+
+  border-radius: 50%;
+}
+
+.card-image,
+.card-title,
+.card-tags,
+.icon-calendar,
+.date,
+.badge {
+  background-color: var(--gray-medium);
+  animation: loading 2s infinite linear;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0.99;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.99;
+  }
 }
 
 @media screen and (max-width: 1199px) {
@@ -112,10 +134,9 @@
   }
 
   .card-title {
-    margin-bottom: 6px;
+    height: 24px;
 
-    font-size: 14px;
-    line-height: 24px;
+    margin-bottom: 6px;
   }
 
   .description-section {
@@ -123,6 +144,8 @@
   }
 
   .card-date {
+    height: 18px;
+
     margin-top: 10px;
     margin-left: 0;
   }
@@ -130,5 +153,10 @@
   .icon-calendar {
     width: 14px;
     height: 14px;
+  }
+
+  .badge {
+    width: 22px;
+    height: 22px;
   }
 }

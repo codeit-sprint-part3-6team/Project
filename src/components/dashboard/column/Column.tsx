@@ -12,6 +12,11 @@ import deleteColumns from '@/lib/dashboard/deleteColumns';
 import { Column as ColumnType } from '@/type/column';
 import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
 import CreateCard from '@/components/product/dashboard/create-card/CreateCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleState } from '@/redux/renderSlice';
+import { RootState } from '@/redux/store';
+import { toast } from 'react-toastify';
+import SkeletonCard from '@/components/dashboard/card/SkeletonCard';
 
 interface ColumnProp {
   columnId: number;
@@ -24,10 +29,18 @@ function Column({
   columnTitle: initialTitle,
   setColumns,
 }: ColumnProp) {
-  const { columnData, setColumnData, fetchCards } = useColumnData(columnId);
+  const { columnData, setColumnData, fetchCards, isLoading } =
+    useColumnData(columnId);
   const [columnTitle, setColumnTitle] = useState(initialTitle);
   const [editedTitle, setEditedTitle] = useState(columnTitle);
   const [modal, setModal] = useState(false); // 카드 생성 모달 띄우기 위한 state
+
+  const dispatch = useDispatch();
+  const toggle = useSelector((state: RootState) => state.render.toggle); // Redux 상태 구독
+
+  const handleUpdate = () => {
+    dispatch(toggleState()); // Redux 상태 변경
+  };
 
   const handleClick = () => {
     // 카드 생성 모달 띄우기 위한 함수
@@ -59,7 +72,7 @@ function Column({
       closeEditModal();
       setEditedTitle(columnTitle);
     } catch (error) {
-      alert(`컬럼 삭제 에러: ${error}`);
+      toast.error(`컬럼 삭제 중 오류가 발생했습니다: ${error}`);
     }
   };
 
@@ -78,7 +91,7 @@ function Column({
 
       closeEditModal();
     } catch (error) {
-      alert(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
+      toast.error(error.message || '컬럼 제목 수정 중 오류가 발생했습니다.');
     }
   };
 
@@ -93,14 +106,14 @@ function Column({
   const endPoint = useIntersectionObserver(handleObserver);
 
   useEffect(() => {
-    fetchCards();
-  }, [fetchCards]);
+    fetchCards({ reset: true });
+  }, [fetchCards, toggle]);
 
   return (
     <div className={styles.column}>
       <div className={styles['column-title-section']}>
         <div className={styles['column-title']}>
-          {columnTitle}
+          <span className={styles['title-text']}>{columnTitle}</span>
           <span className={styles['column-size']}>{columnData.totalCount}</span>
         </div>
         <button
@@ -113,33 +126,35 @@ function Column({
       </div>
       <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
-        {columnData.cards.map(
-          ({
-            imageUrl,
-            id,
-            title,
-            tags,
-            dueDate,
-            assignee: { nickname, profileImageUrl },
-          }) => (
-            <Card
-              key={`card_${id}`}
-              imageUrl={imageUrl}
-              id={id}
-              title={title}
-              tags={tags}
-              dueDate={dueDate}
-              nickname={nickname}
-              profileImage={profileImageUrl}
-              columnTitle={columnTitle}
-              columnId={columnId}
-              setColumnData={setColumnData}
-              onUpdate={() =>
-                fetchCards({ size: columnData.totalCount + 1, reset: true })
-              }
-            />
-          ),
-        )}
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonCard key={`skeleton_${index}`} />
+            ))
+          : columnData.cards.map(
+              ({
+                imageUrl,
+                id,
+                title,
+                tags,
+                dueDate,
+                assignee: { nickname, profileImageUrl },
+              }) => (
+                <Card
+                  key={`card_${id}`}
+                  imageUrl={imageUrl}
+                  id={id}
+                  title={title}
+                  tags={tags}
+                  dueDate={dueDate}
+                  nickname={nickname}
+                  profileImage={profileImageUrl}
+                  columnTitle={columnTitle}
+                  columnId={columnId}
+                  setColumnData={setColumnData}
+                  onUpdate={handleUpdate}
+                />
+              ),
+            )}
         {columnData.cursorId && (
           <div ref={endPoint} className={styles['end-point']} />
         )}

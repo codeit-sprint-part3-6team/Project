@@ -11,6 +11,8 @@
 }
 
 .status {
+  max-width: 100%;
+
   font-size: 12px;
   line-height: 18px;
 }
@@ -48,6 +50,8 @@
 }
 
 .dot {
+  flex-shrink: 0;
+
   display: inline-block;
   width: 6px;
   height: 6px;

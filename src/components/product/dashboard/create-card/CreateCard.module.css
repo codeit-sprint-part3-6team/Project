@@ -3,13 +3,13 @@
   height: 80%;
   max-height: 966px;
   border-radius: 16px;
-  padding: 10px 6px;
+  padding: 9px 6px;
   background-color: var(--white);
   @media screen and (max-width: 743px) {
     width: 380px;
     height: 70%;
     max-height: 766px;
-    margin: 0px 24px;
+    padding: 9px 6px;
   }
 }
 

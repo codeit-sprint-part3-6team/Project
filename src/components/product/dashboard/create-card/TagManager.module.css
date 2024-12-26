@@ -18,4 +18,5 @@
 
 .delete-button {
   cursor: pointer;
+  flex-shrink: 0;
 }

@@ -91,6 +91,16 @@ export default function ModifyProfile() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const allowedExtensions = ['png', 'gif', 'jpg', 'jpeg'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+        toast.warning(
+          '허용되지 않는 파일 형식입니다 (png, gif, jpg만 등록 가능)',
+        );
+
+        return;
+      }
+
       setImage(file);
       const imgURL = URL.createObjectURL(file);
       setPreview(imgURL);

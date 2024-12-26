@@ -63,6 +63,7 @@ export default function ProfileImageInput({
         onChange={onImageChange}
         className={styles[`img-input`]}
         ref={imageInputRef}
+        accept=".gif, .jpg, .png"
       />
     </div>
   );

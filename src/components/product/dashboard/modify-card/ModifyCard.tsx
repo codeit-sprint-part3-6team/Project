@@ -177,7 +177,7 @@ export default function ModifyCard({
 
   return (
     <div className={styles.container}>
-      <div className={styles[`scrollable-content`]}>
+      <div className={`${styles[`scrollable-content`]} custom-scroll`}>
         <section className={styles.section}>
           <p className={styles.title}>할 일 수정</p>
         </section>

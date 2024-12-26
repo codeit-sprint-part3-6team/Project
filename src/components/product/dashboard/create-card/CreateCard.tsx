@@ -116,7 +116,7 @@ export default function CreateCard({
   return (
     <OverlayContainer>
       <div className={styles.container}>
-        <div className={styles[`scrollable-content`]}>
+        <div className={`${styles[`scrollable-content`]} custom-scroll`}>
           <section className={styles.section}>
             <p className={styles.title}>할 일 생성</p>
           </section>

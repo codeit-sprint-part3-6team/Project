@@ -13,6 +13,7 @@ import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
 import AssigneeSection from './AssigneeSection';
 import DescriptionInput from './DescriptionInput';
+import { toast } from 'react-toastify';
 import styles from './CreateCard.module.css';
 
 interface CreateCardProps {
@@ -87,7 +88,7 @@ export default function CreateCard({
       );
 
       if (!selectedMember) {
-        alert('담당자를 선택해주세요.');
+        toast.error('담당자를 선택해주세요.');
         return;
       }
 
@@ -102,10 +103,11 @@ export default function CreateCard({
         imageUrl,
       };
       await postCard(createData);
+      toast.success('할 일 카드가 생성되었습니다.');
       onUpdate();
       onClose();
     } catch (error) {
-      console.error('handleSubmit Error:', error);
+      toast.error(error.message);
     }
   };
 

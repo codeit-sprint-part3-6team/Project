@@ -94,7 +94,10 @@ export default function DeadlineInput({
   return (
     <ThemeProvider theme={globalTheme}>
       <section className={styles.container}>
-        <p className={styles.title}>마감일</p>
+        <div className={styles['topic-box']}>
+          <p className={styles.title}>마감일</p>
+          <p className={styles.require}>*</p>
+        </div>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
           <DateTimePicker
             value={selectedDate}

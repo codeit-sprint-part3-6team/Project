@@ -5,6 +5,7 @@
   padding: 20px 12px 0 8px;
   position: fixed;
   border-right: 1px solid var(--gray-medium);
+  z-index: 1;
 }
 
 .menu {
@@ -106,6 +107,7 @@
   height: 344px;
   padding: 32px;
   border-radius: 10px;
+  z-index: 11;
 }
 
 .modal h2 {

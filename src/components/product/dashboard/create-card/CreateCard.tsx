@@ -32,6 +32,7 @@ export default function CreateCard({
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { query } = useRouter();
   const dashboardId = Number(query.id);
@@ -77,6 +78,12 @@ export default function CreateCard({
 
   // 생성 버튼 클릭시 함수
   const handleSubmit = async () => {
+    if (isSubmitting) {
+      toast.error('이미 요청을 보내고 있습니다.');
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
       let imageUrl = null;
       if (image) {
@@ -108,6 +115,8 @@ export default function CreateCard({
       onClose();
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -165,7 +174,7 @@ export default function CreateCard({
           <ButtonSection
             onCancel={handleCancelClick}
             onSubmit={handleSubmit}
-            isDisabled={isDisabled}
+            isDisabled={isDisabled || isSubmitting}
           />
         </div>
       </div>

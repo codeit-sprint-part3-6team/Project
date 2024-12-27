@@ -23,7 +23,7 @@ export default function ColumnTitleSection({
   return (
     <section className={styles.section}>
       <p className={styles.topic}>상태</p>
-      <div className={styles[`input-box`]}>
+      <div className={styles[`input-box`]} onClick={onToggleDropdown}>
         {selectedColumnTitle ? (
           <div className={styles[`name-select`]}>
             <Chip chipType="status">
@@ -43,7 +43,6 @@ export default function ColumnTitleSection({
           className={styles[`toggle-button`]}
           width={26}
           height={26}
-          onClick={onToggleDropdown}
         />
       </div>
       {isDropdownOpen && (

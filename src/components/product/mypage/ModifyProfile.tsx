@@ -95,7 +95,10 @@ export default function ModifyProfile() {
       const fileExtension = file.name.split('.').pop()?.toLowerCase();
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
         toast.warning(
-          '허용되지 않는 파일 형식입니다 (png, gif, jpg만 등록 가능)',
+          <div>
+            허용되지 않는 파일 형식입니다
+            <br /> (png, gif, jpg만 등록 가능)
+          </div>,
         );
 
         return;

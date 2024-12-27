@@ -40,6 +40,7 @@ const useComments = (
   };
 
   const loadMoreComments = async (cursorId?: number) => {
+    setIsSubmitting(true);
     try {
       const newCommentsResponse = await getComments({ cardId, cursorId });
       setCommentsResponse((prev) => ({
@@ -48,6 +49,8 @@ const useComments = (
       }));
     } catch (error) {
       console.error('댓글을 불러오는데 실패했습니다:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

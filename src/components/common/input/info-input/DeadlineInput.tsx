@@ -26,7 +26,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       borderColor: '#d9d9d9',
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'black',
+      borderColor: 'var(--violet)',
+      borderWidth: '1px',
     },
   },
   '& .MuiInputBase-root': {

@@ -9,6 +9,7 @@ import ProfileImageInput from './ProfileImageInput';
 import ProfileInfoForm from './ProfileInfoForm';
 import ProfileModifyModal from './ProfileModifyModal';
 import styles from './ModifyProfile.module.css';
+import { toast } from 'react-toastify';
 
 interface ModifyValue {
   nickname: string;
@@ -37,6 +38,10 @@ export default function ModifyProfile() {
     }
   }, [user]);
 
+  const handleImageDelete = () => {
+    setPreview(null);
+  };
+
   const handleCancelClick = () => {
     setModal(false);
   };
@@ -55,6 +60,8 @@ export default function ModifyProfile() {
       let imageUrl = values.profileImageUrl;
       if (image) {
         imageUrl = await uploadImage(image);
+      } else if (!preview) {
+        imageUrl = null;
       }
       const putData = {
         nickname: values.nickname,
@@ -77,16 +84,32 @@ export default function ModifyProfile() {
       );
       setModal(true);
     } catch (error) {
-      console.error(error);
+      toast.error(error.message);
     }
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const allowedExtensions = ['png', 'gif', 'jpg', 'jpeg'];
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+        toast.warning(
+          <div>
+            허용되지 않는 파일 형식입니다
+            <br /> (png, gif, jpg만 등록 가능)
+          </div>,
+        );
+
+        return;
+      }
+
       setImage(file);
       const imgURL = URL.createObjectURL(file);
       setPreview(imgURL);
+    } else {
+      setImage(null);
+      setPreview(null);
     }
   };
 
@@ -97,6 +120,7 @@ export default function ModifyProfile() {
         <ProfileImageInput
           preview={preview}
           onImageChange={handleImageChange}
+          onImageDelete={handleImageDelete}
         />
         <div>
           <ProfileInfoForm

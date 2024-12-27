@@ -9,6 +9,12 @@ import getInvitations, {
 import postInvite from '@/lib/invite/postInvite';
 import styles from './InviteTitle.module.css';
 import InviteList from './InviteList';
+import AuthModal from '@/components/common/modal/auth/AuthModal';
+import { toast } from 'react-toastify';
+
+const INITIAL_VALUES = {
+  email: '',
+};
 
 export default function InviteTitle() {
   const [members, setMembers] = useState<GetInvitationsResponse['invitations']>(
@@ -17,9 +23,13 @@ export default function InviteTitle() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [emailValue, setEmailValue] = useState<{ email: string }>({
-    email: '',
-  });
+  const [emailValue, setEmailValue] = useState<{ email: string }>(
+    INITIAL_VALUES,
+  );
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [responseMessage, setResponseMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -41,21 +51,31 @@ export default function InviteTitle() {
       }
     };
     fetchInvitations();
-  }, [router.query.id, currentPage]);
+  }, [router.query.id, currentPage, isModalOpen]);
 
-  const handleCancelClick = () => {
-    setIsModalOpen(false);
-  };
+  // 초대 요청을 보내고 alert
+  useEffect(() => {
+    if (!isModalOpen && alertMessage) {
+      toast.success(alertMessage);
+      setAlertMessage(null);
+    }
+  }, [isModalOpen, alertMessage]);
 
   const submitInvite = async () => {
     const id = Number(router.query.id);
 
     try {
-      await postInvite({ id, email: emailValue.email });
+      const response = await postInvite({ id, email: emailValue.email });
       setIsModalOpen(false);
-      router.reload();
+      setEmailValue(INITIAL_VALUES);
+      setAlertMessage(
+        `${response.invitee.nickname}님께 초대 요청을 보냈습니다.`,
+      );
     } catch (error) {
-      throw new Error(`${error}`);
+      setIsModalOpen(false);
+      setResponseMessage(error.message);
+      setIsModalVisible(true);
+      setEmailValue(INITIAL_VALUES);
     }
   };
 
@@ -65,6 +85,11 @@ export default function InviteTitle() {
     } else if (direction === 'next' && currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
     }
+  };
+
+  const handleCancelClick = () => {
+    setIsModalOpen(false);
+    setIsModalVisible(false);
   };
 
   return (
@@ -101,24 +126,29 @@ export default function InviteTitle() {
       <div className={styles['name-section']}>
         <h2 className={styles['sub-title']}>이메일</h2>
         <div className={styles['list']}>
-          <InviteList members={members} />
+           <InviteList members={members} setMembers={setMembers} />
         </div>
       </div>
-      <div>
-        <InviteModal
-          label="이메일"
-          placeholder="이메일을 입력해 주세요"
-          isOpen={isModalOpen}
-          onClose={handleCancelClick}
-          title="초대하기"
-          inputValue={emailValue.email}
-          onInputChange={(value) => setEmailValue({ email: value })}
-          cancelTitle="취소"
-          adaptTitle="생성"
+      <InviteModal
+        label="이메일"
+        placeholder="이메일을 입력해 주세요"
+        isOpen={isModalOpen}
+        onClose={handleCancelClick}
+        title="초대하기"
+        inputValue={emailValue.email}
+        onInputChange={(value) => setEmailValue({ email: value })}
+        cancelTitle="취소"
+        adaptTitle="초대"
+        handleCancelClick={handleCancelClick}
+        handleAdaptClick={submitInvite}
+      />
+
+      {isModalVisible && (
+        <AuthModal
+          message={responseMessage}
           handleCancelClick={handleCancelClick}
-          handleAdaptClick={submitInvite}
         />
-      </div>
+      )}
     </section>
   );
 }

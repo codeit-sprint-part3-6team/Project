@@ -5,7 +5,7 @@
   width: calc(100% - 300px);
   height: calc(100vh - 70px);
 
-  margin-left: 280px;
+  margin-left: 300px;
 
   background-color: var(--gray-brightes);
 }

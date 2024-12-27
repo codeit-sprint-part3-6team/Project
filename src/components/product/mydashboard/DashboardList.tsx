@@ -97,7 +97,7 @@ export default function DashboardList() {
         </li>
 
         {/* 스켈레톤 표시 */}
-        {!isLoading ? (
+        {isLoading ? (
           Array.from({ length: pageSize }).map((_, index) => (
             <li key={`skeleton_${index}`} className={styles.dashboard}>
               <div

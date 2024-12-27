@@ -97,7 +97,11 @@ function Column({
 
   const handleObserver = useCallback(
     ([entry]) => {
-      if (entry.isIntersecting && columnData.cursorId)
+      if (
+        entry.isIntersecting &&
+        columnData.cursorId &&
+        columnData.totalCount !== columnData.cards.length
+      )
         fetchCards({ cursor: columnData.cursorId });
     },
     [fetchCards, columnData.cursorId],
@@ -126,35 +130,35 @@ function Column({
       </div>
       <CDSButton btnType="todo" onClick={handleClick} />
       <div className={styles['card-section']}>
-        {isLoading
-          ? Array.from({ length: 4 }).map((_, index) => (
-              <SkeletonCard key={`skeleton_${index}`} />
-            ))
-          : columnData.cards.map(
-              ({
-                imageUrl,
-                id,
-                title,
-                tags,
-                dueDate,
-                assignee: { nickname, profileImageUrl },
-              }) => (
-                <Card
-                  key={`card_${id}`}
-                  imageUrl={imageUrl}
-                  id={id}
-                  title={title}
-                  tags={tags}
-                  dueDate={dueDate}
-                  nickname={nickname}
-                  profileImage={profileImageUrl}
-                  columnTitle={columnTitle}
-                  columnId={columnId}
-                  setColumnData={setColumnData}
-                  onUpdate={handleUpdate}
-                />
-              ),
-            )}
+        {columnData.cards.map(
+          ({
+            imageUrl,
+            id,
+            title,
+            tags,
+            dueDate,
+            assignee: { nickname, profileImageUrl },
+          }) => (
+            <Card
+              key={`card_${id}`}
+              imageUrl={imageUrl}
+              id={id}
+              title={title}
+              tags={tags}
+              dueDate={dueDate}
+              nickname={nickname}
+              profileImage={profileImageUrl}
+              columnTitle={columnTitle}
+              columnId={columnId}
+              setColumnData={setColumnData}
+              onUpdate={handleUpdate}
+            />
+          ),
+        )}
+        {isLoading &&
+          Array.from({ length: 4 }).map((_, index) => (
+            <SkeletonCard key={`skeleton_${index}`} />
+          ))}
         {columnData.cursorId && (
           <div ref={endPoint} className={styles['end-point']} />
         )}

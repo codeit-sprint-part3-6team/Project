@@ -6,16 +6,19 @@ import styles from './InviteList.module.css';
 
 interface InviteListProps {
   members: Invitaion[];
+  setMembers: React.Dispatch<React.SetStateAction<Invitaion[]>>;
 }
 
-export default function InviteList({ members }: InviteListProps) {
+export default function InviteList({ members, setMembers }: InviteListProps) {
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
   const handleDeleteClick = async (invitationId: number) => {
     try {
       await deleteInvitation(dashboardId, invitationId);
-      router.reload();
+      setMembers((prevMembers) =>
+        prevMembers.filter((member) => member.id !== invitationId),
+      );
     } catch (error) {
       throw new Error(`${error}`);
     }

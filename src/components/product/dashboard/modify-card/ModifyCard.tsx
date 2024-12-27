@@ -13,6 +13,7 @@ import getColumns from '@/lib/dashboard/getColumns';
 import useColumnData from '@/hooks/useColumnData';
 import useButtonState from '@/hooks/useModifyButtonState';
 import { GetColumnsResponse } from '@/type/column';
+import CloseIcon from 'public/ic/ic_x.svg';
 import TagManager from '../create-card/TagManager';
 import DescriptionInput from '../create-card/DescriptionInput';
 import CardImageInput from '../create-card/CardImageInput';
@@ -181,8 +182,17 @@ export default function ModifyCard({
   return (
     <div className={styles.container} onClick={(e) => e.stopPropagation()}>
       <div className={`${styles[`scrollable-content`]} custom-scroll`}>
-        <section className={styles.section}>
-          <p className={styles.title}>할 일 수정</p>
+        <section className={clsx(styles.section, styles[`header-container`])}>
+          <div className={styles['header-section']}>
+            <p className={styles.title}>할 일 수정</p>
+            <button
+              type="button"
+              className={styles['btn-close']}
+              onClick={closeModal}
+            >
+              <CloseIcon className={styles['icon-close']} />
+            </button>
+          </div>
         </section>
         <section className={clsx(styles.section, styles[`first-section`])}>
           <ColumnTitleSection

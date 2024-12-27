@@ -11,7 +11,6 @@ import getDashboards from '@/lib/mydashboard/getDashboard';
 import Navbar from '@/components/common/navbar/Navbar';
 import styles from './edit.module.css';
 
-// 모달 컴포넌트
 function DeleteModal({
   isOpen,
   onClose,
@@ -21,17 +20,19 @@ function DeleteModal({
   onClose: () => void;
   onConfirm: () => void;
 }) {
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-        <h3>정말 삭제하시겠습니까?</h3>
-        <div className={styles.modalActions}>
-          <button onClick={onClose} className={styles.cancelButton}>
+    <div className={styles['modal-container']}>
+      <div className={styles['modal-section']}>
+        <h3>정말 대시보드를 삭제하시겠습니까?</h3>
+        <div className={styles['modal-button']}>
+          <button onClick={onClose} className={styles['cancel-button']}>
             취소
           </button>
-          <button onClick={onConfirm} className={styles.confirmButton}>
+          <button onClick={onConfirm} className={styles['confirm-button']}>
             예
           </button>
         </div>

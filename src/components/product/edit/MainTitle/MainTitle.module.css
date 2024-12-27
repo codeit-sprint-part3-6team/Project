@@ -40,9 +40,51 @@
   max-width: 100%;
 }
 
+.modal-container {
+  position: fixed;
+  display: flex;
+  z-index: 1000;
+  margin-left: 170px;
+}
+
+.modal-section {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.modal-button {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cancel-button {
+  background: var(--gray-bright);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background: var(--violet);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1199px) {
   .title-container {
     width: 544px;
+  }
+
+  .modal-container {
+    margin-left: 130px;
   }
 }
 
@@ -56,5 +98,9 @@
 
   .header-section {
     gap: 32px;
+  }
+
+  .modal-container {
+    margin-left: -5px;
   }
 }

@@ -53,7 +53,6 @@ export default function InviteTitle() {
     fetchInvitations();
   }, [router.query.id, currentPage, isModalOpen]);
 
-  // 초대 요청을 보내고 alert
   useEffect(() => {
     if (!isModalOpen && alertMessage) {
       toast.success(alertMessage);
@@ -126,7 +125,7 @@ export default function InviteTitle() {
       <div className={styles['name-section']}>
         <h2 className={styles['sub-title']}>이메일</h2>
         <div className={styles['list']}>
-           <InviteList members={members} setMembers={setMembers} />
+          <InviteList members={members} setMembers={setMembers} />
         </div>
       </div>
       <InviteModal

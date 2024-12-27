@@ -4,6 +4,7 @@ import postComment from '@/lib/dashboard/postComment';
 import getComments from '@/lib/dashboard/getComments';
 import deleteComment from '@/lib/dashboard/deleteComment';
 import putComment from '@/lib/dashboard/putComment';
+import { toast } from 'react-toastify';
 
 const useComments = (
   cardId: number,
@@ -40,6 +41,7 @@ const useComments = (
   };
 
   const loadMoreComments = async (cursorId?: number) => {
+    setIsSubmitting(true);
     try {
       const newCommentsResponse = await getComments({ cardId, cursorId });
       setCommentsResponse((prev) => ({
@@ -48,6 +50,8 @@ const useComments = (
       }));
     } catch (error) {
       console.error('댓글을 불러오는데 실패했습니다:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -59,6 +63,7 @@ const useComments = (
         comments:
           prev?.comments.filter((comment) => comment.id !== commentId) || [],
       }));
+      toast.success('댓글이 삭제되었습니다.');
     } catch (error) {
       console.error('댓글 삭제 실패:', error);
     }
@@ -83,6 +88,7 @@ const useComments = (
             }
           : null,
       );
+      toast.success('댓글이 수정되었습니다.');
     } catch (error) {
       console.error('댓글 수정 실패:', error);
     }

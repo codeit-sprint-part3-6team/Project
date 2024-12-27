@@ -81,6 +81,18 @@ export default function Sidebar() {
     setDashboards(sidebarDashboards);
   }, [sidebarDashboards]);
 
+  useEffect(() => {
+    // 모달 dim 부분 스크롤 막기
+    if (showModal) {
+      document.body.style.overflow = 'hidden'; // 스크롤 비활성화
+    } else {
+      document.body.style.overflow = ''; // 기본 스크롤 상태로 복구
+    }
+    return () => {
+      document.body.style.overflow = ''; // 컴포넌트가 unmount 될 때도 스크롤 상태 복구
+    };
+  }, [showModal]);
+
   return (
     <div className={styles.sidebar}>
       <Link href="/" className={styles.logo}>

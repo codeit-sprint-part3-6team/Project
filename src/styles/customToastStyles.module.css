@@ -4,3 +4,18 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+.toast {
+  margin-top: 70px;
+}
+
+.toast + .toast {
+  margin-top: auto;
+}
+
+@media screen and (max-width: 743px) {
+  .toast {
+    width: 80% !important;
+    margin: 70px auto;
+  }
+}

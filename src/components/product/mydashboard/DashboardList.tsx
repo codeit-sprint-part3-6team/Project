@@ -7,8 +7,8 @@ import OverlayContainer from '@/components/common/modal/overlay-container/Overla
 import useSidebarDashboards from '@/hooks/useSidebar';
 import { Dashboard } from '@/type/dashboard';
 import { BadgeColor } from '@/type/button';
-import styles from './DashboardList.module.css';
 import { toast } from 'react-toastify';
+import styles from './DashboardList.module.css';
 
 export default function DashboardList() {
   const [currentPage, setCurrentPage] = useState(1);

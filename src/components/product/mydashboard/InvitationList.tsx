@@ -5,8 +5,8 @@ import debounce from '@/utils/debounce';
 import SearchIcon from 'public/ic/ic_search.svg';
 import CDSButton from '@/components/common/button/CDSButton';
 import NoInvitationImg from 'public/ic/ic_uncall.svg';
-import styles from './InvitationList.module.css';
 import { toast } from 'react-toastify';
+import styles from './InvitationList.module.css';
 
 export default function InvitationList() {
   const [invitations, setInvitations] = useState([]);

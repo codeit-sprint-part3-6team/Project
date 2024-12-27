@@ -10,10 +10,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/redux/store';
 import { setCardInfo } from '@/redux/cardSlice';
 import deleteCard from '@/lib/dashboard/deleteCard';
+import { toast } from 'react-toastify';
 import AuthorSection from './AuthorSection';
 import ChipSection from './ChipSection';
 import CommentSection from './CommentSection';
-import { toast } from 'react-toastify';
 
 interface DetailCardModalProps {
   title: string;

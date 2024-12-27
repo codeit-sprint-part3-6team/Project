@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import CDSButton from '@/components/common/button/CDSButton';
 import TitleTagInput from '@/components/common/input/info-input/TitleTagInput';
 import putDashboards from '@/lib/editdashboard/putDashboards';
-import ColorSelector from './ColorSelector';
-import styles from './MainTitle.module.css';
 import { toast } from 'react-toastify';
 import useSidebarDashboards from '@/hooks/useSidebar';
+import ColorSelector from './ColorSelector';
+import styles from './MainTitle.module.css';
 
 function EditConfirmModal({
   isOpen,

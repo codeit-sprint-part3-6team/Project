@@ -1,5 +1,5 @@
-import styles from './CheckBox.module.css';
 import { ChangeEvent } from 'react';
+import styles from './CheckBox.module.css';
 
 type CheckBoxProps = {
   name: string;

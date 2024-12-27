@@ -45,6 +45,7 @@ function DetailCardModal({
       toast.success('카드가 삭제되었습니다.');
       setColumnData((prev) => ({
         ...prev,
+        totalCount: prev.totalCount - 1,
         cards: prev.cards.filter((columnCard) => columnCard.id !== cardId), // 삭제된 카드 제외
       }));
     } catch (error) {

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import CDSButton from '@/components/common/button/CDSButton';
 import Crown from 'public/ic/ic_crown.svg';
-import { useRouter } from 'next/router';
 import deleteMembers from '@/lib/editdashboard/deleteMembers';
 import styles from './MemberList.module.css';
 
@@ -49,10 +48,10 @@ interface DashboardMember {
 
 interface MeberListProps {
   members: DashboardMember[] | undefined;
+  setMembers: React.Dispatch<React.SetStateAction<DashboardMember[]>>;
 }
 
-export default function MemberList({ members }: MeberListProps) {
-  const router = useRouter();
+export default function MemberList({ members, setMembers }: MeberListProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
 
@@ -71,7 +70,9 @@ export default function MemberList({ members }: MeberListProps) {
 
     try {
       await deleteMembers(selectedMemberId);
-      router.reload();
+      setMembers((prevMembers) =>
+        prevMembers.filter((member) => member.id !== selectedMemberId),
+      );
     } catch (error) {
       throw new Error(`${error}`);
     } finally {

@@ -130,7 +130,7 @@ export default function InvitationList() {
           </div>
         </div>
 
-        {!isLoading ? (
+        {isLoading ? (
           <div className={styles['skeleton-container']}>
             <div className={styles['skeleton-title']}>
               <div>이름</div>

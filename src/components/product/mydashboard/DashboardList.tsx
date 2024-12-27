@@ -146,8 +146,8 @@ export default function DashboardList() {
 
       {/* 모달창 */}
       {showModal && (
-        <OverlayContainer>
-          <div className={styles.modal}>
+        <OverlayContainer onClose={closeModal}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <h2>새로운 대시보드</h2>
             <h3>대시보드 이름</h3>
             <input

@@ -34,8 +34,11 @@ export default function GeneralModal({
   if (!isOpen) return null;
 
   return (
-    <OverlayContainer>
-      <div className={styles['modal-section']}>
+    <OverlayContainer onClose={onClose}>
+      <div
+        className={styles['modal-section']}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className={styles.top}>
           <div>
             <h1 className={styles.title}>{title}</h1>

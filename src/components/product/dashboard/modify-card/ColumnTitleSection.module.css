@@ -92,8 +92,14 @@
 }
 
 .status {
+  font-size: 14px;
+  font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media screen and (max-width: 743px) {
+    font-size: 12px;
+  }
 }
 
 .status-content {

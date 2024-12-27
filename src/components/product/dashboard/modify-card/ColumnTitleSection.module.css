@@ -1,8 +1,10 @@
 .section {
+  max-width: calc(50% - 16px);
   width: 100%;
   margin-bottom: 32px;
 
   @media screen and (max-width: 743px) {
+    max-width: none;
     margin-bottom: 24px;
   }
 }
@@ -23,6 +25,7 @@
 
 .input-box {
   position: relative;
+  cursor: pointer;
 }
 
 .name-select {
@@ -30,7 +33,7 @@
   height: 48px;
   border: 1px solid var(--gray-medium);
   border-radius: 8px;
-  padding: 11px 16px;
+  padding: 11px 46px 11px 16px;
   font-weight: 400;
   font-size: 16px;
   color: var(--black-medium);
@@ -77,4 +80,45 @@
 
 .option:hover {
   background-color: var(--gray-background);
+}
+
+.calculate {
+  display: flex;
+  gap: 5px;
+}
+
+.space {
+  flex-shrink: 0;
+  width: 22px;
+}
+
+.status {
+  font-size: 14px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media screen and (max-width: 743px) {
+    font-size: 12px;
+  }
+}
+
+.status-content {
+  width: calc(100% - 30px);
+}
+
+.status-select {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 400;
+
+  @media screen and (max-width: 743px) {
+    font-size: 12px;
+  }
+}
+
+.check-icon {
+  flex-shrink: 0;
 }

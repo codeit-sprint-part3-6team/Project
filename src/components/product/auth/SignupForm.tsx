@@ -1,4 +1,3 @@
-import styles from './SigninForm.module.css';
 import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
@@ -17,6 +16,8 @@ import {
   nicknameValidation,
   passwordCheckValidation,
 } from '@/utils/authValidation';
+import { toast } from 'react-toastify';
+import styles from './SigninForm.module.css';
 
 const INITIAL_VALUES = {
   email: '',
@@ -50,7 +51,7 @@ function SignupForm() {
 
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' ? checked : value.replace(/\s/g, ''),
     }));
   };
 
@@ -84,7 +85,7 @@ function SignupForm() {
           user: response.user,
         }),
       );
-      alert(`${values.nickname}님 가입이 완료되었습니다.`);
+      toast.success(`${values.nickname}님 가입이 완료되었습니다.`);
       router.push('/mydashboard');
     } catch (error) {
       setResponseMessage(error.message);

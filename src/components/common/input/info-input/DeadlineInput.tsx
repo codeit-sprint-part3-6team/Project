@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import ko from 'date-fns/locale/ko';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import format from 'date-fns/format';
@@ -26,7 +26,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       borderColor: '#d9d9d9',
     },
     '&.Mui-focused fieldset': {
-      borderColor: 'black',
+      borderColor: 'var(--violet)',
+      borderWidth: '1px',
     },
   },
   '& .MuiInputBase-root': {
@@ -70,34 +71,50 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 interface DeadlineInputProps {
   onDateChange: (date: string) => void;
+  initialDate: string | null;
 }
 
 export default function DeadlineInput({
   onDateChange,
+  initialDate,
 }: DeadlineInputProps): JSX.Element {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (initialDate) {
+      setSelectedDate(new Date(initialDate));
+    }
+  }, [initialDate]);
 
   const handleChange = (newValue: Date | null): void => {
     setSelectedDate(newValue);
-    const formattedDate = selectedDate
-      ? format(selectedDate, 'yyyy-MM-dd HH:mm')
-      : '';
+    const formattedDate = newValue ? format(newValue, 'yyyy-MM-dd HH:mm') : '';
     onDateChange(formattedDate);
   };
 
   return (
     <ThemeProvider theme={globalTheme}>
       <section className={styles.container}>
-        <p className={styles.title}>마감일</p>
+        <div className={styles['topic-box']}>
+          <p className={styles.title}>마감일</p>
+          <p className={styles.require}>*</p>
+        </div>
         <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ko}>
           <DateTimePicker
+            open={open}
+            onOpen={() => setOpen(true)}
+            onClose={() => setOpen(false)}
             value={selectedDate}
             onChange={handleChange}
-            slots={{ textField: StyledTextField }}
+            slots={{
+              textField: StyledTextField,
+            }}
             slotProps={{
               textField: {
                 fullWidth: true,
                 placeholder: '날짜를 입력해 주세요',
+                onClick: () => setOpen((prev) => !prev),
               },
             }}
           />

@@ -7,10 +7,30 @@
   font-size: 18px;
   line-height: 26px;
   color: var(--black-medium);
-  margin-bottom: 8px;
 
   @media screen and (max-width: 743px) {
     font-size: 16px;
     line-height: 24px;
   }
+}
+
+.topic-box {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.require {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--violet);
+
+  @media screen and (max-width: 743px) {
+    font-size: 14px;
+  }
+}
+
+.container input:focus {
+  border: none;
 }

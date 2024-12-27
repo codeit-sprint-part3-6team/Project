@@ -1,4 +1,3 @@
-import styles from './SigninForm.module.css';
 import { ChangeEvent, FocusEvent, FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
@@ -11,6 +10,7 @@ import AuthInput from '@/components/common/input/auth-input/AuthInput';
 import CDSButton from '@/components/common/button/CDSButton';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import CheckBox from '@/components/common/checkbox/CheckBox';
+import styles from './SigninForm.module.css';
 
 const INITIAL_VALUES = {
   email: '',
@@ -48,7 +48,7 @@ function SigninForm() {
 
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      [name]: value.replace(/\s/g, ''),
     }));
   };
 

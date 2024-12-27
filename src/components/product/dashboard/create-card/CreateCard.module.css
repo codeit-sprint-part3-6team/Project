@@ -1,20 +1,25 @@
 .container {
   width: 616px;
   height: 80%;
+  max-height: 966px;
   border-radius: 16px;
-  padding: 32px 0px 32px 32px;
+  padding: 6px 6px 9px 6px;
   background-color: var(--white);
+
   @media screen and (max-width: 743px) {
     width: 380px;
     height: 70%;
-    margin: 0px 24px;
+    max-height: 766px;
   }
 }
 
 .scrollable-content {
   height: 100%;
   overflow-y: auto;
-  padding-right: 32px;
+  padding: 0px 26px 22px 26px;
+  @media screen and (max-width: 743px) {
+    padding: 0px 14px 18px 14px;
+  }
 }
 
 .section {
@@ -24,6 +29,32 @@
   @media screen and (max-width: 743px) {
     margin-bottom: 24px;
   }
+}
+
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 11;
+  background-color: var(--white);
+  margin-top: 22px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-close {
+  border: 0;
+  background-color: transparent;
+
+  cursor: pointer;
+}
+
+.icon-close {
+  width: 32px;
+  height: 32px;
 }
 
 .title {

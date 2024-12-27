@@ -4,12 +4,22 @@
     "es2021": true,
     "node": true
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"] // 확장자 에러 표시 x
+      }
+    }
+  },
   "extends": [
-    "eslint:recommended",
+    "prettier",
+    "airbnb",
+    "airbnb-typescript",
+    "next/core-web-vitals",
+    "eslint:recommended", // 추천 규칙 적용
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "next/core-web-vitals"
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -19,12 +29,41 @@
   },
   "plugins": ["@typescript-eslint", "react", "prettier"],
   "rules": {
-    "react/react-in-jsx-scope": "off", // React 17 이상에서 필요 없음
-    "react/jsx-props-no-spreading": "off", // Props 스프레딩 허용
-    "@typescript-eslint/no-explicit-any": "off", // any 사용 허용
-    "no-console": "off", // console.log 허용
-    "prettier/prettier": "warn", // Prettier 규칙을 경고로
-    "no-unused-vars": "off", // 사용되지 않는 변수 경고 비활성화
-    "react-hooks/exhaustive-deps": "off" // useEffect 의존성 경고 비활성화
+    "no-console": "off",
+    "react/require-default-props": "off", // defaultProps 필요 없음
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/prop-types": "off",
+    "no-alert": "off",
+    "no-nested-ternary": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "react/button-has-type": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "consistent-return": "off",
+    "react/no-array-index-key": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "jsx-a11y/no-noninteractive-element-interactions": "off",
+    "react-hooks/exhaustive-deps": "off", // useEffect 및 useCallback 의존성 경고 비활성화
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state", "e", "config"] // Redux Toolkit 및 이벤트 허용
+      }
+    ],
+    "import/prefer-default-export": "off", // 단일 export에서 default export 강제 비활성화
+    "no-restricted-globals": [
+      "off",
+      {
+        "name": "confirm", // confirm 사용 가능
+        "message": "Use a custom modal instead"
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "prettier/prettier": "error" // 써보고 쓸데없는 오류가 발생할 경우 직접 설정
   }
 }

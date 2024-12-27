@@ -3,7 +3,7 @@
 	justify-content: space-between;
 	padding-right: 28px;
 	padding-left: 28px;
-	margin-top: 10px;
+	margin-bottom: 16px;
 }
 
 .crown {
@@ -13,13 +13,58 @@
 }
 
 .line {
-	margin-top: 15px;
-	border-color: var(--gray-light); 
+	margin-bottom: 16px;
+  border: none;
+  border-top: 1px solid var(--gray-bright); 
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-section {
+  background: var(--gray-bright);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.modal-button {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.cancel-button {
+  background: var(--gray-medium);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background: var(--violet);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 743px) {
   .container {
-    margin-top: 8px;
+    margin-bottom: 12px;
   }
 
   .crown {
@@ -30,6 +75,6 @@
   }
 
   .line {
-    margin-top: 13px;
+    margin-bottom: 12px;
   }
 }

@@ -5,6 +5,7 @@ import debounce from '@/utils/debounce';
 import SearchIcon from 'public/ic/ic_search.svg';
 import CDSButton from '@/components/common/button/CDSButton';
 import NoInvitationImg from 'public/ic/ic_uncall.svg';
+import { toast } from 'react-toastify';
 import styles from './InvitationList.module.css';
 
 export default function InvitationList() {
@@ -22,7 +23,7 @@ export default function InvitationList() {
         invitationId,
         inviteAccepted,
       });
-      alert(
+      toast.success(
         action === 'accept' ? '초대를 수락했습니다.' : '초대를 거절했습니다.',
       );
 
@@ -37,7 +38,7 @@ export default function InvitationList() {
           : prev.filter((invite) => invite.id !== invitationId),
       );
     } catch (error) {
-      alert('초대 응답 처리 중 오류가 발생했습니다.');
+      toast.error('초대 응답 처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -129,7 +130,29 @@ export default function InvitationList() {
           </div>
         </div>
 
-        {invitations.length > 0 ? (
+        {isLoading ? (
+          <div className={styles['skeleton-container']}>
+            <div className={styles['skeleton-title']}>
+              <div>이름</div>
+              <div>초대자</div>
+              <div>수락 여부</div>
+            </div>
+
+            {Array.from({ length: 10 }).map((_, index) => (
+              <div key={`skeleton_${index}`} className={styles['skeleton-row']}>
+                <div
+                  className={`${styles.skeleton} ${styles['skeleton-cell']}`}
+                />
+                <div
+                  className={`${styles.skeleton} ${styles['skeleton-cell']}`}
+                />
+                <div
+                  className={`${styles.skeleton} ${styles['skeleton-cell']}`}
+                />
+              </div>
+            ))}
+          </div>
+        ) : invitations.length > 0 ? (
           <table className={styles.table}>
             <thead>
               <tr className={styles['table-head']}>

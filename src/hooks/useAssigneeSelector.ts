@@ -1,12 +1,14 @@
 import { useState } from 'react';
 
-export default function useAssigneeSelector() {
-  const [selectedMemberNickname, setSelectedMemberNickname] =
-    useState<string>('');
+export default function useAssigneeSelector(
+  initialAssignee = { nickname: '', profileImageUrl: '' },
+) {
+  const [selectedMemberNickname, setSelectedMemberNickname] = useState<string>(
+    initialAssignee.nickname || '',
+  );
   const [selectedMemberProfileImage, setSelectedMemberProfileImage] =
-    useState<string>('');
+    useState<string>(initialAssignee.profileImageUrl);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const handleToggle = () => setIsDropdownOpen((prev) => !prev);
 
   const handleOptionClick = (nickname: string, profileImageUrl: string) => {

@@ -62,7 +62,7 @@ export default function MemberTitle() {
       </div>
       <div className={styles['name-section']}>
         <h2 className={styles['sub-title']}>이름</h2>
-        <MemberList members={members} />
+        <MemberList members={members} setMembers={setMembers} />
       </div>
     </section>
   );

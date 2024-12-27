@@ -8,6 +8,9 @@ import postCard from '@/lib/dashboard/postCard';
 import useMembers from '@/hooks/useMembers';
 import useCardImageUploader from '@/hooks/useCardImageUploader';
 import useAssigneeSelector from '@/hooks/useAssigneeSelector';
+import { toast } from 'react-toastify';
+import clsx from 'clsx';
+import CloseIcon from 'public/ic/ic_x.svg';
 import CardImageInput from './CardImageInput';
 import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
@@ -31,11 +34,12 @@ export default function CreateCard({
   const [formattedDate, setFormattedDate] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { query } = useRouter();
   const dashboardId = Number(query.id);
   const { members } = useMembers({ teamId: '11-6', dashboardId });
-  const { image, preview, handleImageChange } = useCardImageUploader();
+  const { image, preview, handleImageChange } = useCardImageUploader(null);
   const {
     selectedMemberNickname,
     selectedMemberProfileImage,
@@ -76,8 +80,14 @@ export default function CreateCard({
 
   // 생성 버튼 클릭시 함수
   const handleSubmit = async () => {
+    if (isSubmitting) {
+      toast.error('이미 요청을 보내고 있습니다.');
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      let imageUrl = null;
+      let imageUrl: string | null = null;
       if (image) {
         imageUrl = await cardImageUpload(image, columnId);
       }
@@ -87,7 +97,7 @@ export default function CreateCard({
       );
 
       if (!selectedMember) {
-        alert('담당자를 선택해주세요.');
+        toast.error('담당자를 선택해주세요.');
         return;
       }
 
@@ -102,10 +112,13 @@ export default function CreateCard({
         imageUrl,
       };
       await postCard(createData);
+      toast.success('할 일 카드가 생성되었습니다.');
       onUpdate();
       onClose();
     } catch (error) {
-      console.error('handleSubmit Error:', error);
+      toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -114,11 +127,20 @@ export default function CreateCard({
   };
 
   return (
-    <OverlayContainer>
-      <div className={styles.container}>
-        <div className={styles[`scrollable-content`]}>
-          <section className={styles.section}>
-            <p className={styles.title}>할 일 생성</p>
+    <OverlayContainer onClose={onClose}>
+      <div className={styles.container} onClick={(e) => e.stopPropagation()}>
+        <div className={`${styles[`scrollable-content`]} custom-scroll`}>
+          <section className={clsx(styles.section, styles[`header-container`])}>
+            <div className={styles['header-section']}>
+              <p className={styles.title}>할 일 생성</p>
+              <button
+                type="button"
+                className={styles['btn-close']}
+                onClick={onClose}
+              >
+                <CloseIcon className={styles['icon-close']} />
+              </button>
+            </div>
           </section>
           <AssigneeSection
             members={members}
@@ -142,7 +164,7 @@ export default function CreateCard({
             onChange={handleDescriptionChange}
           />
           <section className={styles.section}>
-            <DeadlineInput onDateChange={handleDateChange} />
+            <DeadlineInput onDateChange={handleDateChange} initialDate={null} />
           </section>
           <section className={styles.section}>
             <TagManager
@@ -163,7 +185,7 @@ export default function CreateCard({
           <ButtonSection
             onCancel={handleCancelClick}
             onSubmit={handleSubmit}
-            isDisabled={isDisabled}
+            isDisabled={isDisabled || isSubmitting}
           />
         </div>
       </div>

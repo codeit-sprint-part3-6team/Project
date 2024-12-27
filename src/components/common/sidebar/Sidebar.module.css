@@ -1,10 +1,11 @@
 .sidebar {
-  width: 280px;
+  width: 300px;
   height: 100vh;
   background-color: var(--white);
   padding: 20px 12px 0 8px;
   position: fixed;
   border-right: 1px solid var(--gray-medium);
+  z-index: 1;
 }
 
 .menu {
@@ -106,6 +107,7 @@
   height: 344px;
   padding: 32px;
   border-radius: 10px;
+  z-index: 11;
 }
 
 .modal h2 {
@@ -123,7 +125,6 @@
 .modal input {
   height: 50px;
   margin-top: 8px;
-  border: 1px solid var(--gray-medium);
   width: 100%;
   padding: 0 16px;
   border-radius: 8px;
@@ -132,11 +133,6 @@
 .modal input::placeholder {
   font-size: 16px;
   font-weight: 400;
-  color: var(--black-medium);
-}
-
-.modal-input:focus {
-  border: 1px solid var(--gray-medium);
 }
 
 .color-picker {
@@ -215,6 +211,10 @@
 
   .menu-text {
     display: none;
+  }
+
+  .menu-dashboard {
+    justify-content: center;
   }
 
   .color-circle {

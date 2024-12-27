@@ -1,6 +1,7 @@
 import React from 'react';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import ToggleButton from 'public/ic/ic_dropdown.svg';
+import Check from 'public/ic/ic_grayCheck.svg';
 import styles from './AssigneeSection.module.css';
 
 interface AssigneeSectionProps {
@@ -23,7 +24,7 @@ export default function AssigneeSection({
   return (
     <section className={styles.section}>
       <p className={styles.topic}>담당자</p>
-      <div className={styles[`input-box`]}>
+      <div className={styles[`input-box`]} onClick={onToggleDropdown}>
         {selectedMemberNickname ? (
           <div className={styles[`name-select`]}>
             <UserProfile
@@ -37,16 +38,15 @@ export default function AssigneeSection({
           <input
             type="text"
             value={selectedMemberNickname}
-            disabled
             placeholder="이름을 선택해 주세요."
             className={styles[`name-select`]}
+            readOnly
           />
         )}
         <ToggleButton
           className={styles[`toggle-button`]}
           width={26}
           height={26}
-          onClick={onToggleDropdown}
         />
       </div>
       {isDropdownOpen && (
@@ -67,12 +67,19 @@ export default function AssigneeSection({
                 }
               }}
             >
-              <UserProfile
-                type="todo-create"
-                nickname={member.nickname}
-                profileImageUrl={member.profileImageUrl}
-                onlyImg={false}
-              />
+              <div className={styles.calculate}>
+                {member.nickname === selectedMemberNickname ? (
+                  <Check width={22} height={22} />
+                ) : (
+                  <div className={styles.space} />
+                )}
+                <UserProfile
+                  type="todo-create"
+                  nickname={member.nickname}
+                  profileImageUrl={member.profileImageUrl}
+                  onlyImg={false}
+                />
+              </div>
             </div>
           ))}
         </div>

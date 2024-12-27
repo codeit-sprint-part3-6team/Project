@@ -18,7 +18,7 @@ function TestAuthModal() {
       </button>
       {Modal && (
         <AuthModal
-          message={'비밀번호가 일치하지 않습니다.'}
+          message="비밀번호가 일치하지 않습니다."
           handleCancelClick={handleCancelClick}
         />
       )}

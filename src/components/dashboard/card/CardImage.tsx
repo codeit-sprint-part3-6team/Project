@@ -21,6 +21,7 @@ function CardImage({ image, name, className }: ImageProps) {
         fill
         src={imgPath}
         alt={name || ''}
+        objectFit="cover"
         onError={() => setImageRenderError(true)}
       />
     </div>

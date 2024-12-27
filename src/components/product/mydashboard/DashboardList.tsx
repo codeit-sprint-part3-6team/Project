@@ -7,6 +7,7 @@ import OverlayContainer from '@/components/common/modal/overlay-container/Overla
 import useSidebarDashboards from '@/hooks/useSidebar';
 import { Dashboard } from '@/type/dashboard';
 import { BadgeColor } from '@/type/button';
+import { toast } from 'react-toastify';
 import styles from './DashboardList.module.css';
 
 export default function DashboardList() {
@@ -44,18 +45,25 @@ export default function DashboardList() {
   };
 
   const fetchDashboards = async () => {
-    const response = await getDashboards({
-      page: currentPage,
-      size: pageSize,
-      navigationMethod: 'pagination',
-    });
-    setDashboards(response.dashboards);
-    setTotalPages(Math.ceil(response.totalCount / pageSize));
+    setIsLoading(true);
+    try {
+      const response = await getDashboards({
+        page: currentPage,
+        size: pageSize,
+        navigationMethod: 'pagination',
+      });
+      setDashboards(response.dashboards);
+      setTotalPages(Math.ceil(response.totalCount / pageSize));
+    } catch (error) {
+      console.error('Error fetching dashboards:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleNewDashboard = async () => {
     if (!newDashboardName.trim()) {
-      alert('대시보드 이름을 입력해주세요.');
+      toast.error('대시보드 이름을 입력해주세요.');
       return;
     }
 
@@ -88,7 +96,16 @@ export default function DashboardList() {
           </CDSButton>
         </li>
 
-        {Array.isArray(dashboards) && dashboards.length > 0 ? (
+        {/* 스켈레톤 표시 */}
+        {isLoading ? (
+          Array.from({ length: pageSize }).map((_, index) => (
+            <li key={`skeleton_${index}`} className={styles.dashboard}>
+              <div
+                className={`${styles.skeleton} ${styles['skeleton-card']}`}
+              />
+            </li>
+          ))
+        ) : Array.isArray(dashboards) && dashboards.length > 0 ? (
           dashboards.map((item) => (
             <li key={`DashboardList_${item.id}`} className={styles.dashboard}>
               <CDSButton
@@ -129,8 +146,8 @@ export default function DashboardList() {
 
       {/* 모달창 */}
       {showModal && (
-        <OverlayContainer>
-          <div className={styles.modal}>
+        <OverlayContainer onClose={closeModal}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <h2>새로운 대시보드</h2>
             <h3>대시보드 이름</h3>
             <input

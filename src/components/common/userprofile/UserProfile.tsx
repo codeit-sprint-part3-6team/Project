@@ -1,5 +1,5 @@
-import styles from './UserProfile.module.css';
 import Avatar from '@mui/material/Avatar';
+import styles from './UserProfile.module.css';
 
 type UserProfileProps = {
   type?: 'header' | 'dashboard-detail' | 'todo-detail' | 'todo-create';
@@ -14,6 +14,7 @@ function UserProfile({
   nickname,
   profileImageUrl,
 }: UserProfileProps) {
+  if (!nickname) return null;
   return (
     <>
       <div className={`${styles['user-profile']} ${styles[type]}`}>

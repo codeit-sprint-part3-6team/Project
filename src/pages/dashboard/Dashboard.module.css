@@ -2,16 +2,12 @@
   overflow-x: scroll;
   display: flex;
 
-  width: calc(100% - 280px);
+  width: calc(100% - 300px);
   height: calc(100vh - 70px);
 
-  margin-left: 280px;
+  margin-left: 300px;
 
   background-color: var(--gray-brightes);
-}
-
-.container::-webkit-scrollbar {
-  display: none;
 }
 
 .add-column {

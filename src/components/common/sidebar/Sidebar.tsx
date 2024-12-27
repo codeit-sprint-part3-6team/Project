@@ -12,6 +12,7 @@ import PlusBtn from 'public/ic/ic_plus.svg';
 import CrownIcon from 'public/ic/ic_crown.svg';
 import OverlayContainer from '@/components/common/modal/overlay-container/OverlayContainer';
 import postDashboards from '@/lib/mydashboard/postDashboard';
+import { toast } from 'react-toastify';
 import CDSButton from '../button/CDSButton';
 
 export default function Sidebar() {
@@ -53,7 +54,7 @@ export default function Sidebar() {
 
   const handleNewDashboard = async () => {
     if (!newDashboardName.trim()) {
-      alert('대시보드 이름을 입력해주세요.');
+      toast.error('대시보드 이름을 입력해주세요.');
       return;
     }
 
@@ -79,6 +80,18 @@ export default function Sidebar() {
   useEffect(() => {
     setDashboards(sidebarDashboards);
   }, [sidebarDashboards]);
+
+  useEffect(() => {
+    // 모달 dim 부분 스크롤 막기
+    if (showModal) {
+      document.body.style.overflow = 'hidden'; // 스크롤 비활성화
+    } else {
+      document.body.style.overflow = ''; // 기본 스크롤 상태로 복구
+    }
+    return () => {
+      document.body.style.overflow = ''; // 컴포넌트가 unmount 될 때도 스크롤 상태 복구
+    };
+  }, [showModal]);
 
   return (
     <div className={styles.sidebar}>
@@ -157,8 +170,8 @@ export default function Sidebar() {
 
       {/* 모달창 */}
       {showModal && (
-        <OverlayContainer>
-          <div className={styles.modal}>
+        <OverlayContainer onClose={closeModal}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <h2>새로운 대시보드</h2>
             <h3>대시보드 이름</h3>
             <input

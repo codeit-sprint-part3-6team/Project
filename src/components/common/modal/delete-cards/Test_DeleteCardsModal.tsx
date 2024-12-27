@@ -20,7 +20,7 @@ function TestDeleteCardsModal() {
       <button onClick={onClick}>카드 삭제 모달</button>
       {Modal && (
         <DeleteCardsModal
-          message={'컬럼의 모든 카드가 삭제됩니다.'}
+          message="컬럼의 모든 카드가 삭제됩니다."
           handleCancelClick={handleCancelClick}
           handleDeleteClick={handleDeleteClick}
         />

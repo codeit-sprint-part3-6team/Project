@@ -3,6 +3,7 @@ import styles from '@/components/common/modal/detail-cards/CommentSection.module
 import Comment from '@/components/dashboard/comment/Comment';
 import useComments from '@/hooks/useComments';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import SkeletonComment from '@/components/dashboard/comment/SkeletonComment';
 
 interface CommentSectionProps {
   cardId: number;
@@ -89,6 +90,10 @@ function CommentSection({
             />
           ),
         )}
+        {isSubmitting &&
+          Array.from({ length: 4 }).map((_, index) => (
+            <SkeletonComment key={`skeleton_${columnId}_${index}`} />
+          ))}
       </div>
       {commentsResponse.cursorId && (
         <div ref={endPoint} className={styles['end-point']} />

@@ -10,10 +10,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/redux/store';
 import { setCardInfo } from '@/redux/cardSlice';
 import deleteCard from '@/lib/dashboard/deleteCard';
+import { toast } from 'react-toastify';
 import AuthorSection from './AuthorSection';
 import ChipSection from './ChipSection';
 import CommentSection from './CommentSection';
-import { toast } from 'react-toastify';
 
 interface DetailCardModalProps {
   title: string;
@@ -45,6 +45,7 @@ function DetailCardModal({
       toast.success('카드가 삭제되었습니다.');
       setColumnData((prev) => ({
         ...prev,
+        totalCount: prev.totalCount - 1,
         cards: prev.cards.filter((columnCard) => columnCard.id !== cardId), // 삭제된 카드 제외
       }));
     } catch (error) {

@@ -7,8 +7,8 @@ import OverlayContainer from '@/components/common/modal/overlay-container/Overla
 import useSidebarDashboards from '@/hooks/useSidebar';
 import { Dashboard } from '@/type/dashboard';
 import { BadgeColor } from '@/type/button';
-import styles from './DashboardList.module.css';
 import { toast } from 'react-toastify';
+import styles from './DashboardList.module.css';
 
 export default function DashboardList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -97,7 +97,7 @@ export default function DashboardList() {
         </li>
 
         {/* 스켈레톤 표시 */}
-        {!isLoading ? (
+        {isLoading ? (
           Array.from({ length: pageSize }).map((_, index) => (
             <li key={`skeleton_${index}`} className={styles.dashboard}>
               <div
@@ -146,8 +146,8 @@ export default function DashboardList() {
 
       {/* 모달창 */}
       {showModal && (
-        <OverlayContainer>
-          <div className={styles.modal}>
+        <OverlayContainer onClose={closeModal}>
+          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
             <h2>새로운 대시보드</h2>
             <h3>대시보드 이름</h3>
             <input

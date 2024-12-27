@@ -8,12 +8,14 @@ import postCard from '@/lib/dashboard/postCard';
 import useMembers from '@/hooks/useMembers';
 import useCardImageUploader from '@/hooks/useCardImageUploader';
 import useAssigneeSelector from '@/hooks/useAssigneeSelector';
+import { toast } from 'react-toastify';
+import clsx from 'clsx';
+import CloseIcon from 'public/ic/ic_x.svg';
 import CardImageInput from './CardImageInput';
 import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
 import AssigneeSection from './AssigneeSection';
 import DescriptionInput from './DescriptionInput';
-import { toast } from 'react-toastify';
 import styles from './CreateCard.module.css';
 
 interface CreateCardProps {
@@ -128,8 +130,17 @@ export default function CreateCard({
     <OverlayContainer onClose={onClose}>
       <div className={styles.container} onClick={(e) => e.stopPropagation()}>
         <div className={`${styles[`scrollable-content`]} custom-scroll`}>
-          <section className={styles.section}>
-            <p className={styles.title}>할 일 생성</p>
+          <section className={clsx(styles.section, styles[`header-container`])}>
+            <div className={styles['header-section']}>
+              <p className={styles.title}>할 일 생성</p>
+              <button
+                type="button"
+                className={styles['btn-close']}
+                onClick={onClose}
+              >
+                <CloseIcon className={styles['icon-close']} />
+              </button>
+            </div>
           </section>
           <AssigneeSection
             members={members}

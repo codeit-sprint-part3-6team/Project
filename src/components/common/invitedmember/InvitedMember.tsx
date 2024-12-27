@@ -1,8 +1,8 @@
 import { Key, useEffect, useState } from 'react';
-import styles from './InvitedMember.module.css';
 
 import Avatar from '@mui/joy/Avatar';
 import AvatarGroup from '@mui/joy/AvatarGroup';
+import styles from './InvitedMember.module.css';
 
 type memberProps = {
   id: Key;

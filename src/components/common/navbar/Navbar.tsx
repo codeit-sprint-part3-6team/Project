@@ -1,17 +1,17 @@
-import styles from './Navbar.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
+import postInvite from '@/lib/invite/postInvite';
+import { toast } from 'react-toastify';
+import styles from './Navbar.module.css';
 import NavButton from '../button/NavButton';
 import UserProfile from '../userprofile/UserProfile';
 import InvitedMember from '../invitedmember/InvitedMember';
 import GeneralModal from '../modal/general/GeneralModal';
 import Dropdown from '../dropdown/Dropdown';
-import { getDashboard, getMember } from '@/lib/navbar/getNavbar';
-import postInvite from '@/lib/invite/postInvite';
 import AuthModal from '../modal/auth/AuthModal';
-import { toast } from 'react-toastify';
 
 const INITIAL_VALUES = {
   email: '',
@@ -100,7 +100,7 @@ function Navbar() {
     }
   };
 
-  if (!dashboardData) {
+  if (isMyDashboard && isMyPage && !dashboardData) {
     return;
   }
 

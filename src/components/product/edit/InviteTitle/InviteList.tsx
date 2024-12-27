@@ -52,6 +52,11 @@ export default function InviteList({ members, setMembers }: InviteListProps) {
     number | null
   >(null);
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedInvitationId(null);
+  };
+
   const handleDeleteClick = async () => {
     if (selectedInvitationId === null) return;
 
@@ -70,11 +75,6 @@ export default function InviteList({ members, setMembers }: InviteListProps) {
   const openModal = (invitationId: number) => {
     setSelectedInvitationId(invitationId);
     setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedInvitationId(null);
   };
 
   return (

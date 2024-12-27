@@ -5,11 +5,11 @@ import { AppDispatch, RootState } from '@/redux/store';
 import uploadImage from '@/lib/mypage/uploadImage';
 import modifyProfile from '@/lib/mypage/modifyProfile';
 import CDSButton from '@/components/common/button/CDSButton';
+import { toast } from 'react-toastify';
 import ProfileImageInput from './ProfileImageInput';
 import ProfileInfoForm from './ProfileInfoForm';
 import ProfileModifyModal from './ProfileModifyModal';
 import styles from './ModifyProfile.module.css';
-import { toast } from 'react-toastify';
 
 interface ModifyValue {
   nickname: string;

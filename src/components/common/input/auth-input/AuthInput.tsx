@@ -1,7 +1,7 @@
 import { ChangeEvent, FocusEvent, MouseEvent, useState } from 'react';
-import styles from './AuthInput.module.css';
 import Visibility from 'public/ic/ic_visibility.svg';
 import InVisibility from 'public/ic/ic_invisibility.svg';
+import styles from './AuthInput.module.css';
 
 type AuthInputProps = {
   name: string;

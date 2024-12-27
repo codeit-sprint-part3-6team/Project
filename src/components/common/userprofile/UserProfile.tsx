@@ -1,5 +1,5 @@
-import styles from './UserProfile.module.css';
 import Avatar from '@mui/material/Avatar';
+import styles from './UserProfile.module.css';
 
 type UserProfileProps = {
   type?: 'header' | 'dashboard-detail' | 'todo-detail' | 'todo-create';

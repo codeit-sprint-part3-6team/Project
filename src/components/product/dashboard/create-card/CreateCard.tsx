@@ -9,13 +9,13 @@ import useMembers from '@/hooks/useMembers';
 import useCardImageUploader from '@/hooks/useCardImageUploader';
 import useAssigneeSelector from '@/hooks/useAssigneeSelector';
 import { toast } from 'react-toastify';
+import clsx from 'clsx';
+import CloseIcon from 'public/ic/ic_x.svg';
 import CardImageInput from './CardImageInput';
 import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
 import AssigneeSection from './AssigneeSection';
 import DescriptionInput from './DescriptionInput';
-import clsx from 'clsx';
-import CloseIcon from 'public/ic/ic_x.svg';
 import styles from './CreateCard.module.css';
 
 interface CreateCardProps {

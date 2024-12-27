@@ -213,6 +213,10 @@
     display: none;
   }
 
+  .menu-dashboard {
+    justify-content: center;
+  }
+
   .color-circle {
     /* margin: 0 0 20px 0; */
     margin: 0;

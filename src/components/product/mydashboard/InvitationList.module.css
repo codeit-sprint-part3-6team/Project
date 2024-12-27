@@ -10,19 +10,11 @@
   margin-bottom: 32px;
 }
 
-.input-container {
-  width: 100%;
-  border: 1px solid var(--gray-medium);
-  border-radius: 6px;
-  gap: 8px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .icon {
+  position: fixed;
   margin-left: 16px;
   cursor: pointer;
+  margin-top: 8px;
 }
 
 .input::placeholder {
@@ -32,7 +24,13 @@
 }
 
 .input {
-  border-style: none;
+  padding-left: 48px;
+  width: 100%;
+  border: 1px solid var(--gray-medium);
+  border-radius: 6px;
+  gap: 8px;
+  display: flex;
+  align-items: center;
   height: 40px;
 }
 
@@ -242,15 +240,14 @@
   }
 
   .skeleton-title {
-    padding: 0;
+    display: none;
   }
 
   .skeleton-row {
-    display: flex;
+    flex-direction: column;
     gap: 20px;
-    align-items: center;
-    height: 52px;
-    margin-bottom: 20px;
+    align-items: normal;
+    height: 130px;
   }
 }
 

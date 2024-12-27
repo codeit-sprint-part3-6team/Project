@@ -100,7 +100,7 @@ function Navbar() {
     }
   };
 
-  if (!dashboardData) {
+  if (isMyDashboard && isMyPage && !dashboardData) {
     return;
   }
 

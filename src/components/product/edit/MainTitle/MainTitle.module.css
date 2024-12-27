@@ -1,56 +1,60 @@
 .title-container {
-	width: 620px; 
-	height: 344px;
-	border-radius: 16px;
-	padding: 32px 28px 32px 28px;
-	margin-top: 20px;
+  width: 620px;
+  height: 344px;
+  border-radius: 16px;
+  padding: 32px 28px 32px 28px;
+  margin-top: 20px;
   background-color: var(--white);
-	gap: 10px
+  gap: 10px;
 }
 
 .header-section {
-	display: flex;
-	flex-direction: column;
-	gap: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .header-top {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .title {
-	font-weight: 700;
-	font-size: 24px;
-	line-height: 32px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
 }
 
 .sub-container {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .button {
-	width: 564px;
+  width: 564px;
+}
+
+.sheader-button button {
+  max-width: 100%;
 }
 
 @media screen and (max-width: 1199px) {
-	.title-container {
-		width: 544px;
-	}
+  .title-container {
+    width: 544px;
+  }
 }
 
 @media screen and (max-width: 743px) {
-	.title-container {
-		width: 284px;
-		height: 312px;
-		border-radius: 8px;
-		padding: 20px 16px 20px 16px;
-	}
+  .title-container {
+    width: 284px;
+    height: 312px;
+    border-radius: 8px;
+    padding: 20px 16px 20px 16px;
+  }
 
-	.header-section {
-		gap: 32px;
-	}
+  .header-section {
+    gap: 32px;
+  }
 }

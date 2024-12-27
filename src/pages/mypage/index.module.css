@@ -11,7 +11,7 @@
 }
 
 .box {
-  margin-left: 280px;
+  margin-left: 300px;
 
   @media screen and (max-width: 1199px) {
     margin-left: 160px;

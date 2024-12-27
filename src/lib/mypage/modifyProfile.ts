@@ -20,11 +20,12 @@ export default async function modifyProfile(
   try {
     const res = await instance.put(`/11-6/users/me`, data);
     return res.data;
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      throw new Error(`프로필 수정에 실패했어요: ${error.message}`);
-    } else {
-      throw new Error('프로필 수정에 실패했어요: 알 수 없는 오류');
+  } catch (error) {
+    if (error.response) {
+      console.error('API 응답 에러:', error.response.data);
     }
+    throw new Error(
+      error.response?.data?.message || '프로필을 수정하는데 실패했어요',
+    );
   }
 }

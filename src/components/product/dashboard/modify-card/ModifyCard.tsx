@@ -65,6 +65,7 @@ export default function ModifyCard({
     columnTitle,
     assigneeNickname: cardInfo?.assignee?.nickname || '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { image, preview, handleImageChange } = useCardImageUploader(
     cardInfo?.imageUrl || null,
@@ -172,6 +173,8 @@ export default function ModifyCard({
       dispatch,
       initialData,
       setInitialData,
+      isSubmitting,
+      setIsSubmitting,
     });
   };
 
@@ -233,7 +236,7 @@ export default function ModifyCard({
         <ModifyButtonSection
           onCancel={closeModal}
           onSubmit={handleSubmit}
-          isDisabled={isDisabled}
+          isDisabled={isDisabled || isSubmitting}
         />
       </div>
     </div>

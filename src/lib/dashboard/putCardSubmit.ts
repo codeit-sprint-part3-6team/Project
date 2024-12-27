@@ -20,7 +20,15 @@ const putCardSubmit = async ({
   dispatch,
   initialData,
   setInitialData,
+  isSubmitting,
+  setIsSubmitting,
 }) => {
+  if (isSubmitting) {
+    toast.error('이미 요청을 보내고 있습니다.');
+    return;
+  }
+  setIsSubmitting(true);
+
   try {
     let imageUrl = cardInfo?.imageUrl || null;
     if (image) {
@@ -52,7 +60,9 @@ const putCardSubmit = async ({
     await onUpdate();
     await closeModal();
   } catch (error) {
-    console.error('handleSubmit Error:', error);
+    toast.error(error.message);
+  } finally {
+    setIsSubmitting(false);
   }
 };
 

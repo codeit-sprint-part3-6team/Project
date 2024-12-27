@@ -18,8 +18,14 @@ function ConfirmModal({
     return null;
   }
 
+  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={styles['modal-container']}>
+    <div className={styles['modal-container']} onClick={handleContainerClick}>
       <div className={styles['modal-section']}>
         <h3>정말 이 구성원을 삭제하시겠습니까?</h3>
         <div className={styles['modal-button']}>

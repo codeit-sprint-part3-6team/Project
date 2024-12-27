@@ -14,7 +14,6 @@ import TagManager from './TagManager';
 import ButtonSection from './ButtonSection';
 import AssigneeSection from './AssigneeSection';
 import DescriptionInput from './DescriptionInput';
-import { toast } from 'react-toastify';
 import clsx from 'clsx';
 import CloseIcon from 'public/ic/ic_x.svg';
 import styles from './CreateCard.module.css';

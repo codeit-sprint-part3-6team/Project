@@ -1,4 +1,3 @@
-import styles from './SigninForm.module.css';
 import { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
@@ -18,6 +17,7 @@ import {
   passwordCheckValidation,
 } from '@/utils/authValidation';
 import { toast } from 'react-toastify';
+import styles from './SigninForm.module.css';
 
 const INITIAL_VALUES = {
   email: '',

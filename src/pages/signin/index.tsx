@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import styles from './index.module.css';
 import SigninForm from '@/components/product/auth/SigninForm';
 import useAuthRedirect from '@/hooks/useAuthRedirect';
 import Logo from 'public/images/img_signinlogo.svg';
+import styles from './index.module.css';
 
 function SignIn() {
   const isNotRedirected = useAuthRedirect();
@@ -15,7 +15,7 @@ function SignIn() {
   return (
     <>
       <div className={styles['signin-container']}>
-        <Link href={'/'}>
+        <Link href="/">
           <div className={styles.logo}>
             <Logo />
           </div>
@@ -25,7 +25,7 @@ function SignIn() {
         <SigninForm />
 
         <p className={styles['link-text']}>
-          회원이 아니신가요? <Link href={'/signup'}>회원가입하기</Link>
+          회원이 아니신가요? <Link href="/signup">회원가입하기</Link>
         </p>
       </div>
     </>

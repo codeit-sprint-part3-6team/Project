@@ -71,7 +71,7 @@ export default function AssigneeSection({
                 {member.nickname === selectedMemberNickname ? (
                   <Check width={22} height={22} />
                 ) : (
-                  <div className={styles.space}></div>
+                  <div className={styles.space} />
                 )}
                 <UserProfile
                   type="todo-create"

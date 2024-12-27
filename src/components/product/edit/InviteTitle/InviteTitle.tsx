@@ -7,10 +7,10 @@ import getInvitations, {
   GetInvitationsResponse,
 } from '@/lib/editdashboard/getInvitation';
 import postInvite from '@/lib/invite/postInvite';
-import styles from './InviteTitle.module.css';
-import InviteList from './InviteList';
 import AuthModal from '@/components/common/modal/auth/AuthModal';
 import { toast } from 'react-toastify';
+import styles from './InviteTitle.module.css';
+import InviteList from './InviteList';
 
 const INITIAL_VALUES = {
   email: '',
@@ -124,7 +124,7 @@ export default function InviteTitle() {
       </div>
       <div className={styles['name-section']}>
         <h2 className={styles['sub-title']}>이메일</h2>
-        <div className={styles['list']}>
+        <div className={styles.list}>
           <InviteList members={members} setMembers={setMembers} />
         </div>
       </div>

@@ -171,9 +171,7 @@ export default function ChangePassword({
       </div>
       {modal && (
         <AuthModal
-          message={
-            errorMessage ? errorMessage : '비밀번호 변경이 완료되었습니다.'
-          }
+          message={errorMessage || '비밀번호 변경이 완료되었습니다.'}
           handleCancelClick={handleCancelClick}
         />
       )}

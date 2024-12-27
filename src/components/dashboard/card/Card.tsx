@@ -95,7 +95,7 @@ function Card({
         </OverlayContainer>
       )}
       {isModifyModalOpen && (
-        <OverlayContainer>
+        <OverlayContainer onClose={handleCloseModifyModal}>
           <ModifyCard
             closeModal={handleCloseModifyModal}
             columnTitle={columnTitle}

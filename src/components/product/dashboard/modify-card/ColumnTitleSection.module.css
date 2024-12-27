@@ -25,6 +25,7 @@
 
 .input-box {
   position: relative;
+  cursor: pointer;
 }
 
 .name-select {
@@ -110,6 +111,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 14px;
+  font-weight: 400;
+
+  @media screen and (max-width: 743px) {
+    font-size: 12px;
+  }
 }
 
 .check-icon {

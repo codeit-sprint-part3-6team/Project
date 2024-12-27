@@ -22,8 +22,10 @@
 
 .modal-container {
   position: fixed;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -46,7 +48,7 @@
 }
 
 .cancel-button {
-  background: var(--gray-bright);
+  background: var(--gray-medium);
   border: none;
   padding: 10px 20px;
   border-radius: 4px;

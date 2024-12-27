@@ -24,7 +24,7 @@ function EditConfirmModal({
   return (
     <div className={styles['modal-container']}>
       <div className={styles['modal-section']}>
-        <h3>제목또는 색상을 변경하시겠습니까?</h3>
+        <h3>제목 또는 색상을 변경하시겠습니까?</h3>
         <div className={styles['modal-button']}>
           <button onClick={onClose} className={styles['cancel-button']}>
             취소

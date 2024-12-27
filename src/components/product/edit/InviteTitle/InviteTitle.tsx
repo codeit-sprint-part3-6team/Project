@@ -125,7 +125,9 @@ export default function InviteTitle() {
       </div>
       <div className={styles['name-section']}>
         <h2 className={styles['sub-title']}>이메일</h2>
-        <InviteList members={members} setMembers={setMembers} />
+        <div className={styles['list']}>
+           <InviteList members={members} setMembers={setMembers} />
+        </div>
       </div>
       <InviteModal
         label="이메일"

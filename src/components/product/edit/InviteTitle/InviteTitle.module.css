@@ -12,14 +12,16 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
 }
 
 .title {
 	font-weight: 700;
 	font-size: 24px;
 	line-height: 32px;
-	padding-left: 14px;
-  margin-bottom: 20px;
+	padding-right: 28px;
+  padding-left: 28px;
 }
 
 .button-section {
@@ -65,8 +67,8 @@
 }
 
 .sub-title {
-	margin-top: 20px;
-  margin-left: 15px;
+	margin-top: 32px;
+  margin-left: 28px;
   margin-bottom: 20px;
 	font-weight: 400;
 	font-size: 16px;
@@ -78,10 +80,6 @@
 	.title-container {
 		width: 544px;
 	}
-
-  .pagination-button {
-    display: none;
-  }
 
 	.sub-title {
 		margin-top: 15px;
@@ -102,10 +100,12 @@
 
 	.title {
 		font-size: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-top: -30px;
 	}
 
   .button-section { 
-    margin-top: 5px;
     flex-direction: column;
     gap: 0;
   }
@@ -123,7 +123,7 @@
   }
 
 	.sub-title {
-		margin-top: -30px;
+		margin-top: -55px;
 		font-weight: 400;
 		font-size: 14px;
 		line-height: 24px;
@@ -131,5 +131,9 @@
 
   .invite-button-section {
     margin: 8px 0 0 auto;
+  }
+
+  .list {
+    margin-top: 45px;
   }
 }

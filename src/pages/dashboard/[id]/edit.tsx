@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Sidebar from '@/components/common/sidebar/Sidebar';
 import ReturnButton from '@/components/common/button/ReturnButton';
 import CDSButton from '@/components/common/button/CDSButton';
@@ -6,7 +7,6 @@ import MainTitle from '@/components/product/edit/MainTitle/MainTitle';
 import MemberTitle from '@/components/product/edit/MemberTitle/MemberTitle';
 import InviteTitle from '@/components/product/edit/InviteTitle/InviteTitle';
 import deleteDashboard from '@/lib/editdashboard/deleteDashboards';
-import { useRouter } from 'next/router';
 import getDashboards from '@/lib/mydashboard/getDashboard';
 import Navbar from '@/components/common/navbar/Navbar';
 import styles from './edit.module.css';

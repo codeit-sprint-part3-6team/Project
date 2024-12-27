@@ -6,6 +6,7 @@ import putDashboards from '@/lib/editdashboard/putDashboards';
 import ColorSelector from './ColorSelector';
 import styles from './MainTitle.module.css';
 import { toast } from 'react-toastify';
+import useSidebarDashboards from '@/hooks/useSidebar';
 
 interface MainTitleProps {
   dashboardtitle: string | null;
@@ -18,8 +19,11 @@ export default function MainTitle({
 }: MainTitleProps) {
   const [selectedColor, setSelectedColor] = useState<string>(dashboardColor);
   const [title, setTitle] = useState(dashboardtitle || '');
+  const [newTitle, setNewTitle] = useState(dashboardtitle || '');
   const router = useRouter();
   const dashboardId = Number(router.query.id);
+
+  const { fetchSidebarDashboards } = useSidebarDashboards();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -27,13 +31,18 @@ export default function MainTitle({
 
   const handleEditClick = async () => {
     try {
-      const updatedTitle = await putDashboards({
+      const updatedDashboard = await putDashboards({
         title,
         color: selectedColor,
         dashboardId,
       });
-      setTitle(updatedTitle.title);
+
+      setNewTitle(updatedDashboard.title);
+      setTitle(updatedDashboard.title);
+      setSelectedColor(updatedDashboard.color);
+
       toast.success('변경 사항이 저장되었습니다.');
+      fetchSidebarDashboards(1);
     } catch (error) {
       throw new Error(`${error}`);
     }
@@ -44,9 +53,9 @@ export default function MainTitle({
       <div className={styles['header-section']}>
         <div className={styles['header-top']}>
           <h1 className={styles.title}>
-            {dashboardtitle && dashboardtitle.length > 10
-              ? `${dashboardtitle.slice(0, 10)}...`
-              : dashboardtitle}
+            {newTitle && newTitle.length > 10
+              ? `${newTitle.slice(0, 10)}...`
+              : newTitle}
           </h1>
           <div className={styles['sub-container']}>
             <TitleTagInput

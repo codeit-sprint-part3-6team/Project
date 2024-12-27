@@ -11,22 +11,53 @@ import getDashboards from '@/lib/mydashboard/getDashboard';
 import Navbar from '@/components/common/navbar/Navbar';
 import styles from './edit.module.css';
 
+// 모달 컴포넌트
+function DeleteModal({
+  isOpen,
+  onClose,
+  onConfirm,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
+  if (!isOpen) return null;
+
+  return (
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <h3>정말 삭제하시겠습니까?</h3>
+        <div className={styles.modalActions}>
+          <button onClick={onClose} className={styles.cancelButton}>
+            취소
+          </button>
+          <button onClick={onConfirm} className={styles.confirmButton}>
+            예
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function EditPage() {
   const [dashboardTitle, setDashboardTitle] = useState<string | null>(null);
   const [dashboardColor, setDashboardColor] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
   const handleDeleteClick = async () => {
     try {
-      if (confirm('정말 삭제하시겠습니까?')) {
-        await deleteDashboard(dashboardId);
-        router.push('/mydashboard');
-      }
+      await deleteDashboard(dashboardId);
+      router.push('/mydashboard');
     } catch (error) {
       throw new Error(`${error}`);
     }
   };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -45,13 +76,14 @@ export default function EditPage() {
         throw new Error(`${error}`);
       }
     };
-
     if (dashboardId) {
       fetchDashboard();
     }
   }, [dashboardId]);
 
-  if (!dashboardColor) return;
+  if (!dashboardColor) {
+    return null;
+  }
 
   return (
     <main className={styles.container}>
@@ -68,11 +100,19 @@ export default function EditPage() {
           <InviteTitle />
         </div>
         <div className={styles.button}>
-          <CDSButton btnType="dashboard_delete" onClick={handleDeleteClick}>
+          <CDSButton btnType="dashboard_delete" onClick={openModal}>
             대시보드 삭제하기
           </CDSButton>
         </div>
       </div>
+      <DeleteModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onConfirm={() => {
+          handleDeleteClick();
+          closeModal();
+        }}
+      />
     </main>
   );
 }

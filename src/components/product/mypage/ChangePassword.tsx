@@ -51,6 +51,8 @@ export default function ChangePassword({
 
   const handleChangePassword = async () => {
     setIsLoading(true);
+    setErrorMessage(null);
+
     try {
       const { password, newPassword } = values;
       const putData = { password, newPassword };

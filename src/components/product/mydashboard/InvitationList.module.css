@@ -49,6 +49,7 @@
   width: 100%;
   border-collapse: collapse;
   padding-left: 60px;
+  margin-bottom: 70px;
 }
 
 .table-head th,
@@ -70,7 +71,7 @@
   color: var(--gray-dark);
 }
 
-.table-body td {
+.table-content-dashboard {
   font-size: 16px;
   font-weight: 400;
   color: var(--black-medium);
@@ -108,6 +109,10 @@
   font-size: 18px;
   font-weight: 400;
   color: var(--gray-dark);
+}
+
+.button-text {
+  font-size: 14px;
 }
 
 .skeleton {

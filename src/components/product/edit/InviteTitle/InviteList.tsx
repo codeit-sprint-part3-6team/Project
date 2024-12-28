@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import CDSButton from '@/components/common/button/CDSButton';
+import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
 import { Invitaion } from '@/type/dashboard';
 import deleteInvitation from '@/lib/editdashboard/deleteDashboardsInvitations';
 import { useRouter } from 'next/router';
@@ -13,12 +15,29 @@ export default function InviteList({ members, setMembers }: InviteListProps) {
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
-  const handleDeleteClick = async (invitationId: number) => {
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedInvitationId, setSelectedInvitationId] = useState<
+    number | null
+  >(null);
+
+  const openDeleteModal = (invitationId: number) => {
+    setSelectedInvitationId(invitationId);
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setSelectedInvitationId(null);
+    setDeleteModalOpen(false);
+  };
+
+  const handleDeleteClick = async () => {
+    if (selectedInvitationId === null) return;
     try {
-      await deleteInvitation(dashboardId, invitationId);
+      await deleteInvitation(dashboardId, selectedInvitationId);
       setMembers((prevMembers) =>
-        prevMembers.filter((member) => member.id !== invitationId),
+        prevMembers.filter((member) => member.id !== selectedInvitationId),
       );
+      closeDeleteModal();
     } catch (error) {
       console.error('Error deleting invitation:', error);
     }
@@ -32,7 +51,7 @@ export default function InviteList({ members, setMembers }: InviteListProps) {
             <h1 className={styles.title}>{member.invitee.email}</h1>
             <CDSButton
               btnType="delete"
-              onClick={() => handleDeleteClick(member.id)}
+              onClick={() => openDeleteModal(member.id)}
             >
               취소
             </CDSButton>
@@ -40,6 +59,15 @@ export default function InviteList({ members, setMembers }: InviteListProps) {
           {index < members.length - 1 && <hr className={styles.line} />}
         </div>
       ))}
+      {/* 삭제 확인 모달 */}
+      {isDeleteModalOpen && (
+        <DeleteCardsModal
+          onClose={closeDeleteModal}
+          message="정말로 초대를 취소하시겠습니까?"
+          handleCancelClick={closeDeleteModal}
+          handleDeleteClick={handleDeleteClick}
+        />
+      )}
     </div>
   );
 }

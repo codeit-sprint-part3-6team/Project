@@ -9,11 +9,13 @@ import InviteTitle from '@/components/product/edit/InviteTitle/InviteTitle';
 import deleteDashboard from '@/lib/editdashboard/deleteDashboards';
 import getDashboards from '@/lib/mydashboard/getDashboard';
 import Navbar from '@/components/common/navbar/Navbar';
+import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
 import styles from './edit.module.css';
 
 export default function EditPage() {
   const [dashboardTitle, setDashboardTitle] = useState<string | null>(null);
   const [dashboardColor, setDashboardColor] = useState<string | null>(null);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const router = useRouter();
   const dashboardId = Number(router.query.id);
 
@@ -25,6 +27,9 @@ export default function EditPage() {
       throw new Error(`${error}`);
     }
   };
+
+  const openDeleteModal = () => setDeleteModalOpen(true);
+  const closeDeleteModal = () => setDeleteModalOpen(false);
 
   useEffect(() => {
     const fetchDashboard = async () => {
@@ -43,6 +48,7 @@ export default function EditPage() {
         throw new Error(`${error}`);
       }
     };
+
     if (dashboardId) {
       fetchDashboard();
     }
@@ -67,11 +73,21 @@ export default function EditPage() {
           <InviteTitle />
         </div>
         <div className={styles.button}>
-          <CDSButton btnType="dashboard_delete" onClick={handleDeleteClick}>
+          <CDSButton btnType="dashboard_delete" onClick={openDeleteModal}>
             대시보드 삭제하기
           </CDSButton>
         </div>
       </div>
+
+      {/* 삭제 모달 */}
+      {isDeleteModalOpen && (
+        <DeleteCardsModal
+          onClose={closeDeleteModal}
+          message="정말로 대시보드를 삭제하시겠습니까?"
+          handleCancelClick={closeDeleteModal}
+          handleDeleteClick={handleDeleteClick}
+        />
+      )}
     </main>
   );
 }

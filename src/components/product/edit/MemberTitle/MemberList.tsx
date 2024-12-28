@@ -1,7 +1,9 @@
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import CDSButton from '@/components/common/button/CDSButton';
 import Crown from 'public/ic/ic_crown.svg';
+import DeleteCardsModal from '@/components/common/modal/delete-cards/DeleteCardsModal';
 import deleteMembers from '@/lib/editdashboard/deleteMembers';
+import { useState } from 'react';
 import styles from './MemberList.module.css';
 
 interface DashboardMember {
@@ -21,14 +23,29 @@ interface MemberListProps {
 }
 
 export default function MemberList({ members, setMembers }: MemberListProps) {
-  const handleDeleteClick = async (memberId: number) => {
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
+
+  const openDeleteModal = (memberId: number) => {
+    setSelectedMemberId(memberId);
+    setDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setSelectedMemberId(null);
+    setDeleteModalOpen(false);
+  };
+
+  const handleDeleteClick = async () => {
+    if (selectedMemberId === null) return;
     try {
-      await deleteMembers(memberId);
+      await deleteMembers(selectedMemberId);
       setMembers((prevMembers) =>
-        prevMembers.filter((member) => member.id !== memberId),
+        prevMembers.filter((member) => member.id !== selectedMemberId),
       );
+      closeDeleteModal();
     } catch (error) {
-      throw new Error(`${error}`);
+      console.error('Error deleting member:', error);
     }
   };
 
@@ -46,15 +63,25 @@ export default function MemberList({ members, setMembers }: MemberListProps) {
             ) : (
               <CDSButton
                 btnType="delete"
-                onClick={() => handleDeleteClick(member.id)}
+                onClick={() => openDeleteModal(member.id)}
               >
                 삭제
               </CDSButton>
             )}
           </div>
-          {index < members.length - 1 && <hr className={styles.line} />}
+          {index < (members.length || 0) - 1 && <hr className={styles.line} />}
         </div>
       ))}
+
+      {/* 삭제 확인 모달 */}
+      {isDeleteModalOpen && (
+        <DeleteCardsModal
+          onClose={closeDeleteModal}
+          message="정말로 구성원을 삭제하시겠습니까?"
+          handleCancelClick={closeDeleteModal}
+          handleDeleteClick={handleDeleteClick}
+        />
+      )}
     </div>
   );
 }

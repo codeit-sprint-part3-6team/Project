@@ -19,7 +19,10 @@ export default async function getinvitations(
     const { data } = await instance.get<GetInvitationsResponse>(
       `/11-6/invitations/`,
       {
-        params,
+        params: {
+          ...params,
+          title: params.title?.trim() ? params.title : undefined,
+        },
       },
     );
     return data;

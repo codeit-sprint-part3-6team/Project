@@ -10,8 +10,8 @@ export default function NavBar() {
         <div className={styles.navlogo_container}>
           <Link href="/">
             <Whitelogo className={styles.logo} />
+            <Whitetextlogo className={styles.textlogo} />
           </Link>
-          <Whitetextlogo className={styles.textlogo} />
         </div>
         <div className={styles['link-container']}>
           <Link href="/signin">로그인</Link>

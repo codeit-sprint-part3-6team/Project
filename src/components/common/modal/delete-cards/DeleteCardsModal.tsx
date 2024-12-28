@@ -2,10 +2,18 @@ import CDSButton from '../../button/CDSButton';
 import OverlayContainer from '../overlay-container/OverlayContainer';
 import styles from './DeleteCardsModal.module.css';
 
-function DeleteCardsModal({ message, handleCancelClick, handleDeleteClick }) {
+function DeleteCardsModal({
+  message,
+  handleCancelClick,
+  handleDeleteClick,
+  onClose,
+}) {
   return (
-    <OverlayContainer>
-      <div className={styles.deleteCardsModal_section}>
+    <OverlayContainer onClose={onClose}>
+      <div
+        className={styles.deleteCardsModal_section}
+        onClick={(e) => e.stopPropagation()}
+      >
         <p className={styles.message}>{message}</p>
 
         <div>

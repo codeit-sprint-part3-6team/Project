@@ -2,10 +2,18 @@ import CDSButton from '../../button/CDSButton';
 import OverlayContainer from '../overlay-container/OverlayContainer';
 import styles from './CommentModal.module.css';
 
-function CommentModal({ message, handleCancelClick, handleConfirmClick }) {
+function CommentModal({
+  message,
+  handleCancelClick,
+  handleConfirmClick,
+  onclose,
+}) {
   return (
-    <OverlayContainer>
-      <div className={styles['comment-modal']}>
+    <OverlayContainer onClose={onclose}>
+      <div
+        className={styles['comment-modal']}
+        onClick={(e) => e.stopPropagation()}
+      >
         <p className={styles.message}>{message}</p>
 
         <div>

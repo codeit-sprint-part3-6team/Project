@@ -1,45 +1,8 @@
-import { useState } from 'react';
 import UserProfile from '@/components/common/userprofile/UserProfile';
 import CDSButton from '@/components/common/button/CDSButton';
 import Crown from 'public/ic/ic_crown.svg';
 import deleteMembers from '@/lib/editdashboard/deleteMembers';
 import styles from './MemberList.module.css';
-
-function ConfirmModal({
-  isOpen,
-  onClose,
-  onConfirm,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-}) {
-  if (!isOpen) {
-    return null;
-  }
-
-  const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
-
-  return (
-    <div className={styles['modal-container']} onClick={handleContainerClick}>
-      <div className={styles['modal-section']}>
-        <h3>정말 이 구성원을 삭제하시겠습니까?</h3>
-        <div className={styles['modal-button']}>
-          <button onClick={onClose} className={styles['cancel-button']}>
-            취소
-          </button>
-          <button onClick={onConfirm} className={styles['confirm-button']}>
-            확인
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 interface DashboardMember {
   id: number;
@@ -52,37 +15,20 @@ interface DashboardMember {
   userId: number;
 }
 
-interface MeberListProps {
+interface MemberListProps {
   members: DashboardMember[] | undefined;
   setMembers: React.Dispatch<React.SetStateAction<DashboardMember[]>>;
 }
 
-export default function MemberList({ members, setMembers }: MeberListProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
-
-  const openModal = (memberId: number) => {
-    setSelectedMemberId(memberId);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedMemberId(null);
-  };
-
-  const handleDeleteClick = async () => {
-    if (selectedMemberId === null) return;
-
+export default function MemberList({ members, setMembers }: MemberListProps) {
+  const handleDeleteClick = async (memberId: number) => {
     try {
-      await deleteMembers(selectedMemberId);
+      await deleteMembers(memberId);
       setMembers((prevMembers) =>
-        prevMembers.filter((member) => member.id !== selectedMemberId),
+        prevMembers.filter((member) => member.id !== memberId),
       );
     } catch (error) {
       throw new Error(`${error}`);
-    } finally {
-      closeModal();
     }
   };
 
@@ -98,7 +44,10 @@ export default function MemberList({ members, setMembers }: MeberListProps) {
             {member.isOwner ? (
               <Crown className={styles.crown} />
             ) : (
-              <CDSButton btnType="delete" onClick={() => openModal(member.id)}>
+              <CDSButton
+                btnType="delete"
+                onClick={() => handleDeleteClick(member.id)}
+              >
                 삭제
               </CDSButton>
             )}
@@ -106,11 +55,6 @@ export default function MemberList({ members, setMembers }: MeberListProps) {
           {index < members.length - 1 && <hr className={styles.line} />}
         </div>
       ))}
-      <ConfirmModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onConfirm={handleDeleteClick}
-      />
     </div>
   );
 }

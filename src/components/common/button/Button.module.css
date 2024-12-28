@@ -176,6 +176,7 @@
 }
 
 .icon-crown {
+  flex-shrink: 0;
   display: block;
   width: 20px;
   height: 16px;
@@ -190,6 +191,7 @@
 }
 
 .badge {
+  flex-shrink: 0;
   width: 8px;
   height: 8px;
   margin-right: 16px;

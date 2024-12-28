@@ -129,7 +129,7 @@ function Column({
         </button>
       </div>
       <CDSButton btnType="todo" onClick={handleClick} />
-      <div className={styles['card-section']}>
+      <div className={`${styles['card-section']} custom-scroll`}>
         {columnData.cards.map(
           ({
             imageUrl,

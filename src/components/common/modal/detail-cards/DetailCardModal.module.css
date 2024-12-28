@@ -60,10 +60,6 @@
   height: calc(100% - 90px);
 }
 
-.content-section::-webkit-scrollbar {
-  display: none;
-}
-
 .description {
   margin-bottom: 8px;
   padding: 10px;

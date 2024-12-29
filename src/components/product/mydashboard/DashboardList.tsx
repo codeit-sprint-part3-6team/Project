@@ -114,7 +114,7 @@ export default function DashboardList() {
                 owner={item.createdByMe}
                 onClick={() => handleClick(item.id)}
               >
-                {item.title}
+                <span className={styles['dashboard-title']}>{item.title}</span>
               </CDSButton>
             </li>
           ))

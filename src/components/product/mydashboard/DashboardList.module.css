@@ -11,6 +11,13 @@
   gap: 13px;
 }
 
+.dashboard-title {
+  max-width: calc(100% - 40px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .color-circle {
   width: 8px;
   height: 8px;

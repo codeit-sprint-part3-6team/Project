@@ -49,7 +49,7 @@
 .modal {
   background-color: var(--white);
   width: 584px;
-  height: 344px;
+  height: auto;
   padding: 32px;
   border-radius: 10px;
 }
@@ -167,7 +167,6 @@
 
   .modal {
     width: 327px;
-    height: 312px;
   }
 
   .modal h2 {

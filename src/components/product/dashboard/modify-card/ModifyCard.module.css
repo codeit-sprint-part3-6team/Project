@@ -1,13 +1,13 @@
 .container {
-  width: 616px;
+  width: 592px;
   height: 80%;
   max-height: 966px;
   border-radius: 16px;
   padding: 6px 6px 9px 6px;
-
   background-color: var(--white);
+
   @media screen and (max-width: 743px) {
-    width: 380px;
+    width: 340px;
     height: 70%;
     max-height: 766px;
   }

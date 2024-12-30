@@ -91,12 +91,12 @@ input {
 }
 
 input::placeholder {
-  color: var(--gray-dark);
+  color: var(--gray-dark) !important;
 }
 
 input:focus,
 textarea:focus {
-  border: 1px solid var(--violet);
+  border: 1px solid var(--violet) !important;
   outline: none;
 }
 

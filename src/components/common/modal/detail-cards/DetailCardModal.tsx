@@ -102,7 +102,7 @@ function DetailCardModal({
         </button>
       </div>
       <AuthorSection card={card} />
-      <div className={styles['content-section']}>
+      <div className={`${styles['content-section']} custom-scroll`}>
         <ChipSection
           columnTitle={columnTitle}
           tags={card.tags}

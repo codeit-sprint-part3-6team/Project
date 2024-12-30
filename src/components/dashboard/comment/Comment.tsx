@@ -126,6 +126,7 @@ function Comment({
       {/* 모달창 - 수정 */}
       {isEditModalOpen && (
         <CommentModal
+          onclose={closeEditModal}
           message="댓글을 수정하시겠습니까?"
           handleCancelClick={handleCancel}
           handleConfirmClick={handleSave}
@@ -135,6 +136,7 @@ function Comment({
       {/* 모달창 - 삭제 */}
       {isDeleteModalOpen && (
         <CommentModal
+          onclose={closeDeleteModal}
           message="댓글을 삭제하시겠습니까?"
           handleCancelClick={closeDeleteModal}
           handleConfirmClick={handleDelete}

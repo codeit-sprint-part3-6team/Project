@@ -49,11 +49,15 @@ export default function InvitationList() {
       setIsLoading(true);
 
       try {
-        const response = await getInvitations({
+        // 공백 제거 후 title 처리
+        const trimmedKeyword = keyword?.trim();
+        const params = {
           size: 10,
           cursorId: reset ? null : cursorId,
-          title: keyword,
-        });
+          ...(trimmedKeyword ? { title: trimmedKeyword } : {}),
+        };
+
+        const response = await getInvitations(params);
 
         if (response.invitations.length > 0) {
           setInvitations((prev) =>
@@ -74,9 +78,11 @@ export default function InvitationList() {
   );
 
   const handleSearch = () => {
+    const trimmedKeyword = keyword?.trim();
     setHasMore(true);
     setCursorId(null);
     setInvitations([]);
+    setKeyword(trimmedKeyword || null);
     fetchInvitations(true);
   };
 
@@ -178,7 +184,7 @@ export default function InvitationList() {
                     <span className={styles['table-content-title']}>
                       초대자
                     </span>
-                    <span className={styles['table-content-dashbaord']}>
+                    <span className={styles['table-content-dashboard']}>
                       {invite.inviter.nickname}
                     </span>
                   </td>
@@ -191,13 +197,13 @@ export default function InvitationList() {
                           btnType="normal_colored"
                           onClick={() => handleInvitation('accept', invite.id)}
                         >
-                          <span>수락</span>
+                          <span className={styles['button-text']}>수락</span>
                         </CDSButton>
                         <CDSButton
                           btnType="normal"
                           onClick={() => handleInvitation('reject', invite.id)}
                         >
-                          <span>거절</span>
+                          <span className={styles['button-text']}>거절</span>
                         </CDSButton>
                       </>
                     )}

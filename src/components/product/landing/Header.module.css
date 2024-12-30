@@ -82,7 +82,7 @@
 
 @media screen and (max-width: 743px) {
   .header-image {
-    width: 267px;
+    width: 287px;
     height: 168px;
     margin-bottom: 26px;
   }
@@ -106,5 +106,9 @@
     margin-top: 101px;
     font-size: 14px;
     line-height: 24px;
+  }
+
+  .header-button button {
+    width: 235px;
   }
 }

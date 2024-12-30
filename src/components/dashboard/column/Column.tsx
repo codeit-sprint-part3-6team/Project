@@ -129,7 +129,7 @@ function Column({
         </button>
       </div>
       <CDSButton btnType="todo" onClick={handleClick} />
-      <div className={styles['card-section']}>
+      <div className={`${styles['card-section']} custom-scroll`}>
         {columnData.cards.map(
           ({
             imageUrl,
@@ -184,6 +184,7 @@ function Column({
       {/* 모달창 - 삭제 */}
       {isConfirmModalOpen && (
         <DeleteCardsModal
+          onClose={closeConfirmModal}
           message="컬럼의 모든 카드가 삭제됩니다."
           handleCancelClick={() => closeConfirmModal()}
           handleDeleteClick={handleDeleteClick}

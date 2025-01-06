@@ -11,8 +11,6 @@ function SignIn() {
     return null; // 인증 확인 중이면 아무것도 렌더링하지 않음
   }
 
-  console.log('배포 테스트');
-
   // 인증되지 않은 사용자만 페이지 렌더링
   return (
     <>

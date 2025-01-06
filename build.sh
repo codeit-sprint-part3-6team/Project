@@ -1,5 +1,5 @@
 #!/bin/sh
 cd ../
 mkdir output
-cp -R ./project/* ./output
-cp -R ./output ./project/
+cp -R ./taskify/* ./output
+cp -R ./output ./taskify/

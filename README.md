@@ -1,6 +1,6 @@
 # 🗓️ 일정 관리와 공유 기능을 제공하는 Taskify
 
-![Taskify Dashboard](https://hwiiron.com/Taskify_dashboard.png)
+![taskify_dashboard](https://github.com/user-attachments/assets/c466c23c-54c8-4c6e-a510-ecc3a6375c3b)
 
 <br>
 

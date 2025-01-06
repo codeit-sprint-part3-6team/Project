@@ -25,7 +25,7 @@ jobs:
         with:
           source-directory: 'output'
           destination-github-username: hwiiron
-          destination-repository-name: project
+          destination-repository-name: taskify
           user-email: ${{ secrets.HWICHUL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: feature
